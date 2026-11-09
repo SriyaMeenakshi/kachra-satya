@@ -43,6 +43,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `web/trust/` | Dependency-free trust pages (claim checker, receipts, audit list, definitions). See `web/trust/README.md` |
 | `docs/methodology.md`, `docs/licences.md` | How the dataset was built and checked, and what is known about the reuse terms of each source (most unconfirmed). Read `docs/licences.md` before any public data release |
 | `CITATION.cff`, `.zenodo.json`, `scripts/build_release.py`, `docs/data_dictionary.md`, `docs/permission_requests.md` | Public data release package (Zenodo-ready zip with no documents or page images, built into git-ignored `dist/`), its metadata, the generated data dictionary, and four unsent permission-request drafts |
+| `web/mock/index.html`, `docs/ui_direction.md` | Design mock for the app (editorial-audit direction, tile-grid map, dark and light, phone width) built on the real data, and the reasoning and hand-off rules |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

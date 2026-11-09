@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kachra Satya: design mock</title>
+<style>
+/* Tokens: surfaces, ink and chart colours from the validated reference palette (data-viz skill). Dark mode is selected, not inverted. */
+:root{color-scheme:light;--page:#f9f9f7;--surface:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--muted:#898781;--hair:#e1e0d9;--axis:#c3c2b7;--ring:rgba(11,11,11,.10);
+  --accent:#2a78d6;--crit:#d03b3b;--crit-ink:#a82a2a;--good:#006300;--warnbg:#fff4d6;--focus:#2a78d6;
+  --s1:#cde2fb;--s2:#9ec5f4;--s3:#6da7ec;--s4:#3987e5;--s5:#256abf;--s6:#184f95;--s7:#0d366b;--none:#ecebe6}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--hair:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);
+  --accent:#3987e5;--crit:#ec6a6a;--crit-ink:#f08a8a;--good:#0ca30c;--warnbg:#3a3320;--focus:#6da7ec;
+  --s1:#0d366b;--s2:#104281;--s3:#184f95;--s4:#256abf;--s5:#3987e5;--s6:#6da7ec;--s7:#9ec5f4;--none:#262624}}
+:root[data-theme="dark"]{color-scheme:dark;--page:#0d0d0d;--surface:#1a1a19;--ink:#f0efec;--ink2:#c3c2b7;--muted:#898781;--hair:#2c2c2a;--axis:#383835;--ring:rgba(255,255,255,.10);
+  --accent:#3987e5;--crit:#ec6a6a;--crit-ink:#f08a8a;--good:#0ca30c;--warnbg:#3a3320;--focus:#6da7ec;
+  --s1:#0d366b;--s2:#104281;--s3:#184f95;--s4:#256abf;--s5:#3987e5;--s6:#6da7ec;--s7:#9ec5f4;--none:#262624}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)} :focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* top bar */
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.brand{font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+.brand i{width:22px;height:22px;border-radius:6px;background:var(--accent);display:inline-block;position:relative}
+.brand i::after{content:"";position:absolute;inset:6px;border-radius:2px;background:var(--page)}
+.bar nav{display:flex;gap:4px;margin-left:12px;flex:1;overflow-x:auto}
+.bar nav a{color:var(--ink2);text-decoration:none;padding:6px 10px;border-radius:8px;font-size:.92rem;white-space:nowrap}
+.bar nav a:hover{background:var(--hair)}
+.tg{background:none;border:1px solid var(--hair);color:var(--ink2);border-radius:8px;padding:6px 10px;font:inherit;font-size:.85rem;cursor:pointer}
+/* hero */
+.hero{padding:48px 0 28px}
+.eyebrow{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.05;letter-spacing:-.025em;margin:8px 0 14px;max-width:18ch}
+.lede{color:var(--ink2);font-size:1.12rem;max-width:62ch;margin:0 0 28px}
+.duel{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;background:var(--surface);border:1px solid var(--hair);border-radius:16px;overflow:hidden}
+.side{padding:22px 24px}
+.side .big{font-size:clamp(3rem,9vw,5.2rem);font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.side .who{font-weight:700;margin-top:6px}
+.side .meta{color:var(--ink2);font-size:.9rem}
+.side.b .big{color:var(--accent)}
+.vs{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 18px;border-left:1px solid var(--hair);border-right:1px solid var(--hair);min-width:150px;text-align:center}
+.vs strong{font-size:1.5rem;font-variant-numeric:tabular-nums}.vs span{color:var(--ink2);font-size:.8rem}
+.caveat{margin:12px 0 0;color:var(--ink2);font-size:.9rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{border:1px solid var(--hair);background:var(--surface);color:var(--ink2);border-radius:999px;padding:4px 12px;font-size:.84rem}
+@media (max-width:720px){.duel{grid-template-columns:1fr}.vs{border:0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:12px}}
+/* sections */
+section{padding:36px 0;scroll-margin-top:64px}
+h2{font-size:1.5rem;letter-spacing:-.015em;margin:0 0 4px}.sub{color:var(--ink2);margin:0 0 18px;max-width:70ch}
+.panel{background:var(--surface);border:1px solid var(--hair);border-radius:16px}
+/* map */
+.mapgrid{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.mapgrid{grid-template-columns:1fr}}
+.maphead{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--hair)}
+.seg{display:inline-flex;border:1px solid var(--hair);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:7px 12px;font:inherit;font-size:.88rem;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--surface);font-weight:600}
+.tiles{display:grid;grid-template-columns:repeat(11,1fr);gap:2px;padding:16px;aspect-ratio:11/8.4}
+.tile{border:0;border-radius:6px;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;padding:0;position:relative;line-height:1.1;min-width:0}
+.tile b{font-size:clamp(.62rem,1.5vw,.9rem)}.tile small{font-size:clamp(.5rem,1.1vw,.72rem);font-variant-numeric:tabular-nums;opacity:.95}
+.tile.none{background:repeating-linear-gradient(135deg,var(--none) 0 5px,var(--hair) 5px 7px);color:var(--ink2)}
+.tile[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:1px;z-index:2}
+.tile.fl::after{content:"";position:absolute;top:0;right:0;border-style:solid;border-width:0 10px 10px 0;border-color:transparent var(--crit) transparent transparent;border-top-right-radius:6px}
+.cornersample{display:inline-block;width:10px;height:10px;background:linear-gradient(225deg,var(--crit) 50%,var(--axis) 50%);border-radius:2px;vertical-align:-1px}
+.legend{display:flex;align-items:center;gap:10px;padding:0 16px 16px;color:var(--ink2);font-size:.82rem;flex-wrap:wrap}
+.ramp{display:flex;border-radius:4px;overflow:hidden}.ramp i{width:26px;height:10px;display:block;margin-right:2px}
+.tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--surface);padding:6px 10px;border-radius:8px;font-size:.82rem;max-width:240px;display:none}
+.detail{padding:18px}
+.detail h3{margin:0;font-size:1.3rem;letter-spacing:-.01em}
+.kv{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+.kv td,.kv th{padding:6px 0;border-bottom:1px solid var(--hair);text-align:left;font-weight:400}.kv td:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.kv th{color:var(--ink2)}
+.flagrow{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-size:.88rem}
+.pill{flex:none;border:1px solid var(--crit);color:var(--crit-ink);border-radius:999px;padding:0 8px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.rc{margin-top:12px}.rc .img{position:relative;border:1px solid var(--hair);border-radius:8px;overflow:hidden;background:#fff;max-height:210px}
+.rc img{display:block;width:100%;height:auto}.rc .box{position:absolute;border:3px solid #e5484d;border-radius:3px;box-shadow:0 0 0 2px rgba(255,255,255,.75)}
+.note{color:var(--ink2);font-size:.85rem}
+.empty{color:var(--ink2);padding:30px 6px;text-align:center}
+.tablebtn{background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:.88rem;padding:0 16px 14px}
+.tv{display:none;padding:0 16px 16px;overflow-x:auto}.tv table{width:100%;border-collapse:collapse;font-size:.88rem}.tv th,.tv td{padding:5px 8px;border-bottom:1px solid var(--hair);text-align:left}.tv td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+/* tiles of facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.fact{padding:20px}.fact .n{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}.fact .t{font-weight:700;margin:6px 0 2px}.fact p{margin:0;color:var(--ink2);font-size:.9rem}
+/* claim */
+.claim{padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:20px}@media (max-width:800px){.claim{grid-template-columns:1fr}}
+.claim input{width:100%;font:inherit;color:var(--ink);background:var(--page);border:1px solid var(--hair);border-radius:10px;padding:12px 14px}
+.claim button.go{margin-top:10px;background:var(--accent);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:700;cursor:pointer}
+.verdict{border-left:4px solid var(--accent);padding:2px 0 2px 14px}.verdict .b{font-weight:800;font-size:1.1rem}
+.v-SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS{border-color:#b97800}.v-CONTRADICTED{border-color:var(--crit)}.v-SUPPORTED{border-color:#0ca30c}
+footer{padding:30px 0 50px;color:var(--ink2);font-size:.85rem;border-top:1px solid var(--hair);margin-top:30px}
+.sr{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <span class="brand"><i aria-hidden="true"></i>Kachra Satya</span>
+  <nav aria-label="Main"><a href="#map">Truth Gap Map</a><a href="#claim">Check a claim</a><a href="#facts">Findings</a><a href="../trust/index.html">Receipts and audit</a></nav>
+  <button class="tg" id="theme" type="button" aria-label="Switch theme">Theme</button>
+</div></header>
+
+<main>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">India's municipal solid waste</div>
+    <h1>Two official numbers. One country's waste.</h1>
+    <p class="lede">The Housing Ministry says about 81% of urban waste is processed. The pollution control board's state reports put treated waste near 62%. Kachra Satya puts them side by side, shows the page each number came from, and flags what cannot both be true.</p>
+    <div class="duel" role="group" aria-label="The two official figures">
+      <div class="side a"><div class="big" id="bigM">81%</div><div class="who">MoHUA says processed</div><div class="meta" id="metaM">2025-26 · Rajya Sabha Q2433</div></div>
+      <div class="vs"><strong id="gapT">17,420 tpd</strong><span>between the two national "treated" totals</span></div>
+      <div class="side b"><div class="big" id="bigC">62%</div><div class="who">CPCB figures give treated</div><div class="meta" id="metaC">2023-24 · computed from Lok Sabha Q50</div></div>
+    </div>
+    <p class="caveat">Different years, and the two bodies may not define "treated" and "processed" the same way. We do not say which is right. <a href="../trust/index.html">See definitions</a>.</p>
+    <div class="chips"><span class="chip">36 states and UTs</span><span class="chip" id="chipRows"></span><span class="chip" id="chipFlags"></span><span class="chip">Every figure has a source page</span></div>
+  </div>
+
+  <section id="map" aria-labelledby="maph">
+    <h2 id="maph">Truth Gap Map</h2>
+    <p class="sub">One tile per state or UT, laid out roughly by geography. Choose what the colour shows, then select a state for its figures, flags and source page.</p>
+    <div class="mapgrid">
+      <div class="panel">
+        <div class="maphead">
+          <div class="seg" role="group" aria-label="Colour by">
+            <button type="button" data-m="cpcb" aria-pressed="true">CPCB % treated</button>
+            <button type="button" data-m="mohua" aria-pressed="false">MoHUA % processed</button>
+            <button type="button" data-m="gap" aria-pressed="false">Gap (points)</button>
+          </div><span class="note" id="mnote"></span>
+        </div>
+        <div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div>
+        <div class="legend" id="legend"></div>
+        <button class="tablebtn" id="tbtn" type="button" aria-expanded="false">View as table</button>
+        <div class="tv" id="tv"></div>
+      </div>
+      <aside class="panel detail" id="detail" aria-live="polite"><div class="empty">Select a state to see its figures, flags and the source page.</div></aside>
+    </div>
+  </section>
+
+  <section id="claim" aria-labelledby="claimh">
+    <h2 id="claimh">Check a claim</h2>
+    <p class="sub">Paste a sentence about India's waste figures. We read it, compare it with every source we hold, and show who agrees.</p>
+    <div class="panel claim">
+      <div><label for="cin" class="note">Try: "81% of India's urban waste is processed"</label>
+        <input id="cin" value="81% of India's urban waste is processed"><button class="go" id="cgo" type="button">Check</button></div>
+      <div id="cout" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="facts" aria-labelledby="fh">
+    <h2 id="fh">What the audit found</h2>
+    <p class="sub">Findings are about reported figures that cannot all be true. The data cannot say which source is wrong.</p>
+    <div class="facts" id="factcards"></div>
+  </section>
+</div>
+</main>
+<footer><div class="wrap">Every figure comes from a published government document and links to its page. Page images are reproduced unchanged with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. This page is a design mock built on the real data in this repository.</div></footer>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script src="../trust/data.js"></script>
+<script src="../trust/claim.js"></script>
+<script>
+(function(){
+var KS=window.KS,$=function(i){return document.getElementById(i)},RB="../../receipts/";
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function n0(v){return v==null?"not reported":Math.round(v).toLocaleString("en-IN")}
+
+/* theme toggle (remembers choice; works without storage) */
+var root=document.documentElement;
+try{var t=localStorage.getItem("ks-theme");if(t)root.setAttribute("data-theme",t)}catch(e){}
+$("theme").onclick=function(){var dark=root.getAttribute("data-theme")==="dark"||(!root.getAttribute("data-theme")&&matchMedia("(prefers-color-scheme:dark)").matches);var next=dark?"light":"dark";root.setAttribute("data-theme",next);try{localStorage.setItem("ks-theme",next)}catch(e){}draw()};
+
+/* data */
+var GRID={"Ladakh":[0,3],"Jammu and Kashmir":[1,2],"Himachal Pradesh":[1,3],"Punjab":[2,2],"Chandigarh":[2,3],"Uttarakhand":[2,4],"Rajasthan":[3,1],"Haryana":[3,2],"Delhi":[3,3],"Uttar Pradesh":[3,4],"Bihar":[3,5],"Sikkim":[3,6],"Arunachal Pradesh":[3,8],"Gujarat":[4,0],"Madhya Pradesh":[4,3],"Chhattisgarh":[4,4],"Jharkhand":[4,5],"West Bengal":[4,6],"Assam":[4,7],"Nagaland":[4,8],"Dadra and Nagar Haveli and Daman and Diu":[5,1],"Maharashtra":[5,2],"Telangana":[5,3],"Odisha":[5,5],"Meghalaya":[5,7],"Manipur":[5,8],"Goa":[6,1],"Karnataka":[6,2],"Andhra Pradesh":[6,4],"Tripura":[6,7],"Mizoram":[6,8],"Kerala":[7,2],"Tamil Nadu":[7,3],"Puducherry":[7,4],"Andaman and Nicobar Islands":[8,7],"Lakshadweep":[7,0]};
+var ABB={"Ladakh":"LA","Jammu and Kashmir":"JK","Himachal Pradesh":"HP","Punjab":"PB","Chandigarh":"CH","Uttarakhand":"UK","Rajasthan":"RJ","Haryana":"HR","Delhi":"DL","Uttar Pradesh":"UP","Bihar":"BR","Sikkim":"SK","Arunachal Pradesh":"AR","Gujarat":"GJ","Madhya Pradesh":"MP","Chhattisgarh":"CG","Jharkhand":"JH","West Bengal":"WB","Assam":"AS","Nagaland":"NL","Dadra and Nagar Haveli and Daman and Diu":"DD","Maharashtra":"MH","Telangana":"TS","Odisha":"OD","Meghalaya":"ML","Manipur":"MN","Goa":"GA","Karnataka":"KA","Andhra Pradesh":"AP","Tripura":"TR","Mizoram":"MZ","Kerala":"KL","Tamil Nadu":"TN","Puducherry":"PY","Andaman and Nicobar Islands":"AN","Lakshadweep":"LD"};
+function fig(state,year,src,metric){var r=KS.waste.filter(function(x){return x.state===state&&x.year===year&&x.source_name===src&&x.metric===metric})[0];return r&&r.value_tpd!=null?r.value_tpd:null}
+var D={};Object.keys(GRID).forEach(function(s){var cg=fig(s,"2023-24","CPCB","generated"),ct=fig(s,"2023-24","CPCB","treated"),mg=fig(s,"2025-26","MoHUA","generated"),mt=fig(s,"2025-26","MoHUA","treated");
+  D[s]={cg:cg,cc:fig(s,"2023-24","CPCB","collected"),ct:ct,mg:mg,mt:mt,cpcb:cg&&ct!=null?ct/cg*100:null,mohua:mg&&mt!=null?mt/mg*100:null};
+  D[s].gap=D[s].cpcb!=null&&D[s].mohua!=null?D[s].mohua-D[s].cpcb:null});
+var flagged={};KS.flags.forEach(function(f){if(f.rule.indexOf("3_")!==0)flagged[f.state]=1});
+
+/* hero figures from the data, not typed in */
+var nat=KS.national, natv=function(y,s,m){var r=nat.filter(function(x){return x.year===y&&x.source_name===s&&x.metric===m})[0];return r?r.value:null};
+var cg=natv("2023-24","CPCB","generated"),ct=natv("2023-24","CPCB","treated"),mt=natv("2025-26","MoHUA","treated");
+$("bigC").textContent=Math.round(ct/cg*100)+"%"; $("gapT").textContent=n0(mt-ct)+" tpd";
+$("chipRows").textContent=KS.waste.length+" sourced rows"; $("chipFlags").textContent=KS.flags.length+" flags raised";
+
+/* colour scale: 7 steps of one hue; in dark mode the ramp is ordered so "more" is brighter */
+var STEPS=["--s1","--s2","--s3","--s4","--s5","--s6","--s7"];
+function css(v){return getComputedStyle(root).getPropertyValue(v).trim()}
+function lum(hex){var m=hex.replace("#","");if(m.length===3)m=m.replace(/./g,"$&$&");var c=[0,2,4].map(function(i){var x=parseInt(m.substr(i,2),16)/255;return x<=.03928?x/12.92:Math.pow((x+.055)/1.055,2.4)});return .2126*c[0]+.7152*c[1]+.0722*c[2]}
+function ink(bg){return lum(bg)>.36?"#0b0b0b":"#ffffff"}
+var MODE="cpcb",SEL=null,DOM={cpcb:[0,100],mohua:[0,100],gap:[0,80]};
+function colourFor(v){var d=DOM[MODE],k=Math.max(0,Math.min(6,Math.floor((v-d[0])/(d[1]-d[0])*7)));return css(STEPS[k])}
+var NOTE={cpcb:"CPCB 2023-24, treated divided by generated",mohua:"MoHUA 2025-26, processed divided by generated",gap:"MoHUA minus CPCB, percentage points (different years)"};
+
+function draw(){
+  var el=$("tiles");el.innerHTML="";
+  Object.keys(GRID).forEach(function(s){var p=GRID[s],v=D[s][MODE],b=document.createElement("button");b.type="button";b.className="tile"+(v==null?" none":"")+(flagged[s]?" fl":"");
+    b.style.gridRow=p[0]+1;b.style.gridColumn=p[1]+1;b.setAttribute("aria-pressed",SEL===s);
+    var lab=s+": "+(v==null?"not reported":MODE==="gap"?v.toFixed(1)+" points":v.toFixed(1)+"%")+(flagged[s]?", has data flags":"");b.setAttribute("aria-label",lab);
+    if(v!=null){var bg=colourFor(v);b.style.background=bg;b.style.color=ink(bg)}
+    b.innerHTML="<b>"+ABB[s]+"</b><small>"+(v==null?"n/r":Math.round(v))+"</small>";
+    b.onclick=function(){SEL=s;draw();detail(s)};
+    b.onmousemove=function(e){var t=$("tip");t.textContent=lab;t.style.display="block";t.style.left=Math.min(e.clientX+14,innerWidth-250)+"px";t.style.top=(e.clientY+14)+"px"};
+    b.onmouseleave=function(){$("tip").style.display="none"};
+    el.appendChild(b)});
+  var d=DOM[MODE],lg='<span>'+d[0]+(MODE==="gap"?" pts":"%")+'</span><span class="ramp" aria-hidden="true">'+STEPS.map(function(s){return'<i style="background:var('+s+')"></i>'}).join("")+'</span><span>'+d[1]+(MODE==="gap"?"+ pts":"%")+'</span><span><i class="cornersample" aria-hidden="true"></i> red corner: flagged within its own source</span><span>hatched: not reported</span>';
+  $("legend").innerHTML=lg; $("mnote").textContent=NOTE[MODE];
+  var rows='<table><tr><th>State</th><th>CPCB % treated</th><th>MoHUA % processed</th><th>Gap (pts)</th></tr>'+Object.keys(GRID).sort().map(function(s){var x=D[s];return'<tr><td>'+esc(s)+'</td><td>'+(x.cpcb==null?"not reported":x.cpcb.toFixed(1))+'</td><td>'+(x.mohua==null?"not reported":x.mohua.toFixed(1))+'</td><td>'+(x.gap==null?"not reported":x.gap.toFixed(1))+'</td></tr>'}).join("")+'</table>';
+  $("tv").innerHTML=rows}
+document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(){MODE=b.dataset.m;document.querySelectorAll(".seg button").forEach(function(x){x.setAttribute("aria-pressed",x===b)});draw()}});
+$("tbtn").onclick=function(){var o=$("tv").style.display==="block";$("tv").style.display=o?"none":"block";$("tbtn").setAttribute("aria-expanded",!o);$("tbtn").textContent=o?"View as table":"Hide table"};
+
+function detail(s){var x=D[s],fl=KS.flags.filter(function(f){return f.state===s&&f.rule.indexOf("3_")!==0}),au=KS.audit.filter(function(a){return a.state===s})[0],key=s+"|2023-24|treated|ls_au50_2025-12-01.pdf",rc=KS.receipts[key];
+  var h='<h3>'+esc(s)+'</h3><p class="note">'+(au?'Audit priority #'+au.rank+' of 36. ':'')+'Figures in tonnes per day.</p><table class="kv"><tr><th>CPCB 2023-24 generated</th><td>'+n0(x.cg)+'</td></tr><tr><th>CPCB 2023-24 collected</th><td>'+n0(x.cc)+'</td></tr><tr><th>CPCB 2023-24 treated</th><td>'+n0(x.ct)+'</td></tr><tr><th>MoHUA 2025-26 generated</th><td>'+n0(x.mg)+'</td></tr><tr><th>MoHUA 2025-26 processed</th><td>'+n0(x.mt)+'</td></tr><tr><th>Gap in % treated</th><td>'+(x.gap==null?"not reported":x.gap.toFixed(1)+" pts")+'</td></tr></table>';
+  if(fl.length){h+='<div class="note"><strong>Flags within a single source</strong></div>'+fl.slice(0,4).map(function(f){return'<div class="flagrow"><span class="pill">&#9650; '+esc(f.year)+'</span><span>'+esc(f.explanation)+' <span class="note">('+esc(f.values)+')</span></span></div>'}).join("")}
+  else h+='<p class="note">No flags within a single source.</p>';
+  if(rc&&rc.image){h+='<div class="rc"><div class="note" style="margin-bottom:4px">Source page: ls_au50_2025-12-01.pdf, page '+rc.page+'</div><div class="img"><img alt="Source page showing '+esc(s)+' treated figure" src="'+RB+esc(rc.image)+'">'+(rc.bbox?'<div class="box" style="left:'+rc.bbox[0]*100+'%;top:'+rc.bbox[1]*100+'%;width:'+(rc.bbox[2]-rc.bbox[0])*100+'%;height:'+(rc.bbox[3]-rc.bbox[1])*100+'%"></div>':"")+'</div></div>'}
+  $("detail").innerHTML=h}
+
+/* claim checker */
+var LBL={SUPPORTED:"Supported",CONTRADICTED:"Not supported by any source",SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS:"The sources disagree",CANNOT_VERIFY:"Cannot verify"};
+function claim(){var p=KSClaim.parseSentence(KS,$("cin").value);if(p.value==null||!p.metric){$("cout").innerHTML='<p class="note">We could not find a figure in that sentence. Try a number with % or "tonnes per day".</p>';return}
+  var r=KSClaim.checkClaim(KS,{metric:p.metric,value:p.value,unit:p.unit,state:p.state||null,year:p.year||null}),ag=r.records.filter(function(x){return x.matches}),dis=r.records.filter(function(x){return!x.matches});
+  function ln(a){return a.slice(0,3).map(function(x){return esc(x.source_name)+" "+esc(x.year)+": "+x.value.toLocaleString("en-IN",{maximumFractionDigits:2})}).join("; ")||"none"}
+  $("cout").innerHTML='<div class="verdict v-'+r.verdict+'"><div class="b">'+LBL[r.verdict]+'</div><p class="note">'+esc(r.reason)+'.</p><p><strong>Agree:</strong> '+ln(ag)+'</p><p><strong>Do not agree:</strong> '+ln(dis)+'</p></div>'}
+$("cgo").onclick=claim; $("cin").onkeydown=function(e){if(e.key==="Enter")claim()};
+
+/* findings */
+var nag=KS.volatility[0],ker=KS.recurrence.filter(function(r){return r.state==="Kerala"})[0],worst=KS.audit[0];
+$("factcards").innerHTML=[
+ ['<div class="n">'+n0(mt-ct)+' tpd</div><div class="t">The two national "treated" totals differ</div><p>MoHUA 2025-26 processed '+n0(mt)+' against CPCB 2023-24 treated '+n0(ct)+'. Different years, so part may be real progress.</p>'],
+ ['<div class="n">'+ker.n_years+' years</div><div class="t">Kerala: treated above collected</div><p>CPCB reports more waste treated than collected in '+esc(ker.years)+'. Both cannot be true.</p>'],
+ ['<div class="n">'+nag.swing_ratio+'x</div><div class="t">'+esc(nag.state)+': generated waste swings</div><p>'+n0(nag.max_tpd)+' tpd in '+esc(nag.max_in)+' against '+n0(nag.min_tpd)+' tpd in '+esc(nag.min_in)+'. Both confirmed on their source pages.</p>']
+].map(function(c){return'<div class="panel fact">'+c[0]+'</div>'}).join("");
+
+draw();
+})();
+</script>
+</body>
+</html>
