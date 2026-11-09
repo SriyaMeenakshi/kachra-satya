@@ -1,37 +1,37 @@
-rank,state,cpcb_pct_treated,mohua_pct_processed,gap_pct_points,note
-1,Chandigarh,22.5,100.0,77.5,CPCB 2023-24 vs MoHUA 2025-26: different years
-2,Jammu and Kashmir,19.3,86.7,67.4,CPCB 2023-24 vs MoHUA 2025-26: different years
-3,Punjab,43.4,95.0,51.6,CPCB 2023-24 vs MoHUA 2025-26: different years
-4,Uttarakhand,56.7,96.6,39.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-5,Rajasthan,22.1,58.9,36.8,CPCB 2023-24 vs MoHUA 2025-26: different years
-6,Gujarat,63.1,97.8,34.7,CPCB 2023-24 vs MoHUA 2025-26: different years
-7,Uttar Pradesh,63.0,97.7,34.6,CPCB 2023-24 vs MoHUA 2025-26: different years
-8,Haryana,50.3,74.6,24.4,CPCB 2023-24 vs MoHUA 2025-26: different years
-9,Sikkim,52.5,76.2,23.8,CPCB 2023-24 vs MoHUA 2025-26: different years
-10,Chhattisgarh,77.6,100.0,22.4,CPCB 2023-24 vs MoHUA 2025-26: different years
-11,Karnataka,63.4,85.5,22.1,CPCB 2023-24 vs MoHUA 2025-26: different years
-12,Dadra and Nagar Haveli and Daman and Diu,80.5,100.0,19.5,CPCB 2023-24 vs MoHUA 2025-26: different years
-13,Odisha,77.5,95.9,18.4,CPCB 2023-24 vs MoHUA 2025-26: different years
-14,Telangana,80.6,97.1,16.5,CPCB 2023-24 vs MoHUA 2025-26: different years
-15,Delhi,66.5,80.3,13.8,CPCB 2023-24 vs MoHUA 2025-26: different years
-16,Maharashtra,81.8,93.7,11.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-17,Kerala,86.2,97.7,11.5,CPCB 2023-24 vs MoHUA 2025-26: different years
-18,Tamil Nadu,51.6,60.6,8.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-19,Andaman and Nicobar Islands,93.4,98.4,4.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-20,Madhya Pradesh,95.2,99.7,4.5,CPCB 2023-24 vs MoHUA 2025-26: different years
-21,Assam,59.3,62.7,3.4,CPCB 2023-24 vs MoHUA 2025-26: different years
-22,Bihar,25.3,27.6,2.3,CPCB 2023-24 vs MoHUA 2025-26: different years
-23,Goa,96.9,97.7,0.8,CPCB 2023-24 vs MoHUA 2025-26: different years
-24,Arunachal Pradesh,20.7,20.0,-0.7,CPCB 2023-24 vs MoHUA 2025-26: different years
-25,Meghalaya,36.3,34.6,-1.7,CPCB 2023-24 vs MoHUA 2025-26: different years
-26,Tripura,100.0,96.3,-3.7,CPCB 2023-24 vs MoHUA 2025-26: different years
-27,Puducherry,100.0,94.9,-5.1,CPCB 2023-24 vs MoHUA 2025-26: different years
-28,Andhra Pradesh,100.0,91.0,-9.0,CPCB 2023-24 vs MoHUA 2025-26: different years
-29,Jharkhand,59.7,49.5,-10.3,CPCB 2023-24 vs MoHUA 2025-26: different years
-30,Himachal Pradesh,93.9,81.9,-11.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-31,West Bengal,23.5,10.6,-12.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-32,Manipur,79.4,53.5,-25.9,CPCB 2023-24 vs MoHUA 2025-26: different years
-33,Nagaland,40.0,3.4,-36.6,CPCB 2023-24 vs MoHUA 2025-26: different years
-,Ladakh,,,,not reported in one of the sources; no gap computed
-,Lakshadweep,,,,not reported in one of the sources; no gap computed
-,Mizoram,,,,not reported in one of the sources; no gap computed
+rank,state,cpcb_pct_treated,mohua_pct_processed,gap_pct_points,sources,note
+1,Chandigarh,22.5,100.0,77.5,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+2,Jammu and Kashmir,19.3,86.7,67.4,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+3,Punjab,43.4,95.0,51.6,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+4,Uttarakhand,56.7,96.6,39.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+5,Rajasthan,22.1,58.9,36.8,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+6,Gujarat,63.1,97.8,34.7,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+7,Uttar Pradesh,63.0,97.7,34.6,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+8,Haryana,50.3,74.6,24.4,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+9,Sikkim,52.5,76.2,23.8,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+10,Chhattisgarh,77.6,100.0,22.4,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+11,Karnataka,63.4,85.5,22.1,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+12,Dadra and Nagar Haveli and Daman and Diu,80.5,100.0,19.5,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+13,Odisha,77.5,95.9,18.4,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+14,Telangana,80.6,97.1,16.5,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+15,Delhi,66.5,80.3,13.8,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+16,Maharashtra,81.8,93.7,11.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+17,Kerala,86.2,97.7,11.5,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+18,Tamil Nadu,51.6,60.6,8.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+19,Andaman and Nicobar Islands,93.4,98.4,4.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+20,Madhya Pradesh,95.2,99.7,4.5,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+21,Assam,59.3,62.7,3.4,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+22,Bihar,25.3,27.6,2.3,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+23,Goa,96.9,97.7,0.8,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+24,Arunachal Pradesh,20.7,20.0,-0.7,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+25,Meghalaya,36.3,34.6,-1.7,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+26,Tripura,100.0,96.3,-3.7,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+27,Puducherry,100.0,94.9,-5.1,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+28,Andhra Pradesh,100.0,91.0,-9.0,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+29,Jharkhand,59.7,49.5,-10.3,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+30,Himachal Pradesh,93.9,81.9,-11.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+31,West Bengal,23.5,10.6,-12.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+32,Manipur,79.4,53.5,-25.9,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+33,Nagaland,40.0,3.4,-36.6,CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3,CPCB 2023-24 vs MoHUA 2025-26: different years
+,Ladakh,,,,,not reported in one of the sources; no gap computed
+,Lakshadweep,,,,,not reported in one of the sources; no gap computed
+,Mizoram,,,,,not reported in one of the sources; no gap computed

@@ -128,11 +128,13 @@ def gap_ranking(p):
         ga, ta, gb, tb = a.at[st, "generated"], a.at[st, "treated"], b.at[st, "generated"], b.at[st, "treated"]
         if pd.isna(ga) or pd.isna(gb) or ga == 0 or gb == 0 or pd.isna(ta) or pd.isna(tb):
             rows.append({"state": st, "cpcb_pct_treated": "", "mohua_pct_processed": "", "gap_pct_points": "",
+                         "sources": "",
                          "note": "not reported in one of the sources; no gap computed"})
             continue
         pc, pm = ta / ga * 100, tb / gb * 100
         rows.append({"state": st, "cpcb_pct_treated": round(pc, 1), "mohua_pct_processed": round(pm, 1),
                      "gap_pct_points": round(pm - pc, 1),
+                     "sources": "CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3",
                      "note": f"CPCB {CPCB_YEAR} vs MoHUA {MOHUA_YEAR}: different years"})
     g = pd.DataFrame(rows)
     ok = g[g.gap_pct_points != ""].copy()
