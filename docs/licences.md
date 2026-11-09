@@ -1,0 +1,29 @@
+# Reuse terms for our sources (checked 2026-11-10)
+
+This is a working note, not legal advice. The findings come from web searches; most are secondary copies of policy text and are marked. Check the official page before relying on any line.
+
+## What each source says
+| Source | Publisher | Terms found | Confidence | What it means for us |
+|---|---|---|---|---|
+| Lok Sabha answers (Q50, Q682, Q3198) | Lok Sabha Secretariat | The copyright policy says copyright for reproducing debates and ancillary publications vests with the Lok Sabha Secretariat; copyright questions go to its Editorial Branch (https://elibrary.sansad.in/copyright-policy). | Found in a search result snippet of the official page | Reproducing whole pages (our `receipts/` images, the raw files) needs permission to be safe. Quoting figures with the source named is the lower-risk use. |
+| Rajya Sabha answers (Q358, Q855, Q2433) | Rajya Sabha Secretariat | A terms page exists (https://sansad.in/rs/termsAndConditions) but the search did not return its reproduction rules. | Not confirmed | Ask, or read the full page, before republishing pages. |
+| CPCB annual reports (2021-22, 2022-23, 2024-25) | Central Pollution Control Board | Not found. | Not confirmed | CPCB's site must not be scripted; read its copyright policy by hand and ask if unclear. |
+| MoHUA Annual Report 2025-26 | Ministry of Housing and Urban Affairs | Not found. mohua.gov.in/robots.txt allows crawling, which is not a licence. | Not confirmed | Same as CPCB. |
+| data.gov.in copy of Q358 (cross-check only) | NIC / data.gov.in | Datasets there normally carry the Government Open Data License - India (GODL-India), described by secondary sources as allowing use, adaptation and publication, including commercial use, with attribution, no implied endorsement and no liability. The licence page itself was not reached. | Secondary source | We did not copy values from it; it was used only to cross-check the PDF (104 of 105 cells matched). |
+| SBM-U dashboard (GFC 2022) | MoHUA / SBM-U | Not found. | Not confirmed | We stored only 6 national counts from the page text, with the URL and date. |
+| Dataful (datasets 19386, 19387) | Dataful | Not checked. | n/a | We did not use any Dataful file. Keep it that way unless its terms are recorded in `SOURCES.md` first. |
+
+## The general government template
+The Guidelines for Indian Government Websites describe a "liberal" copyright policy under which material may be reproduced free of charge in any format without specific permission, provided it is reproduced accurately, not in a misleading context, and the source is acknowledged; departments may instead choose a stricter wording that requires permission. Each department chooses its own wording, so the template does not settle any single source. Source: https://guidelines.india.gov.in/?p=10447 (secondary copies found via search). A 2016 critique argues that Indian government works are not freely licensed for remixing or commercial use (https://cis-india.org/a2k/blogs/free-knowledge-and-indian-government-work).
+
+## What we recommend
+1. **Publish our own work under an open licence, and say the figures are not ours.** Our additions are the compilation, the checks and flags, the derived indicators, the crosswalk and the code. The code is already MIT (`LICENSE`). A data licence such as CC BY 4.0 for our compilation, with a clear line that the underlying figures come from the cited government documents under their own terms, is a team decision; no data licence file has been added yet.
+2. **Publish figures with citations, not the documents.** A Zenodo release should hold the CSVs (each row already has document, page and retrieval date) and exclude `data/raw/` and `receipts/pages/`.
+3. **Decide about the public repo.** The repo currently contains the raw PDFs and Word copies and page images. The hackathon asks for a public repo. Options: keep them with source attribution (accurate reproduction, source named) and accept the risk; ask the Lok Sabha Secretariat, Rajya Sabha Secretariat, CPCB and MoHUA for permission; or replace the files with URLs and checksums and keep only the extracted figures. The lowest-risk option is the last.
+4. **Never imply endorsement.** The app and README should say the figures are reproduced from published documents, we are not affiliated with the ministries or CPCB, and we do not claim any source is wrong.
+5. **Facts versus layout.** Individual figures are facts; our extraction keeps them as printed. We have not taken legal advice on database or compilation rights, so a lawyer or the organisers should confirm before a formal release.
+
+## Draft permission request (not sent)
+> Subject: Permission to reproduce solid waste data tables with source citation
+>
+> We are a student team building an open-source tool that checks India's municipal solid waste figures against each other. We would like to reproduce page images and tables from [document, date] with full citation and a link to the original, and publish our extracted figures with the document and page for each. We do not claim affiliation with or endorsement by [organisation]. Please let us know whether this is permitted or what conditions apply.
