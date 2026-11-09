@@ -22,7 +22,7 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 ## 3. Flags raised for this state
 
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): treated: CPCB 2023-24=7571.83; MoHUA 2025-26=11553; change=+52.6%. CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
-- `4_metric_missing` (2019-20): generated blank in 2019-20 (not reported (source says '-')); reported in 2020-21, 2021-22, 2023-24. Generated is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2019-20): generated blank in 2019-20 (not reported (source says '-')); reported in 2020-21, 2021-22, 2022-23, 2023-24. Generated is not reported for this year although the same source reports it in other years.
 
 ## 4. Draft SBM-U 2.0 ask
 

@@ -16,7 +16,7 @@ def test_missing_stays_blank():
 
 def test_flags_and_national():
     fl = json.loads(q.run_tool("get_flags", {"state": "Kerala", "rule": "6_"}))
-    assert len(fl) == 3
+    assert sorted(r["year"] for r in fl) == ["2019-20", "2020-21", "2021-22", "2022-23"]
     nat = json.loads(q.run_tool("national_figures", {"year": "2023-24"}))
     assert any(r["metric"] == "generated" and r["value"] == 185195 for r in nat)
 

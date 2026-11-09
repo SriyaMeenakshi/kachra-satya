@@ -151,6 +151,10 @@ def gap_ranking(p):
     g["mohua_dec2023_pct_processed"] = g.state.map(
         lambda st: round(d.at[st, "treated"] / d.at[st, "generated"] * 100, 1)
         if st in d.index and d.at[st, "generated"] else "")
+    c22 = p[(p.source_name == "CPCB") & (p.year == "2022-23")].set_index("state")
+    g["cpcb_2022_23_pct_treated"] = g.state.map(
+        lambda st: round(c22.at[st, "treated"] / c22.at[st, "generated"] * 100, 1)
+        if st in c22.index and pd.notna(c22.at[st, "treated"]) and c22.at[st, "generated"] else "")
     ok = g[g.gap_pct_points != ""].copy()
     ok["gap_pct_points"] = ok.gap_pct_points.astype(float)
     ok = ok.sort_values("gap_pct_points", ascending=False)
@@ -171,7 +175,7 @@ def main():
     gap_ranking(p).to_csv(GAPS, index=False)
     print("flags written:", len(f))
     print(f.rule.value_counts().sort_index().to_string() if len(f) else "none")
-    print("Rule 1 ran on national figures and on state rows where landfilled is reported (CPCB 2021-22 only).")
+    print("Rule 1 ran on national figures and on state rows where landfilled is reported (CPCB 2021-22 and 2022-23).")
     print(f"Rule 3 compares CPCB {CPCB_YEAR} with MoHUA {MOHUA_YEAR} (different years).")
 
 

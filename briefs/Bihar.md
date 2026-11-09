@@ -20,11 +20,12 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 
 ## 3. Flags raised for this state
 
-- `4_metric_missing` (2019-20): collected blank in 2019-20 (not reported (source says 'Yes')); reported in 2020-21, 2023-24. Collected is not reported for this year although the same source reports it in other years.
-- `4_metric_missing` (2021-22): collected blank in 2021-22 (not reported (source says 'Not provided')); reported in 2020-21, 2023-24. Collected is not reported for this year although the same source reports it in other years.
-- `4_metric_missing` (2019-20): treated blank in 2019-20 (not reported (source says 'Not Provided')); reported in 2023-24. Treated is not reported for this year although the same source reports it in other years.
-- `4_metric_missing` (2020-21): treated blank in 2020-21 (not reported (source says 'Not provided')); reported in 2023-24. Treated is not reported for this year although the same source reports it in other years.
-- `4_metric_missing` (2021-22): treated blank in 2021-22 (not reported (source says 'Not provided')); reported in 2023-24. Treated is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2019-20): collected blank in 2019-20 (not reported (source says 'Yes')); reported in 2020-21, 2022-23, 2023-24. Collected is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2021-22): collected blank in 2021-22 (not reported (source says 'Not provided')); reported in 2020-21, 2022-23, 2023-24. Collected is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2021-22): landfilled blank in 2021-22 (not reported (source says 'Not provided')); reported in 2022-23. Landfilled is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2019-20): treated blank in 2019-20 (not reported (source says 'Not Provided')); reported in 2022-23, 2023-24. Treated is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2020-21): treated blank in 2020-21 (not reported (source says 'Not provided')); reported in 2022-23, 2023-24. Treated is not reported for this year although the same source reports it in other years.
+- `4_metric_missing` (2021-22): treated blank in 2021-22 (not reported (source says 'Not provided')); reported in 2022-23, 2023-24. Treated is not reported for this year although the same source reports it in other years.
 
 ## 4. Draft SBM-U 2.0 ask
 

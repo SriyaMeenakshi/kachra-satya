@@ -24,6 +24,7 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): generated: CPCB 2023-24=290; MoHUA 2025-26=127; change=-56.2%. CPCB and MoHUA generated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): treated: CPCB 2023-24=230.4; MoHUA 2025-26=68; change=-70.5%. CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
+- `6_treated_gt_collected` (2022-23): treated=209.66; collected=199.66; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
 - `6_treated_gt_collected` (2023-24): treated=230.4; collected=197.27; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
 
 ## 4. Draft SBM-U 2.0 ask

@@ -17,11 +17,13 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 ## 2. Likely causes (hypotheses from the data)
 
 - **Different denominators.** Generated waste is 215 tpd in CPCB 2023-24 and 145 tpd in MoHUA 2025-26 (-33%). A percentage built on a different base will differ even if treatment were identical. Hypothesis: the state revised its generation estimate.
+- **Missing reporting in earlier years.** At least one metric is blank in some years (see flags below).
 
 ## 3. Flags raised for this state
 
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): generated: CPCB 2023-24=215.02; MoHUA 2025-26=145; change=-32.6%. CPCB and MoHUA generated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): treated: CPCB 2023-24=44.49; MoHUA 2025-26=29; change=-34.8%. CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
+- `4_metric_missing` (2021-22): landfilled blank in 2021-22 (not reported (source says 'Not provided')); reported in 2022-23. Landfilled is not reported for this year although the same source reports it in other years.
 
 ## 4. Draft SBM-U 2.0 ask
 

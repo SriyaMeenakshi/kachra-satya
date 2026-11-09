@@ -17,14 +17,17 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 ## 2. Likely causes (hypotheses from the data)
 
 - **Different denominators.** Generated waste is 3,011 tpd in CPCB 2023-24 and 1,253 tpd in MoHUA 2025-26 (-58%). A percentage built on a different base will differ even if treatment were identical. Hypothesis: the state revised its generation estimate.
+- **Missing reporting in earlier years.** At least one metric is blank in some years (see flags below).
 
 ## 3. Flags raised for this state
 
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): generated: CPCB 2023-24=3011.23; MoHUA 2025-26=1253; change=-58.4%. CPCB and MoHUA generated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): treated: CPCB 2023-24=2595.22; MoHUA 2025-26=1224; change=-52.8%. CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
+- `4_metric_missing` (2021-22): landfilled blank in 2021-22 (not reported (source says '-')); reported in 2022-23. Landfilled is not reported for this year although the same source reports it in other years.
 - `6_treated_gt_collected` (2019-20): treated=1837; collected=880; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
 - `6_treated_gt_collected` (2020-21): treated=2550; collected=964.76; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
 - `6_treated_gt_collected` (2021-22): treated=2691; collected=1283; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
+- `6_treated_gt_collected` (2022-23): treated=3231; collected=2096.19; source=CPCB. More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
 
 ## 4. Draft SBM-U 2.0 ask
 

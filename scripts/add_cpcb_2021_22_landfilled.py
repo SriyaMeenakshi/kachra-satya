@@ -61,7 +61,7 @@ for sl, state in enumerate(STATES, 1):
         note = f"not reported (source says '{lf}')"
     elif state == "Chandigarh":
         note = "source prints gap -29; its footnote says the preceding year's unprocessed waste (+29 TPD) is included in the present year's treatment and landfilling"
-    new.append({"state": state, "year": YEAR, "metric": "landfilled", "value_tpd": "" if num(lf) is None else f"{num(lf):g}",
+    new.append({"state": state, "year": YEAR, "metric": "landfilled", "value_tpd": "" if num(lf) is None else lf.replace(",", ""),
                 "source_name": "CPCB", "source_doc": DOC, "source_page": str(6 if sl <= 9 else 7),
                 "retrieved_on": RETRIEVED, "note": note})
 with open("data/waste_clean.csv", "w", newline="", encoding="utf-8") as f:
