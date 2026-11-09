@@ -1,0 +1,5 @@
+statement_date,generated_tpd,processed_tpd,processed_pct_stated,door_to_door_collection_pct,source_doc,source_page,note
+2024-11-28,161910,129949,80.26,,ls_au682_2024-11-28.docx,"reply part (a), no page number (Word copy)","Lok Sabha Unstarred Q682, MoHUA"
+2025-07-28,161163,128842,80.26,,mohua_state_answer.pdf,2,"Rajya Sabha Unstarred Q855, MoHUA; as reported by States/UTs"
+2025-12,,,80.31,97,mohua_annual_report_2025-26.pdf,29,"MoHUA Annual Report 2025-26, section 4.13: waste processing rose from 80% in 2024 to 80.31% by December 2025; door-to-door collection 97%. No tonnage given on that page"
+2026-08-10,162372,131530,81,,mohua_81pct_answer.pdf,3,"Rajya Sabha Unstarred Q2433, MoHUA; 2025-26; 81% from annexure II page 4"
