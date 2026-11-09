@@ -38,8 +38,8 @@ def flag(state, year, rule, values, why):
     return {"state": state, "year": year, "rule": rule, "values": values, "explanation": why}
 
 
-def rule1_treated_plus_landfilled_exceeds_generated(n):
-    """State landfilled data is not available, so this rule runs on national figures only."""
+def rule1_treated_plus_landfilled_exceeds_generated(n, w):
+    """National figures (all years that have landfilled) plus state level where landfilled is reported (CPCB 2021-22)."""
     out = []
     nat = n[n.state == "India"].pivot_table(index="year", columns="metric", values="value", aggfunc="first")
     for yr, r in nat.iterrows():
@@ -48,6 +48,14 @@ def rule1_treated_plus_landfilled_exceeds_generated(n):
             if tot > r["generated"]:
                 out.append(flag("India", yr, "1_treated_plus_landfilled_gt_generated",
                                 f"treated={r['treated']:g}; landfilled={r['landfilled']:g}; generated={r['generated']:g}",
+                                f"Treated plus landfilled ({tot:g} tpd) is more than the waste generated, so some waste is counted twice."))
+    sw = w[w.source_name == "CPCB"].pivot_table(index=["state", "year"], columns="metric", values="value_tpd", aggfunc="first")
+    if "landfilled" in sw:
+        for (st, yr), r in sw.dropna(subset=["treated", "landfilled", "generated"]).iterrows():
+            tot = r["treated"] + r["landfilled"]
+            if tot > r["generated"] + ROUNDING_TPD:
+                out.append(flag(st, yr, "1_treated_plus_landfilled_gt_generated",
+                                f"treated={r['treated']:g}; landfilled={r['landfilled']:g}; generated={r['generated']:g}; source=CPCB",
                                 f"Treated plus landfilled ({tot:g} tpd) is more than the waste generated, so some waste is counted twice."))
     return out
 
@@ -155,7 +163,7 @@ def gap_ranking(p):
 def main():
     w, n = load()
     p = wide(w)
-    flags = (rule1_treated_plus_landfilled_exceeds_generated(n) + rule2_collected_exceeds_generated(p)
+    flags = (rule1_treated_plus_landfilled_exceeds_generated(n, w) + rule2_collected_exceeds_generated(p)
              + rule3_sources_differ(p) + rule4_missing_metric(w) + rule5_national_vs_state_sum(w, n)
              + rule6_treated_exceeds_collected(p))
     f = pd.DataFrame(flags, columns=["state", "year", "rule", "values", "explanation"])
@@ -163,7 +171,7 @@ def main():
     gap_ranking(p).to_csv(GAPS, index=False)
     print("flags written:", len(f))
     print(f.rule.value_counts().sort_index().to_string() if len(f) else "none")
-    print("Rule 1 ran on national figures only (no state landfilled data).")
+    print("Rule 1 ran on national figures and on state rows where landfilled is reported (CPCB 2021-22 only).")
     print(f"Rule 3 compares CPCB {CPCB_YEAR} with MoHUA {MOHUA_YEAR} (different years).")
 
 

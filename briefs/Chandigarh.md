@@ -21,6 +21,7 @@ _Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for dif
 
 ## 3. Flags raised for this state
 
+- `1_treated_plus_landfilled_gt_generated` (2021-22): treated=83; landfilled=486; generated=540; source=CPCB. Treated plus landfilled (569 tpd) is more than the waste generated, so some waste is counted twice.
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): generated: CPCB 2023-24=578; MoHUA 2025-26=499; change=-13.7%. CPCB and MoHUA generated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
 - `3_sources_differ_gt_10pct` (2023-24 vs 2025-26): treated: CPCB 2023-24=130; MoHUA 2025-26=499; change=+283.8%. CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change.
 

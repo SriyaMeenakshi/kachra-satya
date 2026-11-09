@@ -1,4 +1,5 @@
 state,year,rule,values,explanation
+Chandigarh,2021-22,1_treated_plus_landfilled_gt_generated,treated=83; landfilled=486; generated=540; source=CPCB,"Treated plus landfilled (569 tpd) is more than the waste generated, so some waste is counted twice."
 Dadra and Nagar Haveli and Daman and Diu,2019-20,2_collected_gt_generated,collected=191; generated=184; source=CPCB,"More waste is reported collected than generated, which is not possible."
 Andaman and Nicobar Islands,2023-24 vs 2025-26,3_sources_differ_gt_10pct,generated: CPCB 2023-24=77.3; MoHUA 2025-26=61; change=-21.1%,"CPCB and MoHUA generated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change."
 Andaman and Nicobar Islands,2023-24 vs 2025-26,3_sources_differ_gt_10pct,treated: CPCB 2023-24=72.22; MoHUA 2025-26=60; change=-16.9%,"CPCB and MoHUA treated figures differ by more than 10%. These are different years (no same-year pair exists yet), so part of the gap may be real change."
