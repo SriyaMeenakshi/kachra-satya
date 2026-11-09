@@ -39,7 +39,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 - **2025-26 MoHUA treated: the 35 states sum to 131,532, but the document states 131,530.** All 35 rows match the PDF, so the 2 tpd gap is in the source. It is a rule-5 flag.
 - 2023-24 CPCB: states sum to 185,195.4 generated, 179,478.9 collected, 114,110.2 treated, against 185,195, 179,479 and 114,110 stated.
 - data.gov.in CSV against our 2020-21 rows: 104 of 105 cells identical; one rounding difference.
-- **Still to do by hand:** `data/spot_check.csv` has the "value_in_pdf" column empty. Someone must open each page and fill it in. Until that is done, the match rate against the PDFs is not measured.
+- **Spot-check: 30 of 30 random cells match the PDFs (100%).** The cells were drawn with a fixed random seed from the 496 state rows (`data/spot_check.csv`). Each value was read from a rendered image of the PDF page, not from the text layer the script uses, then compared with the CSV. The check was an AI-assisted visual read, so a second look by a team member on a few rows is still worthwhile. It covers extraction accuracy only, and does not check that the source documents themselves are right.
 
 ## Known gaps (not filled in)
 

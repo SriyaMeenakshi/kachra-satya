@@ -1,31 +1,31 @@
 state,year,metric,value_in_csv,source_doc,source_page,value_in_pdf,matches (yes/no),checked_by
-Chhattisgarh,2023-24,collected,2345,ls_au50_2025-12-01.pdf,3,,,
-Delhi,2023-24,treated,7542,ls_au50_2025-12-01.pdf,3,,,
-Karnataka,2023-24,generated,12140,ls_au50_2025-12-01.pdf,3,,,
-Lakshadweep,2023-24,generated,18,ls_au50_2025-12-01.pdf,3,,,
-Madhya Pradesh,2023-24,generated,6853.5,ls_au50_2025-12-01.pdf,3,,,
-Maharashtra,2023-24,collected,23974.73,ls_au50_2025-12-01.pdf,3,,,
-Maharashtra,2023-24,generated,24299.43,ls_au50_2025-12-01.pdf,3,,,
-Uttar Pradesh,2023-24,generated,20114,ls_au50_2025-12-01.pdf,4,,,
-Bihar,2025-26,treated,1650,mohua_81pct_answer.pdf,3,,,
-Uttar Pradesh,2025-26,generated,20654,mohua_81pct_answer.pdf,3,,,
-Uttarakhand,2025-26,generated,1954,mohua_81pct_answer.pdf,3,,,
-Andaman and Nicobar Islands,2021-22,collected,78,rs_q358_2025-02-06.pdf,3,,,
-Delhi,2021-22,generated,11108,rs_q358_2025-02-06.pdf,3,,,
-Himachal Pradesh,2021-22,generated,383,rs_q358_2025-02-06.pdf,3,,,
-Meghalaya,2021-22,treated,27,rs_q358_2025-02-06.pdf,3,,,
-Mizoram,2021-22,collected,313,rs_q358_2025-02-06.pdf,3,,,
-Odisha,2021-22,collected,2020,rs_q358_2025-02-06.pdf,3,,,
-Punjab,2021-22,generated,4222,rs_q358_2025-02-06.pdf,3,,,
-Manipur,2020-21,treated,108.6,rs_q358_2025-02-06.pdf,4,,,
-Mizoram,2020-21,collected,275.92,rs_q358_2025-02-06.pdf,4,,,
-Punjab,2020-21,generated,4338.37,rs_q358_2025-02-06.pdf,4,,,
-Rajasthan,2021-22,generated,7973,rs_q358_2025-02-06.pdf,4,,,
-Uttar Pradesh,2021-22,collected,14710,rs_q358_2025-02-06.pdf,4,,,
-Chandigarh,2020-21,generated,513,rs_q358_2025-02-06.pdf,5,,,
-Lakshadweep,2020-21,generated,35,rs_q358_2025-02-06.pdf,5,,,
-Telangana,2020-21,collected,9965,rs_q358_2025-02-06.pdf,5,,,
-West Bengal,2020-21,treated,667.6,rs_q358_2025-02-06.pdf,5,,,
-Odisha,2019-20,treated,202.4,rs_q358_2025-02-06.pdf,6,,,
-Telangana,2019-20,treated,6070,rs_q358_2025-02-06.pdf,6,,,
-Tripura,2019-20,treated,253.6,rs_q358_2025-02-06.pdf,6,,,
+Chhattisgarh,2023-24,collected,2345,ls_au50_2025-12-01.pdf,3,2345,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Delhi,2023-24,treated,7542,ls_au50_2025-12-01.pdf,3,7542,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Karnataka,2023-24,generated,12140,ls_au50_2025-12-01.pdf,3,12140,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Lakshadweep,2023-24,generated,18,ls_au50_2025-12-01.pdf,3,18,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Madhya Pradesh,2023-24,generated,6853.5,ls_au50_2025-12-01.pdf,3,6853.5,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Maharashtra,2023-24,collected,23974.73,ls_au50_2025-12-01.pdf,3,23974.73,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Maharashtra,2023-24,generated,24299.43,ls_au50_2025-12-01.pdf,3,24299.43,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Uttar Pradesh,2023-24,generated,20114,ls_au50_2025-12-01.pdf,4,20114,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Bihar,2025-26,treated,1650,mohua_81pct_answer.pdf,3,1650,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Uttar Pradesh,2025-26,generated,20654,mohua_81pct_answer.pdf,3,20654,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Uttarakhand,2025-26,generated,1954,mohua_81pct_answer.pdf,3,1954,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Andaman and Nicobar Islands,2021-22,collected,78,rs_q358_2025-02-06.pdf,3,78,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Delhi,2021-22,generated,11108,rs_q358_2025-02-06.pdf,3,11108,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Himachal Pradesh,2021-22,generated,383,rs_q358_2025-02-06.pdf,3,383,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Meghalaya,2021-22,treated,27,rs_q358_2025-02-06.pdf,3,27,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Mizoram,2021-22,collected,313,rs_q358_2025-02-06.pdf,3,313,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Odisha,2021-22,collected,2020,rs_q358_2025-02-06.pdf,3,2020,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Punjab,2021-22,generated,4222,rs_q358_2025-02-06.pdf,3,4222,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Manipur,2020-21,treated,108.6,rs_q358_2025-02-06.pdf,4,108.6,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Mizoram,2020-21,collected,275.92,rs_q358_2025-02-06.pdf,4,275.92,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Punjab,2020-21,generated,4338.37,rs_q358_2025-02-06.pdf,4,4338.37,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Rajasthan,2021-22,generated,7973,rs_q358_2025-02-06.pdf,4,7973,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Uttar Pradesh,2021-22,collected,14710,rs_q358_2025-02-06.pdf,4,14710,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Chandigarh,2020-21,generated,513,rs_q358_2025-02-06.pdf,5,513,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Lakshadweep,2020-21,generated,35,rs_q358_2025-02-06.pdf,5,35,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Telangana,2020-21,collected,9965,rs_q358_2025-02-06.pdf,5,9965,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+West Bengal,2020-21,treated,667.6,rs_q358_2025-02-06.pdf,5,667.6,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Odisha,2019-20,treated,202.4,rs_q358_2025-02-06.pdf,6,202.4,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Telangana,2019-20,treated,6070,rs_q358_2025-02-06.pdf,6,6070,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
+Tripura,2019-20,treated,253.6,rs_q358_2025-02-06.pdf,6,253.6,yes,"AI-assisted visual read of rendered PDF page image (not the text layer)"
