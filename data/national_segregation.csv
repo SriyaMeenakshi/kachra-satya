@@ -1,0 +1,7 @@
+indicator,count,unit,base_stated,share_pct_computed,year,source_name,source_doc,source_url,retrieved_on,note
+>90% D2D Collection,22180,Wards,25726,86.2,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,on the basis of on field validation; national only
+>90% Source Segregation,9031,Wards,25726,35.1,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,on the basis of on field validation; national only
+Resolved >90% SWM Grievances,373,Cities,,,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,"on the basis of on field validation; national only; no base stated for cities, share not computed"
+>90% Wet waste Processing,470,ULBs,1228,38.3,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,on the basis of on field validation; national only
+>90% Dry waste Processing,444,ULBs,1228,36.2,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,on the basis of on field validation; national only
+>80% Wards having C&D Waste Collection facility,952,ULBs,1228,77.5,2022,MoHUA,sbm_gfc2022_dashboard_snapshot.txt,https://sbmurban.org/gfc-result-dashboard,2026-11-10,on the basis of on field validation; national only

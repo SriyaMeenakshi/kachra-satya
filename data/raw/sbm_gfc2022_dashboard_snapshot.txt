@@ -1,0 +1,24 @@
+Source page: https://sbmurban.org/gfc-result-dashboard  (HTML page, no downloadable file)
+Title: Swachh Bharat Mission - Gfc Result Dashboard
+Text copied from the page by the built-in browser on 2026-11-10 (section "COVERAGE of GFC 2022" and "STATUS OF SWACHHATA IN URBAN INDIA - 2022*"):
+
+COVERAGE of GFC 2022
+1,228
+ULBs
+25,726
+Wards
+
+STATUS OF SWACHHATA IN URBAN INDIA - 2022*
+22,180 Wards
+>90% D2D Collection
+9,031 Wards
+>90% Source Segregation
+373 Cities
+Resolved >90% SWM Grievances
+470 ULBs
+>90% Wet waste Processing
+444 ULBs
+>90% Dry waste Processing
+952 ULBs
+>80% Wards having C&D Waste Collection facility
+*On the basis of "on field validation"

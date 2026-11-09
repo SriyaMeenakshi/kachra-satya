@@ -1,0 +1,7 @@
+ulb,ward,period,generated_tpd,collected_tpd,segregated_tpd,treated_tpd,landfilled_tpd,notes
+FICTIONAL CITY,Ward A,2024-01,10,9,5,4,3,fictional test data
+FICTIONAL CITY,Ward A,2024-02,10,11,5,4,3,collected above generated
+FICTIONAL CITY,Ward B,2024-01,20,12,13,9,8,segregated above collected
+FICTIONAL CITY,Ward B,2024-02,20,,6,5,4,collected blank
+FICTIONAL CITY,Ward C,2024-01,8,8,4,9,0,treated above collected
+FICTIONAL CITY,Ward D,2024-01,6,5,3,4,3,treated plus landfilled above generated

@@ -1,0 +1,179 @@
+state,year,generated_tpd,collected_tpd,treated_tpd,landfilled_tpd,collection_pct,uncollected_tpd,treated_pct,landfill_pct,unaccounted_pct,note
+Andaman and Nicobar Islands,2019-20,121.0,115.0,50.0,,95.0,6.0,41.3,,,landfilled not reported
+Andhra Pradesh,2019-20,6766.0,6140.0,1059.0,,90.7,626.0,15.7,,,landfilled not reported
+Arunachal Pradesh,2019-20,285.65,223.56,0.0,,78.3,62.09,0.0,,,landfilled not reported
+Assam,2019-20,1271.305,922.4115,41.6625,,72.6,348.89,3.3,,,landfilled not reported
+Bihar,2019-20,4334.0,,,,,,,,,landfilled not reported
+Chandigarh,2019-20,450.0,450.0,179.61,,100.0,0.0,39.9,,,landfilled not reported
+Chhattisgarh,2019-20,1650.0,1650.0,1385.0,,100.0,0.0,83.9,,,landfilled not reported
+Dadra and Nagar Haveli and Daman and Diu,2019-20,184.0,191.0,97.0,,103.8,,52.7,,,collected exceeds generated in the source: uncollected not computed; landfilled not reported
+Delhi,2019-20,10470.57,10466.57,5193.57,,100.0,4.0,49.6,,,landfilled not reported
+Goa,2019-20,188.88,180.38,148.91,,95.5,8.5,78.8,,,landfilled not reported
+Gujarat,2019-20,,10755.0,6924.0,,,,,,,landfilled not reported
+Haryana,2019-20,5231.9,4808.8,1620.6,,91.9,423.1,31.0,,,landfilled not reported
+Himachal Pradesh,2019-20,393.0,354.0,230.0,,90.1,39.0,58.5,,,landfilled not reported
+Jammu and Kashmir,2019-20,1518.91,1464.65,540.19,,96.4,54.26,35.6,,,landfilled not reported
+Jharkhand,2019-20,2188.97,1847.38,731.76,,84.4,341.59,33.4,,,landfilled not reported
+Karnataka,2019-20,12258.2,10011.0,4489.0,,81.7,2247.2,36.6,,,landfilled not reported
+Kerala,2019-20,3521.0,880.0,1837.0,,25.0,2641.0,52.2,,,landfilled not reported
+Lakshadweep,2019-20,32.55,32.55,11.44,,100.0,0.0,35.1,,,landfilled not reported
+Madhya Pradesh,2019-20,7980.0,7193.0,6431.0,,90.1,787.0,80.6,,,landfilled not reported
+Maharashtra,2019-20,22945.256,22779.31,16037.26,,99.3,165.95,69.9,,,landfilled not reported
+Manipur,2019-20,265.0,192.4,103.57,,72.6,72.6,39.1,,,landfilled not reported
+Meghalaya,2019-20,153.18,119.19,9.64,,77.8,33.99,6.3,,,landfilled not reported
+Mizoram,2019-20,348.19,313.0,278.4,,89.9,35.19,80.0,,,landfilled not reported
+Nagaland,2019-20,306.1,255.9,24.0,,83.6,50.2,7.8,,,landfilled not reported
+Odisha,2019-20,2208.6,2123.3,202.4,,96.1,85.3,9.2,,,landfilled not reported
+Puducherry,2019-20,580.0,517.0,61.0,,89.1,63.0,10.5,,,landfilled not reported
+Punjab,2019-20,4477.542,4413.952,2112.457,,98.6,63.59,47.2,,,landfilled not reported
+Rajasthan,2019-20,6659.38,6475.9,1190.93,,97.2,183.48,17.9,,,landfilled not reported
+Sikkim,2019-20,74.7,74.6,12.56,,99.9,0.1,16.8,,,landfilled not reported
+Tamil Nadu,2019-20,14228.0,13955.0,6620.0,,98.1,273.0,46.5,,,landfilled not reported
+Telangana,2019-20,9285.0,9270.0,6070.0,,99.8,15.0,65.4,,,landfilled not reported
+Tripura,2019-20,411.32,380.8,253.6,,92.6,30.52,61.7,,,landfilled not reported
+Uttar Pradesh,2019-20,14468.0,13955.0,5395.0,,96.5,513.0,37.3,,,landfilled not reported
+Uttarakhand,2019-20,1610.942,1481.057,716.637,,91.9,129.88,44.5,,,landfilled not reported
+West Bengal,2019-20,13980.0,12062.0,916.0,,86.3,1918.0,6.6,,,landfilled not reported
+Andaman and Nicobar Islands,2020-21,89.0,82.0,75.0,,92.1,7.0,84.3,,,landfilled not reported
+Andhra Pradesh,2020-21,6898.0,6829.0,1133.0,,99.0,69.0,16.4,,,landfilled not reported
+Arunachal Pradesh,2020-21,236.51,202.11,0.0,,85.5,34.4,0.0,,,landfilled not reported
+Assam,2020-21,1199.0,1091.0,41.4,,91.0,108.0,3.5,,,landfilled not reported
+Bihar,2020-21,4281.27,4013.55,,,93.7,267.72,,,,landfilled not reported
+Chandigarh,2020-21,513.0,513.0,69.0,,100.0,0.0,13.5,,,landfilled not reported
+Chhattisgarh,2020-21,1650.0,1650.0,1650.0,,100.0,0.0,100.0,,,landfilled not reported
+Dadra and Nagar Haveli and Daman and Diu,2020-21,267.0,267.0,237.0,,100.0,0.0,88.8,,,landfilled not reported
+Delhi,2020-21,10990.0,10990.0,5193.57,,100.0,0.0,47.3,,,landfilled not reported
+Goa,2020-21,226.87,218.87,197.47,,96.5,8.0,87.0,,,landfilled not reported
+Gujarat,2020-21,10373.79,10332.0,6946.0,,99.6,41.79,67.0,,,landfilled not reported
+Haryana,2020-21,5352.12,5291.41,3123.9,,98.9,60.71,58.4,,,landfilled not reported
+Himachal Pradesh,2020-21,346.0,332.0,221.0,,96.0,14.0,63.9,,,landfilled not reported
+Jammu and Kashmir,2020-21,1463.23,1437.28,547.5,,98.2,25.95,37.4,,,landfilled not reported
+Jharkhand,2020-21,2226.39,1851.65,758.26,,83.2,374.74,34.1,,,landfilled not reported
+Karnataka,2020-21,11085.0,10198.0,6817.0,,92.0,887.0,61.5,,,landfilled not reported
+Kerala,2020-21,3543.0,964.76,2550.0,,27.2,2578.24,72.0,,,landfilled not reported
+Lakshadweep,2020-21,35.0,17.13,17.13,,48.9,17.87,48.9,,,landfilled not reported
+Madhya Pradesh,2020-21,8022.5,7235.5,6472.0,,90.2,787.0,80.7,,,landfilled not reported
+Maharashtra,2020-21,22632.71,22584.4,15056.1,,99.8,48.31,66.5,,,landfilled not reported
+Manipur,2020-21,282.3,190.3,108.6,,67.4,92.0,38.5,,,landfilled not reported
+Meghalaya,2020-21,107.01,93.02,9.64,,86.9,13.99,9.0,,,landfilled not reported
+Mizoram,2020-21,345.47,275.92,269.71,,79.9,69.55,78.1,,,landfilled not reported
+Nagaland,2020-21,330.49,285.49,122.0,,86.4,45.0,36.9,,,landfilled not reported
+Odisha,2020-21,2132.95,2097.14,1038.31,,98.3,35.81,48.7,,,landfilled not reported
+Puducherry,2020-21,504.5,482.0,36.0,,95.5,22.5,7.1,,,landfilled not reported
+Punjab,2020-21,4338.37,4278.86,1894.04,,98.6,59.51,43.7,,,landfilled not reported
+Rajasthan,2020-21,6897.16,6720.476,1210.46,,97.4,176.68,17.6,,,landfilled not reported
+Sikkim,2020-21,71.9,71.9,20.35,,100.0,0.0,28.3,,,landfilled not reported
+Tamil Nadu,2020-21,13422.0,12844.0,9430.35,,95.7,578.0,70.3,,,landfilled not reported
+Telangana,2020-21,9965.0,9965.0,7530.0,,100.0,0.0,75.6,,,landfilled not reported
+Tripura,2020-21,333.9,317.69,214.06,,95.1,16.21,64.1,,,landfilled not reported
+Uttar Pradesh,2020-21,14710.0,14292.0,5520.0,,97.2,418.0,37.5,,,landfilled not reported
+Uttarakhand,2020-21,1458.46,1378.99,779.85,,94.6,79.47,53.5,,,landfilled not reported
+West Bengal,2020-21,13709.0,13356.0,667.6,,97.4,353.0,4.9,,,landfilled not reported
+Andaman and Nicobar Islands,2021-22,79.0,78.0,74.0,2.0,98.7,1.0,93.7,2.5,3.8,
+Andhra Pradesh,2021-22,6890.0,6890.0,1558.0,,100.0,0.0,22.6,,,landfilled not reported
+Arunachal Pradesh,2021-22,228.0,199.0,9.0,,87.3,29.0,3.9,,,landfilled not reported
+Assam,2021-22,1589.0,1333.0,575.0,744.0,83.9,256.0,36.2,46.8,17.0,
+Bihar,2021-22,4975.0,,,,,,,,,landfilled not reported
+Chandigarh,2021-22,540.0,540.0,83.0,486.0,100.0,0.0,15.4,90.0,-5.4,treated plus landfilled exceeds generated in the source
+Chhattisgarh,2021-22,1820.0,1820.0,1790.0,30.0,100.0,0.0,98.4,1.6,-0.0,
+Dadra and Nagar Haveli and Daman and Diu,2021-22,267.0,267.0,246.0,21.0,100.0,0.0,92.1,7.9,0.0,
+Delhi,2021-22,11108.0,11108.0,5280.0,5828.0,100.0,0.0,47.5,52.5,0.0,
+Goa,2021-22,211.0,207.0,197.0,10.0,98.1,4.0,93.4,4.7,1.9,
+Gujarat,2021-22,10095.0,10095.0,8682.0,1003.0,100.0,0.0,86.0,9.9,4.1,
+Haryana,2021-22,8766.0,6691.0,4297.0,2218.0,76.3,2075.0,49.0,25.3,25.7,
+Himachal Pradesh,2021-22,383.0,349.0,269.0,80.0,91.1,34.0,70.2,20.9,8.9,
+Jammu and Kashmir,2021-22,1550.0,1540.0,606.0,390.0,99.4,10.0,39.1,25.2,35.7,
+Jharkhand,2021-22,2404.0,1969.0,843.0,930.0,81.9,435.0,35.1,38.7,26.2,
+Karnataka,2021-22,13034.0,11655.0,5440.0,4198.0,89.4,1379.0,41.7,32.2,26.1,
+Kerala,2021-22,3472.0,1283.0,2691.0,,37.0,2189.0,77.5,,,landfilled not reported
+Ladakh,2021-22,52.0,42.0,20.0,15.0,80.8,10.0,38.5,28.8,32.7,
+Lakshadweep,2021-22,18.0,18.0,18.0,0.0,100.0,0.0,100.0,0.0,0.0,
+Madhya Pradesh,2021-22,7115.0,6132.0,6059.0,76.0,86.2,983.0,85.2,1.1,13.7,
+Maharashtra,2021-22,23531.0,23044.0,19980.0,2067.0,97.9,487.0,84.9,8.8,6.3,
+Manipur,2021-22,282.0,199.0,133.0,66.0,70.6,83.0,47.2,23.4,29.4,
+Meghalaya,2021-22,165.0,137.0,27.0,119.0,83.0,28.0,16.4,72.1,11.5,
+Mizoram,2021-22,374.0,313.0,234.0,8.0,83.7,61.0,62.6,2.1,35.3,
+Nagaland,2021-22,664.0,306.0,116.0,299.0,46.1,358.0,17.5,45.0,37.5,
+Odisha,2021-22,2103.0,2020.0,1356.0,738.0,96.1,83.0,64.5,35.1,0.4,
+Puducherry,2021-22,383.0,383.0,58.0,325.0,100.0,0.0,15.1,84.9,0.0,
+Punjab,2021-22,4222.0,4207.0,1471.0,2736.0,99.6,15.0,34.8,64.8,0.4,
+Rajasthan,2021-22,7973.0,7859.0,1926.0,5525.0,98.6,114.0,24.2,69.3,6.5,
+Sikkim,2021-22,66.0,66.0,18.0,48.0,100.0,0.0,27.3,72.7,0.0,
+Tamil Nadu,2021-22,14586.0,14471.0,7206.0,6776.0,99.2,115.0,49.4,46.5,4.1,
+Telangana,2021-22,11057.0,11057.0,8611.0,1011.0,100.0,0.0,77.9,9.1,13.0,
+Tripura,2021-22,333.0,322.0,220.0,15.0,96.7,11.0,66.1,4.5,29.4,
+Uttar Pradesh,2021-22,14710.0,14710.0,7321.0,4389.0,100.0,0.0,49.8,29.8,20.4,
+Uttarakhand,2021-22,1585.0,1452.0,1050.0,115.0,91.6,133.0,66.2,7.3,26.5,
+West Bengal,2021-22,13709.0,13687.0,3047.0,1187.0,99.8,22.0,22.2,8.7,69.1,
+Andaman and Nicobar Islands,2022-23,92.0,92.0,89.75,2.25,100.0,0.0,97.6,2.4,0.0,
+Andhra Pradesh,2022-23,6890.0,6890.0,6890.0,0.0,100.0,0.0,100.0,0.0,0.0,
+Arunachal Pradesh,2022-23,230.9,203.5,39.91,0.0,88.1,27.4,17.3,0.0,82.7,
+Assam,2022-23,1284.0,1030.0,652.0,340.0,80.2,254.0,50.8,26.5,22.7,
+Bihar,2022-23,5408.0,5408.0,913.5,0.0,100.0,0.0,16.9,0.0,83.1,
+Chandigarh,2022-23,578.0,578.0,130.0,448.0,100.0,0.0,22.5,77.5,0.0,
+Chhattisgarh,2022-23,1820.0,1820.0,1790.0,30.0,100.0,0.0,98.4,1.6,-0.0,
+Dadra and Nagar Haveli and Daman and Diu,2022-23,282.0,282.0,259.0,23.0,100.0,0.0,91.8,8.2,0.0,
+Delhi,2022-23,11352.0,11352.0,7352.0,4000.0,100.0,0.0,64.8,35.2,0.0,
+Goa,2022-23,211.37,207.37,197.37,10.0,98.1,4.0,93.4,4.7,1.9,
+Gujarat,2022-23,10116.0,10116.0,8090.0,2026.0,100.0,0.0,80.0,20.0,0.0,
+Haryana,2022-23,8837.0,6144.0,4558.0,1486.0,69.5,2693.0,51.6,16.8,31.6,
+Himachal Pradesh,2022-23,359.2,353.35,321.45,0.0,98.4,5.85,89.5,0.0,10.5,
+Jammu and Kashmir,2022-23,1552.8,1545.21,274.45,390.0,99.5,7.59,17.7,25.1,57.2,
+Jharkhand,2022-23,2418.97,1950.12,893.98,1065.88,80.6,468.85,37.0,44.1,18.9,
+Karnataka,2022-23,12140.0,12123.0,6587.0,3405.0,99.9,17.0,54.3,28.0,17.7,
+Kerala,2022-23,3472.0,2096.19,3231.0,0.0,60.4,1375.81,93.1,0.0,6.9,
+Ladakh,2022-23,11.845,11.845,6.557,5.288,100.0,0.0,55.4,44.6,0.0,
+Lakshadweep,2022-23,18.0,18.0,18.0,0.0,100.0,0.0,100.0,0.0,0.0,
+Madhya Pradesh,2022-23,6824.5,6803.0,6522.5,267.0,99.7,21.5,95.6,3.9,0.5,
+Maharashtra,2022-23,23448.46,23044.03,18725.2,3343.12,98.3,404.43,79.9,14.3,5.8,
+Manipur,2022-23,274.04,199.66,209.66,61.78,72.9,74.38,76.5,22.5,1.0,
+Meghalaya,2022-23,172.0,148.0,51.6,94.1,86.0,24.0,30.0,54.7,15.3,
+Mizoram,2022-23,246.82,110.13,110.13,0.0,44.6,136.69,44.6,0.0,55.4,
+Nagaland,2022-23,305.79,260.34,19.28,0.0,85.1,45.45,6.3,0.0,93.7,
+Odisha,2022-23,3198.953,3100.063,2577.22,617.74,96.9,98.89,80.6,19.3,0.1,
+Puducherry,2022-23,382.5,382.5,58.02,324.48,100.0,0.0,15.2,84.8,0.0,
+Punjab,2022-23,4374.6,4367.2,1795.8,2571.4,99.8,7.4,41.1,58.8,0.1,
+Rajasthan,2022-23,6836.681,6733.941,1473.966,4828.763,98.5,102.74,21.6,70.6,7.8,
+Sikkim,2022-23,68.9,68.9,23.782,45.1,100.0,0.0,34.5,65.5,0.0,
+Tamil Nadu,2022-23,16066.392,15683.92,9708.82,5975.1,97.6,382.47,60.4,37.2,2.4,
+Telangana,2022-23,11394.0,11297.0,8941.0,1211.0,99.1,97.0,78.5,10.6,10.9,
+Tripura,2022-23,333.08,333.08,333.08,0.0,100.0,0.0,100.0,0.0,0.0,
+Uttar Pradesh,2022-23,14710.0,14710.0,7321.0,4389.0,100.0,0.0,49.8,29.8,20.4,
+Uttarakhand,2022-23,1759.33,1710.11,998.358,0.0,97.2,49.22,56.7,0.0,43.3,
+West Bengal,2022-23,13469.0,13449.0,3053.0,1187.0,99.9,20.0,22.7,8.8,68.5,
+Andaman and Nicobar Islands,2023-24,77.3,77.3,72.22,,100.0,0.0,93.4,,,landfilled not reported
+Andhra Pradesh,2023-24,6890.0,6890.0,6890.0,,100.0,0.0,100.0,,,landfilled not reported
+Arunachal Pradesh,2023-24,215.02,202.0,44.49,,93.9,13.02,20.7,,,landfilled not reported
+Assam,2023-24,1224.0,1131.0,726.0,,92.4,93.0,59.3,,,landfilled not reported
+Bihar,2023-24,5949.0,5949.0,1502.94,,100.0,0.0,25.3,,,landfilled not reported
+Chandigarh,2023-24,578.0,578.0,130.0,,100.0,0.0,22.5,,,landfilled not reported
+Chhattisgarh,2023-24,2455.0,2345.0,1904.0,,95.5,110.0,77.6,,,landfilled not reported
+Dadra and Nagar Haveli and Daman and Diu,2023-24,269.02,269.02,216.49,,100.0,0.0,80.5,,,landfilled not reported
+Delhi,2023-24,11342.0,11342.0,7542.0,,100.0,0.0,66.5,,,landfilled not reported
+Goa,2023-24,193.9,193.9,187.9,,100.0,0.0,96.9,,,landfilled not reported
+Gujarat,2023-24,12000.0,12000.0,7571.832,,100.0,0.0,63.1,,,landfilled not reported
+Haryana,2023-24,9662.21,7248.72,4859.31,,75.0,2413.49,50.3,,,landfilled not reported
+Himachal Pradesh,2023-24,362.037,361.047,339.807,,99.7,0.99,93.9,,,landfilled not reported
+Jammu and Kashmir,2023-24,1470.3,1468.3,283.5,,99.9,2.0,19.3,,,landfilled not reported
+Jharkhand,2023-24,2258.0,2033.0,1349.0,,90.0,225.0,59.7,,,landfilled not reported
+Karnataka,2023-24,12140.0,12123.0,7694.0,,99.9,17.0,63.4,,,landfilled not reported
+Kerala,2023-24,3011.23,2595.225,2595.225,,86.2,416.01,86.2,,,landfilled not reported
+Ladakh,2023-24,12.454,12.454,7.254,,100.0,0.0,58.2,,,landfilled not reported
+Lakshadweep,2023-24,18.0,18.0,18.0,,100.0,0.0,100.0,,,landfilled not reported
+Madhya Pradesh,2023-24,6853.5,6797.0,6526.0,,99.2,56.5,95.2,,,landfilled not reported
+Maharashtra,2023-24,24299.43,23974.73,19877.12,,98.7,324.7,81.8,,,landfilled not reported
+Manipur,2023-24,290.0,197.27,230.4,,68.0,92.73,79.4,,,landfilled not reported
+Meghalaya,2023-24,179.12,150.5,65.0,,84.0,28.62,36.3,,,landfilled not reported
+Mizoram,2023-24,248.99,129.5,102.83,,52.0,119.49,41.3,,,landfilled not reported
+Nagaland,2023-24,303.865,260.028,121.62,,85.6,43.84,40.0,,,landfilled not reported
+Odisha,2023-24,3622.788,3479.528,2809.258,,96.0,143.26,77.5,,,landfilled not reported
+Puducherry,2023-24,564.0,564.0,564.0,,100.0,0.0,100.0,,,landfilled not reported
+Punjab,2023-24,4860.04,4853.6,2110.74,,99.9,6.44,43.4,,,landfilled not reported
+Rajasthan,2023-24,7909.385,7746.633,1747.72,,97.9,162.75,22.1,,,landfilled not reported
+Sikkim,2023-24,69.68,69.68,36.57,,100.0,0.0,52.5,,,landfilled not reported
+Tamil Nadu,2023-24,17843.455,17400.66,9213.436,,97.5,442.8,51.6,,,landfilled not reported
+Telangana,2023-24,11714.0,11714.0,9440.0,,100.0,0.0,80.6,,,landfilled not reported
+Tripura,2023-24,350.2,350.2,350.2,,100.0,0.0,100.0,,,landfilled not reported
+Uttar Pradesh,2023-24,20114.0,20114.0,12675.0,,100.0,0.0,63.0,,,landfilled not reported
+Uttarakhand,2023-24,1773.4,1723.78,1006.34,,97.2,49.62,56.7,,,landfilled not reported
+West Bengal,2023-24,14072.04,13116.77,3300.0,,93.2,955.27,23.5,,,landfilled not reported
