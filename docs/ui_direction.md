@@ -25,8 +25,19 @@ Chosen: direction 1, with one idea borrowed from 4 (the source page shown beside
 - **Honesty in the interface:** "not reported" and hatched tiles for blanks; "the sources disagree", never "wrong"; the year of every figure beside it; attribution footer.
 - **Accessibility:** every tile is a button with a full-sentence label; focus rings; table view; colour is never the only carrier of meaning; layout checked with no horizontal scroll at 375 px.
 
+## Components adopted from design systems, and native elements used
+I read the GOV.UK Design System pages for [Summary list](https://design-system.service.gov.uk/components/summary-list/), [Warning text](https://design-system.service.gov.uk/components/warning-text/), [Details](https://design-system.service.gov.uk/components/details/) and [Tag](https://design-system.service.gov.uk/components/tag/) and applied their rules. Nothing was copied from their code or styling, and the mock deliberately does not look like an official government site; we are not one.
+| Pattern | Rule taken | Where in the mock |
+|---|---|---|
+| Summary list | A `<dl>` of key and value for key facts; not for tabular data (use a table for that). | The state panel: figures are key/value rows. The "view as table" and the audit list stay real tables. |
+| Warning text | Icon, bold text, and a visually hidden "Warning" so a screen reader announces it. | The caveat under the hero: different years, possibly different definitions. |
+| Details | For information only some readers need; short descriptive summary; not for what most readers need. | "How we compare the two numbers" (the crosswalk rows for definitions, year and base). |
+| Tag | Status only, adjectives, never a link or button. | The flag pills ("flagged" plus the year) are plain text, not interactive. |
+Native HTML used instead of scripts: `<details>`, `<dialog>` (the enlarged source page opens with `showModal()`, so Esc and focus handling come from the browser), the `popover` attribute (the glossary on "treated"), `<dl>`, and `aria-pressed` buttons for the colour switch. Map tiles use a roving tabindex: one tile is in the tab order and the arrow keys move to the nearest tile in that direction.
+Checked in the browser pane: no console errors, 3 definition entries, popover text present, hidden "Warning" text present, one tabbable tile with arrow keys moving Delhi to Uttar Pradesh and then down to Chhattisgarh, the state panel as a 6-row summary list, and the dialog opening with the page image.
+
 ## Not done or not verified
 - The colour ramp was taken from the reference palette; I did not run the palette validator on it (it checks categorical palettes), and I did not measure text contrast on every tile. Tile text switches between black and white by luminance.
 - No light-mode screenshot of the full page was reviewed beyond the hero and map section; dark mode and the 375 px layout were looked at.
-- The real app still needs: the Audit Your City upload, the phantom tonnes and money-vs-mess pages, the deployed Q&A agent, and keyboard arrow-key movement across the tile grid (tiles are tab-reachable today).
+- The real app still needs: the Audit Your City upload, the phantom tonnes and money-vs-mess pages, the deployed Q&A agent. Not tested with a real screen reader, and the popover and dialog elements need a current browser.
 - The page images need the repo's `receipts/` folder served at `../../receipts/`; change `RB` in the script if the app is hosted elsewhere.

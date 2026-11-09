@@ -79,6 +79,23 @@ h2{font-size:1.5rem;letter-spacing:-.015em;margin:0 0 4px}.sub{color:var(--ink2)
 .rc img{display:block;width:100%;height:auto}.rc .box{position:absolute;border:3px solid #e5484d;border-radius:3px;box-shadow:0 0 0 2px rgba(255,255,255,.75)}
 .note{color:var(--ink2);font-size:.85rem}
 .empty{color:var(--ink2);padding:30px 6px;text-align:center}
+/* summary list (GOV.UK pattern): a <dl> of key and value, rows divided by hairlines; not for tabular data */
+.sl{margin:10px 0}.sl div{display:flex;justify-content:space-between;gap:16px;padding:7px 0;border-bottom:1px solid var(--hair)}
+.sl dt{color:var(--ink2)}.sl dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+/* warning text (GOV.UK pattern): icon, bold text, visually hidden "Warning" */
+.warn{display:flex;gap:14px;align-items:flex-start;margin:16px 0 0;font-weight:700}
+.warn .ic{flex:none;width:30px;height:30px;border-radius:50%;border:3px solid var(--ink);display:grid;place-items:center;font-size:1.05rem;line-height:1}
+/* details (GOV.UK pattern): for information only some readers need; short descriptive summary */
+details.dt{margin:12px 0 0;border-left:4px solid var(--hair);padding-left:14px}
+details.dt summary{cursor:pointer;color:var(--accent);font-weight:600;padding:4px 0}
+details.dt[open]{border-left-color:var(--accent)}
+details.dt dl{margin:8px 0}details.dt dt{font-weight:700;margin-top:10px}details.dt dd{margin:2px 0 0;color:var(--ink2);font-size:.92rem}
+dialog{border:1px solid var(--hair);border-radius:14px;background:var(--surface);color:var(--ink);padding:16px;max-width:min(900px,94vw);width:100%}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog .x{float:right;background:none;border:1px solid var(--hair);border-radius:8px;color:var(--ink);padding:5px 12px;font:inherit;cursor:pointer}
+.rc button.open{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;text-align:left}
+[popover]{margin:0;border:1px solid var(--hair);border-radius:10px;background:var(--surface);color:var(--ink);padding:12px 14px;max-width:320px;font-size:.9rem;position:fixed;inset:auto;box-shadow:0 8px 28px rgba(0,0,0,.25)}
+.term{background:none;border:0;border-bottom:1px dotted var(--ink2);color:inherit;font:inherit;cursor:help;padding:0}
 .tablebtn{background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;font:inherit;font-size:.88rem;padding:0 16px 14px}
 .tv{display:none;padding:0 16px 16px;overflow-x:auto}.tv table{width:100%;border-collapse:collapse;font-size:.88rem}.tv th,.tv td{padding:5px 8px;border-bottom:1px solid var(--hair);text-align:left}.tv td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
 /* tiles of facts */
@@ -112,7 +129,9 @@ footer{padding:30px 0 50px;color:var(--ink2);font-size:.85rem;border-top:1px sol
       <div class="vs"><strong id="gapT">17,420 tpd</strong><span>between the two national "treated" totals</span></div>
       <div class="side b"><div class="big" id="bigC">62%</div><div class="who">CPCB figures give treated</div><div class="meta" id="metaC">2023-24 · computed from Lok Sabha Q50</div></div>
     </div>
-    <p class="caveat">Different years, and the two bodies may not define "treated" and "processed" the same way. We do not say which is right. <a href="../trust/index.html">See definitions</a>.</p>
+    <p class="warn"><span class="ic" aria-hidden="true">!</span><span><span class="sr">Warning: </span>These two figures describe different years, and the two bodies may not define <button class="term" type="button" popovertarget="pop-def">treated</button> and processed the same way. We do not say which is right.</span></p>
+    <div popover id="pop-def" role="note"></div>
+    <details class="dt" id="howcompare"><summary>How we compare the two numbers</summary><dl id="cw"></dl><p class="note"><a href="../trust/index.html">Full definitions and sources</a></p></details>
     <div class="chips"><span class="chip">36 states and UTs</span><span class="chip" id="chipRows"></span><span class="chip" id="chipFlags"></span><span class="chip">Every figure has a source page</span></div>
   </div>
 
@@ -156,6 +175,7 @@ footer{padding:30px 0 50px;color:var(--ink2);font-size:.85rem;border-top:1px sol
 </main>
 <footer><div class="wrap">Every figure comes from a published government document and links to its page. Page images are reproduced unchanged with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. This page is a design mock built on the real data in this repository.</div></footer>
 <div class="tip" id="tip" role="tooltip"></div>
+<dialog id="dlg" aria-label="Source page"><button class="x" type="button" onclick="this.closest('dialog').close()">Close</button><div id="dlgbody"></div></dialog>
 
 <script src="../trust/data.js"></script>
 <script src="../trust/claim.js"></script>
@@ -204,6 +224,12 @@ function draw(){
     b.onclick=function(){SEL=s;draw();detail(s)};
     b.onmousemove=function(e){var t=$("tip");t.textContent=lab;t.style.display="block";t.style.left=Math.min(e.clientX+14,innerWidth-250)+"px";t.style.top=(e.clientY+14)+"px"};
     b.onmouseleave=function(){$("tip").style.display="none"};
+    b.tabIndex=(SEL?SEL===s:s==="Delhi")?0:-1;
+    b.onkeydown=function(e){var dir={ArrowLeft:[0,-1],ArrowRight:[0,1],ArrowUp:[-1,0],ArrowDown:[1,0]}[e.key];if(!dir)return;e.preventDefault();
+      var best=null,bd=1e9;Object.keys(GRID).forEach(function(o){if(o===s)return;var q=GRID[o],dr=q[0]-p[0],dc=q[1]-p[1];
+        if(dir[0]&&(Math.sign(dr)!==dir[0]))return;if(dir[1]&&(Math.sign(dc)!==dir[1]))return;
+        var d=dir[0]?Math.abs(dr)*3+Math.abs(dc):Math.abs(dc)*3+Math.abs(dr);if(d<bd){bd=d;best=o}});
+      if(best){var t=[].slice.call($("tiles").children).filter(function(x){return x.getAttribute("aria-label").indexOf(best+":")===0})[0];if(t){t.tabIndex=0;b.tabIndex=-1;t.focus()}}};
     el.appendChild(b)});
   var d=DOM[MODE],lg='<span>'+d[0]+(MODE==="gap"?" pts":"%")+'</span><span class="ramp" aria-hidden="true">'+STEPS.map(function(s){return'<i style="background:var('+s+')"></i>'}).join("")+'</span><span>'+d[1]+(MODE==="gap"?"+ pts":"%")+'</span><span><i class="cornersample" aria-hidden="true"></i> red corner: flagged within its own source</span><span>hatched: not reported</span>';
   $("legend").innerHTML=lg; $("mnote").textContent=NOTE[MODE];
@@ -213,11 +239,12 @@ document.querySelectorAll(".seg button").forEach(function(b){b.onclick=function(
 $("tbtn").onclick=function(){var o=$("tv").style.display==="block";$("tv").style.display=o?"none":"block";$("tbtn").setAttribute("aria-expanded",!o);$("tbtn").textContent=o?"View as table":"Hide table"};
 
 function detail(s){var x=D[s],fl=KS.flags.filter(function(f){return f.state===s&&f.rule.indexOf("3_")!==0}),au=KS.audit.filter(function(a){return a.state===s})[0],key=s+"|2023-24|treated|ls_au50_2025-12-01.pdf",rc=KS.receipts[key];
-  var h='<h3>'+esc(s)+'</h3><p class="note">'+(au?'Audit priority #'+au.rank+' of 36. ':'')+'Figures in tonnes per day.</p><table class="kv"><tr><th>CPCB 2023-24 generated</th><td>'+n0(x.cg)+'</td></tr><tr><th>CPCB 2023-24 collected</th><td>'+n0(x.cc)+'</td></tr><tr><th>CPCB 2023-24 treated</th><td>'+n0(x.ct)+'</td></tr><tr><th>MoHUA 2025-26 generated</th><td>'+n0(x.mg)+'</td></tr><tr><th>MoHUA 2025-26 processed</th><td>'+n0(x.mt)+'</td></tr><tr><th>Gap in % treated</th><td>'+(x.gap==null?"not reported":x.gap.toFixed(1)+" pts")+'</td></tr></table>';
+  var h='<h3>'+esc(s)+'</h3><p class="note">'+(au?'Audit priority #'+au.rank+' of 36. ':'')+'Figures in tonnes per day.</p><dl class="sl"><div><dt>CPCB 2023-24 generated</dt><dd>'+n0(x.cg)+'</dd></div><div><dt>CPCB 2023-24 collected</dt><dd>'+n0(x.cc)+'</dd></div><div><dt>CPCB 2023-24 treated</dt><dd>'+n0(x.ct)+'</dd></div><div><dt>MoHUA 2025-26 generated</dt><dd>'+n0(x.mg)+'</dd></div><div><dt>MoHUA 2025-26 processed</dt><dd>'+n0(x.mt)+'</dd></div><div><dt>Gap in % treated</dt><dd>'+(x.gap==null?"not reported":x.gap.toFixed(1)+" pts")+'</dd></div></dl>';
   if(fl.length){h+='<div class="note"><strong>Flags within a single source</strong></div>'+fl.slice(0,4).map(function(f){return'<div class="flagrow"><span class="pill">&#9650; '+esc(f.year)+'</span><span>'+esc(f.explanation)+' <span class="note">('+esc(f.values)+')</span></span></div>'}).join("")}
   else h+='<p class="note">No flags within a single source.</p>';
-  if(rc&&rc.image){h+='<div class="rc"><div class="note" style="margin-bottom:4px">Source page: ls_au50_2025-12-01.pdf, page '+rc.page+'</div><div class="img"><img alt="Source page showing '+esc(s)+' treated figure" src="'+RB+esc(rc.image)+'">'+(rc.bbox?'<div class="box" style="left:'+rc.bbox[0]*100+'%;top:'+rc.bbox[1]*100+'%;width:'+(rc.bbox[2]-rc.bbox[0])*100+'%;height:'+(rc.bbox[3]-rc.bbox[1])*100+'%"></div>':"")+'</div></div>'}
-  $("detail").innerHTML=h}
+  if(rc&&rc.image){h+='<div class="rc"><div class="note" style="margin-bottom:4px">Source page: ls_au50_2025-12-01.pdf, page '+rc.page+'</div><button class="open" type="button" id="openrc" aria-label="Open the source page larger"><div class="img"><img alt="Source page showing '+esc(s)+' treated figure" src="'+RB+esc(rc.image)+'">'+(rc.bbox?'<div class="box" style="left:'+rc.bbox[0]*100+'%;top:'+rc.bbox[1]*100+'%;width:'+(rc.bbox[2]-rc.bbox[0])*100+'%;height:'+(rc.bbox[3]-rc.bbox[1])*100+'%"></div>':"")+'</div></button><div class="note">Select the image to enlarge it.</div></div>'}
+  $("detail").innerHTML=h;
+  var ob=$("openrc");if(ob)ob.onclick=function(){var r=KS.receipts[s+"|2023-24|treated|ls_au50_2025-12-01.pdf"];$("dlgbody").innerHTML='<p><strong>'+esc(s)+', CPCB 2023-24 treated</strong><br><span class="note">ls_au50_2025-12-01.pdf, page '+r.page+'. The red box marks the figure.</span></p><div class="img" style="position:relative;border:1px solid var(--hair);background:#fff"><img style="display:block;width:100%" alt="Source page" src="'+RB+esc(r.image)+'">'+(r.bbox?'<div class="box" style="left:'+r.bbox[0]*100+'%;top:'+r.bbox[1]*100+'%;width:'+(r.bbox[2]-r.bbox[0])*100+'%;height:'+(r.bbox[3]-r.bbox[1])*100+'%"></div>':"")+'</div>';$("dlg").showModal()}}
 
 /* claim checker */
 var LBL={SUPPORTED:"Supported",CONTRADICTED:"Not supported by any source",SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS:"The sources disagree",CANNOT_VERIFY:"Cannot verify"};
@@ -235,6 +262,10 @@ $("factcards").innerHTML=[
  ['<div class="n">'+nag.swing_ratio+'x</div><div class="t">'+esc(nag.state)+': generated waste swings</div><p>'+n0(nag.max_tpd)+' tpd in '+esc(nag.max_in)+' against '+n0(nag.min_tpd)+' tpd in '+esc(nag.min_in)+'. Both confirmed on their source pages.</p>']
 ].map(function(c){return'<div class="panel fact">'+c[0]+'</div>'}).join("");
 
+var cwk=KS.crosswalk.filter(function(r){return["Processed vs treated","Year","Generated base"].indexOf(r.concept)>=0});
+$("cw").innerHTML=cwk.map(function(r){return'<dt>'+esc(r.concept)+'</dt><dd><strong>CPCB:</strong> '+esc(r.cpcb_says)+'<br><strong>MoHUA:</strong> '+esc(r.mohua_says)+'</dd>'}).join("");
+var pd=KS.crosswalk.filter(function(r){return r.concept==="Processed vs treated"})[0];
+$("pop-def").innerHTML='<strong>Treated or processed?</strong><br>CPCB: '+esc(pd.cpcb_says)+'<br><br>MoHUA: '+esc(pd.mohua_says)+' We store MoHUA\'s "processed" as "treated" to compare; that is our assumption.';
 draw();
 })();
 </script>
