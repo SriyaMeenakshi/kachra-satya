@@ -1,7 +1,7 @@
 # Sources
 
 Every row in `data/waste_clean.csv` comes from one of the documents below. Files are kept exactly as downloaded in `data/raw/`.
-All were downloaded by hand in a browser; `retrieved_on` is the download date.
+See `data/raw/NOTICE.md` for the attribution notice on these files. All were downloaded by hand in a browser; `retrieved_on` is the download date.
 
 | File in `data/raw/` | Document | Where from | Used for |
 |---|---|---|---|
