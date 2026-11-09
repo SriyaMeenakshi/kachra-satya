@@ -13,6 +13,7 @@ WASTE = "data/waste_clean.csv"
 NATIONAL = "data/national_stated.csv"
 FLAGS = "data/flags.csv"
 GAPS = "data/gap_ranking.csv"
+DEC2023 = "data/waste_mohua_2023-12.csv"    # MoHUA Q3198, "as on 21-12-2023" (no financial year stated)
 
 SOURCE_DIFF_PCT = 10.0      # rule 3 threshold
 ROUNDING_TPD = 0.5          # rule 5: below this a difference is source rounding
@@ -134,9 +135,14 @@ def gap_ranking(p):
         pc, pm = ta / ga * 100, tb / gb * 100
         rows.append({"state": st, "cpcb_pct_treated": round(pc, 1), "mohua_pct_processed": round(pm, 1),
                      "gap_pct_points": round(pm - pc, 1),
-                     "sources": "CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA: mohua_81pct_answer.pdf p.3",
+                     "sources": "CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA 2025-26: mohua_81pct_answer.pdf p.3; "
+                                "MoHUA as on 21-12-2023: ls_au3198_2023-12-21.docx annexure (no financial year stated)",
                      "note": f"CPCB {CPCB_YEAR} vs MoHUA {MOHUA_YEAR}: different years"})
     g = pd.DataFrame(rows)
+    d = pd.read_csv(DEC2023).pivot_table(index="state", columns="metric", values="value_tpd", aggfunc="first")
+    g["mohua_dec2023_pct_processed"] = g.state.map(
+        lambda st: round(d.at[st, "treated"] / d.at[st, "generated"] * 100, 1)
+        if st in d.index and d.at[st, "generated"] else "")
     ok = g[g.gap_pct_points != ""].copy()
     ok["gap_pct_points"] = ok.gap_pct_points.astype(float)
     ok = ok.sort_values("gap_pct_points", ascending=False)

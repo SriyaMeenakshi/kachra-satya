@@ -11,6 +11,7 @@ All were downloaded by hand in a browser; `retrieved_on` is the download date.
 | `mohua_81pct_answer.pdf` | Rajya Sabha Unstarred Question 2433, answered 10 Aug 2026, Ministry of Housing and Urban Affairs. Annexure I: state-wise generation and processing. Annexure II: year-wise processing percentage. | sansad.in | MoHUA 2025-26 state rows (page 3); the 81% figure (162,372 generated, 131,530 processed); national percentages for 2021-22 to 2025-26 (page 4) |
 | `mohua_state_answer.pdf` | Rajya Sabha Unstarred Question 855, answered 28 Jul 2025, Ministry of Housing and Urban Affairs. | sansad.in | National figure only: 80.26% processed (128,842 of 161,163 tpd). It has no state table. |
 | `ls_au682_2024-11-28.docx` | Lok Sabha Unstarred Question 682, answered 28 Nov 2024, Ministry of Housing and Urban Affairs, "Solid Waste Management Challenges". Annexure: state-wise SBM-U 2.0 allocation (2021-2026) and funds utilised/released till 25.11.2024. Word copy supplied by a team member; the annexure table prints no unit. | sansad.in (Word copy of the PDF) | `data/funds.csv` (35 states); funds position in the Action Briefs |
+| `ls_au3198_2023-12-21.docx` | Lok Sabha Unstarred Question 3198, answered 21 Dec 2023, Ministry of Housing and Urban Affairs, "Waste Processing Rates". Annexure: state/UT waste generation and waste processed (TPD), source line "Reports by ULBs on Swachhatam Portal, of MoHUA". Word copy supplied by a team member. The reply says "as on date" and gives no financial year. | sansad.in (Word copy of the PDF) | `data/waste_mohua_2023-12.csv` (35 states; year stored as "as on 21-12-2023"). Its states sum to 156,536 generated and 119,708.89 processed (76.47%); the reply text says 76.49% of 1.5 lakh MT/D. |
 | `cpcb_2023-24.pdf` | CPCB annual report 2023-24 | cpcb.gov.in | National 2021-22 totals, including landfilled (PDF page 69, report page 59). No state-wise MSW table. |
 | `cpcb_2024-25.pdf` | CPCB annual report 2024-25 | cpcb.gov.in | National 2022-23 totals, including landfilled (PDF page 66, report page 54). No state-wise MSW table. |
 
@@ -26,6 +27,8 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `data/spot_check.csv` | 30 random cells with the source page, for a person to check against the PDF |
 | `data/funds.csv` | 35 states: allocation_total, allocation_swm, funds_swm, funds_total, unit (not stated in table), source columns |
 | `scripts/extract_funds.py` | Rebuilds `data/funds.csv` from the Q682 docx |
+| `data/waste_mohua_2023-12.csv` | MoHUA Q3198 state table, same columns as waste_clean.csv, kept separate because it has no financial year |
+| `scripts/extract_au3198.py` | Rebuilds it from the Q3198 docx |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions
