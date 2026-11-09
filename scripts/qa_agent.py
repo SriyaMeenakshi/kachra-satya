@@ -17,6 +17,8 @@ import os
 import sys
 import pandas as pd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
 MODEL = os.environ.get("KACHRA_MODEL", "claude-sonnet-5-5")
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
@@ -35,7 +37,8 @@ Do not call a gap an error: say which source reports what and that the two disag
 7. Reply in the language of the user's question: English, Hindi, Tamil or Telugu. Keep numbers, source file names \
 and metric names (generated, collected, treated) exactly as in the data.
 8. You may compute a simple ratio or difference from figures a tool returned (for example treated divided by generated). Label it "computed", show the two inputs with their sources, and never present it as a stated figure.
-9. Be brief. No advice beyond what the data supports."""
+9. When the user quotes a claim (a minister's statement, a news line), call check_claim and report its verdict in plain words: what the claim says, which sources agree, which do not, and the years involved. Never say a source is wrong or lying; say the sources disagree.
+10. Be brief. No advice beyond what the data supports."""
 
 TOOLS = [
     {"name": "lookup_state",
@@ -55,6 +58,13 @@ TOOLS = [
     {"name": "gap_ranking",
      "description": "States ranked by gap between CPCB 2023-24 percent treated and MoHUA 2025-26 percent processed (different years).",
      "input_schema": {"type": "object", "properties": {"top_n": {"type": "integer"}}}},
+    {"name": "check_claim",
+     "description": "Verify a numeric claim against every figure in the data. Turn the user's sentence into metric (generated|collected|treated|landfilled|processed_pct), value, unit (percent for processed_pct, otherwise tpd), and optionally state and year (omit state for India). Returns a verdict (SUPPORTED, CONTRADICTED, SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS, CANNOT_VERIFY) and the matching and non-matching records with source, document and page.",
+     "input_schema": {"type": "object", "properties": {
+         "metric": {"type": "string", "enum": ["generated", "collected", "treated", "landfilled", "processed_pct"]},
+         "value": {"type": "number"}, "unit": {"type": "string", "enum": ["percent", "tpd"]},
+         "state": {"type": "string"}, "year": {"type": "string"}},
+         "required": ["metric", "value"]}},
     {"name": "list_states",
      "description": "All state/UT names in the dataset.",
      "input_schema": {"type": "object", "properties": {}}},
@@ -99,6 +109,9 @@ def run_tool(name, args):
     if name == "gap_ranking":
         d = _df("gap_ranking.csv")
         return _out(d, int(args.get("top_n") or 10))
+    if name == "check_claim":
+        from claim_checker import check_claim
+        return json.dumps(check_claim(args["metric"], args["value"], args.get("unit"), args.get("state"), args.get("year")), default=str)
     if name == "list_states":
         return json.dumps(sorted(_df("waste_clean.csv").state.unique()))
     return json.dumps({"error": f"unknown tool {name}"})

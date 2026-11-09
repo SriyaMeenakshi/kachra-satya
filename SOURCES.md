@@ -33,6 +33,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `scripts/extract_au3198.py` | Rebuilds it from the Q3198 docx |
 | `scripts/add_cpcb_2022_23.py` | Appends the CPCB 2022-23 state rows to `waste_clean.csv`. Run it after `build_clean_csv.py` (and after the 2021-22 script) |
 | `scripts/add_cpcb_2021_22_landfilled.py` | Appends the 2021-22 landfilled rows to `waste_clean.csv`. Run it after `build_clean_csv.py`, which regenerates the file without them |
+| `scripts/claim_checker.py`, `scripts/make_receipts.py`, `scripts/phantom_tonnes.py` | Claim Checker, page-image receipts (`receipts/`), phantom-tonnes counters (`data/phantom_tonnes.csv`). See `docs/new_features.md` |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

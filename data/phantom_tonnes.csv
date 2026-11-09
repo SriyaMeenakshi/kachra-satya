@@ -1,0 +1,47 @@
+counter,scope,year,tpd,values,source,explanation
+C_treated_plus_landfilled_above_generated,Chandigarh,2021-22,29.0,treated=83; landfilled=486; generated=540,CPCB,Treated plus landfilled is more than generated. Chandigarh 2021-22: the report footnote says last year's unprocessed waste (+29 TPD) is included this year.
+B_collected_above_generated,Dadra and Nagar Haveli and Daman and Diu,2019-20,7.0,collected=191; generated=184,CPCB,More waste is reported collected than generated.
+A_treated_above_collected,Kerala,2019-20,957.0,treated=1837; collected=880,CPCB,More waste is reported treated than collected.
+A_treated_above_collected,Kerala,2020-21,1585.24,treated=2550; collected=964.76,CPCB,More waste is reported treated than collected.
+A_treated_above_collected,Kerala,2021-22,1408.0,treated=2691; collected=1283,CPCB,"More waste is reported treated than collected. Source note: source also reports 1,048 TPD decentralized processing in this cell."
+A_treated_above_collected,Kerala,2022-23,1134.81,treated=3231; collected=2096.19,CPCB,More waste is reported treated than collected.
+A_treated_above_collected,Manipur,2022-23,10.0,treated=209.66; collected=199.66,CPCB,More waste is reported treated than collected.
+A_treated_above_collected,Manipur,2023-24,33.13,treated=230.4; collected=197.27,CPCB,More waste is reported treated than collected.
+D_national_treated_sources,India,MoHUA 2025-26 vs CPCB 2023-24,17420.0,MoHUA processed=131530; CPCB treated=114110,MoHUA vs CPCB,"Different years (2025-26 against 2023-24), so part of the gap may be real progress."
+D_national_treated_sources,India,MoHUA as on 21-12-2023 vs CPCB 2023-24,5598.89,MoHUA processed (sum of 35 states)=119709; CPCB treated=114110,MoHUA vs CPCB,"Closest in time. MoHUA's table gives no financial year ('as on date', 21 Dec 2023); CPCB's year ends March 2024."
+D_national_treated_sources,India,MoHUA as on 21-12-2023 vs CPCB 2022-23,15492.89,MoHUA processed=119709; CPCB treated=104216,MoHUA vs CPCB,MoHUA's table gives no financial year; shown against CPCB 2022-23 for comparison.
+E_state_treated_sources,Andaman and Nicobar Islands,MoHUA 2025-26 vs CPCB 2023-24,-12.22,MoHUA processed=60; CPCB treated=72.22,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Andhra Pradesh,MoHUA 2025-26 vs CPCB 2023-24,-1480.0,MoHUA processed=5410; CPCB treated=6890,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Arunachal Pradesh,MoHUA 2025-26 vs CPCB 2023-24,-15.49,MoHUA processed=29; CPCB treated=44.49,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Assam,MoHUA 2025-26 vs CPCB 2023-24,146.0,MoHUA processed=872; CPCB treated=726,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Bihar,MoHUA 2025-26 vs CPCB 2023-24,147.06,MoHUA processed=1650; CPCB treated=1502.94,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Chandigarh,MoHUA 2025-26 vs CPCB 2023-24,369.0,MoHUA processed=499; CPCB treated=130,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Chhattisgarh,MoHUA 2025-26 vs CPCB 2023-24,697.0,MoHUA processed=2601; CPCB treated=1904,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Dadra and Nagar Haveli and Daman and Diu,MoHUA 2025-26 vs CPCB 2023-24,-112.49,MoHUA processed=104; CPCB treated=216.49,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Delhi,MoHUA 2025-26 vs CPCB 2023-24,1819.0,MoHUA processed=9361; CPCB treated=7542,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Goa,MoHUA 2025-26 vs CPCB 2023-24,-58.9,MoHUA processed=129; CPCB treated=187.9,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Gujarat,MoHUA 2025-26 vs CPCB 2023-24,3981.17,MoHUA processed=11553; CPCB treated=7571.83,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Haryana,MoHUA 2025-26 vs CPCB 2023-24,-1153.31,MoHUA processed=3706; CPCB treated=4859.31,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Himachal Pradesh,MoHUA 2025-26 vs CPCB 2023-24,-49.81,MoHUA processed=290; CPCB treated=339.807,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Jammu and Kashmir,MoHUA 2025-26 vs CPCB 2023-24,589.5,MoHUA processed=873; CPCB treated=283.5,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Jharkhand,MoHUA 2025-26 vs CPCB 2023-24,-180.0,MoHUA processed=1169; CPCB treated=1349,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Karnataka,MoHUA 2025-26 vs CPCB 2023-24,818.0,MoHUA processed=8512; CPCB treated=7694,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Kerala,MoHUA 2025-26 vs CPCB 2023-24,-1371.22,MoHUA processed=1224; CPCB treated=2595.22,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Ladakh,MoHUA 2025-26 vs CPCB 2023-24,-7.25,MoHUA processed=0; CPCB treated=7.254,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Madhya Pradesh,MoHUA 2025-26 vs CPCB 2023-24,212.0,MoHUA processed=6738; CPCB treated=6526,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Maharashtra,MoHUA 2025-26 vs CPCB 2023-24,2817.88,MoHUA processed=22695; CPCB treated=19877.1,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Manipur,MoHUA 2025-26 vs CPCB 2023-24,-162.4,MoHUA processed=68; CPCB treated=230.4,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Meghalaya,MoHUA 2025-26 vs CPCB 2023-24,-3.0,MoHUA processed=62; CPCB treated=65,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Mizoram,MoHUA 2025-26 vs CPCB 2023-24,-102.83,MoHUA processed=0; CPCB treated=102.83,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Nagaland,MoHUA 2025-26 vs CPCB 2023-24,-120.62,MoHUA processed=1; CPCB treated=121.62,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Odisha,MoHUA 2025-26 vs CPCB 2023-24,-1129.26,MoHUA processed=1680; CPCB treated=2809.26,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Puducherry,MoHUA 2025-26 vs CPCB 2023-24,-152.0,MoHUA processed=412; CPCB treated=564,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Punjab,MoHUA 2025-26 vs CPCB 2023-24,1722.26,MoHUA processed=3833; CPCB treated=2110.74,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Rajasthan,MoHUA 2025-26 vs CPCB 2023-24,3011.28,MoHUA processed=4759; CPCB treated=1747.72,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Sikkim,MoHUA 2025-26 vs CPCB 2023-24,24.43,MoHUA processed=61; CPCB treated=36.57,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Tamil Nadu,MoHUA 2025-26 vs CPCB 2023-24,-423.44,MoHUA processed=8790; CPCB treated=9213.44,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Telangana,MoHUA 2025-26 vs CPCB 2023-24,1797.0,MoHUA processed=11237; CPCB treated=9440,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Tripura,MoHUA 2025-26 vs CPCB 2023-24,-39.2,MoHUA processed=311; CPCB treated=350.2,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Uttar Pradesh,MoHUA 2025-26 vs CPCB 2023-24,7494.0,MoHUA processed=20169; CPCB treated=12675,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,Uttarakhand,MoHUA 2025-26 vs CPCB 2023-24,881.66,MoHUA processed=1888; CPCB treated=1006.34,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
+E_state_treated_sources,West Bengal,MoHUA 2025-26 vs CPCB 2023-24,-2514.0,MoHUA processed=786; CPCB treated=3300,MoHUA vs CPCB,Different years. Positive = MoHUA reports more processed than CPCB reports treated.
