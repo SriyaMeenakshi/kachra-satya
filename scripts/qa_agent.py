@@ -34,7 +34,8 @@ Do not call a gap an error: say which source reports what and that the two disag
 6. If the data cannot answer the question (for example state-wise landfilled, or a year not in the data), say so plainly.
 7. Reply in the language of the user's question: English, Hindi, Tamil or Telugu. Keep numbers, source file names \
 and metric names (generated, collected, treated) exactly as in the data.
-8. Be brief. No advice beyond what the data supports."""
+8. You may compute a simple ratio or difference from figures a tool returned (for example treated divided by generated). Label it "computed", show the two inputs with their sources, and never present it as a stated figure.
+9. Be brief. No advice beyond what the data supports."""
 
 TOOLS = [
     {"name": "lookup_state",
