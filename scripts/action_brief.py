@@ -66,7 +66,7 @@ def causes(c, m, state_flags):
     return out
 
 
-def brief(w, flags, state):
+def brief(w, flags, state, funds=None):
     c = {k: val(w, state, CPCB_YEAR, "CPCB", k) for k in ("generated", "collected", "treated")}
     m = {k: val(w, state, MOHUA_YEAR, "MoHUA", k) for k in ("generated", "treated")}
     pc, pm = pct(c["treated"], c["generated"]), pct(m["treated"], m["generated"])
@@ -109,27 +109,37 @@ def brief(w, flags, state):
           "2. Central assistance under SBM-U 2.0 (solid waste component) for processing capacity, sized to the "
           "reconciled untreated quantity.",
           "3. Support for weighbridge-based data reporting by urban local bodies so future returns pass basic checks.",
-          "",
-          "_Amount: not stated. The dataset has no state-wise allocation or utilisation figures for this state; "
-          "add them from the Lok Sabha Q682 annexure before submitting._", ""]
+          ""]
+    fr = funds[funds.state == state] if funds is not None else []
+    if len(fr):
+        r = fr.iloc[0]
+        use = pct(float(r.funds_swm), float(r.allocation_swm))
+        L += ["**Funding position** (Lok Sabha Q682, 28 Nov 2024). The annexure prints no unit; the reply's other sums are in Rs crore.", "",
+              f"- SWM allocation 2021-2026: {r.allocation_swm}. SWM funds utilised/released till 25.11.2024: {r.funds_swm}"
+              f" ({use:.1f}% of the SWM allocation).",
+              f"- Total mission allocation: {r.allocation_total}. Total funds utilised/released: {r.funds_total}.",
+              "- Read the ask against this: a low utilisation share means the constraint may be execution, not money.", ""]
+    else:
+        L += ["_Funding position: not reported (state not in the Q682 annexure)._", ""]
     return "\n".join(L)
 
 
 def main():
     w = pd.read_csv("data/waste_clean.csv")
     flags = pd.read_csv("data/flags.csv")
+    funds = pd.read_csv("data/funds.csv") if os.path.exists("data/funds.csv") else None
     if len(sys.argv) < 2:
         sys.exit(__doc__)
     if sys.argv[1] == "--all":
         os.makedirs("briefs", exist_ok=True)
         for s in sorted(w.state.unique()):
-            open(f"briefs/{s.replace(' ', '_')}.md", "w", encoding="utf-8").write(brief(w, flags, s))
+            open(f"briefs/{s.replace(' ', '_')}.md", "w", encoding="utf-8").write(brief(w, flags, s, funds))
         print("wrote", w.state.nunique(), "briefs")
         return
     state = " ".join(sys.argv[1:])
     if state not in set(w.state):
         sys.exit(f"Unknown state '{state}'. Use the names in data/waste_clean.csv.")
-    print(brief(w, flags, state))
+    print(brief(w, flags, state, funds))
 
 
 if __name__ == "__main__":
