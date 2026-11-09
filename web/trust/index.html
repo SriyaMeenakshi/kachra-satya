@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kachra Satya: check the numbers</title>
+<style>
+:root{--bg:#fafaf7;--card:#fff;--ink:#1c1c1a;--mute:#5c5c57;--line:#dcdcd4;--accent:#1f6f50;--ok:#1f6f50;--warn:#9a5b00;--bad:#a02b2b;--chip:#eef2ee;--hl:#e5484d}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141513;--card:#1c1e1b;--ink:#ecece6;--mute:#a4a49c;--line:#34362f;--accent:#5fc59a;--ok:#5fc59a;--warn:#e0a050;--bad:#f08080;--chip:#242823;--hl:#ff6b6f}}
+:root[data-theme="dark"]{--bg:#141513;--card:#1c1e1b;--ink:#ecece6;--mute:#a4a49c;--line:#34362f;--accent:#5fc59a;--ok:#5fc59a;--warn:#e0a050;--bad:#f08080;--chip:#242823;--hl:#ff6b6f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header,main{max-width:1000px;margin:0 auto;padding:0 16px}
+header{padding-top:20px}
+h1{font-size:1.5rem;margin:0 0 4px} h2{font-size:1.15rem;margin:1.2rem 0 .4rem} p{margin:.4rem 0}
+.sub{color:var(--mute);margin:0 0 12px}
+nav{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:8px 0 16px}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:var(--mute);padding:10px 12px;font:inherit;cursor:pointer}
+nav button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+section[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:12px 0}
+label{display:block;font-size:.85rem;color:var(--mute);margin-bottom:2px}
+input,select,textarea,button.go{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%}
+textarea{min-height:72px;resize:vertical}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:10px 0}
+button.go{background:var(--accent);color:#fff;border-color:var(--accent);cursor:pointer;width:auto;padding:9px 16px;font-weight:600}
+button.link{background:none;border:0;color:var(--accent);text-decoration:underline;cursor:pointer;padding:0;font:inherit}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-weight:700;font-size:.85rem;border:1px solid currentColor}
+.SUPPORTED{color:var(--ok)}.CONTRADICTED{color:var(--bad)}.SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS{color:var(--warn)}.CANNOT_VERIFY{color:var(--mute)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:600}
+.tw{overflow-x:auto}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.ok{color:var(--ok);font-weight:700}.no{color:var(--bad);font-weight:700}
+.note{color:var(--mute);font-size:.88rem}
+.img{position:relative;display:inline-block;max-width:100%;border:1px solid var(--line)}
+.img img{display:block;max-width:100%;height:auto;background:#fff}
+.box{position:absolute;border:3px solid var(--hl);border-radius:3px;pointer-events:none;box-shadow:0 0 0 2px rgba(255,255,255,.7)}
+.bar{height:10px;background:var(--accent);border-radius:5px;min-width:2px}
+.chip{background:var(--chip);border-radius:6px;padding:1px 7px;font-size:.82rem}
+footer{max-width:1000px;margin:24px auto;padding:0 16px;color:var(--mute);font-size:.85rem}
+@media (max-width:560px){body{font-size:15px}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Kachra Satya: check the numbers</h1>
+  <p class="sub">India's two official waste figures disagree. Check a claim, open the source page behind any number, and see which states to audit first. Missing data is shown as "not reported".</p>
+</header>
+<main>
+<nav role="tablist" aria-label="Sections">
+  <button role="tab" aria-selected="true" data-tab="claim">Check a claim</button>
+  <button role="tab" aria-selected="false" data-tab="receipts">Receipts</button>
+  <button role="tab" aria-selected="false" data-tab="audit">Audit first</button>
+  <button role="tab" aria-selected="false" data-tab="defs">Definitions</button>
+</nav>
+
+<section id="claim">
+  <div class="card">
+    <label for="sentence">Paste a sentence (optional). We read it into the fields below; check them before you press Check.</label>
+    <textarea id="sentence" placeholder="e.g. 81% of India's urban waste is processed"></textarea>
+    <p><button class="link" id="read" type="button">Read the sentence</button> <span class="note" id="readnote"></span></p>
+    <div class="row">
+      <div><label for="metric">What is claimed</label>
+        <select id="metric"><option value="processed_pct">Share of waste processed or treated (%)</option><option value="generated">Waste generated (tpd)</option><option value="collected">Waste collected (tpd)</option><option value="treated">Waste treated (tpd)</option><option value="landfilled">Waste landfilled (tpd)</option></select></div>
+      <div><label for="value">Value</label><input id="value" type="number" step="any" value="81"></div>
+      <div><label for="state">Place</label><select id="state"></select></div>
+      <div><label for="year">Year (optional)</label><select id="year"><option value="">any</option></select></div>
+    </div>
+    <button class="go" id="check" type="button">Check</button>
+  </div>
+  <div id="result" aria-live="polite"></div>
+</section>
+
+<section id="receipts" hidden>
+  <div class="card">
+    <div class="row">
+      <div><label for="rstate">Place</label><select id="rstate"></select></div>
+      <div><label for="ryear">Year</label><select id="ryear"><option value="">all</option></select></div>
+      <div><label for="rmetric">Figure</label><select id="rmetric"><option value="">all</option><option>generated</option><option>collected</option><option>treated</option><option>landfilled</option></select></div>
+    </div>
+    <div class="tw"><table id="rtable"></table></div>
+  </div>
+  <div id="rview" class="card" hidden></div>
+</section>
+
+<section id="audit" hidden>
+  <p class="note">A ranking of where an audit would learn most. It is not a finding that any state's data is wrong. Five factors with equal weight: CPCB-vs-MoHUA gap, swing between reports, within-source flags, same rule tripped in several years, figures not reported. A factor a state lacks is left out, not guessed.</p>
+  <div class="card tw"><table id="atable"></table></div>
+  <h2>Same problem in several years</h2>
+  <div class="card tw"><table id="ctable"></table></div>
+  <h2>How much a state's own generated waste swings between reports</h2>
+  <div class="card tw"><table id="vtable"></table></div>
+</section>
+
+<section id="defs" hidden>
+  <p class="note">The two sources may not mean the same thing by the same word. We store MoHUA "processed" as "treated" to compare them; that is our assumption.</p>
+  <div class="card tw"><table id="dtable"></table></div>
+  <h2>What MoHUA has said over time</h2>
+  <div class="card tw"><table id="stable"></table></div>
+</section>
+</main>
+<footer>Every figure comes from a published document; the Receipts tab shows the page. Built <span id="built"></span>. Where two sources cover different years, the difference may be real change.</footer>
+
+<script src="data.js"></script>
+<script src="claim.js"></script>
+<script>
+(function(){
+var KS=window.KS, $=function(id){return document.getElementById(id)};
+var RECEIPT_BASE="../../receipts/";          /* change when the app is deployed from another folder */
+var states=Array.from(new Set(KS.waste.map(function(r){return r.state}))).sort();
+var years=Array.from(new Set(KS.waste.map(function(r){return r.year}))).sort();
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fmt(v){return v==null?"not reported":(+v).toLocaleString("en-IN",{maximumFractionDigits:3})}
+function opts(el,list,first){el.innerHTML=(first?'<option value="">'+first+'</option>':"")+list.map(function(x){return'<option>'+esc(x)+'</option>'}).join("")}
+$("built").textContent=KS.built;
+
+/* tabs */
+function show(tab){document.querySelectorAll("nav button").forEach(function(b){b.setAttribute("aria-selected",b.dataset.tab===tab)});
+  ["claim","receipts","audit","defs"].forEach(function(t){$(t).hidden=t!==tab})}
+document.querySelectorAll("nav button").forEach(function(b){b.onclick=function(){show(b.dataset.tab)}});
+
+/* claim checker */
+opts($("state"),["India (national)"].concat(states)); opts($("year"),years,"any");
+function readSentence(){var p=KSClaim.parseSentence(KS,$("sentence").value);
+  if(p.metric)$("metric").value=p.metric; if(p.value!=null)$("value").value=p.value;
+  $("state").value=p.state||"India (national)"; $("year").value=p.year&&years.indexOf(p.year)>=0?p.year:"";
+  $("readnote").textContent=p.value==null?"Could not find a number. Fill the fields yourself.":"Read as: "+$("metric").selectedOptions[0].text+", "+p.value+(p.unit==="percent"?"%":" tpd")+", "+($("state").value)+(p.year?", "+p.year:"")+". Check this is right."}
+$("read").onclick=readSentence;
+var LABEL={SUPPORTED:"Supported",CONTRADICTED:"Not supported by any source",SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS:"The sources disagree",CANNOT_VERIFY:"Cannot verify"};
+$("check").onclick=function(){
+  var st=$("state").value, r=KSClaim.checkClaim(KS,{metric:$("metric").value,value:parseFloat($("value").value),state:st.indexOf("India")===0?null:st,year:$("year").value||null});
+  var h='<div class="card"><p><span class="badge '+r.verdict+'">'+LABEL[r.verdict]+'</span></p><p>'+esc(r.reason)+'.</p>';
+  if(r.claim)h+='<p class="note">Claim: '+esc($("metric").selectedOptions[0].text)+' = '+esc(r.claim.value)+(r.claim.unit==="percent"?"%":" tpd")+', '+esc(r.claim.state)+(r.claim.year?', '+esc(r.claim.year):', any year')+'. A figure counts as agreeing within '+esc(r.tolerance)+'.</p>';
+  if(r.records.length){h+='<div class="tw"><table><tr><th>Year</th><th>Source</th><th class="num">Figure</th><th>Kind</th><th>Document and page</th><th>Agrees?</th><th></th></tr>';
+    r.records.forEach(function(x){var key=[x.scope==="India"?"India":x.scope,x.year,r.claim.metric,x.source_doc].join("|"),rc=KS.receipts[key];
+      h+='<tr><td>'+esc(x.year)+'</td><td>'+esc(x.source_name)+'</td><td class="num">'+fmt(x.value)+(r.claim.unit==="percent"?"%":"")+'</td><td>'+esc(x.kind)+(x.kind==="computed"?'<br><span class="note">'+esc(x.note)+'</span>':'')+'</td><td>'+esc(x.source_doc)+', p.'+esc(x.source_page)+'</td><td class="'+(x.matches?"ok":"no")+'">'+(x.matches?"yes":"no")+'</td><td>'+(rc&&rc.image?'<button class="link" data-key="'+esc(key)+'">receipt</button>':"")+'</td></tr>'});
+    h+='</table></div>'}
+  $("result").innerHTML=h+'</div>';
+  $("result").querySelectorAll("button[data-key]").forEach(function(b){b.onclick=function(){show("receipts");openReceipt(b.dataset.key)}})};
+
+/* receipts */
+opts($("rstate"),["India"].concat(states)); opts($("ryear"),years,"all");
+function rows(){var s=$("rstate").value,y=$("ryear").value,m=$("rmetric").value;
+  var src=s==="India"?KS.national.map(function(r){return{state:"India",year:r.year,metric:r.metric,value:r.value,source_name:r.source_name,source_doc:r.source_doc,source_page:r.source_page}}):KS.waste.map(function(r){return{state:r.state,year:r.year,metric:r.metric,value:r.value_tpd,source_name:r.source_name,source_doc:r.source_doc,source_page:r.source_page}});
+  return src.filter(function(r){return r.state===s&&(!y||r.year===y)&&(!m||r.metric===m)})}
+function drawTable(){var rs=rows(),h='<tr><th>Year</th><th>Figure</th><th class="num">Value</th><th>Source</th><th></th></tr>';
+  rs.forEach(function(r){var key=[r.state,r.year,r.metric,r.source_doc].join("|"),rc=KS.receipts[key];
+    h+='<tr><td>'+esc(r.year)+'</td><td>'+esc(r.metric)+'</td><td class="num">'+fmt(r.value)+'</td><td>'+esc(r.source_name)+' '+esc(r.source_doc)+', p.'+esc(r.source_page)+'</td><td>'+(rc&&rc.image?'<button class="link" data-key="'+esc(key)+'">open page</button>':'<span class="note">'+(r.value==null?"not reported":"no page image")+'</span>')+'</td></tr>'});
+  $("rtable").innerHTML=h; $("rtable").querySelectorAll("button[data-key]").forEach(function(b){b.onclick=function(){openReceipt(b.dataset.key)}})}
+function openReceipt(key){var rc=KS.receipts[key],p=key.split("|"); if(!rc||!rc.image)return;
+  $("rstate").value=p[0]; drawTable();
+  var h='<p><strong>'+esc(p[0])+', '+esc(p[1])+', '+esc(p[2])+'</strong> in '+esc(p[3])+', page '+esc(rc.page)+'</p>';
+  h+=rc.status==="located"?'<p class="note">The red box marks the figure on the page.</p>':'<p class="note">The figure is on this page, but we could not mark its exact position. Look for it in the table.</p>';
+  h+='<div class="img"><img alt="Page '+esc(rc.page)+' of '+esc(p[3])+'" src="'+RECEIPT_BASE+esc(rc.image)+'">';
+  if(rc.bbox)h+='<div class="box" style="left:'+rc.bbox[0]*100+'%;top:'+rc.bbox[1]*100+'%;width:'+(rc.bbox[2]-rc.bbox[0])*100+'%;height:'+(rc.bbox[3]-rc.bbox[1])*100+'%"></div>';
+  $("rview").innerHTML=h+'</div>'; $("rview").hidden=false; $("rview").scrollIntoView({behavior:"smooth",block:"nearest"})}
+["rstate","ryear","rmetric"].forEach(function(id){$(id).onchange=function(){$("rview").hidden=true;drawTable()}}); drawTable();
+
+/* audit */
+var a='<tr><th>#</th><th>State</th><th class="num">Score</th><th>Main reasons</th><th class="num">Factors used</th></tr>';
+KS.audit.forEach(function(r){a+='<tr><td>'+r.rank+'</td><td>'+esc(r.state)+'</td><td class="num">'+r.priority_score.toFixed(2)+'</td><td>'+esc(r.main_reasons)+'</td><td class="num">'+r.factors_used+'</td></tr>'}); $("atable").innerHTML=a;
+var c='<tr><th>State</th><th>Rule</th><th class="num">Years</th><th>Which years</th></tr>';
+KS.recurrence.forEach(function(r){c+='<tr><td>'+esc(r.state)+'</td><td>'+esc(r.rule)+'</td><td class="num">'+r.n_years+'</td><td>'+esc(r.years)+'</td></tr>'}); $("ctable").innerHTML=c;
+var mx=Math.max.apply(null,KS.volatility.map(function(r){return r.swing_ratio})), v='<tr><th>#</th><th>State</th><th>Swing (highest / lowest)</th><th>Lowest</th><th>Highest</th><th>Reports</th></tr>';
+KS.volatility.filter(function(r){return r.ranked==="yes"}).forEach(function(r){v+='<tr><td>'+r.rank+'</td><td>'+esc(r.state)+'</td><td><div class="bar" style="width:'+Math.max(2,r.swing_ratio/mx*100)+'%"></div>'+r.swing_ratio+'x</td><td>'+fmt(r.min_tpd)+' tpd<br><span class="note">'+esc(r.min_in)+'</span></td><td>'+fmt(r.max_tpd)+' tpd<br><span class="note">'+esc(r.max_in)+'</span></td><td class="num">'+r.n_values+'</td></tr>'}); $("vtable").innerHTML=v;
+
+/* definitions */
+var d='<tr><th>Concept</th><th>CPCB</th><th>MoHUA</th><th>Why it matters</th><th>Sources</th></tr>';
+KS.crosswalk.forEach(function(r){d+='<tr><td><strong>'+esc(r.concept)+'</strong></td><td>'+esc(r.cpcb_says)+'</td><td>'+esc(r.mohua_says)+'</td><td>'+esc(r.why_it_matters)+'</td><td class="note">'+esc(r.sources)+'</td></tr>'}); $("dtable").innerHTML=d;
+var s='<tr><th>Date</th><th class="num">Generated (tpd)</th><th class="num">Processed (tpd)</th><th class="num">Processed %</th><th>Source</th></tr>';
+KS.statements.forEach(function(r){s+='<tr><td>'+esc(r.statement_date)+'</td><td class="num">'+fmt(r.generated_tpd)+'</td><td class="num">'+fmt(r.processed_tpd)+'</td><td class="num">'+fmt(r.processed_pct_stated)+'</td><td>'+esc(r.source_doc)+', p.'+esc(r.source_page)+'<br><span class="note">'+esc(r.note)+'</span></td></tr>'}); $("stable").innerHTML=s;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+rank,state,gap_pct_points_abs,swing_ratio,flag_count,recurrence_years,blank_cells,factors_used,priority_score,main_reasons,note
+1,Kerala,11.5,2.83,5,4,1,5,0.843,same rule tripped in 4 years; 5 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+2,Manipur,25.9,2.28,2,2,0,5,0.79,same rule tripped in 2 years; 2 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+3,Bihar,2.3,1.4,6,3,6,5,0.708,6 within-source flags; 6 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+4,Dadra and Nagar Haveli and Daman and Diu,19.5,4.7,1,0,0,5,0.666,generated swings 4.7x between reports; 1 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+5,Gujarat,34.7,1.19,1,0,1,5,0.641,1 figures not reported; 1 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+6,Nagaland,36.6,22.9,0,0,0,5,0.634,generated swings 22.9x between reports; CPCB-MoHUA gap 36.6 points,ranks where an audit would learn most; not a finding that a state's data is wrong
+7,Arunachal Pradesh,0.7,2.2,1,0,1,5,0.62,1 figures not reported; 1 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+8,Chandigarh,77.5,1.28,1,0,0,5,0.619,CPCB-MoHUA gap 77.5 points; 1 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+9,Ladakh,,5.78,0,0,0,4,0.573,generated swings 5.8x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+10,Jammu and Kashmir,67.4,1.54,0,0,0,5,0.563,CPCB-MoHUA gap 67.4 points; generated swings 1.5x between reports,ranks where an audit would learn most; not a finding that a state's data is wrong
+11,Haryana,24.4,1.95,0,0,0,5,0.554,CPCB-MoHUA gap 24.4 points; generated swings 1.9x between reports,ranks where an audit would learn most; not a finding that a state's data is wrong
+12,Mizoram,,2.24,0,0,0,4,0.538,generated swings 2.2x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+13,Andhra Pradesh,9.0,1.16,1,0,1,5,0.536,1 figures not reported; 1 within-source flags,ranks where an audit would learn most; not a finding that a state's data is wrong
+14,Odisha,18.4,2.07,0,0,0,5,0.535,generated swings 2.1x between reports; CPCB-MoHUA gap 18.4 points,ranks where an audit would learn most; not a finding that a state's data is wrong
+15,Himachal Pradesh,11.9,2.56,0,0,0,5,0.53,generated swings 2.6x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+16,Uttarakhand,39.9,1.39,0,0,0,5,0.529,CPCB-MoHUA gap 39.9 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+17,Uttar Pradesh,34.6,1.43,0,0,0,5,0.519,CPCB-MoHUA gap 34.6 points; generated swings 1.4x between reports,ranks where an audit would learn most; not a finding that a state's data is wrong
+18,Chhattisgarh,22.4,1.6,0,0,0,5,0.511,CPCB-MoHUA gap 22.4 points; generated swings 1.6x between reports,ranks where an audit would learn most; not a finding that a state's data is wrong
+19,Punjab,51.6,1.26,0,0,0,5,0.505,CPCB-MoHUA gap 51.6 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+20,Lakshadweep,,1.94,0,0,0,4,0.503,generated swings 1.9x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+21,West Bengal,12.9,1.89,0,0,0,5,0.489,generated swings 1.9x between reports; CPCB-MoHUA gap 12.9 points,ranks where an audit would learn most; not a finding that a state's data is wrong
+22,Karnataka,22.1,1.43,0,0,0,5,0.488,CPCB-MoHUA gap 22.1 points; generated swings 1.4x between reports,ranks where an audit would learn most; not a finding that a state's data is wrong
+23,Rajasthan,36.8,1.21,0,0,0,5,0.479,CPCB-MoHUA gap 36.8 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+24,Andaman and Nicobar Islands,4.9,1.98,0,0,0,5,0.462,generated swings 2.0x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+25,Sikkim,23.8,1.21,0,0,0,5,0.442,CPCB-MoHUA gap 23.8 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+26,Puducherry,5.1,1.6,0,0,0,5,0.432,generated swings 1.6x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+27,Telangana,16.5,1.26,0,0,0,5,0.426,CPCB-MoHUA gap 16.5 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+28,Meghalaya,1.7,1.93,0,0,0,5,0.415,generated swings 1.9x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+29,Goa,0.8,1.72,0,0,0,5,0.398,generated swings 1.7x between reports; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+30,Tamil Nadu,8.9,1.33,0,0,0,5,0.397,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+31,Delhi,13.8,1.11,0,0,0,5,0.378,CPCB-MoHUA gap 13.8 points; same rule tripped in 0 years,ranks where an audit would learn most; not a finding that a state's data is wrong
+32,Jharkhand,10.3,1.21,0,0,0,5,0.376,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+33,Assam,3.4,1.35,0,0,0,5,0.372,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+34,Tripura,3.7,1.28,0,0,0,5,0.364,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+35,Maharashtra,11.9,1.07,0,0,0,5,0.357,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong
+36,Madhya Pradesh,4.5,1.19,0,0,0,5,0.331,same rule tripped in 0 years; 0 figures not reported,ranks where an audit would learn most; not a finding that a state's data is wrong

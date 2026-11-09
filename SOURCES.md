@@ -39,6 +39,8 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `data/state_indicators.csv`, `data/truck_priority.csv`, `data/national_segregation.csv` | Collection gap, landfill dependence, uncollected-tonnage ranking, national segregation indicators. Built by `scripts/state_indicators.py` and `scripts/segregation_gap.py` |
 | `scripts/audit_city.py`, `data/city_audit_template.csv` | Audit Your City rules and CSV template. See `docs/track_coverage.md` |
 | `data/mohua_statements.csv` | MoHUA's own national statements over time (Nov 2024, Jul 2025, Dec 2025, Aug 2026). Secondary-source figures (Rajya Sabha Dec 2025: 166,096 / 133,164; Lok Sabha Feb 2026: 162,293 / 132,514) are NOT included until their parliament PDFs are saved |
+| `data/definition_crosswalk.csv`, `data/recurrence.csv`, `data/audit_priority.csv` | Definition crosswalk (what CPCB and MoHUA each say, with pages), same-rule-in-several-years flags, and the risk-based audit list. Built by `scripts/recurrence_and_priority.py` |
+| `web/trust/` | Dependency-free trust pages (claim checker, receipts, audit list, definitions). See `web/trust/README.md` |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

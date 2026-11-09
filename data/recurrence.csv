@@ -1,0 +1,4 @@
+state,rule,n_years,years
+Kerala,6_treated_gt_collected,4,2019-20; 2020-21; 2021-22; 2022-23
+Bihar,4_metric_missing,3,2019-20; 2020-21; 2021-22
+Manipur,6_treated_gt_collected,2,2022-23; 2023-24
