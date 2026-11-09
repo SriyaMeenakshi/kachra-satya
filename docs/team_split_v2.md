@@ -13,7 +13,7 @@ Where a feature's data and logic already exist in the repo, the hours are mostly
 | Risk-based audit list | 3 | "Audit these states first" from flags, volatility and the CPCB-vs-MoHUA gap |
 | Recurrence flags | 2 | States that trip the same rule in several years (Kerala treated above collected, four years) |
 | MoHUA statements series | 2 | `data/mohua_statements.csv` into the app: MoHUA's own national figure over time |
-| Publish dataset | 3 | Methodology note, licence check, Zenodo record (`docs/methodology.md`, `docs/licences.md`) |
+| Publish dataset | 3 | Methodology note, licence check, Zenodo-ready release (done: `docs/methodology.md`, `docs/licences.md`, `scripts/build_release.py`, `.zenodo.json`, `CITATION.cff`). Still to do by hand: choose the data licence, fill author names, upload to Zenodo, send the permission requests in `docs/permission_requests.md` |
 | README | 3 | Include the validation numbers (they come from Pod 1's checks) and the honest scope note (`docs/track_coverage.md`) |
 
 ## Pod 2: Money, gaps and track coverage (Sriya) , 30 h

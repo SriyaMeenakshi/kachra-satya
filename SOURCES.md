@@ -42,6 +42,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `data/definition_crosswalk.csv`, `data/recurrence.csv`, `data/audit_priority.csv` | Definition crosswalk (what CPCB and MoHUA each say, with pages), same-rule-in-several-years flags, and the risk-based audit list. Built by `scripts/recurrence_and_priority.py` |
 | `web/trust/` | Dependency-free trust pages (claim checker, receipts, audit list, definitions). See `web/trust/README.md` |
 | `docs/methodology.md`, `docs/licences.md` | How the dataset was built and checked, and what is known about the reuse terms of each source (most unconfirmed). Read `docs/licences.md` before any public data release |
+| `CITATION.cff`, `.zenodo.json`, `scripts/build_release.py`, `docs/data_dictionary.md`, `docs/permission_requests.md` | Public data release package (Zenodo-ready zip with no documents or page images, built into git-ignored `dist/`), its metadata, the generated data dictionary, and four unsent permission-request drafts |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

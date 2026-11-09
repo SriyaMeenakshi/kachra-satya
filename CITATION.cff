@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this dataset, please cite it as below and cite the original government documents named in each row."
+title: "Kachra Satya: an audit of India's municipal solid waste figures"
+version: "2026-11-10"
+date-released: "2026-11-10"
+type: dataset
+authors:
+  # Individual author names to be filled in by the team before a public release.
+  - name: "Kachra Satya team"
+repository-code: "https://github.com/SriyaMeenakshi/kachra-satya"
+abstract: "State and UT figures for municipal solid waste in India (tonnes per day) transcribed from published CPCB and MoHUA documents and parliamentary answers, with the source document and page for every row, plus consistency checks that flag figures that cannot all be true. Figures are not corrected or estimated; missing values stay blank."
+keywords:
+  - solid waste
+  - India
+  - open data
+  - data quality
+license: "CC-BY-4.0"
