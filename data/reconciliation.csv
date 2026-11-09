@@ -1,0 +1,15 @@
+year,source_doc,metric,sum_of_states,stated_total,difference,result
+2023-24,ls_au50_2025-12-01.pdf,generated,185195.36,185195,0.36,match
+2023-24,ls_au50_2025-12-01.pdf,collected,179478.85,179479,-0.15,match
+2023-24,ls_au50_2025-12-01.pdf,treated,114110.20,114110,0.20,match
+2021-22,rs_q358_2025-02-06.pdf,generated,170339.00,170339,0.00,match
+2021-22,rs_q358_2025-02-06.pdf,collected,156449.00,156449,0.00,match
+2021-22,rs_q358_2025-02-06.pdf,treated,91511.00,91511,0.00,match
+2020-21,rs_q358_2025-02-06.pdf,generated,160038.90,160039,0.00,match
+2020-21,rs_q358_2025-02-06.pdf,collected,152749.45,152750,-0.05,match
+2020-21,rs_q358_2025-02-06.pdf,treated,79956.30,79956.3,0.00,match
+2019-20,rs_q358_2025-02-06.pdf,generated,150847.15,150847,0.05,match
+2019-20,rs_q358_2025-02-06.pdf,collected,146053.71,146054,-0.09,match
+2019-20,rs_q358_2025-02-06.pdf,treated,70973.20,70973.2,-0.00,match
+2025-26,mohua_81pct_answer.pdf,generated,162372.00,162372,0.00,match
+2025-26,mohua_81pct_answer.pdf,treated,131532.00,131530,2.00,MISMATCH

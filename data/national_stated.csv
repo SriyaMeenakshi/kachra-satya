@@ -1,0 +1,32 @@
+state,year,metric,value,unit,source_name,source_doc,source_page,retrieved_on,note
+India,2023-24,generated,185195,tpd,CPCB,ls_au50_2025-12-01.pdf,1,2026-11-09,
+India,2023-24,collected,179479,tpd,CPCB,ls_au50_2025-12-01.pdf,1,2026-11-09,
+India,2023-24,treated,114110,tpd,CPCB,ls_au50_2025-12-01.pdf,1,2026-11-09,
+India,2023-24,landfilled,39629,tpd,CPCB,ls_au50_2025-12-01.pdf,1,2026-11-09,
+India,2022-23,generated,170939,tpd,CPCB,cpcb_2024-25.pdf,66,2026-11-09,report page 54
+India,2022-23,collected,164621,tpd,CPCB,cpcb_2024-25.pdf,66,2026-11-09,report page 54
+India,2022-23,treated,104216,tpd,CPCB,cpcb_2024-25.pdf,66,2026-11-09,report page 54
+India,2022-23,landfilled,38147,tpd,CPCB,cpcb_2024-25.pdf,66,2026-11-09,report page 54
+India,2022-23,unaccounted,28576,tpd,CPCB,cpcb_2024-25.pdf,66,2026-11-09,report page 54
+India,2021-22,generated,170339,tpd,CPCB,cpcb_2023-24.pdf,69,2026-11-09,report page 59; same figures in rs_q358 p4
+India,2021-22,collected,156449,tpd,CPCB,cpcb_2023-24.pdf,69,2026-11-09,report page 59
+India,2021-22,treated,91511,tpd,CPCB,cpcb_2023-24.pdf,69,2026-11-09,report page 59
+India,2021-22,landfilled,41455,tpd,CPCB,cpcb_2023-24.pdf,69,2026-11-09,report page 59
+India,2021-22,unaccounted,37373,tpd,CPCB,cpcb_2023-24.pdf,69,2026-11-09,report page 59
+India,2020-21,generated,160038.9,tpd,CPCB,rs_q358_2025-02-06.pdf,5,2026-11-09,
+India,2020-21,collected,152749.5,tpd,CPCB,rs_q358_2025-02-06.pdf,5,2026-11-09,
+India,2020-21,treated,79956.3,tpd,CPCB,rs_q358_2025-02-06.pdf,5,2026-11-09,
+India,2019-20,generated,150847.1,tpd,CPCB,rs_q358_2025-02-06.pdf,6,2026-11-09,
+India,2019-20,collected,146053.8,tpd,CPCB,rs_q358_2025-02-06.pdf,6,2026-11-09,
+India,2019-20,treated,70973.2,tpd,CPCB,rs_q358_2025-02-06.pdf,6,2026-11-09,
+India,2025-26,generated,162372,tpd,MoHUA,mohua_81pct_answer.pdf,3,2026-11-09,
+India,2025-26,treated,131530,tpd,MoHUA,mohua_81pct_answer.pdf,3,2026-11-09,'Total Waste Processed'
+India,2024-25,generated,161163,tpd,MoHUA,mohua_state_answer.pdf,2,2026-11-09,"RS Q855, 28 Jul 2025; as reported by States/UTs"
+India,2024-25,treated,128842,tpd,MoHUA,mohua_state_answer.pdf,2,2026-11-09,stated as 80.26% processed
+India,2024-25,processed_pct,80.26,percent,MoHUA,mohua_state_answer.pdf,2,2026-11-09,stated
+India,2021-22,processed_pct,73,percent,MoHUA,mohua_81pct_answer.pdf,4,2026-11-09,Swachhattam portal MIS
+India,2022-23,processed_pct,76,percent,MoHUA,mohua_81pct_answer.pdf,4,2026-11-09,Swachhattam portal MIS
+India,2023-24,processed_pct,78,percent,MoHUA,mohua_81pct_answer.pdf,4,2026-11-09,Swachhattam portal MIS
+India,2024-25,processed_pct,81,percent,MoHUA,mohua_81pct_answer.pdf,4,2026-11-09,Swachhattam portal MIS
+India,2025-26,processed_pct,81,percent,MoHUA,mohua_81pct_answer.pdf,4,2026-11-09,Swachhattam portal MIS
+India,2024-25,processed_pct,67,percent,MoHUA,mohua_81pct_answer.pdf,2,2026-11-09,"Swachh Survekshan 2024-25 national average, a different measure"
