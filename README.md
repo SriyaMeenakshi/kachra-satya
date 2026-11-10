@@ -20,6 +20,8 @@ These are different years, and CPCB says "treated" where MoHUA says "processed";
 - **Receipts:** open the source page for a figure with the number boxed (605 of 706 figures located; the rest show the page or say there is no page image).
 - **Audit first:** a transparent ranking of states where an audit would learn most, plus how much each state's own reported generation swings between reports (Nagaland: 664 tpd in one CPCB report, 29 tpd in a MoHUA answer).
 - **Phantom tonnes, money vs mess, truck priority, Audit Your City:** supporting analyses and a city-level checker; see `docs/new_features.md`.
+- **Gaps screens (app, Gaps tab):** phantom-tonnes counters, a money-vs-mess scatter (share of SWM funds used against percent treated), collection gap and truck priority with landfill share, the national segregation gap, and a per-state reporting-completeness score (`data/completeness.csv`).
+- **Voice:** on the Ask tab, speak a question and hear the answer in English, Hindi, Tamil or Telugu using the browser's own speech tools. Support depends on the browser and device; typing always works.
 
 ## Try it
 Needs Python 3.12 (pandas, pdfplumber, python-docx) and optionally Node for one parity test.
@@ -27,7 +29,7 @@ Needs Python 3.12 (pandas, pdfplumber, python-docx) and optionally Node for one 
 ```bash
 python -m http.server 8777
 ```
-Then open http://127.0.0.1:8777/web/app/index.html (the integrated app: map, claim checker, receipts, audit and city audit; the Ask tab works once the Q&A agent endpoint is set), http://127.0.0.1:8777/web/trust/index.html (trust pages alone) or http://127.0.0.1:8777/web/mock/index.html (design mock).
+Then open http://127.0.0.1:8777/web/app/index.html (the integrated app: map, claim checker, gaps, receipts, audit and city audit; the Ask tab works once the Q&A agent endpoint is set), http://127.0.0.1:8777/web/trust/index.html (trust pages alone) or http://127.0.0.1:8777/web/mock/index.html (design mock).
 
 Build a static site for deployment with `python scripts/build_site.py` (writes `dist/`; no source documents or CSVs included). Set the Q&A agent endpoint in `web/app/config.js` once it is live.
 
@@ -43,6 +45,7 @@ python scripts/volatility.py
 python scripts/recurrence_and_priority.py
 python scripts/phantom_tonnes.py
 python scripts/state_indicators.py
+python scripts/completeness.py
 python scripts/make_receipts.py
 python scripts/export_web_data.py
 python -m pytest -q tests
@@ -53,7 +56,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees with Rajya Sabha Q358 exactly, an independent cross-check.
 - A 30-cell spot check matched 30 of 30. It was an AI-assisted visual read, not a manual hand check; a human check of a few rows is still worthwhile.
-- 24 automated tests, including a check that the browser Claim Checker gives the same verdicts as the Python one.
+- 29 automated tests, including a check that the browser Claim Checker gives the same verdicts as the Python one.
 Details: `docs/methodology.md`.
 
 ## What it does not do
@@ -86,4 +89,6 @@ Details: `docs/methodology.md`.
 - Likhitha: platform, deployment, Q&A agent setup, demo and submission
 
 ## Status (2026-11-10)
+Gaps screens (phantom tonnes, money vs mess, collection and trucks, segregation, completeness) and voice questions are in the app. Voice has been tested only with stubbed speech engines, not yet on real phones in Hindi, Tamil and Telugu. The plastic audit is not started: it needs the CPCB plastic waste annual report downloaded by hand.
+
 Data, checks, working trust pages and design mock are in the repo. Not yet done: the integrated deployed web app, the Q&A agent live on AgentFoundry (setup in `docs/agentfoundry_setup.md`), the demo video, and the public URL.
