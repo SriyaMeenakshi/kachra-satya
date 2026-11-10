@@ -1,0 +1,13 @@
+/* Geographic map (geomap.js). Uses the tokens in app.css. */
+.geo{padding:8px 12px 4px}
+.geo svg{display:block;width:100%;height:auto;max-height:660px}
+.geo-s{stroke:var(--card);stroke-width:.1;cursor:pointer;transition:opacity .15s}
+.geo-s:hover{stroke:var(--ink);stroke-width:.2}
+.geo-s[aria-pressed="true"]{stroke:var(--ink);stroke-width:.34}
+.geo-s:focus,.geo-s:focus-visible{outline:none}                /* an outline here would be drawn in map units and swamp the map; the stroke below is the focus indicator */
+.geo-s:focus-visible{stroke:var(--focus);stroke-width:.4}
+.geo-s.dim{opacity:.22}
+.geo-pin{stroke:var(--ink2);stroke-width:.1}
+.geo-flag{fill:var(--crit);stroke:var(--card);stroke-width:.06;pointer-events:none}
+.geo text{font:600 .55px system-ui,-apple-system,"Segoe UI",sans-serif;pointer-events:none}
+.geo-foot{padding:0 16px 10px;color:var(--ink2);font-size:.8rem}

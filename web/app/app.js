@@ -125,7 +125,7 @@
     D[s].gap = D[s].cpcb != null && D[s].mohua != null ? D[s].mohua - D[s].cpcb : null;
   });
   var flagged = {}; KS.flags.forEach(function (f) { if (f.rule.indexOf("3_") !== 0) flagged[f.state] = 1; });
-  var STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7"], MODE = "cpcb", QUERY = "", DOM = { cpcb: [0, 100], mohua: [0, 100], gap: [0, 80] };
+  var STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7"], MODE = "cpcb", VIEW = (function () { try { return localStorage.getItem("ks-mapview") || "geo"; } catch (e) { return "geo"; } })(), QUERY = "", DOM = { cpcb: [0, 100], mohua: [0, 100], gap: [0, 80] };
   function css(v) { return getComputedStyle(root).getPropertyValue(v).trim(); }
   function lum(hex) { var m = hex.replace("#", ""); if (m.length === 3) m = m.replace(/./g, "$&$&"); var c = [0, 2, 4].map(function (i) { var x = parseInt(m.substr(i, 2), 16) / 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; }
   function colourFor(v) { var d = DOM[MODE], k = Math.max(0, Math.min(6, Math.floor((v - d[0]) / (d[1] - d[0]) * 7))); return css(STEPS[k]); }
@@ -140,11 +140,19 @@
       '<div class="stat b"><div class="big">' + Math.round(ct.value / cg * 100) + '%</div><div class="who">CPCB figures: treated</div><div class="meta">2023-24 · ' + esc(ct.source_doc) + ', p.' + esc(ct.source_page) + '</div></div>' +
       '<div class="gapnote"><span><strong>' + n0(mt.value - ct.value) + ' tpd</strong> apart</span><details class="more"><summary>Why can\'t we say who is right?</summary><div>The two figures are for different years, and the two bodies may not define "treated" and "processed" the same way. <a href="#/explore/defs">See the definitions</a>.</div></details></div></div></div>' +
       '<div class="section"><h2>Tap a state</h2><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
-      MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div></div>' +
+      MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
+      [["geo", "Map"], ["tiles", "Tiles"]].map(function (m) { return '<button type="button" data-v="' + m[0] + '" aria-pressed="' + (VIEW === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div></div>' +
       '<aside class="card pad sp" id="detail" aria-live="polite"></aside></div></div>';
     mountClaim($("cbox"));
-    var el = $("tiles");
-    Object.keys(GRID).forEach(function (s) {
+    var el = $("tiles"), geo = VIEW === "geo" && window.KS_INDIA && window.KSGeo;
+    function slab(s) { var v = D[s][MODE]; return s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); }
+    if (geo) {
+      el.className = "geo";
+      KSGeo.draw(el, { value: function (s) { return D[s][MODE]; }, colour: colourFor, ink: function (bg) { return lum(bg) > .36 ? "#0b0b0b" : "#fff"; }, label: slab, selected: sel, flagged: flagged, abb: ABB,
+        onSelect: function (s) { history.replaceState(null, "", "#/map/" + encodeURIComponent(s)); renderMap(s); if (matchMedia("(max-width:900px)").matches) $("detail").scrollIntoView({ behavior: "smooth", block: "start" }); },
+        tip: function (lab, e) { var t = $("tip"); if (!lab) { t.style.display = "none"; return; } t.textContent = lab; t.style.display = "block"; t.style.left = Math.min(e.clientX + 14, innerWidth - 250) + "px"; t.style.top = (e.clientY + 14) + "px"; } });
+    }
+    (geo ? [] : Object.keys(GRID)).forEach(function (s) {
       var p = GRID[s], v = D[s][MODE], b = document.createElement("button"); b.type = "button"; b.dataset.s = s; b.className = "tile" + (v == null ? " none" : "") + (flagged[s] ? " fl" : "");
       b.style.gridRow = p[0] + 1; b.style.gridColumn = p[1] + 1; b.setAttribute("aria-pressed", sel === s);
       var lab = s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); b.setAttribute("aria-label", lab);
@@ -165,9 +173,10 @@
       el.appendChild(b);
     });
     var d = DOM[MODE];
-    $("legend").innerHTML = "<span>" + d[0] + (MODE === "gap" ? " pts" : "%") + '</span><span class="ramp" aria-hidden="true">' + STEPS.map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + (MODE === "gap" ? "+ pts" : "%") + "</span><span>· " + NOTE[MODE] + "</span><span>· red corner = flagged</span><span>· hatched = not reported</span>";
-    document.querySelectorAll(".seg button").forEach(function (b) { b.onclick = function () { MODE = b.dataset.m; renderMap(sel); }; });
-    function dim() { var q = QUERY.toLowerCase(); el.querySelectorAll(".tile").forEach(function (t) { t.classList.toggle("dim", !!q && t.dataset.s.toLowerCase().indexOf(q) < 0); }); }
+    $("legend").innerHTML = "<span>" + d[0] + (MODE === "gap" ? " pts" : "%") + '</span><span class="ramp" aria-hidden="true">' + STEPS.map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + (MODE === "gap" ? "+ pts" : "%") + "</span><span>· " + NOTE[MODE] + "</span><span>· " + (geo ? "red dot" : "red corner") + " = flagged</span><span>· hatched = not reported</span>" + (geo ? '<span>· outlines simplified, not an authoritative boundary</span>' : "");
+    document.querySelectorAll(".seg button[data-m]").forEach(function (b) { b.onclick = function () { MODE = b.dataset.m; renderMap(sel); }; });
+    document.querySelectorAll(".seg button[data-v]").forEach(function (b) { b.onclick = function () { VIEW = b.dataset.v; try { localStorage.setItem("ks-mapview", VIEW); } catch (e) {} renderMap(sel); }; });
+    function dim() { var q = QUERY.toLowerCase(); el.querySelectorAll(".tile,.geo-s").forEach(function (t) { t.classList.toggle("dim", !!q && t.dataset.s.toLowerCase().indexOf(q) < 0); }); }
     $("find").oninput = function () {
       QUERY = this.value.trim(); dim();
       var exact = states.filter(function (s) { return s.toLowerCase() === QUERY.toLowerCase(); })[0];

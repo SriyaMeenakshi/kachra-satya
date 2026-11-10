@@ -18,6 +18,7 @@ These are different years, and CPCB says "treated" where MoHUA says "processed";
 ## What it does
 - **Dataset:** 676 sourced rows for 36 states and UTs (tonnes per day, 2019-20 to 2025-26). Every row carries its source document, page and retrieval date. Missing values stay blank and say "not reported".
 - **Checks:** six rules flag figures that cannot all be true (72 flags). Examples: Kerala reports more waste treated than collected in four years; MoHUA and CPCB differ by more than 10% for 53 state-and-metric pairs.
+- **Map:** a geographic map of India's 36 states and UTs coloured by either source or the gap, with a tile-map switch (`docs/map.md`; the boundary has not been verified against the official map).
 - **Claim Checker:** test a sentence such as "81% of India's urban waste is processed" against every source. Result: the sources disagree, with who agrees and who does not.
 - **Receipts:** open the source page for a figure with the number boxed (605 of 706 figures located; the rest show the page or say there is no page image).
 - **Audit first:** a transparent ranking of states where an audit would learn most, plus how much each state's own reported generation swings between reports (Nagaland: 664 tpd in one CPCB report, 29 tpd in a MoHUA answer).
