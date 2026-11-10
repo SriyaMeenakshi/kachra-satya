@@ -45,6 +45,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `CITATION.cff`, `.zenodo.json`, `scripts/build_release.py`, `docs/data_dictionary.md`, `docs/permission_requests.md` | Public data release package (Zenodo-ready zip with no documents or page images, built into git-ignored `dist/`), its metadata, the generated data dictionary, and four unsent permission-request drafts |
 | `web/mock/index.html`, `docs/ui_direction.md` | Design mock for the app (editorial-audit direction, tile-grid map, dark and light, phone width) built on the real data, and the reasoning and hand-off rules |
 | `docs/central_idea.md`, `docs/team_split_v3.md` | The central idea (a receipt for every waste promise) and the three-person split of the 11 new ideas plus remaining work, in MUST, SHOULD and ROADMAP tiers |
+| `web/app/saathi.js`, `web/app/saathi.css`, `docs/saathi.md` | The Start page (the loop) and Get help (complaint writer, log, escalation letter, which bin, bulk generator). Official facts from the PIB release of 28 Jan 2026 (https://www.pib.gov.in/PressReleasePage.aspx?PRID=2219676&reg=3&lang=1, read 2026-11-10) |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

@@ -81,3 +81,6 @@ By-hand publishing steps stay with you: choose the data licence, fill author nam
 - Wording: "the sources disagree" and "figures that cannot both be true", never "wrong" or "fraud". The app drafts complaints and letters; it never sends them.
 - Resident reports are labelled unverified.
 - Commit with your own git identity, and agree before pushing to the shared repo.
+
+## Progress (2026-11-10)
+Yasaswini MUST items done and pushed for review: central loop home page (`#/start`), Saathi complaint writer, dated log, escalation letter and four-stream guide (`#/help/...`; see `docs/saathi.md`). The four-stream rule was checked against the official PIB release of 28 Jan 2026. Still to do for those items: native-speaker check of the Hindi, Tamil and Telugu stream names, and a read of the Gazette notification itself.
