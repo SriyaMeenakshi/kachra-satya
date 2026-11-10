@@ -1,5 +1,7 @@
 # Team split v2: three equal pods (proposal for 10 to 15 Nov 2026)
 
+> Superseded by `docs/team_split_v3.md` (central idea, 11 new ideas, tiers and a cut line). Kept for history.
+
 Hours are rough estimates, not measurements. Each pod owns its features end to end (data, logic and screen), which cuts hand-offs. Totals: 30, 30, 32.
 Where a feature's data and logic already exist in the repo, the hours are mostly the screen and the wiring. See `docs/new_features.md` and `docs/track_coverage.md`.
 

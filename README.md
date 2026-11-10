@@ -2,6 +2,8 @@
 
 *Kachra satya* means "the truth about garbage". We audit India's municipal solid waste figures: the Housing Ministry and the pollution control board publish different numbers, and nothing checks them against each other. This project puts them side by side, shows the source page behind every figure, and flags the ones that cannot all be true.
 
+**The idea: a receipt for every waste promise.** Anyone can see what was promised, what was delivered, and what to do next: Promise, Proof, Reality, Action. See `docs/central_idea.md`.
+
 Built for the Code for a Billion hackathon, Waste Management track (submissions close 15 Nov 2026).
 
 ## The problem in two numbers
@@ -83,7 +85,7 @@ Details: `docs/methodology.md`.
 | `docs/` | Methodology, licences, track coverage, UI direction, team split, ideas |
 | `tests/` | Automated tests |
 
-## Team (roles as proposed in `docs/team_split_v2.md`)
+## Team (roles as proposed in `docs/team_split_v3.md`)
 - Yasaswini-ch: trust layer (claim checker, receipts, audit list, definitions), dataset publishing
 - Sriya Meenakshi Chalamalasetty: data extraction and sourcing; money, gaps and track coverage
 - Likhitha: platform, deployment, Q&A agent setup, demo and submission
