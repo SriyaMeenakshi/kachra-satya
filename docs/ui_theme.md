@@ -10,6 +10,27 @@ What I saw, in general terms:
 - **The DEV article's advice:** study patterns, layouts and flows that solve a problem, not trends for their own sake.
 Nothing here is copied from any of these sites; I took only the general direction: big type, a monochrome base, one hot accent, a moving text strip, and a strong single object on the page.
 
+### The rest of the list (second pass, same day)
+I then opened the others in the browser pane. What each gave me, and what it did not:
+- **Dribbble:** rendered blank in my pane, so I saw nothing and say nothing about it.
+- **Godly:** it now redirects to recent.design: a card grid of experimental poster, branding and interface work, with ASCII and halftone texture, pill filters and a "Recent" sort.
+- **Land-book:** soft grey tiles with a large radius, a green accent, a cookie dialog (I did not accept it; the page loaded anyway).
+- **SiteInspire:** very quiet chrome, a small red dot as the only brand colour, pill tabs (Popular Categories, Styles, Types), thumbnails with title, date and credit on one line.
+- **Refero and Mobbin:** a serif display headline on a warm off-white page (Mobbin's styles did not fully load for me, so I only read its copy: "Where teams and agents find designs that work").
+- **Lapa Ninja:** a screenshot-first grid with title and small grey category tags under each card.
+- **One Page Love:** a warm beige page, headline words underlined in red by hand, mono captions, red pill buttons.
+- **Not opened:** SaaSpo and Landingfolio.
+Across all of them: warm off-white grounds, one red or orange accent, pill chips and tabs, mono captions, and a strong single headline. That agrees with the receipt direction, so the second pass changed one thing (warm paper instead of cool grey) and applied the theme to every page.
+
+## The theme across the whole app (`web/app/theme.css`)
+A small layer loaded last, so it only adjusts tokens and shared components:
+- Light mode gets a warm paper page and cards; dark mode keeps the app's own dark tokens.
+- Page titles are tighter and heavier with a dashed "tear line" under the first line of text.
+- Cards get a thin ink border and no shadow; primary and secondary buttons are pills; tabs and notices get printed-ticket borders (dashed for notices).
+- Claim verdicts read like a rubber stamp (uppercase, outlined, slightly rotated; no rotation under reduced motion or print).
+- The brand gets a tiny torn-receipt mark. Footer gets a dashed rule.
+It changes no behaviour. Checked in the browser on the claim, help, map and state card pages in dark and light.
+
 ## The central theme: a receipt
 Our idea is "a receipt for every waste promise" (`docs/central_idea.md`), so the opening makes the idea literal. The hero is a thermal-paper receipt that prints two lines and stamps the result:
 - Line 1, "Promised": Housing Ministry, 81 kg of every 100 processed (2025-26).

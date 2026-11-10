@@ -19,3 +19,11 @@ def test_opening_js_is_honest():
     assert 'aria-hidden="true"><div class="tr">' in js            # the ticker is decorative
     assert re.search(r"KS\.national", js) and "KS.waste" in js     # numbers come from the data
     assert "Math.round(mp.value)" in js
+
+
+def test_theme_layer_is_safe():
+    css = open("web/app/theme.css", encoding="utf-8").read()
+    assert "prefers-reduced-motion" in css and "@media print" in css       # the stamp tilt is removed for reduced motion and print
+    assert "@keyframes" not in css and "100vw" not in css                   # no animation or overflow tricks
+    html = open("web/app/index.html", encoding="utf-8").read()
+    assert html.index("theme.css") > html.index("app.css")                  # loaded after app.css so it can adjust it
