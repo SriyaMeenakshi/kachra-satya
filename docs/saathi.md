@@ -20,5 +20,5 @@ Files: `web/app/saathi.js`, `web/app/saathi.css`, wired into `web/app/app.js` (r
 - The four-stream and bulk-generator facts come from the PIB release, not the Gazette notification. Penalty amounts and the full bulk generator duties are not stated because we have not seen them in a primary source.
 - Hindi, Tamil and Telugu stream names are provisional machine-assisted translations and need a native speaker's check before wide use. The rest of the page is English only for now.
 - We have not verified the app's category names or how long it says resolution takes; the page says so. The ministry's resolution percentages count tickets closed by the civic body, not residents satisfied.
-- "Reality" on the Start page says plainly that daily "did the truck come" reporting is not built and no reports exist.
+- "Reality" on the Start page links to Your ward (`docs/ward_reports.md`). Those taps are stored on the resident's own device, so no one else's reports are shown, and they are unverified.
 - The medicines example comes from the PIB list (special care waste). Items the notice does not list return "not in the list we have".

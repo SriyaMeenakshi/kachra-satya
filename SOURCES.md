@@ -77,3 +77,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 - **MoHUA state data from December 2023 is not included.** It was in an earlier working file that is not available. If someone downloads that Rajya Sabha answer, add it here.
 - **Not obtained:** Dataful files, SBM-U Garbage Free Cities data.
 - Several 2023-24 states report identical generated, collected and treated values (Andhra Pradesh, Puducherry, Tripura, Lakshadweep). They are marked in the note. Manipur 2023-24 treated (230.4) exceeds collected (197.27); the source footnote says legacy waste is included.
+
+## Code we did not write
+
+- `web/app/vendor/qrcode.js`: qrcode-generator 2.0.4 (MIT), retrieved 2026-11-10 from npm; see `web/app/vendor/NOTICE.md`. Used only to draw QR codes on the ward page.

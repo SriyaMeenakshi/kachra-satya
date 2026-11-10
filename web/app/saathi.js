@@ -59,7 +59,7 @@
       '<div class="loop">' +
       step(1, "Promise", "What did they say? Check any number someone quoted against every source we hold.", "#/claim", "Check a claim") +
       step(2, "Proof", "Every figure opens the page it came from. Where sources disagree, we say so.", "#/explore/receipts", "Open a receipt") +
-      step(3, "Reality", "Is it true on your street? Audit your own ward or city data. Daily \"did the truck come\" reporting is not built yet, so no reports exist.", "#/city", "Audit your city") +
+      step(3, "Reality", "Is it true on your street? Tap whether the truck came and keep a calendar. It lives on your own device, so other people's reports are not shown, and nothing here is verified. You can also audit a city's data.", "#/ward", "Your ward") +
       step(4, "Action", "Get garbage moving: write the complaint, keep a log, send an escalation letter, learn which bin.", "#/help", "Get help") + "</div>" +
       '<h2 style="margin-top:8px">Start with what you need</h2><div class="quick">' +
       '<a href="#/help/complain">My garbage is not being collected<span>Write a clear complaint and keep track of it</span></a>' +

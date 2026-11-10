@@ -1,0 +1,18 @@
+/* Your ward: uptime calendar, green ward badge, QR card. Uses the tokens in app.css. */
+.plain{margin:0 0 10px;padding-left:20px}.plain li{margin:6px 0}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;max-width:520px}
+.cal .dn{font-size:.72rem;color:var(--ink2);text-align:center;font-weight:600}
+.cd{border-radius:10px;aspect-ratio:1/.9;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid var(--hair);background:var(--page);line-height:1.1}
+.cd small{font-size:.68rem;color:var(--ink2)}.cd b{font-size:1.05rem}
+.cd.ok{background:var(--good-soft);border-color:var(--good);color:var(--good)}.cd.bad{background:var(--crit-soft);border-color:var(--crit);color:var(--crit)}.cd.no{color:var(--ink2)}
+.cd.pad0{border:0;background:none}
+.badgebox{display:flex;gap:16px;align-items:flex-start}.badgebox .bt{font-weight:800;font-size:1.15rem;margin-bottom:2px}
+.bdg{flex:none;width:64px;height:72px}
+.badgebox.green{--badge-fill:var(--good-soft);--badge-line:var(--good)}.badgebox.not_yet{--badge-fill:var(--warn-soft);--badge-line:var(--warn)}.badgebox.not_enough{--badge-fill:var(--hair);--badge-line:var(--ink2)}
+.qrbox{max-width:300px;margin:12px 0;background:#fff;color:#000;border:1px solid var(--hair);border-radius:12px;padding:10px}.qrbox svg{display:block;width:100%;height:auto}
+.qrcap{text-align:center;font-size:.95rem;padding-top:6px}.qrcap span{font-size:.78rem}
+@media print{body.print-qr header,body.print-qr footer,body.print-qr nav,body.print-qr .skip{display:none!important}
+  body.print-qr #view>*:not(#qrcard){display:none!important}
+  body.print-qr #qrcard h3{display:none}
+  body.print-qr #qrcard .card{border:0;box-shadow:none}body.print-qr #qrcard .card>*:not(.qrbox){display:none!important}
+  body.print-qr .qrbox{max-width:none;width:14cm;border:0;margin:0 auto}}
