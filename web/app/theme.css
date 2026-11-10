@@ -1,0 +1,30 @@
+/* "The receipt" theme for the whole app. Loaded last, so it only adjusts tokens and a few shared components from app.css; nothing here changes behaviour.
+   Light mode gets a warm paper page; dark mode keeps the app's own dark tokens. See docs/ui_theme.md. */
+:root:not([data-theme="dark"]){--page:#f4f0e6;--card:#fffdf8;--hair:#e2dccd;--soft:#f0ebde;--none:#ebe5d6}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])){--page:#0e0e0d}}
+
+/* page titles: tight, heavy, with a dashed "tear line" under them */
+#view>h2:first-child,#view>h1:first-child{letter-spacing:-.035em;font-weight:800}
+#view>h2:first-child{font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.05;margin-bottom:6px}
+#view>h2:first-child+.sub{padding-bottom:12px;border-bottom:2px dashed var(--hair);margin-bottom:16px}
+
+/* shared components: printed-ticket feel */
+.card{border:1.5px solid color-mix(in srgb,var(--ink) 80%,transparent);border-radius:12px;box-shadow:none}
+.go,.alt{border-radius:999px}
+.go{font-weight:700}
+.alt{border:2px solid var(--ink);background:transparent;color:var(--ink)}
+.chip{border-radius:999px}
+.tabs a{border:2px solid var(--hair)}
+.tabs a[aria-current="page"]{border-color:var(--ink)}
+.notice{border:2px dashed color-mix(in srgb,var(--warn) 70%,transparent);background:var(--warn-soft)}
+footer{border-top:2px dashed var(--hair);margin-top:32px}
+
+/* verdicts read like a rubber stamp */
+.verdict .b{display:inline-block;border:3px solid currentColor;border-radius:6px;padding:2px 10px;text-transform:uppercase;letter-spacing:.06em;transform:rotate(-1.5deg);margin-bottom:6px}
+
+/* brand: a small receipt mark */
+.brand{letter-spacing:-.02em;font-weight:800}
+.brand::before{content:"";display:inline-block;width:12px;height:16px;margin-right:7px;vertical-align:-2px;background:var(--ink);clip-path:polygon(0 0,100% 0,100% 100%,83% 90%,66% 100%,50% 90%,33% 100%,17% 90%,0 100%)}
+
+@media (prefers-reduced-motion:reduce){.verdict .b{transform:none}}
+@media print{.verdict .b{transform:none}}

@@ -52,6 +52,7 @@
   /* ---------- Start: the loop ---------- */
   function natVal(y, src, m) { var r = KS.national.filter(function (x) { return x.year === y && x.source_name === src && x.metric === m && x.state === "India"; })[0]; return r ? r.value : null; }
   function renderStart() {
+    if (root.KSOpening) return root.KSOpening.render();      /* the receipt-themed opening (opening.js); the plain version below is the fallback */
     var cg = natVal("2023-24", "CPCB", "generated"), ct = natVal("2023-24", "CPCB", "treated"), cp = cg && ct ? Math.round(ct / cg * 100) : null;
     var st = KS.statements[KS.statements.length - 1], mp = st && st.processed_pct_stated != null ? Math.round(st.processed_pct_stated) : null;
     view().innerHTML = '<div class="start-hero"><h1>A receipt for every waste promise</h1><p class="sub">See what was promised, what was delivered, and what to do about it.</p></div>' +

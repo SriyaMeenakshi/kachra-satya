@@ -1,0 +1,83 @@
+/* The opening page ("the receipt" theme). Scoped to .op; uses the tokens in app.css for everything outside the receipt itself.
+   The receipt stays paper-coloured in dark mode so its ink always has contrast. Motion is off under prefers-reduced-motion. */
+.op{--paper:#f3efe6;--rink:#141413;--rmute:#5d5a52;--stamp:#c8321f;--hl:#e4572e;padding-bottom:20px}
+.op *{box-sizing:border-box}
+.op-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.85fr);gap:36px;align-items:center;padding:34px 0 26px}
+@media (max-width:900px){.op-hero{grid-template-columns:1fr;gap:26px}}
+.op-kicker{font:700 .78rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin:0 0 14px}
+.op-h1{font-size:clamp(2.5rem,7.2vw,5.3rem);line-height:.96;letter-spacing:-.045em;font-weight:800;margin:0 0 18px;max-width:13ch}
+.op-h1 .mark{background:linear-gradient(transparent 64%,color-mix(in srgb,var(--hl) 55%,transparent) 64%);padding:0 .06em}
+.op-lede{font-size:1.15rem;color:var(--ink2);max-width:46ch;margin:0 0 22px}
+.op-cta{display:flex;flex-wrap:wrap;gap:10px}
+.op-btn{display:inline-block;padding:13px 20px;border-radius:999px;background:var(--ink);color:var(--page);font-weight:700;text-decoration:none;border:2px solid var(--ink)}
+.op-btn.ghost{background:transparent;color:var(--ink)}
+.op-btn:hover{transform:translateY(-1px)}
+
+/* the receipt */
+.receipt{position:relative;background:var(--paper);color:var(--rink);font:.9rem/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:20px 20px 26px;max-width:430px;width:100%;margin:0 auto;box-shadow:0 18px 40px rgba(0,0,0,.18);transform:rotate(1.2deg)}
+.receipt::before,.receipt::after{content:"";position:absolute;left:0;right:0;height:10px;background:linear-gradient(135deg,var(--paper) 25%,transparent 25%) -10px 0,linear-gradient(225deg,var(--paper) 25%,transparent 25%) -10px 0;background-size:20px 20px}
+.receipt::before{top:-9px;transform:rotate(180deg)}.receipt::after{bottom:-9px}
+.receipt .rh{text-align:center;border-bottom:2px dashed var(--rink);padding-bottom:10px;margin-bottom:12px}
+.receipt .rh b{display:block;font-size:1.02rem;letter-spacing:.1em}.receipt .rh span{color:var(--rmute);font-size:.78rem}
+.receipt .ln{margin:12px 0;transition:opacity .5s ease,transform .5s ease}
+.receipt .ln.pre{opacity:0;transform:translateY(6px)}      /* hidden only while JS is about to print it; content is visible by default */
+.receipt .rtag{display:block;font-size:.72rem;letter-spacing:.1em;color:var(--rmute);text-transform:uppercase}
+.receipt .who{font-weight:700}
+.receipt .big{font-size:2.5rem;font-weight:800;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}
+.receipt .big small{font-size:.95rem;font-weight:600;letter-spacing:0}
+.receipt .src{color:var(--rmute);font-size:.78rem}
+.receipt .src button{background:none;border:0;border-bottom:1px solid currentColor;color:var(--rink);font:inherit;cursor:pointer;padding:0}
+.receipt hr{border:0;border-top:2px dashed var(--rink);margin:14px 0}
+.receipt .diff{display:flex;justify-content:space-between;gap:10px;font-weight:700}
+.receipt .note{color:var(--rmute);font-size:.78rem;margin:8px 0 0}
+.receipt .bars{height:34px;margin-top:14px;background:repeating-linear-gradient(90deg,var(--rink) 0 2px,transparent 2px 4px,var(--rink) 4px 5px,transparent 5px 9px,var(--rink) 9px 12px,transparent 12px 14px);opacity:.85}
+.stamp{position:absolute;right:8px;bottom:46px;transform:rotate(-10deg);border:3px solid var(--stamp);color:var(--stamp);padding:5px 10px;border-radius:6px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;font-size:.86rem;mix-blend-mode:multiply;background:transparent;opacity:.93;transition:opacity .4s ease,transform .45s cubic-bezier(.2,.9,.3,1.3)}
+.stamp.pre{opacity:0;transform:rotate(-10deg) scale(1.8)}
+
+/* ticker of real citations */
+.ticker{overflow:hidden;background:var(--ink);color:var(--page);margin:10px 0 0;padding:11px 0;border-radius:6px}
+.ticker .tr{display:flex;width:max-content;animation:tick 70s linear infinite}
+.ticker:hover .tr{animation-play-state:paused}
+.ticker span{font:600 .8rem/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;padding-right:34px}
+.ticker span::before{content:"\25A0";color:var(--hl);margin-right:12px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* numbers */
+.op-nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;margin:26px 0;border-block:2px solid var(--ink)}
+.op-nums div{padding:16px 14px;border-right:1px solid var(--hair)}.op-nums div:last-child{border-right:0}
+.op-nums b{display:block;font-size:2.3rem;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.op-nums span{color:var(--ink2);font-size:.88rem}
+
+/* the loop as stubs */
+.op-h2{font-size:clamp(1.7rem,4vw,2.6rem);letter-spacing:-.035em;line-height:1.02;margin:34px 0 6px}
+.op-sub{color:var(--ink2);max-width:60ch;margin:0 0 16px}
+.stubs{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.stub{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:6px;padding:16px 16px 14px;display:flex;flex-direction:column;gap:6px}
+.stub::after{content:"";position:absolute;left:-2px;right:-2px;bottom:46px;border-top:2px dashed var(--ink)}
+.stub .n{font:800 2.8rem/1 ui-monospace,Menlo,Consolas,monospace;letter-spacing:-.05em;color:var(--hl)}
+.stub h3{margin:0;font-size:1.3rem;letter-spacing:-.02em}
+.stub p{margin:0 0 28px;color:var(--ink2);font-size:.95rem}
+.stub a{margin-top:auto;font-weight:700;text-decoration:none;color:var(--ink)}
+.stub a:hover{text-decoration:underline}
+.stub .chip2{position:absolute;top:14px;right:12px;display:inline-block;font:600 .7rem/1 ui-monospace,Menlo,Consolas,monospace;border:1px solid var(--ink2);color:var(--ink2);border-radius:999px;padding:3px 8px;letter-spacing:.05em;text-transform:uppercase;}
+
+/* try it */
+.try{background:var(--card);border:2px solid var(--ink);border-radius:8px;padding:18px;margin-top:10px}
+.try .ask{display:flex;gap:8px;flex-wrap:wrap}.try .ask input{flex:1 1 260px;font-size:1.05rem}
+.try .ex{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.try .res{margin-top:12px}
+.vrd{display:inline-block;border:3px solid var(--stamp);color:var(--stamp);border-radius:6px;padding:3px 10px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;transform:rotate(-2deg)}
+.vrd.ok{border-color:var(--good);color:var(--good)}.vrd.mute{border-color:var(--ink2);color:var(--ink2)}
+.try .rec2{display:flex;gap:10px;justify-content:space-between;border-top:1px dashed var(--hair);padding:7px 0;font-size:.92rem}
+.try .rec2 .y{color:var(--good);font-weight:800}.try .rec2 .nn{color:var(--stamp);font-weight:800}
+
+.op-honest{border:2px dashed var(--ink2);border-radius:8px;padding:16px 18px;margin:26px 0;color:var(--ink2)}
+.op-honest strong{color:var(--ink)}
+.op .quick{margin-top:12px}
+
+@media (prefers-reduced-motion:reduce){
+  .receipt .ln,.stamp{transition:none}
+  .ticker .tr{animation:none;width:auto;flex-wrap:wrap;row-gap:10px;padding:0 16px}
+  .ticker{padding:10px 0}
+  .op-btn:hover{transform:none}
+}
