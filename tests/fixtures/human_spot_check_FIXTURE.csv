@@ -1,0 +1,4 @@
+state,year,metric,source_doc,page,stored_value,value_read_by_human,match,checker,date,seed
+Delhi,2023-24,treated,ls_au50_2025-12-01.pdf,3,7542,"7,542",yes,FIXTURE (not a real check),2026-01-01,20261110
+Maharashtra,2022-23,landfilled,cpcb_2022-23.pdf,7,3343.12,3343.12,yes,FIXTURE (not a real check),2026-01-01,20261110
+Maharashtra,2022-23,generated,cpcb_2022-23.pdf,7,23448.46,23448.5,no,FIXTURE (not a real check),2026-01-01,20261110

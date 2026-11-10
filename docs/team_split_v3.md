@@ -84,3 +84,5 @@ By-hand publishing steps stay with you: choose the data licence, fill author nam
 
 ## Progress (2026-11-10)
 Yasaswini MUST items done and pushed for review: central loop home page (`#/start`), Saathi complaint writer, dated log, escalation letter and four-stream guide (`#/help/...`; see `docs/saathi.md`). The four-stream rule was checked against the official PIB release of 28 Jan 2026. Still to do for those items: native-speaker check of the Hindi, Tamil and Telugu stream names, and a read of the Gazette notification itself.
+
+Yasaswini SHOULD and ROADMAP items built (2026-11-10): leverage briefing and plain-language state card (`#/brief`), school audit challenge (`#/school`), the two roadmap specs. The human spot-check is prepared (page and scorer) but needs a person to do it and to run the scorer; no human result exists yet. Details: `docs/leaders_schools_spotcheck.md`.

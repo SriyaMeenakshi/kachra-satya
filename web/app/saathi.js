@@ -65,6 +65,8 @@
       '<a href="#/help/complain">My garbage is not being collected<span>Write a clear complaint and keep track of it</span></a>' +
       '<a href="#/help/bins">Which bin does this go in?<span>The four streams under the 2026 rules</span></a>' +
       '<a href="#/claim">Someone quoted a number<span>See who agrees and who does not</span></a>' +
+      '<a href="#/brief/card">Explain my state in plain words<span>A shareable card and a briefing for an MP, MLA or councillor</span></a>' +
+      '<a href="#/school">Our school wants to weigh its waste<span>A week of weighing becomes a report card</span></a>' +
       '<a href="#/map">How is my state doing?<span>The map, with the source for every figure</span></a></div>' +
       '<p class="note">We draft complaints and letters; we never send anything, and your log stays in your browser. This site checks consistency between reports, not what is on your street.</p>';
   }
@@ -77,6 +79,7 @@
     view().innerHTML = '<h2>Get help</h2><p class="sub">Practical steps when waste is not being handled. We draft the text; you send it.</p><nav class="tabs" aria-label="Help sections">' +
       TABS.map(function (t) { return '<a href="#/help/' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + '</nav><div id="htab"></div>';
     ({ complain: tabComplain, log: tabLog, escalate: tabEscalate, bins: tabBins, bulk: tabBulk })[tab]($("htab"), (args || []).slice(1));
+    view().insertAdjacentHTML("beforeend", '<div class="card pad noprint" style="margin-top:18px"><h3 style="margin-top:0">More tools</h3><div class="quick" style="margin:0"><a href="#/brief/card">State card<span>The two official numbers for a state in plain words, to share</span></a><a href="#/brief/briefing">Briefing for an MP, MLA or councillor<span>One page with sourced questions to put</span></a><a href="#/school">School waste challenge<span>Weigh a week of waste and get a report card</span></a></div></div>');
   }
 
   function tabComplain(el) {

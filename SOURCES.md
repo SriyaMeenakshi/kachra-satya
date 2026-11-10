@@ -46,6 +46,7 @@ The two CPCB files arrive wrapped in a small HTML shell from cpcb.gov.in. Open t
 | `web/mock/index.html`, `docs/ui_direction.md` | Design mock for the app (editorial-audit direction, tile-grid map, dark and light, phone width) built on the real data, and the reasoning and hand-off rules |
 | `docs/central_idea.md`, `docs/team_split_v3.md` | The central idea (a receipt for every waste promise) and the three-person split of the 11 new ideas plus remaining work, in MUST, SHOULD and ROADMAP tiers |
 | `web/app/saathi.js`, `web/app/saathi.css`, `docs/saathi.md` | The Start page (the loop) and Get help (complaint writer, log, escalation letter, which bin, bulk generator). Official facts from the PIB release of 28 Jan 2026 (https://www.pib.gov.in/PressReleasePage.aspx?PRID=2219676&reg=3&lang=1, read 2026-11-10) |
+| `web/app/leaders.js`, `web/app/school.js`, `web/trust/spotcheck.html`, `scripts/score_human_spot_check.py`, `docs/leaders_schools_spotcheck.md`, `docs/roadmap/` | State card and briefing, school waste challenge, the human spot-check page and its scorer, and two roadmap specs (compost calculator, dumpsite watch). Per-person average 155.87 g/day is from `cpcb_2022-23.pdf` page 8; CPCB Table 8 dumpsite totals are from `cpcb_2021-22.pdf` pages 75-76 and `cpcb_2022-23.pdf` pages 85-86 |
 | `scripts/build_clean_csv.py` | Rebuilds the three generated files from `data/raw/` |
 
 ## Conventions

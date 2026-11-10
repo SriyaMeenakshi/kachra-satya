@@ -25,3 +25,12 @@
 .logtbl td select{width:auto}
 .logtbl .age{font-variant-numeric:tabular-nums}
 .mini{font-size:.85rem;color:var(--ink2)}
+
+/* State card, briefing and school pages */
+.scard .plain{margin:0 0 6px;font-size:1.05rem}
+.scard .duo{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:8px 0}
+.scard .big{font-size:2.8rem;font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.scard .big small{font-size:1rem;font-weight:600;color:var(--ink2)}.scard .big.b{color:var(--accent)}
+@media (max-width:520px){.scard .duo{grid-template-columns:1fr}}
+.flagrow{display:flex;gap:8px;align-items:flex-start;margin:6px 0;font-size:.92rem}
+@media print{.bar,footer,.noprint,.tabs,.skip,.rowbtn,.tip{display:none!important}body{background:#fff;color:#000}.card{box-shadow:none;border-color:#999}.out{border:0;min-height:0!important;overflow:visible;resize:none}}
