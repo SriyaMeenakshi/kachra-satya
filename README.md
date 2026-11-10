@@ -27,7 +27,9 @@ Needs Python 3.12 (pandas, pdfplumber, python-docx) and optionally Node for one 
 ```bash
 python -m http.server 8777
 ```
-Then open http://127.0.0.1:8777/web/trust/index.html (working pages) or http://127.0.0.1:8777/web/mock/index.html (design mock with the map).
+Then open http://127.0.0.1:8777/web/app/index.html (the integrated app: map, claim checker, receipts, audit and city audit; the Ask tab works once the Q&A agent endpoint is set), http://127.0.0.1:8777/web/trust/index.html (trust pages alone) or http://127.0.0.1:8777/web/mock/index.html (design mock).
+
+Build a static site for deployment with `python scripts/build_site.py` (writes `dist/`; no source documents or CSVs included). Set the Q&A agent endpoint in `web/app/config.js` once it is live.
 
 Rebuild everything from the source documents in `data/raw/`:
 ```bash
@@ -72,7 +74,7 @@ Details: `docs/methodology.md`.
 |---|---|
 | `data/` | The CSVs (see `docs/data_dictionary.md`); `data/raw/` holds the source documents |
 | `scripts/` | Extraction, validation, analysis and release scripts |
-| `web/trust/`, `web/mock/` | Working trust pages and the design mock |
+| `web/app/`, `web/trust/`, `web/mock/` | Integrated app, trust pages and the design mock |
 | `receipts/` | Page images and the index that places each figure on its page |
 | `briefs/` | One-page Action Briefs for each state |
 | `docs/` | Methodology, licences, track coverage, UI direction, team split, ideas |
@@ -81,7 +83,7 @@ Details: `docs/methodology.md`.
 ## Team (roles as proposed in `docs/team_split_v2.md`)
 - Yasaswini-ch: trust layer (claim checker, receipts, audit list, definitions), dataset publishing
 - Sriya Meenakshi Chalamalasetty: data extraction and sourcing; money, gaps and track coverage
-- Likitha: platform, deployment, Q&A agent setup, demo and submission
+- Likhitha: platform, deployment, Q&A agent setup, demo and submission
 
 ## Status (2026-11-10)
 Data, checks, working trust pages and design mock are in the repo. Not yet done: the integrated deployed web app, the Q&A agent live on AgentFoundry (setup in `docs/agentfoundry_setup.md`), the demo video, and the public URL.

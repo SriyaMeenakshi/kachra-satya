@@ -39,3 +39,24 @@ def test_js_matches_python():
         assert j["verdict"] == p["verdict"], case
         assert j["n"] == len(p["records"]), case
         assert j["matches"] == sum(r["matches"] for r in p["records"]), case
+
+
+CITY_NODE = r"""
+const fs = require('fs');
+const {parseCSV, audit} = require(process.cwd() + '/web/app/city.js');
+const r = audit(parseCSV(fs.readFileSync(process.argv[1], 'utf8')));
+console.log(JSON.stringify({flags: r.flags.map(f => [f.ulb, f.ward, f.period, f.rule, f.values]), rank: r.ranking.map(x => [x.ward, x.uncollected_tpd_avg, x.uncollected_tpd_max])}));
+"""
+
+
+@pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")
+def test_city_js_matches_python():
+    import pandas as pd
+    from audit_city import audit
+    path = "tests/fixtures/city_FICTIONAL_example.csv"
+    out = subprocess.run(["node", "-e", CITY_NODE, path], capture_output=True, text=True, check=True).stdout
+    js = json.loads(out.strip().splitlines()[-1])
+    flags, rank = audit(pd.read_csv(path))
+    py_flags = sorted([str(r.ulb), "" if pd.isna(r.ward) else str(r.ward), str(r.period), r.rule, r.values] for r in flags.itertuples())
+    assert sorted(js["flags"]) == py_flags
+    assert {w[0]: (w[1], w[2]) for w in js["rank"]} == {r.ward: (r.uncollected_tpd_avg, r.uncollected_tpd_max) for r in rank.itertuples()}
