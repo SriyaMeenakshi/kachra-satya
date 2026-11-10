@@ -23,6 +23,12 @@ ks = {
     "recurrence": tbl("data/recurrence.csv"),
     "crosswalk": tbl("data/definition_crosswalk.csv"),
     "statements": tbl("data/mohua_statements.csv"),
+    "phantom": tbl("data/phantom_tonnes.csv"),
+    "money": tbl("data/money_vs_mess.csv"),
+    "indicators": tbl("data/state_indicators.csv"),
+    "trucks": tbl("data/truck_priority.csv"),
+    "segregation": tbl("data/national_segregation.csv"),
+    "completeness": tbl("data/completeness.csv"),
     "receipts": json.load(open("receipts/index.json", encoding="utf-8")),
 }
 open("web/trust/data.js", "w", encoding="utf-8").write("window.KS = " + json.dumps(ks, ensure_ascii=False, separators=(",", ":")) + ";\n")

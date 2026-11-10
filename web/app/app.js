@@ -19,6 +19,7 @@
     var next = dark ? "light" : "dark"; root.setAttribute("data-theme", next);
     try { localStorage.setItem("ks-theme", next); } catch (e) {}
     if (route().name === "map") renderMap(route().args[0]);
+    else if (route().name === "gaps" && route().args[0] === "money") renderGaps("money");   /* the scatter reads theme colours */
   };
 
   /* ---------- receipts: every number links to its source page ---------- */
@@ -37,7 +38,7 @@
   function wireR(el) { el.querySelectorAll("[data-rkey]").forEach(function (b) { b.onclick = function () { openReceipt(b.dataset.rkey); }; }); }
 
   /* ---------- routing ---------- */
-  var TITLES = { map: "Map", claim: "Check a claim", city: "Your city", ask: "Ask", explore: "Explore" };
+  var TITLES = { map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
   function route() {
     var h = decodeURIComponent((location.hash || "#/map").replace(/^#\/?/, "")).split("/"), n = h[0], a = h.slice(1);
     if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
@@ -46,7 +47,7 @@
   function go() {
     var r = route(); document.title = TITLES[r.name] + " | Kachra Satya";
     document.querySelectorAll("#nav a").forEach(function (a) { if (a.dataset.r === r.name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-    ({ map: renderMap, claim: renderClaim, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
+    ({ map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
     wireR(view);
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
@@ -247,6 +248,145 @@
       { label: "%", k: "processed_pct_stated", num: true, html: function (r) { return fmt(r.processed_pct_stated); } }, { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_doc) + ", p." + esc(r.source_page) + '<br><span class="note">' + esc(r.note) + "</span>"; } }], KS.statements, { search: false });
   }
 
+  /* ---------- Gaps: phantom tonnes, money vs mess, collection and trucks, segregation, completeness ---------- */
+  var GTABS = [["phantom", "Phantom tonnes"], ["money", "Money vs mess"], ["trucks", "Collection and trucks"], ["segregation", "Segregation"], ["complete", "Completeness"]];
+  function renderGaps(tab) {
+    if (!GTABS.some(function (t) { return t[0] === tab; })) tab = "phantom";
+    view.innerHTML = '<h2>Gaps</h2><p class="sub">Where reported figures cannot all be true, where money and results do not line up, and what states leave unreported. These are prompts for questions, not findings that any state is at fault.</p><nav class="tabs" aria-label="Gaps sections">' +
+      GTABS.map(function (t) { return '<a href="#/gaps/' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + '</nav><div id="gtab"></div>';
+    ({ phantom: gPhantom, money: gMoney, trucks: gTrucks, segregation: gSeg, complete: gComplete })[tab]($("gtab"));
+  }
+  function stateLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/map/' + encodeURIComponent(s) + '">' + esc(s) + "</a>" : esc(s); }
+  function pagesLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/explore/receipts/' + encodeURIComponent(s) + '">source pages</a>' : '<span class="note">see Why</span>'; }
+
+  /* Phantom tonnes: separate counters, never summed */
+  var PH = {
+    D: ["The two national totals", "Two official national figures for the waste that is treated or processed."],
+    E: ["The same gap, state by state", "Positive means MoHUA 2025-26 reports more processed than CPCB 2023-24 reports treated. Different years, and the words may not mean the same thing."],
+    A: ["Treated is more than collected", "The tonnes column is the excess. Where a report gives a reason, it is quoted in the last column."],
+    B: ["Collected is more than generated", "The tonnes column is the excess."],
+    C: ["Treated plus landfilled is more than generated", "The tonnes column is the excess. Where the report footnotes a reason, it is quoted."]
+  };
+  function gPhantom(el) {
+    var by = {}; KS.phantom.forEach(function (r) { var k = r.counter.charAt(0); (by[k] = by[k] || []).push(r); });
+    var head = (by.D || []).filter(function (r) { return r.year === "MoHUA 2025-26 vs CPCB 2023-24"; })[0];
+    el.innerHTML = '<p class="sub">Reported figures that cannot all be true, in separate counters. <strong>Do not add the counters together:</strong> each measures something different, and every row names its years. The data cannot say which figure is wrong.</p>' +
+      (head ? '<div class="kpis"><div class="kpi"><div class="v">' + n0(head.tpd) + '</div><div class="l">tonnes per day apart: ' + esc(head.values) + "<br>" + esc(head.year) + "</div></div></div>" : "") +
+      ["D", "E", "A", "B", "C"].filter(function (k) { return by[k]; }).map(function (k) {
+        return '<h3>' + PH[k][0] + ' <span class="note">(' + by[k].length + ")</span></h3><p class=\"note\">" + PH[k][1] + '</p><div class="card pad" id="ph' + k + '"></div>';
+      }).join("");
+    ["D", "E", "A", "B", "C"].forEach(function (k) {
+      if (!by[k]) return;
+      var cols = [
+        { label: "Place", k: "scope", html: function (r) { return stateLink(r.scope); } },
+        { label: k === "D" || k === "E" ? "Compared" : "Year", k: "year" },
+        { label: k === "A" || k === "B" || k === "C" ? "Excess (tpd)" : "Difference (tpd)", k: "tpd", num: true, html: function (r) { return fmt(r.tpd); } },
+        { label: "Figures", k: "values" },
+        { label: "Why", k: "explanation", html: function (r) { return (k === "E" ? "" : '<span class="note">' + esc(r.explanation) + "</span> ") + pagesLink(r.scope); }, text: function (r) { return r.explanation; } }
+      ];
+      mountTable($("ph" + k), cols, by[k], k === "E" ? { sort: "Difference (tpd)", dir: -1, ph: "Search states", limit: 8 } : { search: false });
+    });
+  }
+
+  /* Money vs mess: SWM fund utilisation against percent treated */
+  var QCOL = { slow_money_low_treatment: "--crit", slow_money_high_treatment: "--warn", fast_money_low_treatment: "--s4", fast_money_high_treatment: "--good" };
+  var QLAB = { slow_money_low_treatment: "Slow spending, low treatment", slow_money_high_treatment: "Slow spending, high treatment", fast_money_low_treatment: "Fast spending, low treatment", fast_money_high_treatment: "Fast spending, high treatment" };
+  function median(a) { var s = a.slice().sort(function (x, y) { return x - y; }), m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+  function gMoney(el) {
+    var rows = KS.money.filter(function (r) { return r.swm_utilisation_pct != null && r.cpcb_pct_treated != null; });
+    var mu = median(rows.map(function (r) { return r.swm_utilisation_pct; })), mt = median(rows.map(function (r) { return r.cpcb_pct_treated; }));
+    var W = 640, H = 440, L = 54, R = 16, T = 16, B = 48, XM = 70;
+    function X(v) { return L + v / XM * (W - L - R); } function Y(v) { return H - B - v / 100 * (H - T - B); }
+    var svg = '<svg class="chart" viewBox="0 0 ' + W + " " + H + '" role="group" aria-label="Scatter plot: share of solid waste management funds used, against percent of waste treated, by state">';
+    for (var gx = 0; gx <= XM; gx += 10) svg += '<line x1="' + X(gx) + '" x2="' + X(gx) + '" y1="' + T + '" y2="' + (H - B) + '" style="stroke:var(--hair)"/><text x="' + X(gx) + '" y="' + (H - B + 16) + '" text-anchor="middle" style="fill:var(--ink2);font-size:11px">' + gx + "</text>";
+    for (var gy = 0; gy <= 100; gy += 20) svg += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(gy) + '" y2="' + Y(gy) + '" style="stroke:var(--hair)"/><text x="' + (L - 8) + '" y="' + (Y(gy) + 4) + '" text-anchor="end" style="fill:var(--ink2);font-size:11px">' + gy + "</text>";
+    svg += '<line x1="' + X(mu) + '" x2="' + X(mu) + '" y1="' + T + '" y2="' + (H - B) + '" stroke-dasharray="5 4" style="stroke:var(--ink2)"/><line x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(mt) + '" y2="' + Y(mt) + '" stroke-dasharray="5 4" style="stroke:var(--ink2)"/>' +
+      '<text x="' + (X(mu) + 4) + '" y="' + (H - B - 6) + '" style="fill:var(--ink2);font-size:10px">median ' + mu.toFixed(1) + "%</text><text x=\"" + (W - R - 4) + '" y="' + (Y(mt) - 5) + '" text-anchor="end" style="fill:var(--ink2);font-size:10px">median ' + mt.toFixed(1) + "%</text>" +
+      '<text x="' + (L + (W - L - R) / 2) + '" y="' + (H - 6) + '" text-anchor="middle" style="fill:var(--ink);font-size:12px;font-weight:600">Share of SWM funds used, to 25 Nov 2024 (%)</text><text transform="rotate(-90)" x="' + (-(T + (H - T - B) / 2)) + '" y="14" text-anchor="middle" style="fill:var(--ink);font-size:12px;font-weight:600">Waste treated, CPCB 2023-24 (%)</text>';
+    rows.forEach(function (r) {
+      var c = css(QCOL[r.quadrant]), tc = lum(c) > .36 ? "#0b0b0b" : "#fff", lab = r.state + ": " + r.swm_utilisation_pct + "% of funds used, " + r.cpcb_pct_treated + "% treated. " + QLAB[r.quadrant];
+      svg += '<g class="dot" role="button" tabindex="0" data-s="' + esc(r.state) + '" aria-label="' + esc(lab) + '"><title>' + esc(lab) + '</title><circle cx="' + X(r.swm_utilisation_pct) + '" cy="' + Y(r.cpcb_pct_treated) + '" r="9.5" fill="' + c + '" style="stroke:var(--card);stroke-width:2"/><text x="' + X(r.swm_utilisation_pct) + '" y="' + (Y(r.cpcb_pct_treated) + 3) + '" text-anchor="middle" style="fill:' + tc + ';font-size:7.5px;font-weight:700;pointer-events:none">' + (ABB[r.state] || "") + "</text></g>";
+    });
+    svg += "</svg>";
+    var cnt = {}; rows.forEach(function (r) { cnt[r.quadrant] = (cnt[r.quadrant] || 0) + 1; });
+    el.innerHTML = '<p class="sub">Does spending track results? Each dot is a state: how much of its solid waste management allocation (2021 to 2026) has been used, against how much of its waste CPCB reports treated. Tap a dot for the figures.</p>' +
+      '<div class="card pad"><div class="legend2">' + Object.keys(QLAB).map(function (q) { return '<span><i class="kd" style="background:var(' + QCOL[q] + ')"></i>' + QLAB[q] + " (" + (cnt[q] || 0) + ")</span>"; }).join("") + "</div>" + svg + '<div id="mdet" aria-live="polite" class="note">Tap or focus a dot to see that state.</div></div>' +
+      '<div class="notice" style="margin-top:14px"><strong>Read with care.</strong> Funds are cumulative to 25 Nov 2024 and the Lok Sabha table (Q682) prints no unit, so only the ratio is used. Treated is CPCB 2023-24. The quadrants split at the median of the ' + rows.length + ' states, so they are relative, not targets. A low share used is a prompt for a question, not proof of an execution problem; a high share is not proof of success.</div>' +
+      '<h3>All states</h3><div class="card pad" id="mt"></div>';
+    function show(s) {
+      var r = KS.money.filter(function (x) { return x.state === s; })[0]; if (!r) return;
+      $("mdet").innerHTML = "<strong>" + esc(s) + "</strong> · " + esc(QLAB[r.quadrant] || r.quadrant) + "<br>Allocation " + fmt(r.allocation_swm) + ", funds used " + fmt(r.funds_swm) + " (unit not stated), <strong>" + fmt(r.swm_utilisation_pct) + "%</strong> used. CPCB 2023-24 treated <strong>" + fmt(r.cpcb_pct_treated) + "%</strong>; MoHUA 2025-26 processed <strong>" + fmt(r.mohua_pct_processed) + "%</strong>. <a href=\"#/map/" + encodeURIComponent(s) + "\">State page</a> · <a href=\"#/explore/receipts/" + encodeURIComponent(s) + "\">source pages</a> · funds: Lok Sabha Q682, 28 Nov 2024";
+    }
+    el.querySelectorAll(".dot").forEach(function (g) {
+      g.onclick = function () { show(g.dataset.s); };
+      g.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(g.dataset.s); } };
+    });
+    mountTable($("mt"), [
+      { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+      { label: "Funds used (%)", k: "swm_utilisation_pct", num: true, html: function (r) { return fmt(r.swm_utilisation_pct); } },
+      { label: "CPCB treated (%)", k: "cpcb_pct_treated", num: true, html: function (r) { return fmt(r.cpcb_pct_treated); } },
+      { label: "MoHUA processed (%)", k: "mohua_pct_processed", num: true, html: function (r) { return fmt(r.mohua_pct_processed); } },
+      { label: "Quadrant", k: "quadrant", html: function (r) { return esc(QLAB[r.quadrant] || r.quadrant); } }
+    ], KS.money, { sort: "Funds used (%)", ph: "Search states" });
+  }
+
+  /* Collection gap, truck priority and landfill dependence */
+  function gTrucks(el) {
+    var ly = Array.from(new Set(KS.indicators.filter(function (r) { return r.landfill_pct != null; }).map(function (r) { return r.year; }))).sort();
+    el.innerHTML = '<h3>Where the most waste goes uncollected</h3><p class="note">States ranked by the tonnes per day left uncollected (generated minus collected), CPCB 2023-24. This is prioritisation by tonnage, not route optimisation, which needs ward and vehicle data.</p><div class="card pad" id="tr"></div>' +
+      '<h3>How much waste ends up in landfill</h3><p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>';
+    var mx = Math.max.apply(null, KS.trucks.map(function (r) { return r.uncollected_tpd || 0; })) || 1;
+    mountTable($("tr"), [
+      { label: "#", k: "rank", num: true }, { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+      { label: "Uncollected (tpd)", k: "uncollected_tpd", html: function (r) { return '<div class="bar10" style="width:' + Math.max(2, r.uncollected_tpd / mx * 100) + '%;max-width:200px"></div>' + fmt(r.uncollected_tpd); } },
+      { label: "Collected (%)", k: "collection_pct", num: true, html: function (r) { return fmt(r.collection_pct); } },
+      { label: "Generated (tpd)", k: "generated_tpd", num: true, html: function (r) { return fmt(r.generated_tpd); } },
+      { label: "Page", k: "x", html: function (r) { return rbtn([r.state, r.year, "collected", "ls_au50_2025-12-01.pdf"].join("|"), "source page") || '<span class="note">' + esc(r.year) + "</span>"; }, text: function () { return ""; }, val: function () { return 0; } }
+    ], KS.trucks, { sort: "#", ph: "Search states" });
+    function lf() {
+      var y = $("lfy").value, rows = KS.indicators.filter(function (r) { return r.year === y && r.landfill_pct != null; });
+      mountTable($("lf"), [
+        { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+        { label: "Landfill share (%)", k: "landfill_pct", html: function (r) { return '<div class="bar10" style="width:' + Math.max(2, Math.min(100, r.landfill_pct)) + '%;max-width:160px"></div>' + fmt(r.landfill_pct); } },
+        { label: "Landfilled (tpd)", k: "landfilled_tpd", num: true, html: function (r) { return fmt(r.landfilled_tpd); } },
+        { label: "Treated (%)", k: "treated_pct", num: true, html: function (r) { return fmt(r.treated_pct); } },
+        { label: "Neither (%)", k: "unaccounted_pct", num: true, html: function (r) { return fmt(r.unaccounted_pct); } }
+      ], rows, { sort: "Landfill share (%)", dir: -1, ph: "Search states" });
+    }
+    $("lfy").onchange = lf; lf();
+  }
+
+  /* Segregation gap (national only) */
+  function gSeg(el) {
+    var S = KS.segregation, d2d = S.filter(function (r) { return r.indicator.indexOf("D2D") >= 0; })[0], seg = S.filter(function (r) { return r.indicator.indexOf("Source Segregation") >= 0; })[0];
+    el.innerHTML = '<p class="sub">Collecting waste door to door is not the same as keeping it segregated. These are national figures for 2022 from the Swachh Bharat Mission dashboard; there is no state-wise table.</p>' +
+      (d2d && seg ? '<div class="card pad"><div class="meter"><div class="top"><span>Wards with more than 90% door-to-door collection</span><b>' + d2d.share_pct_computed + "%</b></div><div class=\"track\"><div class=\"fill c\" style=\"width:" + d2d.share_pct_computed + '%"></div></div><div class="note">' + n0(d2d.count) + " of " + n0(d2d.base_stated) + " wards covered</div></div>" +
+        '<div class="meter"><div class="top"><span>Wards with more than 90% source segregation</span><b>' + seg.share_pct_computed + "%</b></div><div class=\"track\"><div class=\"fill\" style=\"width:" + seg.share_pct_computed + '%"></div></div><div class="note">' + n0(seg.count) + " of " + n0(seg.base_stated) + " wards covered</div></div></div>" : "") +
+      '<p class="note" style="margin-top:12px">Source: MoHUA, Swachh Bharat Mission (Urban) Garbage Free Cities 2022 dashboard, <a href="https://sbmurban.org/gfc-result-dashboard" target="_blank" rel="noopener">sbmurban.org/gfc-result-dashboard</a> (copied ' + esc(S[0] ? S[0].retrieved_on : "") + '). The page says the figures are "on the basis of on field validation". The shares are ours (count divided by the coverage the page states) and are indicative, because the page does not say every indicator was measured on every ward.</p>' +
+      '<h3>All indicators on that page</h3><div class="card pad" id="sg"></div>';
+    mountTable($("sg"), [
+      { label: "Indicator", k: "indicator" }, { label: "Count", k: "count", num: true, html: function (r) { return n0(r.count); } }, { label: "Unit", k: "unit" },
+      { label: "Out of", k: "base_stated", num: true, html: function (r) { return r.base_stated == null ? '<span class="note">not stated</span>' : n0(r.base_stated); } },
+      { label: "Share (%)", k: "share_pct_computed", num: true, html: function (r) { return r.share_pct_computed == null ? '<span class="note">not computed</span>' : r.share_pct_computed; } }
+    ], S, { search: false });
+  }
+
+  /* Reporting completeness */
+  function gComplete(el) {
+    var C = KS.completeness, full = C.filter(function (r) { return r.completeness_pct === 100; }).length;
+    el.innerHTML = '<p class="sub">How much of what a state could have reported did it report? A score is the share of 17 core figures given: generated, collected and treated for each CPCB year 2019-20 to 2023-24, and generated and treated for MoHUA 2025-26. A blank, or a state missing from a table, counts as not reported. Thin reporting does not mean the figures are wrong.</p>' +
+      '<div class="kpis"><div class="kpi"><div class="v">' + full + " of " + C.length + '</div><div class="l">report all 17 figures</div></div><div class="kpi"><div class="v">' + (C.length - full) + '</div><div class="l">have gaps, listed below</div></div></div><div class="card pad" id="cp"></div>';
+    mountTable($("cp"), [
+      { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+      { label: "Score (%)", k: "completeness_pct", html: function (r) { return '<div class="bar10" style="width:' + r.completeness_pct + '%;max-width:160px"></div>' + r.completeness_pct; } },
+      { label: "Figures given", k: "reported_cells", num: true, html: function (r) { return r.reported_cells + " of " + r.expected_cells; } },
+      { label: "CPCB years with all three", k: "years_all_three", num: true, html: function (r) { return r.years_all_three + " of " + r.years_possible; } },
+      { label: "Landfilled years", k: "landfilled_years", num: true, html: function (r) { return r.landfilled_years + " of " + r.landfilled_years_possible; } },
+      { label: "Not reported", k: "not_reported", html: function (r) { return r.not_reported === "none" ? '<span class="note">none</span>' : String(r.not_reported).split(";").map(function (t) { return '<span class="tag">' + esc(t.trim()) + "</span>"; }).join(""); } },
+      { label: "Reported as 0", k: "zero_reported_cells", num: true }
+    ], C, { sort: "Score (%)", ph: "Search states" });
+  }
+
   /* ---------- Your city ---------- */
   var TEMPLATE = "ulb,ward,period,generated_tpd,collected_tpd,segregated_tpd,treated_tpd,landfilled_tpd,notes\n";
   var EXAMPLE = TEMPLATE + "FICTIONAL CITY,Ward A,2024-01,10,9,5,4,3,fictional test data\nFICTIONAL CITY,Ward A,2024-02,10,11,5,4,3,collected above generated\nFICTIONAL CITY,Ward B,2024-01,20,12,13,9,8,segregated above collected\nFICTIONAL CITY,Ward B,2024-02,20,,6,5,4,collected blank\nFICTIONAL CITY,Ward C,2024-01,8,8,4,9,0,treated above collected\nFICTIONAL CITY,Ward D,2024-01,6,5,3,4,3,treated plus landfilled above generated\n";
@@ -293,6 +433,17 @@
 
   /* ---------- Ask (Q&A agent on AgentFoundry) ---------- */
   var SUGGEST = ["Kerala treated vs collected", "Which states have the biggest gap?", "Maharashtra landfilled 2021-22"];
+  /* Voice: browser speech recognition (in) and speech synthesis (out). Support for Hindi, Tamil and Telugu depends on the browser and device. */
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition, LANGTAG = { English: "en-IN", Hindi: "hi-IN", Tamil: "ta-IN", Telugu: "te-IN" };
+  function speak(text, language) {
+    if (!window.speechSynthesis) return;
+    try {                                                   /* speech must never block the written answer or the Ask button */
+      var tag = LANGTAG[language] || "en-IN", u = new SpeechSynthesisUtterance(text), vs = speechSynthesis.getVoices();
+      u.lang = tag; speechSynthesis.cancel(); speechSynthesis.speak(u);
+      var has = vs.some(function (v) { return v.lang.replace("_", "-").toLowerCase().indexOf(tag.slice(0, 2)) === 0; }), n = $("vnote");
+      if (n) n.textContent = vs.length && !has ? "This device may not have a " + language + " voice, so the spoken answer may be silent or in another language. The written answer is always shown." : "";
+    } catch (e) { var m = $("vnote"); if (m) m.textContent = "Could not read the answer aloud on this device. The written answer is shown above."; }
+  }
   function askAgent(message, language) {
     return fetch(CFG.agentEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: message, language: language }) })
       .then(function (r) { if (!r.ok) throw new Error("The assistant returned an error (" + r.status + ")."); var ct = r.headers.get("content-type") || ""; return ct.indexOf("json") >= 0 ? r.json().then(function (j) { return j.reply || j.response || j.answer || JSON.stringify(j); }) : r.text(); });
@@ -302,15 +453,28 @@
     view.innerHTML = '<h2>Ask</h2><p class="sub">Ask in English, Hindi, Tamil or Telugu. Answers come only from the dataset, with the source and page for every figure.</p>' +
       (live ? "" : '<div class="notice"><strong>The assistant isn\'t connected yet.</strong> Meanwhile, <a href="#/claim">check a claim</a> or <a href="#/explore/receipts">browse the figures</a>.</div>') +
       '<div class="chat" id="chat" aria-live="polite"></div><div class="chips">' + SUGGEST.map(function (s) { return '<button class="chip" type="button"' + (live ? "" : " disabled") + ">" + esc(s) + "</button>"; }).join("") + '</div>' +
-      '<div class="ask"><input id="q" type="text" aria-label="Your question" placeholder="Ask about a state, a year or a claim"' + (live ? "" : " disabled") + '><select id="lang" aria-label="Language" style="width:auto"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select><button class="go" id="send" type="button"' + (live ? "" : " disabled") + ">Ask</button></div>";
+      '<div class="ask"><input id="q" type="text" aria-label="Your question" placeholder="Ask about a state, a year or a claim"' + (live ? "" : " disabled") + '><select id="lang" aria-label="Language" style="width:auto"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select><button class="go" id="send" type="button"' + (live ? "" : " disabled") + ">Ask</button></div>" +
+      '<div class="voice"><button class="alt" id="mic" type="button" aria-pressed="false"' + (live && SR ? "" : " disabled") + '>🎤 Speak</button><label class="chk"><input type="checkbox" id="speak"' + (live && window.speechSynthesis ? "" : " disabled") + "> Read answers aloud</label>" +
+      '<span class="note" id="vnote" role="status">' + (SR ? "" : "Voice input is not available in this browser (Chrome or Edge work best). You can still type.") + "</span></div>" +
+      '<p class="note">Voice uses your browser\'s own speech tools. How well it handles Hindi, Tamil and Telugu depends on your browser and device. Typing always works.</p>';
     if (!live) return;
     function send(q) {
       q = (q || $("q").value).trim(); if (!q) return; var chat = $("chat");
       chat.insertAdjacentHTML("beforeend", '<div class="msg u">' + esc(q) + "</div>"); $("q").value = "";
       var pend = document.createElement("div"); pend.className = "msg a"; pend.textContent = "Looking it up…"; chat.appendChild(pend); $("send").disabled = true;
-      askAgent(q, $("lang").value).then(function (t) { pend.textContent = t; }, function (e) { pend.textContent = e.message + " Try Check a claim instead."; pend.classList.add("bad"); }).then(function () { $("send").disabled = false; });
+      askAgent(q, $("lang").value).then(function (t) { pend.textContent = t; if ($("speak") && $("speak").checked) speak(t, $("lang").value); }, function (e) { pend.textContent = e.message + " Try Check a claim instead."; pend.classList.add("bad"); }).then(function () { $("send").disabled = false; });
     }
     $("send").onclick = function () { send(); }; $("q").onkeydown = function (e) { if (e.key === "Enter") send(); };
+    $("mic").onclick = function () {
+      if (!SR) return;
+      var rec = new SR(), btn = $("mic"), note = $("vnote");
+      rec.lang = LANGTAG[$("lang").value] || "en-IN"; rec.interimResults = false; rec.maxAlternatives = 1;
+      btn.setAttribute("aria-pressed", "true"); btn.textContent = "Listening…"; note.textContent = "";
+      rec.onresult = function (e) { var t = e.results[0][0].transcript; $("q").value = t; send(t); };
+      rec.onerror = function (e) { note.textContent = "Could not hear that (" + e.error + "). Check microphone permission for this site, or type your question."; };
+      rec.onend = function () { btn.setAttribute("aria-pressed", "false"); btn.textContent = "🎤 Speak"; };
+      try { rec.start(); } catch (err) { note.textContent = "Could not start the microphone. Type your question instead."; rec.onend(); }
+    };
     view.querySelectorAll(".chips .chip").forEach(function (b) { b.onclick = function () { send(b.textContent); }; });
   }
 
