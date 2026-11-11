@@ -153,8 +153,8 @@
     var cg = natrow("2023-24", "CPCB", "generated").value, ct = natrow("2023-24", "CPCB", "treated"), mg = natrow("2025-26", "MoHUA", "generated").value, mt = natrow("2025-26", "MoHUA", "treated");
     var I = KSi18n, mp = Math.round(mt.value / mg * 100), cp = Math.round(ct.value / cg * 100);
     view.innerHTML = '<h2>' + esc(I.t("nav_map")) + '</h2><p class="sub">Both official figures for every state and union territory, with the source page behind each. Select a state to open it.</p>' +
-      '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(mt.source_doc) + ", p." + esc(mt.source_page) + '</span></div>' +
-      '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(ct.source_doc) + ", p." + esc(ct.source_page) + '</span></div>' +
+      '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(mt.source_doc) + ", p." + esc(mt.source_page) + " " + rbtn("India|2025-26|treated|" + mt.source_doc, "source page") + '</span></div>' +
+      '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(ct.source_doc) + ", p." + esc(ct.source_page) + " " + rbtn("India|2023-24|treated|" + ct.source_doc, "source page") + '</span></div>' +
       '<div><b>' + n0(mt.value - ct.value) + '</b><span>tonnes a day apart. Different years, and we compare MoHUA\'s "processed" with CPCB\'s "treated" as our assumption, not a stated equivalence. <a href="#/explore/defs">Definitions</a></span></div></div>' +
       '<div class="section" id="mapsec"><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
       MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
@@ -252,14 +252,15 @@
     ], KS.audit, { sort: "#", ph: "Search states or reasons" });
     mountTable($("rt"), [{ label: "State", k: "state" }, { label: "Rule", k: "rule" }, { label: "Years", k: "n_years", num: true }, { label: "Which", k: "years" }], KS.recurrence, { search: false });
   }
+  function genKey(state, tag) { var p = String(tag || "").split(" "), r = row(state, p[0], p[1], "generated"); return r ? [state, p[0], "generated", r.source_doc].join("|") : ""; }
   function tabSwings(el) {
     el.innerHTML = '<p class="sub">How much a state\'s own reported generated waste differs from one report to the next.</p><div class="card pad" id="vt"></div>';
     var rows = KS.volatility.filter(function (r) { return r.ranked === "yes"; }), mx = Math.max.apply(null, rows.map(function (r) { return r.swing_ratio; }));
     mountTable($("vt"), [
       { label: "#", k: "rank", num: true }, { label: "State", k: "state" },
       { label: "Swing", k: "swing_ratio", html: function (r) { return '<div class="bar10" style="width:' + Math.max(2, r.swing_ratio / mx * 100) + '%;max-width:160px"></div>' + r.swing_ratio + "x"; } },
-      { label: "Lowest", k: "min_tpd", num: true, html: function (r) { return fmt(r.min_tpd) + mean(r.min_tpd) + '<span class="note">' + esc(r.min_in) + "</span>"; } },
-      { label: "Highest", k: "max_tpd", num: true, html: function (r) { return fmt(r.max_tpd) + mean(r.max_tpd) + '<span class="note">' + esc(r.max_in) + "</span>"; } }
+      { label: "Lowest", k: "min_tpd", num: true, html: function (r) { return fmt(r.min_tpd) + mean(r.min_tpd) + '<span class="note">' + esc(r.min_in) + "</span> " + rbtn(genKey(r.state, r.min_in), "page"); } },
+      { label: "Highest", k: "max_tpd", num: true, html: function (r) { return fmt(r.max_tpd) + mean(r.max_tpd) + '<span class="note">' + esc(r.max_in) + "</span> " + rbtn(genKey(r.state, r.max_in), "page"); } }
     ], rows, { sort: "#", ph: "Search states" });
   }
   function tabReceipts(el, rest) {
@@ -492,9 +493,16 @@
       if (n) n.textContent = vs.length && !has ? "This device may not have a " + language + " voice, so the spoken answer may be silent or in another language. The written answer is always shown." : "";
     } catch (e) { var m = $("vnote"); if (m) m.textContent = "Could not read the answer aloud on this device. The written answer is shown above."; }
   }
+  /* The agent (agent/app.py) takes POST {question, language: "en"|"hi"|"ta"|"te"} and answers {answer, sources: [{document}]}. "message" is sent too, and
+     "reply"/"response" are also read, so a different back end (for example AgentFoundry) that uses those names still works. Resolves to {text, sources}. */
+  var LANGCODE = { English: "en", Hindi: "hi", Tamil: "ta", Telugu: "te" };
   function askAgent(message, language) {
-    return fetch(CFG.agentEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: message, language: language }) })
-      .then(function (r) { if (!r.ok) throw new Error("The assistant returned an error (" + r.status + ")."); var ct = r.headers.get("content-type") || ""; return ct.indexOf("json") >= 0 ? r.json().then(function (j) { return j.reply || j.response || j.answer || JSON.stringify(j); }) : r.text(); });
+    return fetch(CFG.agentEndpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question: message, message: message, language: LANGCODE[language] || "en" }) })
+      .then(function (r) {
+        if (!r.ok) return r.json().catch(function () { return {}; }).then(function (j) { throw new Error(j.error ? "The assistant said: " + j.error : "The assistant returned an error (" + r.status + ")."); });
+        var ct = r.headers.get("content-type") || "";
+        return ct.indexOf("json") >= 0 ? r.json().then(function (j) { return { text: j.answer || j.reply || j.response || JSON.stringify(j), sources: Array.isArray(j.sources) ? j.sources : [] }; }) : r.text().then(function (t) { return { text: t, sources: [] }; });
+      });
   }
   function renderAsk() {
     var live = !!CFG.agentEndpoint;
@@ -510,7 +518,11 @@
       q = (q || $("q").value).trim(); if (!q) return; var chat = $("chat");
       chat.insertAdjacentHTML("beforeend", '<div class="msg u">' + esc(q) + "</div>"); $("q").value = "";
       var pend = document.createElement("div"); pend.className = "msg a"; pend.textContent = "Looking it up…"; chat.appendChild(pend); $("send").disabled = true;
-      askAgent(q, $("lang").value).then(function (t) { pend.textContent = t; if ($("speak") && $("speak").checked) speak(t, $("lang").value); }, function (e) { pend.textContent = e.message + " Try Check a claim instead."; pend.classList.add("bad"); }).then(function () { $("send").disabled = false; });
+      askAgent(q, $("lang").value).then(function (res) {
+        var t = res.text, docs = Array.from(new Set(res.sources.map(function (x) { return x.document || x.source_doc || x; }))).filter(Boolean);
+        pend.textContent = t + (docs.length ? String.fromCharCode(10, 10) + "Sources: " + docs.join(", ") : "");        /* the sources are shown, but only the answer is read aloud */
+        if ($("speak") && $("speak").checked) speak(t, $("lang").value);
+      }, function (e) { pend.textContent = e.message + " Try Check a claim instead."; pend.classList.add("bad"); }).then(function () { $("send").disabled = false; });
     }
     $("send").onclick = function () { send(); }; $("q").onkeydown = function (e) { if (e.key === "Enter") send(); };
     $("mic").onclick = function () {

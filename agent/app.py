@@ -367,15 +367,25 @@ def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, 
             answer += verdict + ". "
         if isinstance(res, dict):
             # Summarize counts if available
-            matches = res.get("matching_records") or []
-            nonmatches = res.get("non_matching_records") or []
-            answer += f"Matches: {len(matches)}; Non-matching: {len(nonmatches)}."
+            recs = res.get("records") or []
+            matches = [r for r in recs if r.get("matches")]
+            nonmatches = [r for r in recs if not r.get("matches")]
+            unit = "%" if (res.get("claim") or {}).get("unit") == "percent" else " tpd"
+            if recs:
+                answer += f"{len(matches)} source figures match this claim and {len(nonmatches)} do not."
+            else:
+                answer += str(res.get("reason") or "No comparable figure in the data.")
             if verdict == "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS":
                 answer += f" {t['sources_disagree']}."
-            # Attach some source docs
-            for r in (matches + nonmatches)[:4]:
-                doc = r.get("source_doc") or r.get("source") or r.get("source_name")
-                if doc:
+            years = sorted({r.get("year") for r in recs if r.get("year")})
+            if len(years) > 1:
+                answer += f" The figures cover different years ({years[0]} to {years[-1]}), so part of any difference may be real change."
+            for r in recs[:8]:   # the tool lists matching records first; every figure carries its source and page
+                answer += (f"{chr(10)}- {r.get('source_name')} {r.get('year')} ({r.get('kind')}): {_fmt_tpd(r.get('value'))}{unit}, "
+                           f"{'matches' if r.get('matches') else 'does not match'} ({r.get('source_doc')}, {t['page']} {r.get('source_page')})")
+            for r in recs:
+                doc = r.get("source_doc")
+                if doc and {"document": doc} not in sources:
                     sources.append({"document": doc})
         else:
             answer += str(res)
@@ -406,9 +416,33 @@ def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, 
             c_rows = collected if isinstance(collected, list) else []
         except Exception:
             t_rows, c_rows = treated, collected
-        answer_lines += fmt_rows(t_rows)
-        answer_lines += ["---"]
-        answer_lines += fmt_rows(c_rows)
+        by = {}
+        for r in t_rows:
+            by.setdefault((r.get("year"), r.get("source_name")), {})["t"] = r
+        for r in c_rows:
+            by.setdefault((r.get("year"), r.get("source_name")), {})["c"] = r
+        def num(r):
+            try:
+                return float(str(r.get("value_tpd")).replace(",", ""))
+            except Exception:
+                return None
+        above = 0
+        for (yr, src), d in sorted(by.items(), key=lambda kv: (str(kv[0][1]), str(kv[0][0]))):
+            if "t" not in d or "c" not in d:
+                continue   # compare only when both figures come from the same source and year
+            tv, cv = num(d["t"]), num(d["c"])
+            tt = (_fmt_tpd(tv) if tv is not None else t["not_reported"])
+            cc = (_fmt_tpd(cv) if cv is not None else t["not_reported"])
+            mark = ""
+            if tv is not None and cv is not None and tv > cv:
+                above += 1
+                mark = "  <- treated is above collected"
+            for rr in (d["t"], d["c"]):   # only documents the answer actually cites
+                if rr.get("source_doc") and {"document": rr["source_doc"]} not in sources:
+                    sources.append({"document": rr["source_doc"]})
+            answer_lines.append(f"{yr}: {t['treated']} {tt} vs {t['collected']} {cc} tpd ({t['source']}: {src}, {d['t'].get('source_doc')}, {t['page']} {d['t'].get('source_page')}){mark}")
+        if above:
+            answer_lines.append(f"In {above} year(s) more waste is reported treated than collected. Both cannot be true; the data does not say which figure to trust.")
         # flags
         if flags:
             if isinstance(flags, dict) and flags.get("result") == "no flags":
@@ -416,12 +450,7 @@ def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, 
             else:
                 answer_lines += ["Flags:"]
                 for f in (flags if isinstance(flags, list) else []):
-                    answer_lines.append(f"{f.get('rule')}: {f.get('explanation')}")
-        # collect source docs
-        for r in (t_rows or []) + (c_rows or []):
-            doc = r.get("source_doc")
-            if doc:
-                sources.append({"document": doc})
+                    answer_lines.append(f"{f.get('year')} {f.get('rule')}: {f.get('values')}")
         return "\n".join(answer_lines), sources
 
     # 2 & 3 & 5: state metric year queries, e.g. "Bihar treated waste 2019-20"
@@ -452,9 +481,9 @@ def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, 
         metric_label = metric if lang == "en" else t[metric]
         lines = [f"{state} {metric_label} {year if year else ''}:"]
         for r in (rows if isinstance(rows, list) else []):
-            v = _fmt_tpd(r["value_tpd"]) if r.get("value_tpd") else t["not_reported"]
+            v = _fmt_tpd(r["value_tpd"]) + " tpd" if r.get("value_tpd") else t["not_reported"]
             note =r.get("note") or ""
-            lines.append(f"{v} tpd. {t['source'].capitalize()}: {r.get('source_name')}, {r.get('source_doc')}, {t['page']} {r.get('source_page')}")
+            lines.append(f"{v}. {t['source'].capitalize()}: {r.get('source_name')}, {r.get('source_doc')}, {t['page']} {r.get('source_page')}")
             if not r.get("value_tpd"):
                 # The note text comes from the data as-is; only English gets the "Note:" label.
                 lines.append(f"Note: {note}" if lang == "en" else note)
@@ -469,10 +498,10 @@ def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, 
         lines = ["Top gaps between CPCB 2023-24 and MoHUA 2025-26 (tool data):"]
         if isinstance(rows, list):
             for r in rows[:10]:
-                lines.append(f"{r.get('state')}: gap {r.get('gap')} (CPCB {r.get('cpcb_pct')} vs MoHUA {r.get('mohua_pct')})")
-                doc = r.get('source_doc') or r.get('source')
-                if doc:
-                    sources.append({"document": doc})
+                lines.append(f"{r.get('state')}: gap {r.get('gap_pct_points')} points (CPCB 2023-24 {r.get('cpcb_pct_treated')}% treated vs MoHUA 2025-26 {r.get('mohua_pct_processed')}% processed)")
+                for doc in re.findall(r"[\w\-]+\.(?:pdf|docx)", str(r.get("sources") or "")):
+                    if {"document": doc} not in sources:
+                        sources.append({"document": doc})
             lines.append("Note: CPCB is 2023-24 and MoHUA is 2025-26 (different years).")
             return "\n".join(lines), sources
         return "No gap ranking available.", []

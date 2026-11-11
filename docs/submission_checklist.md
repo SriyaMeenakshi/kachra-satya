@@ -8,10 +8,10 @@ Status as of 2026-11-11. Tick an item only when you have done it and seen it wit
 - [ ] **Decide about publishing the page images** (`receipts/pages/`, copies of pages from government documents). Reuse terms are not confirmed (`docs/licences.md`); permission requests are drafts and **not sent** (`docs/permission_requests.md`).
 - [ ] **Demo video** recorded, 2 to 3 minutes, along the loop; any persona labelled illustrative (`docs/demo_video_script.md`). Not recorded yet.
 - [ ] **Run the tests and the build on the commit you submit:** `python -m pytest -q tests` and `python scripts/build_site.py`.
-- [ ] **README is accurate.** Check these against the repo on the day: the test count line, the "Status" section (it still says the integrated web app is not done), and the counts it quotes (676 sourced rows, 72 flags, 605 of 706 located).
+- [ ] **README is accurate.** Check these against the repo on the day: the "Status" section (updated 2026-11-11; recheck it on the day) and the counts it quotes (676 sourced rows, 72 flags, 605 of 706 located).
 
 ## Say plainly, or do not say at all
-- [ ] **Q&A agent:** say it is connected only if the six acceptance questions in `docs/agentfoundry_run_sheet.md` were run and passed. Today it is not created. (Also fix the Kerala question: the data has four flagged years, the setup doc says three.)
+- [ ] **Q&A agent:** the data-only fallback in `agent/` was run through all six questions on 2026-11-11 and its answers were read and checked (`docs/agentfoundry_run_sheet.md`, `tests/test_agent_fallback.py`). **Model mode (Gemini or Anthropic) has not been tested** (no API key), and AgentFoundry itself was not used. Say "answers from the data, with sources", and do not say "AI assistant" unless model mode was run and its six answers read. It is **not hosted**: a static site cannot run it, so the deployed Ask page stays on "not connected yet" until someone hosts it and sets `ALLOWED_ORIGINS` (`agent/README.md`). (The setup doc still says Kerala has three flagged years; the data has four.)
 - [ ] **User tests:** report the real number of sessions run (today **0**, `docs/user_tests.md`). If fewer than 20, say the real number.
 - [ ] **Ward reports and badges** are unverified, stored only on each person's device. Not tested: scanning a printed QR code on a phone.
 - [ ] **Translations** (Hindi, Telugu) are a first draft, not reviewed by a native speaker.
