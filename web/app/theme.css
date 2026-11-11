@@ -69,7 +69,7 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 .brand{display:inline-flex;align-items:center;gap:var(--sp-2);font-weight:800;font-size:1.2rem;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
 .brand::before{content:none}
 .brand svg{width:30px;height:30px;flex:none}
-#nav{display:flex;align-items:center;gap:2px;flex:1;margin-left:var(--sp-3)}
+#nav{display:flex;align-items:center;gap:2px;flex:1;margin-left:var(--sp-3);overflow:visible}   /* app.css makes the nav scroll (overflow-x:auto), which clipped the More dropdown on desktop: the menu opened but was invisible */
 #nav>a,#nav summary{display:inline-flex;align-items:center;gap:var(--sp-2);padding:9px 12px;border-radius:var(--r-pill);color:var(--ink2);font-size:var(--t-sm);font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;list-style:none;min-height:44px;transition:background var(--dur-1),color var(--dur-1)}
 #nav summary::-webkit-details-marker{display:none}
 #nav>a:hover,#nav summary:hover{background:var(--soft);color:var(--ink)}
