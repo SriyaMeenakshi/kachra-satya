@@ -51,12 +51,8 @@
     var unacc = nat("2022-23", "CPCB", "unaccounted"), uKey = unacc ? "India|2022-23|unaccounted|" + unacc.source_doc : "";
     var segC = KS.segregation.filter(function (x) { return x.indicator.indexOf("D2D") >= 0; })[0], segS = KS.segregation.filter(function (x) { return x.indicator.indexOf("Segregation") >= 0; })[0];
     var agentOn = !!(root.KS_CONFIG && root.KS_CONFIG.agentEndpoint);
-    function steps(open) {
-      return '<section class="op-start' + (open ? "" : " min") + '" id="op-start" aria-label="' + esc(T("newhere", "New here? Three steps")) + '"><h2>' + esc(T("newhere", "New here? Three steps")) + "</h2><ol>" +
-        '<li><a href="#/claim"><span class="n">1</span><span><b>' + esc(T("step1", "Type a claim")) + '</b><span class="d">' + esc(T("step1d", "Paste a number someone quoted")) + "</span></span></a></li>" +
-        '<li><a href="#/map"><span class="n">2</span><span><b>' + esc(T("step2", "Tap your state")) + '</b><span class="d">' + esc(T("step2d", "See both official figures")) + "</span></span></a></li>" +
-        '<li>' + (cKey && KS.receipts[cKey] && KS.receipts[cKey].image ? '<button type="button" class="stepbtn" data-rkey="' + esc(cKey) + '">' : '<a href="#/explore/receipts">') + '<span class="n">3</span><span><b>' + esc(T("step3", "Open the source page")) + '</b><span class="d">' + esc(T("step3d", "See the number boxed on the document")) + "</span></span>" + (cKey && KS.receipts[cKey] && KS.receipts[cKey].image ? "</button>" : "</a>") + "</li></ol>" +
-        '<button type="button" class="chip x" id="op-sx" aria-expanded="' + open + '">' + esc(open ? T("hide", "Hide") : T("show3", "Show the 3 steps")) + "</button></section>";
+    function steps() {      /* "What brings you here?": goals, not tools. Each goal starts a guided path (guide.js). */
+      return '<section class="op-goals" id="op-start" aria-labelledby="op-go-h"><h2 id="op-go-h">' + esc(T("goal_h", "What brings you here?")) + '</h2><p class="op-p">' + esc(T("goal_p", "Pick the one that sounds most like you. We will take you through it one step at a time.")) + "</p>" + (root.KSGuide ? root.KSGuide.chooser() : "") + "</section>";
     }
     view.innerHTML = '<div class="op">' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
@@ -68,7 +64,7 @@
       '<div class="geo op-map" id="op-map"></div><div class="op-legend" id="op-legend"></div><p class="op-maphint">' + esc(T("map_hint", "Select a state to open its figures")) + "</p>" +
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(DOCS[mp.source_doc] || mp.source_doc) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
       '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(DOCS[ct.source_doc] || ct.source_doc) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
-      steps(startOpen) +
+      steps() +
 
       '<section class="op-sec" aria-labelledby="op-why-h"><p class="op-eyebrow">' + esc(T("why_k", "Why this matters")) + '</p><h2 class="op-h2" id="op-why-h">' + esc(T("why_h", "Plans and money start from these numbers.")) + '</h2>' +
       '<p class="op-p">' + esc(T("why_p", "Plants, landfills and funding are planned from reported figures. When the figures do not agree, nobody can tell where the waste goes, or whether the money is working. Four things the published records show:")) + '</p><div class="op-finds">' +
@@ -115,10 +111,7 @@
 
     drawMap();
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
-    $("op-sx").onclick = function () {
-      startOpen = !startOpen; try { localStorage.setItem("ks-start", startOpen ? "open" : "closed"); } catch (e) {}
-      $("op-start").classList.toggle("min", !startOpen); this.setAttribute("aria-expanded", startOpen); this.textContent = startOpen ? T("hide", "Hide") : T("show3", "Show the 3 steps");
-    };
+    if (root.KSGuide) root.KSGuide.wireGoals(view);
 
     /* reveal: content is visible by default; .pre hides it only while it is about to be revealed, and everything is forced visible after 4 s so a throttled tab never stays blank */
     var targets = [].slice.call(view.querySelectorAll(".dots .g, .op-find, .stamp"));

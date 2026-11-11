@@ -1,0 +1,34 @@
+/* Guided paths (guide.js): the goal chooser on the Start page, the path bar, the "what next" row. Uses the design tokens in theme.css. */
+.gd-goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
+.gd-goal{display:flex;flex-direction:column;gap:6px;text-align:left;padding:var(--sp-4) var(--sp-4) var(--sp-3);border:1.5px solid var(--hair);border-radius:var(--r-2);background:var(--card);color:var(--ink);font:inherit;cursor:pointer;text-decoration:none;min-height:132px;transition:border-color var(--dur-1),transform var(--dur-1)}
+.gd-goal:hover{border-color:var(--ink);transform:translateY(-2px)}
+.gd-goal b{font-size:var(--t-lg);line-height:1.2;letter-spacing:-.02em}
+.gd-goal span{color:var(--ink2);font-size:var(--t-sm)}
+.gd-goal i{margin-top:auto;font-style:normal;font-weight:700;color:var(--link);font-size:var(--t-sm)}
+.gd-look{background:transparent;border-style:dashed}
+
+.gd-bar{margin:0 0 var(--sp-5);padding:var(--sp-4);border:2px solid var(--accent);border-radius:var(--r-2);background:var(--soft)}
+.gd-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3)}
+.gd-name{font-weight:800;letter-spacing:-.02em}
+.gd-step{color:var(--ink2);font-size:var(--t-sm);font-weight:600}
+.gd-x{margin-left:auto;background:none;border:0;color:var(--ink2);text-decoration:underline;font:inherit;font-size:var(--t-sm);cursor:pointer;padding:4px 2px}
+.gd-dots{list-style:none;display:flex;gap:6px;margin:var(--sp-3) 0 var(--sp-2);padding:0}
+.gd-dots li{flex:1;height:6px;border-radius:99px;background:var(--hair)}
+.gd-dots li.done{background:var(--accent)}.gd-dots li.now{background:var(--accent);opacity:.55}
+.gd-why{margin:0 0 var(--sp-3);color:var(--ink);max-width:70ch}
+.gd-nav{display:flex;flex-wrap:wrap;gap:var(--sp-2);justify-content:space-between}
+.gd-b,.gd-n{display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:var(--r-pill);font-weight:700;text-decoration:none}
+.gd-b{border:2px solid var(--ink);color:var(--ink)}
+.gd-n{background:var(--accent);color:var(--accent-ink);margin-left:auto}
+.gd-away{margin:0 0 var(--sp-4);padding:var(--sp-3) var(--sp-4);border:1.5px dashed var(--ink2);border-radius:var(--r-2);color:var(--ink2);font-size:var(--t-sm)}
+
+.gd-next{margin-top:var(--sp-7);padding-top:var(--sp-4);border-top:2px dashed var(--hair)}
+.gd-next h2{font-size:var(--t-xl);margin:0 0 var(--sp-2);letter-spacing:-.03em}
+.gd-next ul{list-style:none;display:flex;flex-wrap:wrap;gap:var(--sp-2);margin:0;padding:0}
+.gd-next a{display:inline-block;padding:10px 16px;border:1.5px solid var(--ink);border-radius:var(--r-pill);color:var(--ink);text-decoration:none;font-weight:600}
+.gd-next a:hover{background:var(--ink);color:var(--page)}
+@media print{.gd-bar,.gd-next,.gd-away{display:none!important}}
+.gd-bar .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}     /* visually hidden, read by screen readers */
+.op-goals{margin-top:var(--sp-7)}
+.op-goals h2{font-size:clamp(1.6rem,3.5vw,2.2rem);letter-spacing:-.035em;margin:0 0 var(--sp-2)}
+.op-goals>.op-p{color:var(--ink2);max-width:60ch;margin:0}
