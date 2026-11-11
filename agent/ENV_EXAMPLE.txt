@@ -1,0 +1,20 @@
+# Kachra Satya Agent - Environment Configuration
+# Create a .env file in the agent/ folder and fill in your keys
+# OR set these as system environment variables before running
+
+# Model Provider: "gemini" or "anthropic"
+# Omit or leave empty for fallback mode (tools only, no AI)
+MODEL_PROVIDER=gemini
+
+# API Key for the model provider
+# For Gemini: get from https://ai.google.dev/
+# For Anthropic: get from https://console.anthropic.com/
+# NEVER commit this file with a real key
+MODEL_API_KEY=your-key-here
+
+# Optional: Gemini model name (default gemini-3.8-flash)
+GEMINI_MODEL=gemini-3.8-flash
+
+# Optional: Flask debug mode
+FLASK_DEBUG=True
+FLASK_ENV=development
