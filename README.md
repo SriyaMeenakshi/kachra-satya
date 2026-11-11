@@ -1,8 +1,8 @@
 # Kachra Satya
 
-*Kachra satya* means "the truth about garbage". We audit India's municipal solid waste figures: the Housing Ministry and the pollution control board publish different numbers, and nothing checks them against each other. This project puts them side by side, shows the source page behind every figure, and flags the ones that cannot all be true.
+*Kachra satya* means "the truth about garbage". India's Housing Ministry (MoHUA) and the pollution control board (CPCB) publish different numbers for the same municipal solid waste, and nothing checks them against each other. This project puts them side by side, shows the source page behind every figure, flags the ones that cannot all be true, and helps an ordinary person do something about it.
 
-**The idea: a receipt for every waste promise.** Anyone can see what was promised, what was delivered, and what to do next: Promise, Proof, Reality, Action. See `docs/central_idea.md`.
+**The idea: a receipt for every waste promise.** Promise, Proof, Reality, Action. Someone says a number; you check it on the page it came from; you see whether it holds on your street; you get a complaint, a log and a letter you can send. Details: [docs/central_idea.md](docs/central_idea.md).
 
 Built for the Code for a Billion hackathon, Waste Management track (submissions close 15 Nov 2026).
 
@@ -13,32 +13,55 @@ Built for the Code for a Billion hackathon, Waste Management track (submissions 
 | CPCB | 114,110 of 185,195 tonnes per day treated, 61.6% | Lok Sabha Q50, 1 Dec 2025 (CPCB 2023-24) |
 | Gap between the two national "treated" totals | 17,420 tonnes per day | MoHUA 2025-26 against CPCB 2023-24 |
 
-These are different years, and CPCB says "treated" where MoHUA says "processed"; we do not know that they mean the same thing (`data/definition_crosswalk.csv`). We do not say which figure is right.
+These are different years, and CPCB says "treated" where MoHUA says "processed". We do not know that the two words mean the same thing ([data/definition_crosswalk.csv](data/definition_crosswalk.csv)), so we never say which figure is right.
 
-## What it does
-- **Dataset:** 676 sourced rows for 36 states and UTs (tonnes per day, 2019-20 to 2025-26). Every row carries its source document, page and retrieval date. Missing values stay blank and say "not reported".
-- **Checks:** six rules flag figures that cannot all be true (72 flags). Examples: Kerala reports more waste treated than collected in four years; MoHUA and CPCB differ by more than 10% for 53 state-and-metric pairs.
-- **Map:** a geographic map of India's 36 states and UTs coloured by either source or the gap, with a tile-map switch (`docs/map.md`; the boundary has not been verified against the official map).
-- **Claim Checker:** test a sentence such as "81% of India's urban waste is processed" against every source. Result: the sources disagree, with who agrees and who does not.
-- **Receipts:** open the source page for a figure with the number boxed (605 of 706 figures located; the rest show the page or say there is no page image).
-- **Audit first:** a transparent ranking of states where an audit would learn most, plus how much each state's own reported generation swings between reports (Nagaland: 664 tpd in one CPCB report, 29 tpd in a MoHUA answer).
-- **Get help:** a complaint writer for the official Swachhata-MoHUA app, a dated log, an escalation letter, a which-bin guide under the 2026 rules, and a bulk-generator check (`docs/saathi.md`). **State card and briefing** for an MP, MLA or councillor, and a **school waste challenge** (`docs/leaders_schools_spotcheck.md`).
-- **Phantom tonnes, money vs mess, truck priority, Audit Your City:** supporting analyses and a city-level checker; see `docs/new_features.md`.
-- **Gaps screens (app, Gaps tab):** phantom-tonnes counters, a money-vs-mess scatter (share of SWM funds used against percent treated), collection gap and truck priority with landfill share, the national segregation gap, and a per-state reporting-completeness score (`data/completeness.csv`).
-- **Your ward (`#/ward`):** tap whether the garbage truck came, keep a 30-day calendar beside the official figures, print a QR code for a ward, and see a green-ward badge (rules in `docs/ward_reports.md`). Reports are unverified and stored only in the user's own browser; no shared server exists yet.
-- **Voice:** on the Ask tab, speak a question and hear the answer in English, Hindi, Tamil or Telugu using the browser's own speech tools. Support depends on the browser and device; typing always works.
+## What the app does
+Open it and the Home page asks "What brings you here?". Pick a goal and the app walks you through a short path of pages (see Guided paths). Everything below is reachable from the top bar; on narrow screens some pages sit in the **More** menu.
 
-## Try it
-Needs Python 3.12 (pandas, pdfplumber, python-docx) and optionally Node for one parity test.
+| Page | Route | What it gives you |
+|---|---|---|
+| **Home** | `#/start` | Goal chooser, why this matters (four stakes computed from the data), and the main parts as one road: Hear it, Check it, See your street, Do something |
+| **Map** | `#/map` | Geographic map of 36 states and UTs, coloured by MoHUA, CPCB or the gap, with a Tiles switch. Tap a state for both figures and the source page ([docs/map.md](docs/map.md)) |
+| **Check a claim** | `#/claim` | Type a sentence such as "81% of India's urban waste is processed". Result: who agrees and who does not, never "true" or "false" when sources disagree |
+| **Gaps** | `#/gaps` | Phantom tonnes, money vs mess (share of SWM funds used against percent treated), collection gap and trucks, the national segregation gap, reporting completeness per state |
+| **Your city** | `#/city` | Upload ward-level data and see which figures cannot all be true |
+| **Ask** | `#/ask` | Questions in English, Hindi, Tamil or Telugu, answered from the data, with voice in and out where the browser supports it. Needs the Q&A agent (see Run it) |
+| **Explore** | `#/explore` | Audit-first ranking, receipts (source pages with the figure boxed), year-to-year swings, definitions |
+| **Get help** | `#/help` | Complaint writer for the official Swachhata-MoHUA app, a dated log, an escalation letter, which-bin guide under the 2026 rules, bulk-generator check ([docs/saathi.md](docs/saathi.md)) |
+| **Briefing / State card** | `#/brief` | A shareable plain-words card per state and a one-page briefing for an MP, MLA or councillor |
+| **Schools** | `#/school` | A school waste challenge: weigh a week, get a report card |
+| **Your ward** | `#/ward` | Tap whether the garbage truck came, keep a 30-day calendar, print a QR code for a ward, green-ward badge ([docs/ward_reports.md](docs/ward_reports.md)). Reports are unverified and stay in the user's own browser; there is no shared server |
+| **Nearest drop-off** | `#/dropoff` | Where to take batteries, e-waste and other special items |
+
+Design: the "Eco-Intelligence Observatory" system ([docs/ui_theme.md](docs/ui_theme.md)), light and dark, English plus partial Hindi, Tamil and Telugu.
+
+### Guided paths
+For a visitor who knows nothing about the data, five goals each become a short path of existing pages with a bar showing the step, why it matters, and Back/Next: get my garbage collected, check a number someone quoted, understand the problem in 3 minutes, prepare something to cite or ask, run a school waste challenge. Pages outside a path show a "What next?" row. State lives in `sessionStorage`; if storage is blocked the pages still work ([docs/guided_paths.md](docs/guided_paths.md)).
+
+## The data
+- **676 sourced rows** for 36 states and UTs, in tonnes per day, 2019-20 to 2025-26. Every row carries its source document, page and retrieval date. Missing values stay blank and say "not reported"; nothing is estimated or filled in.
+- **72 flags** from six consistency rules. Examples: Kerala reports more waste treated than collected in four years; MoHUA and CPCB differ by more than 10% for 53 state-and-metric pairs.
+- **Receipts:** 605 of 706 figures are placed on their source page; the rest show the page or say there is no page image.
+- Supporting tables: funds, MoHUA statements, definition crosswalk, audit priority, recurrence, phantom tonnes, money vs mess, volatility, state indicators, truck priority, segregation, completeness. Column meanings: [docs/data_dictionary.md](docs/data_dictionary.md).
+- Every document is listed with publisher, URL and retrieval date in [SOURCES.md](SOURCES.md).
+
+## Run it
+Needs Python 3.12 (pandas, pdfplumber, python-docx). Node is optional, for the browser/Python parity tests.
 
 ```bash
 python -m http.server 8777
 ```
-Then open http://127.0.0.1:8777/web/app/index.html (the integrated app: map, claim checker, gaps, receipts, audit and city audit; the Ask tab works once the Q&A agent endpoint is set), http://127.0.0.1:8777/web/trust/index.html (trust pages alone) or http://127.0.0.1:8777/web/mock/index.html (design mock).
+Then open http://127.0.0.1:8777/web/app/index.html (the app), http://127.0.0.1:8777/web/trust/index.html (trust pages alone) or http://127.0.0.1:8777/web/mock/index.html (design mock).
 
-Build a static site for deployment with `python scripts/build_site.py` (writes `dist/`; no source documents or CSVs included). Set the Q&A agent endpoint in `web/app/config.js` once it is live.
+**Ask (optional).** The Q&A agent in `agent/` is a Flask server, so a static host cannot run it. Without it the Ask page says "not connected yet". To run it locally, follow [agent/README.md](agent/README.md), then:
+```bash
+ALLOWED_ORIGINS=http://127.0.0.1:8777 python agent/app.py
+```
+and set `agentEndpoint` in `web/app/config.js` to `http://127.0.0.1:5000/ask`. Without `MODEL_API_KEY` the agent answers in a fallback mode from the data. Do not commit a key.
 
-Rebuild everything from the source documents in `data/raw/`:
+**Static site.** `python scripts/build_site.py` writes `dist/` (the web app and receipts only; no source documents or CSVs). Deploy notes: [docs/deploy.md](docs/deploy.md). A manual GitHub Pages workflow exists (`.github/workflows/pages.yml`) and has not been run.
+
+### Rebuild from the source documents in `data/raw/`
 ```bash
 python scripts/build_clean_csv.py
 python scripts/add_cpcb_2021_22_landfilled.py
@@ -53,47 +76,58 @@ python scripts/state_indicators.py
 python scripts/completeness.py
 python scripts/make_receipts.py
 python scripts/export_web_data.py
+python scripts/build_india_map.py
 python -m pytest -q tests
 ```
 
 ## How we know the extraction is right
 - Each state column sums to the table's printed total (differences under 0.6 tpd are source rounding; one 2 tpd gap in MoHUA 2025-26 is in the source itself).
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
-- CPCB 2021-22 Table 1 agrees with Rajya Sabha Q358 exactly, an independent cross-check.
-- A 30-cell spot check matched 30 of 30. It was an AI-assisted visual read, not a manual hand check; a human check of a few rows is still worthwhile.
-- Automated tests (run `python -m pytest -q tests`), including a check that the browser Claim Checker gives the same verdicts as the Python one, and checks on the design system (contrast, language coverage, no typed-in counts).
-Details: `docs/methodology.md`.
+- CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
+- A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
+- **74 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
 
-## What it does not do
-- **Segregation, collection routing, recycling markets, plastic tracking:** only partly covered or not covered. See `docs/track_coverage.md` for what each segment has and its limits. There is no route optimisation, no recycling price data, and no plastic data.
-- **Truth:** it checks extraction accuracy and consistency between and within reports. All figures are self-reported by states, cities and boards; we cannot say whether a source is correct.
-- **State landfilled:** reported only for 2021-22 and 2022-23.
-- **The funds table** (Lok Sabha Q682) prints no unit; we only use ratios from it.
+Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md](docs/validation_summary.md).
+
+## Limits and honesty
+- **Truth.** All figures are self-reported by states, cities and boards. We check extraction and consistency, not correctness.
+- **Definitions.** Storing MoHUA "processed" as CPCB-style "treated" is our assumption.
+- **Coverage.** Segregation, collection routing, recycling markets and plastic tracking are partly covered or not covered ([docs/track_coverage.md](docs/track_coverage.md)). No route optimisation, no recycling price data. The plastic audit is a requirements spec only ([docs/roadmap/plastic_audit.md](docs/roadmap/plastic_audit.md)).
+- **State landfilled** is reported only for 2021-22 and 2022-23. The funds table (Lok Sabha Q682) prints no unit, so only ratios are used.
+- **Map.** The state boundaries have not been checked against the Survey of India official map.
+- **Languages.** Hindi, Tamil and Telugu stream names are provisional until a native speaker checks them. Voice has been tested only with stubbed speech engines, not on real phones.
+- **Drafts only.** The complaint, log and letters are text for the user to send. The app sends nothing.
+- **Rules.** Four waste streams and bulk-generator thresholds come from the SWM Rules 2026 PIB release of 28 Jan 2026; the Gazette notification itself has not been read.
 
 ## Data, sources and attribution
-- Every document is listed with publisher, URL and retrieval date in `SOURCES.md`.
-- `data/raw/` and `receipts/pages/` are unchanged copies of published government documents, kept so a figure can be checked against its page. Rights stay with each publisher; see `data/raw/NOTICE.md` and `receipts/NOTICE.md`. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA.
-- Reuse terms for most sources are not confirmed: read `docs/licences.md` before any public data release. Draft permission requests are in `docs/permission_requests.md` (not yet sent).
-- Code is MIT (`LICENSE`). A licence for our compiled data has not been chosen yet.
-- Dataset release package: `scripts/build_release.py` (no documents or page images included).
+- `data/raw/` and `receipts/pages/` are unchanged copies of published government documents, kept so a figure can be checked against its page. Rights stay with each publisher ([data/raw/NOTICE.md](data/raw/NOTICE.md), [receipts/NOTICE.md](receipts/NOTICE.md)). We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA.
+- Reuse terms for most sources are not confirmed: read [docs/licences.md](docs/licences.md) before any public data release. Draft permission requests are in [docs/permission_requests.md](docs/permission_requests.md) and have not been sent.
+- Code is MIT ([LICENSE](LICENSE)). A licence for the compiled data has not been chosen. Citation: [CITATION.cff](CITATION.cff). Release package: `scripts/build_release.py` (no documents or page images included).
 
 ## Repository map
 | Folder | What is in it |
 |---|---|
-| `data/` | The CSVs (see `docs/data_dictionary.md`); `data/raw/` holds the source documents |
-| `scripts/` | Extraction, validation, analysis and release scripts |
-| `web/app/`, `web/trust/`, `web/mock/` | Integrated app, trust pages and the design mock |
-| `receipts/` | Page images and the index that places each figure on its page |
-| `briefs/` | One-page Action Briefs for each state |
-| `docs/` | Methodology, licences, track coverage, UI direction, team split, ideas |
-| `tests/` | Automated tests |
+| `data/` | The CSVs; `data/raw/` holds the source documents |
+| `scripts/` | Extraction, validation, analysis, map, site build and release scripts |
+| `web/app/` | The integrated app (routes, Home, map, Get help, guided paths, ward, i18n, theme) |
+| `web/trust/`, `web/mock/` | Trust pages with the inlined data, and the design mock |
+| `agent/` | The Q&A agent (Flask) and its acceptance test |
+| `receipts/` | Source page images and the index placing each figure on its page |
+| `briefs/` | One-page Action Briefs per state |
+| `docs/` | Methodology, licences, track coverage, UI, team plan, deploy, demo script, submission checklist, user tests, roadmap |
+| `tests/` | The 74 automated tests |
 
-## Team (roles as proposed in `docs/team_split_v3.md`)
-- Yasaswini-ch: trust layer (claim checker, receipts, audit list, definitions), dataset publishing
-- Sriya Meenakshi Chalamalasetty: data extraction and sourcing; money, gaps and track coverage
-- Likhitha: platform, deployment, Q&A agent setup, demo and submission
+## Team
+- **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
+- **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.
+- **Likhitha:** platform and design system, Q&A agent setup, deployment, demo and submission.
 
-## Status (2026-11-10)
-Gaps screens (phantom tonnes, money vs mess, collection and trucks, segregation, completeness) and voice questions are in the app. Voice has been tested only with stubbed speech engines, not yet on real phones in Hindi, Tamil and Telugu. The plastic audit is a requirements spec only (`docs/roadmap/plastic_audit.md`): it needs the CPCB plastic waste report downloaded by hand. The ward page (garbage uptime, QR flow, badge) is built; scanning a printed QR code with a phone and testing with residents are not done. No user tests have been run yet (`docs/user_tests.md`, count: 0).
+Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
-Data, checks, the integrated web app (`web/app/`, the "Eco-Intelligence Observatory" design, `docs/ui_theme.md`) and the trust pages are in the repo. The app builds into a static site with `python scripts/build_site.py`, and a manual deploy workflow is ready (`docs/deploy.md`) but has never been run. Not yet done: the public URL, the Q&A agent live on AgentFoundry (setup in `docs/agentfoundry_setup.md`, run sheet in `docs/agentfoundry_run_sheet.md`), and the demo video (script in `docs/demo_video_script.md`). The submission checklist is `docs/submission_checklist.md`.
+## Status (2026-11-11)
+The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 74 tests. Not done yet:
+- **Public URL.** Not deployed ([docs/deploy.md](docs/deploy.md)); publishing page images is a decision for people ([docs/licences.md](docs/licences.md)).
+- **Ask online.** Needs the agent hosted somewhere and `agentEndpoint` set.
+- **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
+- **User tests:** none run, count 0 ([docs/user_tests.md](docs/user_tests.md)). Ward QR scanning on a real phone, 375 px and screen-reader checks are also pending.
+- **By hand:** choose a data licence, confirm author names in `CITATION.cff` and `.zenodo.json`, send permission requests, record the human spot check, verify the map boundary.
