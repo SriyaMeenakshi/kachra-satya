@@ -177,3 +177,29 @@
 .op-grp-h p{margin:0;color:var(--ink2);font-size:var(--t-sm)}
 .op-grp .op-index{margin-top:var(--sp-2)}
 .op-chip{display:inline-block;margin-left:6px;padding:1px 8px;border:1px solid var(--ink2);border-radius:999px;color:var(--ink2);font-size:var(--t-xs);font-weight:600;vertical-align:1px;letter-spacing:.02em}
+
+/* The main parts as one road: four steps on a deep-forest stage (the stage tokens keep it dark in both themes) */
+.op-journey{margin-top:var(--sp-8);border-radius:var(--r-3);overflow:hidden}
+.jy-in{padding:clamp(28px,5vw,64px) clamp(18px,4vw,56px)}
+.op-journey .op-eyebrow{color:var(--lime)}
+.jy-h{font-size:clamp(2.1rem,5.4vw,4rem);line-height:1;letter-spacing:-.045em;font-weight:800;margin:0 0 var(--sp-3);max-width:16ch;color:var(--ivory)}
+.jy-lede{font-size:var(--t-lg);color:var(--ink2);max-width:52ch;margin:0 0 var(--sp-6)}
+.jy-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-4);counter-reset:none;position:relative}
+@media (max-width:1000px){.jy-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.jy-steps{grid-template-columns:1fr}}
+.jy-step{position:relative;display:flex;flex-direction:column;gap:var(--sp-2);padding:var(--sp-5) var(--sp-4) var(--sp-4);border:1px solid color-mix(in srgb,var(--lime) 28%,transparent);border-radius:var(--r-2);background:color-mix(in srgb,var(--forest-800) 70%,transparent);transition:transform var(--dur-2) var(--ease),border-color var(--dur-2)}
+.jy-step:hover{transform:translateY(-4px);border-color:var(--lime)}
+@media (min-width:1001px){.jy-step:not(:last-child)::after{content:"";position:absolute;top:56px;right:calc(var(--sp-4) * -1);width:var(--sp-4);border-top:2px dashed var(--lime);opacity:.7}}
+.jy-n{font-size:clamp(3.4rem,6vw,5.2rem);font-weight:800;letter-spacing:-.06em;line-height:.9;color:var(--lime)}
+.jy-step h3{margin:var(--sp-2) 0 0;font-size:var(--t-xl);letter-spacing:-.03em;color:var(--ivory)}
+.jy-q{margin:0;color:var(--ink2)}
+.jy-proof{margin:var(--sp-3) 0;padding:var(--sp-3) 0;border-block:1px dashed color-mix(in srgb,var(--lime) 35%,transparent);display:flex;flex-direction:column;gap:2px}
+.jy-proof b{font-size:clamp(1.5rem,2.6vw,2rem);letter-spacing:-.04em;line-height:1.05;color:var(--lime);font-variant-numeric:tabular-nums}
+.jy-proof span{color:var(--ink2);font-size:var(--t-sm)}
+.jy-links{display:flex;flex-direction:column;gap:var(--sp-2);margin-top:var(--sp-2)}
+.jy-btn{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-2);min-height:44px;padding:9px 16px;border:1.5px solid color-mix(in srgb,var(--lime) 55%,transparent);border-radius:var(--r-pill);color:var(--ivory);font-weight:600;text-decoration:none;transition:background var(--dur-1),color var(--dur-1)}
+.jy-btn:hover{background:var(--lime);color:var(--forest-900);border-color:var(--lime)}
+.jy-btn.primary{background:var(--lime);color:var(--forest-900);border-color:var(--lime)}
+.jy-btn.primary:hover{background:var(--ivory);border-color:var(--ivory)}
+.jy-btn .op-chip{color:inherit;border-color:currentColor;margin-left:4px;opacity:.85;font-size:.7rem;padding:0 6px;white-space:nowrap}
+@media (prefers-reduced-motion:reduce){.jy-step,.jy-btn{transition:none}.jy-step:hover{transform:none}}

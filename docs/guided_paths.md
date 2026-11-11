@@ -28,3 +28,6 @@ In the browser pane: the six goals render; the garbage path ran through all four
 - The new text is English only. The app's Hindi, Tamil and Telugu strings do not cover it yet.
 - Not tested with a screen reader or on a real phone. The progress segments carry hidden "Done / Current / Next" labels for screen readers, untested.
 - The paths have not been tried by real first-time users; the user-test kit in `docs/user_tests.md` should include "pick a goal and finish a path".
+
+## The main parts section (second version)
+The first version was a plain grouped list and had little impact. It is now one road on a deep-forest stage: the headline "Hear it. Check it. See your street. Do something.", and four large numbered steps (01 to 04). Each step has a verb title, the question a person is asking, one proof number read from the data (the two official figures, 696 figures with a source page, 0 street reports so far, complaint to log to letter), and one lime primary button plus the other pages for that step. Dashed connectors join the steps on wide screens; on tablet it is two columns and on a phone one. Hover lift and the connectors switch off under reduced motion. "0 street reports so far" is deliberate: the Reality step admits it is empty until people use it.

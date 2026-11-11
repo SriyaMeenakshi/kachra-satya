@@ -27,6 +27,10 @@
   function icon(id) { return '<svg class="ic" aria-hidden="true"><use href="#' + id + '"/></svg>'; }
   function row(href, id, name, desc, chip) { return '<a class="op-row" href="' + href + '">' + icon(id) + "<span><b>" + esc(name) + (chip ? ' <span class="op-chip">' + esc(chip) + "</span>" : "") + '</b><span class="d">' + esc(desc) + '</span></span><span class="ar" aria-hidden="true">&rarr;</span></a>'; }
 
+  function jy(n, name, q, big, cap, links) {
+    return '<li class="jy-step"><span class="jy-n" aria-hidden="true">' + n + '</span><h3>' + esc(name) + '</h3><p class="jy-q">' + esc(q) + '</p><div class="jy-proof"><b>' + big + '</b><span>' + esc(cap) + '</span></div><div class="jy-links">' +
+      links.map(function (l) { return '<a class="jy-btn' + (l[2] ? " primary" : "") + '" href="' + l[0] + '">' + esc(l[1]) + (l[3] ? ' <span class="op-chip">' + esc(l[3]) + "</span>" : "") + ' <span aria-hidden="true">&rarr;</span></a>'; }).join("") + "</div></li>";
+  }
   function grp(n, name, q, rows) { return '<div class="op-grp"><div class="op-grp-h"><span class="n" aria-hidden="true">' + n + '</span><div><h3>' + esc(name) + '</h3><p>' + esc(q) + '</p></div></div><div class="op-index">' + rows + "</div></div>"; }
   function drawMap() {
     var Kit = root.KSMapKit, box = $("op-map"); if (!box) return;
@@ -74,13 +78,19 @@
       (gap != null ? '<div class="op-find"><span class="n">' + n0(gap) + '</span><p>tonnes a day apart: the two official national &ldquo;treated&rdquo; totals.<small>Different years, so part of it may be real progress.</small></p><a href="#/claim">Check a number &rarr;</a></div>' : "") +
       '</div></section>' +
 
-      '<section class="op-sec" aria-labelledby="op-p-h"><p class="op-eyebrow">' + esc(T("parts_k", "The main parts")) + '</p><h2 class="op-h2" id="op-p-h">' + esc(T("parts_h", "From what was said to what you can do.")) + '</h2>' +
-      '<p class="op-p">' + esc(T("parts_p", "Four steps. Each part opens on real data, and every figure keeps its source page.")) + '</p>' +
-      grp("1", "Promise", "What did they say?", row("#/claim", "i-claim", T("idx_claim", "Check a claim"), T("idx_claim_d", "Test a number you heard against every source we hold.")) + row("#/ask", "i-ask", T("idx_ask", "Ask"), T("idx_ask_d", "Questions in English, Hindi, Tamil or Telugu, answered from the data."), agentOn ? "" : "assistant not connected")) +
-      grp("2", "Proof", "Is it true on paper?", row("#/map", "i-map", T("idx_map", "Map"), T("idx_map_d", "Both official figures for every state, with the source page.")) + row("#/gaps", "i-gaps", T("idx_gaps", "Gaps"), T("idx_gaps_d", "Money, trucks and reporting gaps, state by state.")) + row("#/explore", "i-explore", T("idx_explore", "Explore"), T("idx_explore_d", "Audit order, source pages, swings and definitions."))) +
-      grp("3", "Reality", "Is it true on my street?", row("#/ward", "i-ward", "Your ward", "Tap whether the truck came; it stays on your device.", "prototype") + row("#/city", "i-city", T("idx_city", "Your city"), T("idx_city_d", "Upload ward data and see which figures cannot all be true.")) + row("#/school", "i-more", "Schools", "Weigh a week of school waste and get a report card.")) +
-      grp("4", "Action", "What can I do?", row("#/help/complain", "i-help", "Get help", "Write a complaint, keep a log, send an escalation letter.") + row("#/help/bins", "i-bin", "Which bin?", "The four streams under the 2026 rules.") + row("#/dropoff", "i-bin", "Nearest drop-off", "Where to take batteries, e-waste and other special items.") + row("#/brief/card", "i-more", "Explain my state", "A shareable card and a briefing for an MP, MLA or councillor.")) +
-      '</section>' +
+      '<section class="op-sec op-journey stage" aria-labelledby="op-p-h"><div class="jy-in"><p class="op-eyebrow">' + esc(T("parts_k", "The main parts")) + '</p>' +
+      '<h2 class="op-h2 jy-h" id="op-p-h">' + esc(T("parts_h", "Hear it. Check it. See your street. Do something.")) + '</h2>' +
+      '<p class="jy-lede">' + esc(T("parts_p", "One road from a number you heard to a complaint you can file. Every stop opens on real data, and every figure keeps its source page.")) + '</p>' +
+      '<ol class="jy-steps">' +
+      jy("01", "Hear a promise", "What did they say?", (mpct == null || cpct == null ? "&ndash;" : mpct + "% vs " + cpct + "%"), "two official figures for the same waste",
+         [["#/claim", "Check a claim", true], ["#/ask", "Ask a question", false, agentOn ? "" : "not connected"]]) +
+      jy("02", "Check the proof", "Is it true on paper?", String(withPage), "figures open on the page they came from",
+         [["#/map", "Open the map", true], ["#/gaps", "See the gaps"], ["#/explore", "Explore the sources"]]) +
+      jy("03", "See your street", "Is it true where I live?", "0", "street reports so far: it fills as people tap in their ward",
+         [["#/ward", "Your ward", true, "prototype"], ["#/city", "Audit your city"], ["#/school", "Weigh school waste"]]) +
+      jy("04", "Do something", "What can I actually do?", "Complaint &rarr; log &rarr; letter", "written for you; you send it, we never do",
+         [["#/help/complain", "Get my garbage collected", true], ["#/help/bins", "Which bin?"], ["#/dropoff", "Nearest drop-off"], ["#/brief/card", "Explain my state"]]) +
+      '</ol></div></section>' +
 
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
       '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p></div>' +
