@@ -19,6 +19,7 @@
     var next = dark ? "light" : "dark"; root.setAttribute("data-theme", next);
     try { localStorage.setItem("ks-theme", next); } catch (e) {}
     if (route().name === "map") renderMap(route().args[0]);
+    else if (route().name === "start") go();
     else if (route().name === "gaps" && route().args[0] === "money") renderGaps("money");   /* the scatter reads theme colours */
   };
 
@@ -45,13 +46,15 @@
     return { name: TITLES[n] ? n : "start", args: a };
   }
   function go() {
-    var r = route(); document.title = TITLES[r.name] + " | Kachra Satya";
+    var r = route(); document.title = TITLES[r.name] + " | Kachra Satya"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
     document.querySelectorAll("#nav a").forEach(function (a) { if (a.dataset.r === r.name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
     ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
     wireR(view);
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   window.addEventListener("hashchange", go);
+  window.addEventListener("ks-lang", function () { var n = route().name; if (n === "start" || n === "claim" || n === "map") go(); });   /* only pages that are translated; others keep what the person typed */
+  document.addEventListener("click", function (e) { var m = document.querySelector("#nav .more"); if (m && m.open && !m.contains(e.target)) m.open = false; });
 
   /* ---------- sortable, searchable table ---------- */
   function mountTable(el, cols, rows, o) {
@@ -76,7 +79,8 @@
   }
 
   /* ---------- claim checker widget (used on the map page and the Check a claim page) ---------- */
-  var VERD = { SUPPORTED: ["Supported", "Every source we hold agrees."], CONTRADICTED: ["Not supported", "No source we hold agrees."], SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: ["The sources disagree", "Some sources agree with this claim and others do not."], CANNOT_VERIFY: ["Cannot verify", ""] };
+  var VERD = { SUPPORTED: ["v_sup", "v_sup_s"], CONTRADICTED: ["v_con", "v_con_s"], SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: ["v_mix", "v_mix_s"], CANNOT_VERIFY: ["v_cant", "v_cant_s"] };
+  var VICON = { SUPPORTED: "\u2713", CONTRADICTED: "\u2715", SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: "\u2260", CANNOT_VERIFY: "?" };
   var EXAMPLES = ["81% of India's urban waste is processed", "62% of India's waste is treated", "Delhi treated 7,542 tonnes per day in 2023-24", "Maharashtra landfilled 2,067 tonnes per day in 2021-22"];
   function mountClaim(el, o) {
     o = o || {};
@@ -89,12 +93,14 @@
       if (isNaN(v)) { $("cres").innerHTML = '<p class="note">We could not find a number in that sentence. Try a figure with % or "tonnes per day", or open "Adjust what we read".</p>'; return; }
       var r = KSClaim.checkClaim(KS, { metric: $("metric").value, value: v, state: st.indexOf("India") === 0 ? null : st, year: $("cyear").value || null }), V = VERD[r.verdict];
       var yrs = Array.from(new Set(r.records.map(function (x) { return x.year; }))).sort(), pct = r.claim && r.claim.unit === "percent";
-      var h = '<div class="verdict v-' + r.verdict + '"><div class="b">' + V[0] + "</div><div>" + esc(V[1] || r.reason) + (yrs.length > 1 ? " The figures cover different years (" + yrs[0] + " to " + yrs[yrs.length - 1] + "), so part of any difference may be real change." : "") + "</div>" +
-        (r.claim ? '<div class="note" style="margin-top:6px">Read as: ' + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as agreeing within " + esc(r.tolerance) + ".</div>" : "") + "</div>";
+      var na = r.records.filter(function (x) { return x.matches; }).length, nd = r.records.length - na, T = KSi18n.t;
+      var h = '<div class="verdict v-' + r.verdict + '"><div class="b"><span aria-hidden="true">' + VICON[r.verdict] + "</span> " + esc(T(V[0])) + '</div><div class="vsent">' + esc(T(V[1])) + "</div>" +
+        (r.records.length ? '<div class="note" style="margin-top:6px">' + na + " match, " + nd + " don't" + (yrs.length > 1 ? " · the figures cover " + yrs[0] + " to " + yrs[yrs.length - 1] + ", so part of any difference may be real change" : "") + ".</div>" : "") + "</div>";
       if (r.records.length) h += '<div class="recs">' + r.records.map(function (x) {
         var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|");
-        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "agrees" : "does not agree") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(x.source_doc) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fmt(x.value) + (pct ? "%" : "") + "</span> " + rbtn(key, "page") + "</div></div>";
+        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(x.source_doc) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fmt(x.value) + (pct ? "%" : "") + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
       }).join("") + "</div>";
+      h += '<details class="more"><summary>How we read this</summary><div>' + (r.claim ? "<p>Read as: " + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as matching within " + esc(r.tolerance) + ".</p>" : "") + "<p>" + esc(r.reason) + ".</p></div></details>";
       $("cres").innerHTML = h; wireR($("cres"));
     }
     function fromSentence() {
@@ -128,22 +134,29 @@
   var STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7"], MODE = "cpcb", VIEW = (function () { try { return localStorage.getItem("ks-mapview") || "geo"; } catch (e) { return "geo"; } })(), QUERY = "", DOM = { cpcb: [0, 100], mohua: [0, 100], gap: [0, 80] };
   function css(v) { return getComputedStyle(root).getPropertyValue(v).trim(); }
   function lum(hex) { var m = hex.replace("#", ""); if (m.length === 3) m = m.replace(/./g, "$&$&"); var c = [0, 2, 4].map(function (i) { var x = parseInt(m.substr(i, 2), 16) / 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; }
-  function colourFor(v) { var d = DOM[MODE], k = Math.max(0, Math.min(6, Math.floor((v - d[0]) / (d[1] - d[0]) * 7))); return css(STEPS[k]); }
+  function colourFor(v) { return rampColour(MODE, v, false); }
   var MODES = [["cpcb", "CPCB % treated"], ["mohua", "MoHUA % processed"], ["gap", "Gap"]];
   var NOTE = { cpcb: "CPCB 2023-24: treated / generated", mohua: "MoHUA 2025-26: processed / generated", gap: "MoHUA minus CPCB, percentage points (different years)" };
+  /* ramps: % treated or processed is lime to forest, the difference is coral; on the always-dark hero stage the ramps run dark to bright (tokens in theme.css) */
+  var GSTEPS = ["--g1", "--g2", "--g3", "--g4", "--g5", "--g6", "--g7"], DSTEPS = ["--d1", "--d2", "--d3", "--d4", "--d5", "--d6", "--d7"], DGSTEPS = ["--dg1", "--dg2", "--dg3", "--dg4", "--dg5", "--dg6", "--dg7"];
+  function rampColour(mode, v, onDark) { var d = DOM[mode], k = Math.max(0, Math.min(6, Math.floor((v - d[0]) / (d[1] - d[0]) * 7))); return css((mode === "gap" ? (onDark ? DGSTEPS : GSTEPS) : (onDark ? DSTEPS : STEPS))[k]); }
+  /* shared with opening.js so the Start page map reads the same numbers, colours and flags as the Map page */
+  window.KSMapKit = { states: Object.keys(GRID), dom: DOM, value: function (s, mode) { return D[s] ? D[s][mode] : null; }, colour: rampColour, ink: function (bg) { return lum(bg) > .36 ? "#0b0b0b" : "#fff"; }, flagged: flagged, abb: ABB,
+    label: function (s, mode) { var v = D[s][mode]; return s + ": " + (v == null ? "not reported" : mode === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); } };
 
   function renderMap(sel) {
     if (sel && !GRID[sel]) sel = "";
     var cg = natrow("2023-24", "CPCB", "generated").value, ct = natrow("2023-24", "CPCB", "treated"), mg = natrow("2025-26", "MoHUA", "generated").value, mt = natrow("2025-26", "MoHUA", "treated");
-    view.innerHTML = '<div class="hero"><div><h1>Two official numbers for India\'s waste. They don\'t match.</h1><p class="sub">Check a claim, tap a state, or open the source page behind any figure.</p><div id="cbox"></div></div>' +
-      '<div class="pair"><div class="stat"><div class="big">' + Math.round(mt.value / mg * 100) + '%</div><div class="who">MoHUA: processed</div><div class="meta">2025-26 · ' + esc(mt.source_doc) + ', p.' + esc(mt.source_page) + '</div></div>' +
-      '<div class="stat b"><div class="big">' + Math.round(ct.value / cg * 100) + '%</div><div class="who">CPCB figures: treated</div><div class="meta">2023-24 · ' + esc(ct.source_doc) + ', p.' + esc(ct.source_page) + '</div></div>' +
-      '<div class="gapnote"><span><strong>' + n0(mt.value - ct.value) + ' tpd</strong> apart</span><details class="more"><summary>Why can\'t we say who is right?</summary><div>The two figures are for different years, and the two bodies may not define "treated" and "processed" the same way. <a href="#/explore/defs">See the definitions</a>.</div></details></div></div></div>' +
-      '<div class="section"><h2>Tap a state</h2><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
+    var I = KSi18n, mp = Math.round(mt.value / mg * 100), cp = Math.round(ct.value / cg * 100);
+    view.innerHTML = '<h2>' + esc(I.t("nav_map")) + '</h2><p class="sub">Both official figures for every state and union territory, with the source page behind each. Select a state to open it.</p>' +
+      '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(mt.source_doc) + ", p." + esc(mt.source_page) + '</span></div>' +
+      '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(ct.source_doc) + ", p." + esc(ct.source_page) + '</span></div>' +
+      '<div><b>' + n0(mt.value - ct.value) + '</b><span>tonnes a day apart. Different years, and we compare MoHUA\'s "processed" with CPCB\'s "treated" as our assumption, not a stated equivalence. <a href="#/explore/defs">Definitions</a></span></div></div>' +
+      '<div class="section" id="mapsec"><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
       MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
-      [["geo", "Map"], ["tiles", "Tiles"]].map(function (m) { return '<button type="button" data-v="' + m[0] + '" aria-pressed="' + (VIEW === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div></div>' +
+      [["geo", "Map"], ["tiles", "Tiles"]].map(function (m) { return '<button type="button" data-v="' + m[0] + '" aria-pressed="' + (VIEW === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div>' +
+      '<details class="more readmap"><summary>How to read this map</summary><div><p><strong>Colour.</strong> Each state is coloured by the share of the waste it reports generating that it also reports treated (CPCB, 2023-24) or processed (MoHUA, 2025-26). Lighter is less, darker is more. The "Gap" layer is the difference between the two, in coral.</p><p><strong>Red dot or corner.</strong> A <button class="term" type="button" data-g="flag">flag</button>: figures in that state\'s own reports cannot all be true, for example more waste treated than collected. It does not say which figure to trust.</p><p><strong>Hatched.</strong> <button class="term" type="button" data-g="notreported">Not reported</button>: the source left the figure blank, or reports generated waste as 0 so no percentage can be worked out. We never fill gaps in.</p><p class="note">The two layers are different years and the two bodies may define their words differently, so a gap is a reason to look at the source pages, not a verdict.</p></div></details></div>' +
       '<aside class="card pad sp" id="detail" aria-live="polite"></aside></div></div>';
-    mountClaim($("cbox"));
     var el = $("tiles"), geo = VIEW === "geo" && window.KS_INDIA && window.KSGeo;
     function slab(s) { var v = D[s][MODE]; return s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); }
     if (geo) {
@@ -173,7 +186,7 @@
       el.appendChild(b);
     });
     var d = DOM[MODE];
-    $("legend").innerHTML = "<span>" + d[0] + (MODE === "gap" ? " pts" : "%") + '</span><span class="ramp" aria-hidden="true">' + STEPS.map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + (MODE === "gap" ? "+ pts" : "%") + "</span><span>· " + NOTE[MODE] + "</span><span>· " + (geo ? "red dot" : "red corner") + " = flagged</span><span>· hatched = not reported</span>" + (geo ? '<span>· outlines simplified, not an authoritative boundary</span>' : "");
+    $("legend").innerHTML = "<span>" + d[0] + (MODE === "gap" ? " pts" : "%") + '</span><span class="ramp" aria-hidden="true">' + (MODE === "gap" ? GSTEPS : STEPS).map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + (MODE === "gap" ? "+ pts" : "%") + "</span><span>· " + NOTE[MODE] + "</span><span>· " + (geo ? "red dot" : "red corner") + " = flagged</span><span>· hatched = not reported</span>" + (geo ? '<span>· outlines simplified, not an authoritative boundary</span>' : "");
     document.querySelectorAll(".seg button[data-m]").forEach(function (b) { b.onclick = function () { MODE = b.dataset.m; renderMap(sel); }; });
     document.querySelectorAll(".seg button[data-v]").forEach(function (b) { b.onclick = function () { VIEW = b.dataset.v; try { localStorage.setItem("ks-mapview", VIEW); } catch (e) {} renderMap(sel); }; });
     function dim() { var q = QUERY.toLowerCase(); el.querySelectorAll(".tile,.geo-s").forEach(function (t) { t.classList.toggle("dim", !!q && t.dataset.s.toLowerCase().indexOf(q) < 0); }); }
@@ -186,23 +199,34 @@
     if (sel && document.activeElement === document.body) { var t = el.querySelector('[data-s="' + sel + '"]'); if (t) t.focus({ preventScroll: true }); }
   }
 
-  function meter(label, v, cls) {
-    return '<div class="meter"><div class="top"><span>' + label + "</span><b>" + (v == null ? "not reported" : v.toFixed(1) + "%") + '</b></div><div class="track"><div class="fill ' + cls + '" style="width:' + (v == null ? 0 : Math.min(100, v)) + '%"></div></div></div>';
+  /* plain-English lines and "not reported" reasons (shared by the state panel, claim evidence and the tables) */
+  function r3(n) { return n >= 1000 ? Math.round(n / 100) * 100 : n >= 100 ? Math.round(n / 10) * 10 : Math.max(1, Math.round(n)); }
+  function mean(tpd) {          /* 10 tonnes = one truck: an everyday picture, defined in the glossary */
+    if (tpd == null || tpd === 0) return "";
+    var n = tpd / 10; return '<div class="mean">' + (n < 1 ? "less than one " : n < 1.5 ? "≈ 1 " : "≈ " + r3(n).toLocaleString("en-IN") + " ") + KSi18n.term("truckload") + (n < 1 ? " a day" : n < 1.5 ? " a day" : "s a day") + "</div>";
   }
-  function numcard(label, s, y, src, m) {
+  function meanPct(p) { if (p == null) return ""; return '<div class="mean">' + (p < 5 ? "almost none of it" : p > 95 ? "almost all of it" : "about " + Math.round(p / 10) + " in every 10 tonnes") + "</div>"; }
+  function nr(reason) { return '<span class="nr">' + KSi18n.term("notreported") + '</span><div class="note">' + esc(reason || "the source gives no figure") + "</div>"; }
+  function meter(label, v, cls, reason) {
+    return '<div class="meter"><div class="top"><span>' + label + "</span><b>" + (v == null ? "" : v.toFixed(1) + "%") + "</b></div>" +
+      (v == null ? nr(reason) : '<div class="track"><div class="fill ' + cls + '" style="width:' + Math.min(100, v) + '%"></div></div>' + meanPct(v)) + "</div>";
+  }
+  function numcard(termKey, s, y, src, m) {
     var r = row(s, y, src, m); if (!r) return "";
-    return '<div class="num3"><div class="v">' + n0(val(r)) + '</div><div class="l">' + label + "</div>" + (val(r) != null ? rbtn([s, y, m, r.source_doc].join("|"), "source page") : "") + "</div>";
+    var v = val(r);
+    return '<div class="num3">' + (v == null ? nr(r.note) : '<div class="v">' + n0(v) + "</div>" + mean(v)) + '<div class="l">' + KSi18n.term(termKey) + "</div>" + (v != null ? rbtn([s, y, m, r.source_doc].join("|"), "source page") : "") + "</div>";
   }
   function stateDetail(s) {
     var box = $("detail");
     if (!s) { box.innerHTML = '<div class="empty"><div class="big">👆</div><p>Pick a state on the map, or type its name, to see both figures side by side with the source pages.</p></div>'; return; }
     var fl = KS.flags.filter(function (f) { return f.state === s && f.rule.indexOf("3_") !== 0; }), au = KS.audit.filter(function (a) { return a.state === s; })[0], x = D[s];
+    function why(y, src) { var g = val(row(s, y, src, "generated")); return g === 0 ? "generated waste is reported as 0, so no percentage can be worked out" : "needs both a generated and a treated figure"; }
     var h = "<h3>" + esc(s) + "</h3>" + (au ? '<a class="rank" href="#/explore/audit" style="text-decoration:none">Audit priority #' + au.rank + " of 36</a>" : "") +
-      meter("CPCB 2023-24 treated", x.cpcb, "c") + meter("MoHUA 2025-26 processed", x.mohua, "") +
-      (x.gap != null ? '<p class="note">MoHUA is ' + Math.abs(x.gap).toFixed(1) + " points " + (x.gap >= 0 ? "higher" : "lower") + " than CPCB. Different years.</p>" : '<p class="note">Not enough reported to compare.</p>') +
-      '<p class="note" style="margin-bottom:0"><strong>CPCB 2023-24</strong>, tonnes per day</p><div class="nums">' + numcard("generated", s, "2023-24", "CPCB", "generated") + numcard("collected", s, "2023-24", "CPCB", "collected") + numcard("treated", s, "2023-24", "CPCB", "treated") + "</div>" +
-      '<p class="note" style="margin-bottom:0"><strong>MoHUA 2025-26</strong>, tonnes per day</p><div class="nums">' + numcard("generated", s, "2025-26", "MoHUA", "generated") + numcard("processed", s, "2025-26", "MoHUA", "treated") + "</div>" +
-      (fl.length ? '<details class="more"><summary>' + fl.length + " flag" + (fl.length > 1 ? "s" : "") + " in this state's own reports</summary><div>" + fl.map(function (f) { return '<div class="flag"><span class="pill">' + esc(f.year) + "</span><span>" + esc(f.explanation) + ' <span class="note">(' + esc(f.values) + ")</span></span></div>"; }).join("") + "</div></details>" : '<p class="note">No flags in this state\'s own reports.</p>') +
+      meter("CPCB 2023-24 " + KSi18n.term("treated"), x.cpcb, "c", why("2023-24", "CPCB")) + meter("MoHUA 2025-26 " + KSi18n.term("processed"), x.mohua, "", why("2025-26", "MoHUA")) +
+      (x.gap != null ? '<p class="note">MoHUA is ' + Math.abs(x.gap).toFixed(1) + " points " + (x.gap >= 0 ? "higher" : "lower") + " than CPCB. Different years.</p>" : '<p class="note">Not enough is reported to compare the two.</p>') +
+      '<p class="note" style="margin-bottom:0"><strong>CPCB 2023-24</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2023-24", "CPCB", "generated") + numcard("collected", s, "2023-24", "CPCB", "collected") + numcard("treated", s, "2023-24", "CPCB", "treated") + "</div>" +
+      '<p class="note" style="margin-bottom:0"><strong>MoHUA 2025-26</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2025-26", "MoHUA", "generated") + numcard("processed", s, "2025-26", "MoHUA", "treated") + "</div>" +
+      (fl.length ? '<details class="more"><summary>' + fl.length + " flag" + (fl.length > 1 ? "s" : "") + " in this state's own reports</summary><div><p>A " + KSi18n.term("flag") + " means two reported figures cannot both be true. It does not say which one to trust.</p>" + fl.map(function (f) { return '<div class="flag"><span class="pill">' + esc(f.year) + "</span><span>" + esc(f.explanation) + ' <span class="note">(' + esc(f.values) + ")</span></span></div>"; }).join("") + "</div></details>" : '<p class="note">No flags in this state\'s own reports.</p>') +
       '<p><a class="alt" style="display:inline-block;text-decoration:none" href="#/explore/receipts/' + encodeURIComponent(s) + '">All years and source pages</a></p>';
     box.innerHTML = h;
   }
@@ -230,8 +254,8 @@
     mountTable($("vt"), [
       { label: "#", k: "rank", num: true }, { label: "State", k: "state" },
       { label: "Swing", k: "swing_ratio", html: function (r) { return '<div class="bar10" style="width:' + Math.max(2, r.swing_ratio / mx * 100) + '%;max-width:160px"></div>' + r.swing_ratio + "x"; } },
-      { label: "Lowest", k: "min_tpd", num: true, html: function (r) { return fmt(r.min_tpd) + '<br><span class="note">' + esc(r.min_in) + "</span>"; } },
-      { label: "Highest", k: "max_tpd", num: true, html: function (r) { return fmt(r.max_tpd) + '<br><span class="note">' + esc(r.max_in) + "</span>"; } }
+      { label: "Lowest", k: "min_tpd", num: true, html: function (r) { return fmt(r.min_tpd) + mean(r.min_tpd) + '<span class="note">' + esc(r.min_in) + "</span>"; } },
+      { label: "Highest", k: "max_tpd", num: true, html: function (r) { return fmt(r.max_tpd) + mean(r.max_tpd) + '<span class="note">' + esc(r.max_in) + "</span>"; } }
     ], rows, { sort: "#", ph: "Search states" });
   }
   function tabReceipts(el, rest) {
@@ -239,20 +263,31 @@
     if (rest[0] && states.indexOf(rest[0]) >= 0) $("rstate").value = rest[0];
     function draw() {
       var s = $("rstate").value, y = $("ryear").value, m = $("rmetric").value;
-      var src = s === "India" ? KS.national.map(function (r) { return { state: "India", year: r.year, metric: r.metric, value: r.value, source_name: r.source_name, source_doc: r.source_doc, source_page: r.source_page }; })
-        : KS.waste.map(function (r) { return { state: r.state, year: r.year, metric: r.metric, value: r.value_tpd, source_name: r.source_name, source_doc: r.source_doc, source_page: r.source_page }; });
+      var src = s === "India" ? KS.national.map(function (r) { return { state: "India", year: r.year, metric: r.metric, value: r.value, source_name: r.source_name, source_doc: r.source_doc, source_page: r.source_page, note: r.note }; })
+        : KS.waste.map(function (r) { return { state: r.state, year: r.year, metric: r.metric, value: r.value_tpd, source_name: r.source_name, source_doc: r.source_doc, source_page: r.source_page, note: r.note }; });
       mountTable($("rtab"), [
-        { label: "Year", k: "year" }, { label: "Figure", k: "metric" }, { label: "Value", k: "value", num: true, html: function (r) { return fmt(r.value); } },
+        { label: "Year", k: "year" }, { label: "Figure", k: "metric" }, { label: "Value", k: "value", num: true, html: function (r) { return r.value == null ? nr(r.note) : fmt(r.value) + (r.metric === "processed_pct" ? meanPct(r.value) : mean(r.value)); } },
         { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_name) + ' <span class="note">' + esc(r.source_doc) + ", p." + esc(r.source_page) + "</span>"; }, text: function (r) { return r.source_name + " " + r.source_doc; } },
         { label: "Page", k: "x", html: function (r) { var key = [r.state, r.year, r.metric, r.source_doc].join("|"); return rbtn(key, "open page") || '<span class="note">' + (r.value == null ? "not reported" : "no page image") + "</span>"; }, val: function (r) { return hasR([r.state, r.year, r.metric, r.source_doc].join("|")) ? 0 : 1; }, text: function () { return ""; } }
       ], src.filter(function (r) { return r.state === s && (!y || r.year === y) && (!m || r.metric === m); }), { limit: 12, ph: "Search this list" });
     }
     ["rstate", "ryear", "rmetric"].forEach(function (id) { $(id).onchange = draw; }); draw();
   }
-  function tabDefs(el) {
-    el.innerHTML = '<p class="sub">The two sources may not mean the same thing by the same word. We store MoHUA "processed" as "treated" to compare them; that is our assumption.</p><div class="defs">' +
+  function glossaryHTML() {
+    var I = KSi18n;
+    return '<h3 style="margin-top:0">Glossary</h3><p class="sub">Plain-English meanings. You can also tap any dotted-underlined word on the site.</p><div class="tools"><input id="gsearch" type="search" placeholder="Search terms" aria-label="Search the glossary"></div><div class="defs" id="glist">' +
+      Object.keys(I.glossary).map(function (k) { var g = I.gl(k); return '<details data-k="' + k + '" id="g-' + k + '"><summary>' + esc(g[0]) + "</summary><p>" + esc(g[1]) + "</p></details>"; }).join("") + "</div>";
+  }
+  function wireGlossary(el, rest) {
+    var inp = el.querySelector("#gsearch"); if (!inp) return;
+    inp.oninput = function () { var q = this.value.trim().toLowerCase(); el.querySelectorAll("#glist details").forEach(function (d) { d.hidden = !!q && d.textContent.toLowerCase().indexOf(q) < 0; }); };
+    if (rest && rest[0]) { var d = el.querySelector("#g-" + rest[0]); if (d) { d.open = true; d.scrollIntoView({ block: "center" }); } }
+  }
+  function tabDefs(el, rest) {
+    el.innerHTML = glossaryHTML() + '<h3>How the two sources define their words</h3><p class="sub">The two sources may not mean the same thing by the same word. We store MoHUA "processed" as "treated" to compare them; that is our assumption.</p><div class="defs">' +
       KS.crosswalk.map(function (r, i) { return "<details" + (i === 0 ? " open" : "") + "><summary>" + esc(r.concept) + '</summary><div class="cols"><div><strong>CPCB</strong><br>' + esc(r.cpcb_says) + "</div><div><strong>MoHUA</strong><br>" + esc(r.mohua_says) + '</div></div><p class="note"><strong>Why it matters:</strong> ' + esc(r.why_it_matters) + "<br>" + esc(r.sources) + "</p></details>"; }).join("") +
       '</div><h3>What MoHUA has said over time</h3><div class="card pad" id="st"></div>';
+    wireGlossary(el, rest);
     mountTable($("st"), [{ label: "Date", k: "statement_date" }, { label: "Generated", k: "generated_tpd", num: true, html: function (r) { return fmt(r.generated_tpd); } }, { label: "Processed", k: "processed_tpd", num: true, html: function (r) { return fmt(r.processed_tpd); } },
       { label: "%", k: "processed_pct_stated", num: true, html: function (r) { return fmt(r.processed_pct_stated); } }, { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_doc) + ", p." + esc(r.source_page) + '<br><span class="note">' + esc(r.note) + "</span>"; } }], KS.statements, { search: false });
   }

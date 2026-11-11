@@ -4,7 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kachra Satya</title>
-<meta name="description" content="India's two official waste figures disagree. Check a claim, open the source page behind any number, and audit your own city's data.">
+<meta name="description" content="India's waste story doesn't always add up. Follow the numbers, compare official claims and see what India's waste data actually says.">
+<meta name="theme-color" content="#0E2A20">
+<link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="saathi.css">
 <link rel="stylesheet" href="geomap.css">
@@ -13,24 +15,49 @@
 <link rel="stylesheet" href="theme.css">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14"/></symbol>
+  <symbol id="i-claim" viewBox="0 0 24 24"><path d="M5 3h10l4 4v14H5zM9 13l2.5 2.5L16 10"/></symbol>
+  <symbol id="i-gaps" viewBox="0 0 24 24"><path d="M3 20h18M6 20v-8M12 20V5M18 20v-5"/></symbol>
+  <symbol id="i-city" viewBox="0 0 24 24"><path d="M4 21V8l7-4v17M11 21h9V11l-5-2M7 10h1M7 14h1M7 18h1M15 14h1M15 18h1"/></symbol>
+  <symbol id="i-ask" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-6 4z"/></symbol>
+  <symbol id="i-explore" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-ward" viewBox="0 0 24 24"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1-1.5 2M12 17h.01"/></symbol>
+  <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" style="stroke-width:3"/></symbol>
+</defs></svg>
 <a class="skip" href="#view">Skip to content</a>
 <header class="bar"><div class="wrap">
-  <a class="brand" href="#/start">Kachra Satya</a>
+  <a class="brand" href="#/start" aria-label="Kachra Satya, home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0E2A20"/><path d="M8 23c0-8 5-13 16-14 0 9-5 15-12 15" fill="#BFE84F"/><path d="M8 23l8-8" stroke="#0E2A20" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="24" cy="24" r="2.6" fill="#E4795B"/></svg>
+    <span>Kachra Satya</span>
+  </a>
   <nav aria-label="Main" id="nav">
-    <a href="#/start" data-r="start">Start</a>
-    <a href="#/map" data-r="map">Map</a>
-    <a href="#/claim" data-r="claim">Check a claim</a>
-    <a href="#/gaps" data-r="gaps">Gaps</a>
-    <a href="#/city" data-r="city">Your city</a>
-    <a href="#/ward" data-r="ward">Your ward</a>
-    <a href="#/help" data-r="help">Get help</a>
-    <a href="#/ask" data-r="ask">Ask</a>
-    <a href="#/explore" data-r="explore">Explore</a>
+    <a href="#/start" data-r="start"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span data-i="nav_home">Home</span></a>
+    <a href="#/map" data-r="map"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg><span data-i="nav_map">Map</span></a>
+    <a href="#/claim" data-r="claim"><svg class="ic" aria-hidden="true"><use href="#i-claim"/></svg><span class="l-d" data-i="nav_claim">Check a claim</span><span class="l-m" data-i="nav_claim_m">Claim</span></a>
+    <a class="d-only" href="#/gaps" data-r="gaps"><svg class="ic" aria-hidden="true"><use href="#i-gaps"/></svg><span data-i="nav_gaps">Gaps</span></a>
+    <a href="#/city" data-r="city"><svg class="ic" aria-hidden="true"><use href="#i-city"/></svg><span class="l-d" data-i="nav_city">Your city</span><span class="l-m" data-i="nav_city_m">City</span></a>
+    <a class="d-only" href="#/ask" data-r="ask"><svg class="ic" aria-hidden="true"><use href="#i-ask"/></svg><span data-i="nav_ask">Ask</span></a>
+    <a class="d-only" href="#/explore" data-r="explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_explore">Explore</span></a>
+    <details class="more"><summary><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span data-i="nav_more">More</span></summary>
+      <div class="menu">
+        <a class="m-only" href="#/gaps" data-r="gaps"><svg class="ic" aria-hidden="true"><use href="#i-gaps"/></svg><span data-i="nav_gaps">Gaps</span></a>
+        <a class="m-only" href="#/ask" data-r="ask"><svg class="ic" aria-hidden="true"><use href="#i-ask"/></svg><span data-i="nav_ask">Ask</span></a>
+        <a class="m-only" href="#/explore" data-r="explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_explore">Explore</span></a>
+        <a href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
+        <a href="#/help" data-r="help"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg><span data-i="nav_help">Get help</span></a>
+      </div>
+    </details>
   </nav>
-  <button class="tg" id="theme" type="button" aria-label="Switch theme">Theme</button>
+  <div class="tools">
+    <select class="tg" id="uilang" aria-label="Language"></select>
+    <button class="tg" id="theme" type="button" aria-label="Switch theme">Theme</button>
+  </div>
 </div></header>
 <main><div class="wrap" id="view" tabindex="-1"></div></main>
-<footer><div class="wrap">All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged with the source named; rights stay with the publisher. Not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built <span id="built"></span>.</div></footer>
+<footer><div class="wrap">All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged from the cited document, with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built <span id="built"></span>.</div></footer>
 <div class="tip" id="tip" role="tooltip"></div>
 <dialog id="dlg" aria-label="Source page"><button class="alt x" type="button" id="dlgx">Close</button><div id="dlgbody"></div></dialog>
 
@@ -38,6 +65,7 @@
 <script src="../trust/claim.js"></script>
 <script src="city.js"></script>
 <script src="config.js"></script>
+<script src="i18n.js"></script>
 <script src="india.js"></script>
 <script src="geomap.js"></script>
 <script src="saathi.js"></script>
