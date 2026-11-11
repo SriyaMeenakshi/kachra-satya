@@ -83,3 +83,38 @@ def test_start_page_counts_come_from_the_data_not_typed_in():
     for typed in ("697", "696", "36 states", "72 flags", "17,420", "114,110", "131,530"):
         assert typed not in js, typed
     assert "value_tpd != null" in js and "KS.flags.length" in js and "KS.recurrence" in js and "KS.volatility" in js
+
+
+def _ramp(tk, prefix):
+    return [tk["%s%d" % (prefix, i)] for i in range(1, 8)]
+
+
+def test_map_ramps_run_in_one_direction_in_both_themes():
+    dark = {**LIGHT, **DARK}
+    for prefix, tk, darker_is_more in (("s", LIGHT, True), ("g", LIGHT, True), ("s", dark, False), ("g", dark, False)):
+        lums = [lum(h) for h in _ramp(tk, prefix)]
+        ordered = sorted(lums, reverse=darker_is_more)
+        assert lums == ordered, (prefix, "light" if tk is LIGHT else "dark", [round(x, 3) for x in lums])
+    stage = [lum(h) for h in _ramp(LIGHT, "d")]
+    assert stage == sorted(stage)                                    # on the dark stage, brighter means more
+    stage_g = [lum(h) for h in _ramp(LIGHT, "dg")]
+    assert stage_g == sorted(stage_g)
+
+
+def test_map_labels_are_readable_on_every_ramp_step():
+    js = open("web/app/app.js", encoding="utf-8").read()
+    assert "> .36" not in js and "> .179" in js                       # label colour is chosen at the contrast crossover, not a loose cut
+    dark = {**LIGHT, **DARK}
+    for tk in (LIGHT, dark):
+        for prefix in ("s", "g", "d", "dg"):
+            for hexv in _ramp(tk, prefix):
+                ink = "#0b0b0b" if lum(hexv) > .179 else "#ffffff"
+                assert ratio(ink, hexv) >= 4.5, (prefix, hexv, round(ratio(ink, hexv), 2))
+
+
+def test_every_page_gets_a_level_one_heading_and_an_icon():
+    js = open("web/app/app.js", encoding="utf-8").read()
+    assert 'setAttribute("aria-level", "1")' in js and "pg-ic" in js
+    html = open("web/app/index.html", encoding="utf-8").read()
+    for sym in ("i-map", "i-claim", "i-gaps", "i-city", "i-ask", "i-explore", "i-ward", "i-help"):
+        assert 'id="%s"' % sym in html, sym

@@ -39,7 +39,7 @@
   function wireR(el) { el.querySelectorAll("[data-rkey]").forEach(function (b) { b.onclick = function () { openReceipt(b.dataset.rkey); }; }); }
 
   /* ---------- routing ---------- */
-  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
+  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", dropoff: "Nearest drop-off", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
   function route() {
     var h = decodeURIComponent((location.hash || "#/start").replace(/^#\/?/, "")).split("/"), n = h[0], a = h.slice(1);
     if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
@@ -48,8 +48,12 @@
   function go() {
     var r = route(); document.title = TITLES[r.name] + " | Kachra Satya"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
     document.querySelectorAll("#nav a").forEach(function (a) { if (a.dataset.r === r.name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
+    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, dropoff: function () { KSDropoff.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
     wireR(view);
+    /* every page gets one level-1 heading (so a screen reader announces the page) and a matching icon (so the pages read as one product) */
+    var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help", dropoff: "i-bin" }, hh = view.querySelector("h1, h2");
+    if (hh && !view.querySelector("h1")) hh.setAttribute("aria-level", "1");
+    if (hh && PG[r.name] && hh.parentNode === view && !hh.querySelector(".pg-ic")) hh.insertAdjacentHTML("afterbegin", '<svg class="pg-ic" aria-hidden="true"><use href="#' + PG[r.name] + '"/></svg>');
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   window.addEventListener("hashchange", go);
@@ -141,7 +145,7 @@
   var GSTEPS = ["--g1", "--g2", "--g3", "--g4", "--g5", "--g6", "--g7"], DSTEPS = ["--d1", "--d2", "--d3", "--d4", "--d5", "--d6", "--d7"], DGSTEPS = ["--dg1", "--dg2", "--dg3", "--dg4", "--dg5", "--dg6", "--dg7"];
   function rampColour(mode, v, onDark) { var d = DOM[mode], k = Math.max(0, Math.min(6, Math.floor((v - d[0]) / (d[1] - d[0]) * 7))); return css((mode === "gap" ? (onDark ? DGSTEPS : GSTEPS) : (onDark ? DSTEPS : STEPS))[k]); }
   /* shared with opening.js so the Start page map reads the same numbers, colours and flags as the Map page */
-  window.KSMapKit = { states: Object.keys(GRID), dom: DOM, value: function (s, mode) { return D[s] ? D[s][mode] : null; }, colour: rampColour, ink: function (bg) { return lum(bg) > .36 ? "#0b0b0b" : "#fff"; }, flagged: flagged, abb: ABB,
+  window.KSMapKit = { states: Object.keys(GRID), dom: DOM, value: function (s, mode) { return D[s] ? D[s][mode] : null; }, colour: rampColour, ink: function (bg) { return lum(bg) > .179 ? "#0b0b0b" : "#fff"; }, flagged: flagged, abb: ABB,
     label: function (s, mode) { var v = D[s][mode]; return s + ": " + (v == null ? "not reported" : mode === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); } };
 
   function renderMap(sel) {
@@ -161,7 +165,7 @@
     function slab(s) { var v = D[s][MODE]; return s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); }
     if (geo) {
       el.className = "geo";
-      KSGeo.draw(el, { value: function (s) { return D[s][MODE]; }, colour: colourFor, ink: function (bg) { return lum(bg) > .36 ? "#0b0b0b" : "#fff"; }, label: slab, selected: sel, flagged: flagged, abb: ABB,
+      KSGeo.draw(el, { value: function (s) { return D[s][MODE]; }, colour: colourFor, ink: function (bg) { return lum(bg) > .179 ? "#0b0b0b" : "#fff"; }, label: slab, selected: sel, flagged: flagged, abb: ABB,
         onSelect: function (s) { history.replaceState(null, "", "#/map/" + encodeURIComponent(s)); renderMap(s); if (matchMedia("(max-width:900px)").matches) $("detail").scrollIntoView({ behavior: "smooth", block: "start" }); },
         tip: function (lab, e) { var t = $("tip"); if (!lab) { t.style.display = "none"; return; } t.textContent = lab; t.style.display = "block"; t.style.left = Math.min(e.clientX + 14, innerWidth - 250) + "px"; t.style.top = (e.clientY + 14) + "px"; } });
     }
@@ -169,7 +173,7 @@
       var p = GRID[s], v = D[s][MODE], b = document.createElement("button"); b.type = "button"; b.dataset.s = s; b.className = "tile" + (v == null ? " none" : "") + (flagged[s] ? " fl" : "");
       b.style.gridRow = p[0] + 1; b.style.gridColumn = p[1] + 1; b.setAttribute("aria-pressed", sel === s);
       var lab = s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); b.setAttribute("aria-label", lab);
-      if (v != null) { var bg = colourFor(v); b.style.background = bg; b.style.color = lum(bg) > .36 ? "#0b0b0b" : "#fff"; }
+      if (v != null) { var bg = colourFor(v); b.style.background = bg; b.style.color = lum(bg) > .179 ? "#0b0b0b" : "#fff"; }
       b.innerHTML = "<b>" + ABB[s] + "</b><small>" + (v == null ? "n/r" : Math.round(v)) + "</small>";
       b.onclick = function () { history.replaceState(null, "", "#/map/" + encodeURIComponent(s)); renderMap(s); if (matchMedia("(max-width:900px)").matches) $("detail").scrollIntoView({ behavior: "smooth", block: "start" }); };
       b.onmousemove = function (e) { var t = $("tip"); t.textContent = lab; t.style.display = "block"; t.style.left = Math.min(e.clientX + 14, innerWidth - 250) + "px"; t.style.top = (e.clientY + 14) + "px"; };
@@ -348,7 +352,7 @@
       '<text x="' + (X(mu) + 4) + '" y="' + (H - B - 6) + '" style="fill:var(--ink2);font-size:10px">median ' + mu.toFixed(1) + "%</text><text x=\"" + (W - R - 4) + '" y="' + (Y(mt) - 5) + '" text-anchor="end" style="fill:var(--ink2);font-size:10px">median ' + mt.toFixed(1) + "%</text>" +
       '<text x="' + (L + (W - L - R) / 2) + '" y="' + (H - 6) + '" text-anchor="middle" style="fill:var(--ink);font-size:12px;font-weight:600">Share of SWM funds used, to 25 Nov 2024 (%)</text><text transform="rotate(-90)" x="' + (-(T + (H - T - B) / 2)) + '" y="14" text-anchor="middle" style="fill:var(--ink);font-size:12px;font-weight:600">Waste treated, CPCB 2023-24 (%)</text>';
     rows.forEach(function (r) {
-      var c = css(QCOL[r.quadrant]), tc = lum(c) > .36 ? "#0b0b0b" : "#fff", lab = r.state + ": " + r.swm_utilisation_pct + "% of funds used, " + r.cpcb_pct_treated + "% treated. " + QLAB[r.quadrant];
+      var c = css(QCOL[r.quadrant]), tc = lum(c) > .179 ? "#0b0b0b" : "#fff", lab = r.state + ": " + r.swm_utilisation_pct + "% of funds used, " + r.cpcb_pct_treated + "% treated. " + QLAB[r.quadrant];
       svg += '<g class="dot" role="button" tabindex="0" data-s="' + esc(r.state) + '" aria-label="' + esc(lab) + '"><title>' + esc(lab) + '</title><circle cx="' + X(r.swm_utilisation_pct) + '" cy="' + Y(r.cpcb_pct_treated) + '" r="9.5" fill="' + c + '" style="stroke:var(--card);stroke-width:2"/><text x="' + X(r.swm_utilisation_pct) + '" y="' + (Y(r.cpcb_pct_treated) + 3) + '" text-anchor="middle" style="fill:' + tc + ';font-size:7.5px;font-weight:700;pointer-events:none">' + (ABB[r.state] || "") + "</text></g>";
     });
     svg += "</svg>";
@@ -467,7 +471,7 @@
       flags();
       var mx = r.ranking.length ? r.ranking[0].uncollected_tpd_avg || 1 : 1;
       if (r.ranking.length) mountTable($("rk"), [{ label: "#", k: "rank", num: true }, { label: "Ward", k: "ward", html: function (x) { return esc(x.ulb) + " · " + esc(x.ward); }, text: function (x) { return x.ulb + " " + x.ward; } },
-        { label: "Uncollected (avg tpd)", k: "uncollected_tpd_avg", html: function (x) { return '<div class="bar10" style="width:' + Math.max(2, x.uncollected_tpd_avg / mx * 100) + '%;max-width:180px"></div>' + fmt(x.uncollected_tpd_avg); } },
+        { label: "Uncollected (avg tpd)", k: "uncollected_tpd_avg", html: function (x) { return '<div class="bar10" style="width:' + Math.max(2, x.uncollected_tpd_avg / mx * 100) + '%;max-width:180px"></div>' + fmt(x.uncollected_tpd_avg) + mean(x.uncollected_tpd_avg); } },
         { label: "Worst period", k: "uncollected_tpd_max", num: true, html: function (x) { return fmt(x.uncollected_tpd_max); } }], r.ranking, { sort: "#", ph: "Search wards" });
       else $("rk").innerHTML = '<p class="note">No ward has both generated and collected reported, so nothing can be ranked.</p>';
       $("dlf").onclick = function () { download("city_flags.csv", toCSV(["ulb", "ward", "period", "rule", "values", "explanation"], r.flags)); };

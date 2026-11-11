@@ -10,7 +10,7 @@
 
   var UI = {
     en: {
-      nav_home: "Home", nav_map: "Map", nav_claim: "Check a claim", nav_claim_m: "Claim", nav_gaps: "Gaps", nav_city: "Your city", nav_city_m: "City", nav_ask: "Ask", nav_explore: "Explore", nav_more: "More", nav_ward: "Your ward", nav_help: "Get help", theme: "Theme", language: "Language",
+      nav_home: "Home", nav_map: "Map", nav_claim: "Check a claim", nav_claim_m: "Claim", nav_gaps: "Gaps", nav_city: "Your city", nav_city_m: "City", nav_ask: "Ask", nav_explore: "Explore", nav_more: "More", nav_ward: "Your ward", nav_help: "Get help", nav_dropoff: "Nearest drop-off", theme: "Theme", language: "Language",
       kicker: "Waste data observatory · India", h1: "India's waste story doesn't always add up.", lede: "Follow the numbers, compare official claims and uncover what India's waste data actually says.",
       cta_explore: "Explore the data", cta_claim: "Check a claim",
       what: "Kachra Satya puts India's two official waste numbers side by side, shows the source page behind each, and flags figures that can't all be true.",
@@ -29,7 +29,7 @@
       v_mix_s: "Some official sources match this claim and others don't. The sources disagree with each other.", v_cant_s: "We have no figure to compare this with, and we don't guess."
     },
     hi: {
-      nav_home: "होम", nav_map: "नक्शा", nav_claim: "दावा जाँचें", nav_claim_m: "दावा", nav_gaps: "अंतर", nav_city: "आपका शहर", nav_city_m: "शहर", nav_ask: "पूछें", nav_explore: "खोजें", nav_more: "और", nav_ward: "आपका वार्ड", nav_help: "मदद", theme: "थीम", language: "भाषा",
+      nav_home: "होम", nav_map: "नक्शा", nav_claim: "दावा जाँचें", nav_claim_m: "दावा", nav_gaps: "अंतर", nav_city: "आपका शहर", nav_city_m: "शहर", nav_ask: "पूछें", nav_explore: "खोजें", nav_more: "और", nav_ward: "आपका वार्ड", nav_help: "मदद", nav_dropoff: "नज़दीकी ड्रॉप-ऑफ़", theme: "थीम", language: "भाषा",
       kicker: "कचरा डेटा वेधशाला · भारत", h1: "भारत की कचरा कहानी हमेशा मेल नहीं खाती।", lede: "आँकड़ों का पीछा करें, सरकारी दावों की तुलना करें और जानें कि भारत का कचरा-डेटा असल में क्या कहता है।",
       cta_explore: "डेटा देखें", cta_claim: "दावा जाँचें",
       what: "कचरा सत्य भारत के कचरे के दो सरकारी आँकड़े साथ-साथ रखता है, हर आँकड़े के पीछे का स्रोत पृष्ठ दिखाता है, और उन आँकड़ों को चिह्नित करता है जो सब एक साथ सही नहीं हो सकते।",
@@ -48,7 +48,7 @@
       v_mix_s: "कुछ सरकारी स्रोत इस दावे से मेल खाते हैं और कुछ नहीं। स्रोत आपस में सहमत नहीं हैं।", v_cant_s: "तुलना के लिए हमारे पास कोई आँकड़ा नहीं है, और हम अंदाज़ा नहीं लगाते।"
     },
     te: {
-      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "క్లెయిమ్ తనిఖీ", nav_claim_m: "క్లెయిమ్", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", theme: "థీమ్", language: "భాష",
+      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "క్లెయిమ్ తనిఖీ", nav_claim_m: "క్లెయిమ్", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", nav_dropoff: "దగ్గరి డ్రాప్-ఆఫ్", theme: "థీమ్", language: "భాష",
       kicker: "చెత్త డేటా పరిశీలనశాల · భారతదేశం", h1: "భారత చెత్త కథ ఎప్పుడూ సరిపోలదు.", lede: "సంఖ్యలను అనుసరించండి, అధికారిక వాదనలను పోల్చండి, భారత చెత్త డేటా నిజంగా ఏమి చెబుతోందో తెలుసుకోండి.",
       cta_explore: "డేటా చూడండి", cta_claim: "క్లెయిమ్ తనిఖీ",
       what: "కచ్రా సత్య భారత చెత్తపై రెండు అధికారిక సంఖ్యలను పక్కపక్కన ఉంచి, ప్రతి సంఖ్య వెనుక ఉన్న మూల పేజీని చూపి, అన్నీ ఒకేసారి నిజం కాలేని సంఖ్యలను గుర్తిస్తుంది.",

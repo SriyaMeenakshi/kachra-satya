@@ -193,3 +193,27 @@ details.more>summary{color:var(--accent);font-weight:600}
 :lang(hi) :is(h1,h2,h3,.op-h1,.op-h2,.op-kicker,.dots .num,.op-find .n,.mapfacts b,.op-nums b),
 :lang(te) :is(h1,h2,h3,.op-h1,.op-h2,.op-kicker,.dots .num,.op-find .n,.mapfacts b,.op-nums b){letter-spacing:0;line-height:1.28}
 :lang(hi) .op-h1,:lang(te) .op-h1{font-size:clamp(2.1rem,6vw,4.2rem)}
+
+/* page icon chip before each page title */
+.pg-ic{width:.8em;height:.8em;padding:.2em;margin-right:.3em;vertical-align:-.06em;box-sizing:content-box;border-radius:.34em;background:var(--forest-900);stroke:var(--lime);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* very small phones: keep brand, language and theme on one row */
+@media (max-width:420px){
+  .bar .wrap{gap:var(--sp-2);flex-wrap:nowrap}
+  .brand{font-size:1.05rem}.brand svg{width:26px;height:26px}
+  .bar .tools{gap:var(--sp-1);flex-shrink:0}
+  .tg{padding:8px 10px;font-size:.75rem}
+}
+
+/* Nearest drop-off */
+.dplist{list-style:none;margin:0;padding:0}
+.dp{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-2) var(--sp-4);padding:var(--sp-3) 0;border-top:1px solid var(--hair)}
+.dp:first-child{border-top:0}
+.dpk{margin:var(--sp-1) 0}
+.dpl{display:flex;gap:var(--sp-4);align-items:flex-start;font-weight:600;font-size:var(--t-sm)}
+.dpl a{min-height:44px;display:inline-flex;align-items:center}
+
+/* claim evidence rows: let the middle column shrink, and stack the figure under the source on very narrow phones */
+.rec{grid-template-columns:auto minmax(0,1fr) auto}
+.rec>div{min-width:0;overflow-wrap:anywhere}
+@media (max-width:420px){.rec{grid-template-columns:auto minmax(0,1fr)}.rec>div:last-child{grid-column:2}}
