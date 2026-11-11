@@ -39,7 +39,7 @@
   function wireR(el) { el.querySelectorAll("[data-rkey]").forEach(function (b) { b.onclick = function () { openReceipt(b.dataset.rkey); }; }); }
 
   /* ---------- routing ---------- */
-  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
+  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", dropoff: "Nearest drop-off", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
   function route() {
     var h = decodeURIComponent((location.hash || "#/start").replace(/^#\/?/, "")).split("/"), n = h[0], a = h.slice(1);
     if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
@@ -48,10 +48,10 @@
   function go() {
     var r = route(); document.title = TITLES[r.name] + " | Kachra Satya"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
     document.querySelectorAll("#nav a").forEach(function (a) { if (a.dataset.r === r.name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
+    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, dropoff: function () { KSDropoff.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
     wireR(view);
     /* every page gets one level-1 heading (so a screen reader announces the page) and a matching icon (so the pages read as one product) */
-    var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help" }, hh = view.querySelector("h1, h2");
+    var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help", dropoff: "i-bin" }, hh = view.querySelector("h1, h2");
     if (hh && !view.querySelector("h1")) hh.setAttribute("aria-level", "1");
     if (hh && PG[r.name] && hh.parentNode === view && !hh.querySelector(".pg-ic")) hh.insertAdjacentHTML("afterbegin", '<svg class="pg-ic" aria-hidden="true"><use href="#' + PG[r.name] + '"/></svg>');
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }

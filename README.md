@@ -61,7 +61,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees with Rajya Sabha Q358 exactly, an independent cross-check.
 - A 30-cell spot check matched 30 of 30. It was an AI-assisted visual read, not a manual hand check; a human check of a few rows is still worthwhile.
-- 43 automated tests, including a check that the browser Claim Checker gives the same verdicts as the Python one.
+- Automated tests (run `python -m pytest -q tests`), including a check that the browser Claim Checker gives the same verdicts as the Python one, and checks on the design system (contrast, language coverage, no typed-in counts).
 Details: `docs/methodology.md`.
 
 ## What it does not do
@@ -96,4 +96,4 @@ Details: `docs/methodology.md`.
 ## Status (2026-11-10)
 Gaps screens (phantom tonnes, money vs mess, collection and trucks, segregation, completeness) and voice questions are in the app. Voice has been tested only with stubbed speech engines, not yet on real phones in Hindi, Tamil and Telugu. The plastic audit is a requirements spec only (`docs/roadmap/plastic_audit.md`): it needs the CPCB plastic waste report downloaded by hand. The ward page (garbage uptime, QR flow, badge) is built; scanning a printed QR code with a phone and testing with residents are not done. No user tests have been run yet (`docs/user_tests.md`, count: 0).
 
-Data, checks, working trust pages and design mock are in the repo. Not yet done: the integrated deployed web app, the Q&A agent live on AgentFoundry (setup in `docs/agentfoundry_setup.md`), the demo video, and the public URL.
+Data, checks, the integrated web app (`web/app/`, the "Eco-Intelligence Observatory" design, `docs/ui_theme.md`) and the trust pages are in the repo. The app builds into a static site with `python scripts/build_site.py`, and a manual deploy workflow is ready (`docs/deploy.md`) but has never been run. Not yet done: the public URL, the Q&A agent live on AgentFoundry (setup in `docs/agentfoundry_setup.md`, run sheet in `docs/agentfoundry_run_sheet.md`), and the demo video (script in `docs/demo_video_script.md`). The submission checklist is `docs/submission_checklist.md`.

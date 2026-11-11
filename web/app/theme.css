@@ -204,3 +204,16 @@ details.more>summary{color:var(--accent);font-weight:600}
   .bar .tools{gap:var(--sp-1);flex-shrink:0}
   .tg{padding:8px 10px;font-size:.75rem}
 }
+
+/* Nearest drop-off */
+.dplist{list-style:none;margin:0;padding:0}
+.dp{display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--sp-2) var(--sp-4);padding:var(--sp-3) 0;border-top:1px solid var(--hair)}
+.dp:first-child{border-top:0}
+.dpk{margin:var(--sp-1) 0}
+.dpl{display:flex;gap:var(--sp-4);align-items:flex-start;font-weight:600;font-size:var(--t-sm)}
+.dpl a{min-height:44px;display:inline-flex;align-items:center}
+
+/* claim evidence rows: let the middle column shrink, and stack the figure under the source on very narrow phones */
+.rec{grid-template-columns:auto minmax(0,1fr) auto}
+.rec>div{min-width:0;overflow-wrap:anywhere}
+@media (max-width:420px){.rec{grid-template-columns:auto minmax(0,1fr)}.rec>div:last-child{grid-column:2}}
