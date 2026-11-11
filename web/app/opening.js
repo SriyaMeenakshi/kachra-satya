@@ -25,8 +25,9 @@
   }
   function dots(n) { var h = '<div class="g" aria-hidden="true">'; for (var i = 0; i < 100; i++) h += '<i style="--i:' + i + '"' + (i < n ? ' class="f"' : "") + "></i>"; return h + "</div>"; }
   function icon(id) { return '<svg class="ic" aria-hidden="true"><use href="#' + id + '"/></svg>'; }
-  function row(href, id, name, desc) { return '<a class="op-row" href="' + href + '">' + icon(id) + "<span><b>" + esc(name) + '</b><span class="d">' + esc(desc) + '</span></span><span class="ar" aria-hidden="true">&rarr;</span></a>'; }
+  function row(href, id, name, desc, chip) { return '<a class="op-row" href="' + href + '">' + icon(id) + "<span><b>" + esc(name) + (chip ? ' <span class="op-chip">' + esc(chip) + "</span>" : "") + '</b><span class="d">' + esc(desc) + '</span></span><span class="ar" aria-hidden="true">&rarr;</span></a>'; }
 
+  function grp(n, name, q, rows) { return '<div class="op-grp"><div class="op-grp-h"><span class="n" aria-hidden="true">' + n + '</span><div><h3>' + esc(name) + '</h3><p>' + esc(q) + '</p></div></div><div class="op-index">' + rows + "</div></div>"; }
   function drawMap() {
     var Kit = root.KSMapKit, box = $("op-map"); if (!box) return;
     if (!(Kit && root.KSGeo && root.KS_INDIA)) { box.innerHTML = '<p class="note">The map could not load. Use the Map page from the menu.</p>'; return; }
@@ -46,6 +47,10 @@
     var kerala = KS.recurrence.filter(function (r) { return r.rule.indexOf("6_") === 0; }).sort(function (a, b) { return b.n_years - a.n_years; })[0], vol = KS.volatility.filter(function (r) { return r.ranked === "yes"; })[0];
     var diffPairs = KS.flags.filter(function (f) { return f.rule.indexOf("3_") === 0; }).length;
     var mKey = mp ? "India|2025-26|processed_pct|" + mp.source_doc : "", cKey = ct ? "India|2023-24|treated|" + ct.source_doc : "";
+    var fAlloc = KS.money.reduce(function (a, m) { return a + (m.allocation_swm || 0); }, 0), fUsed = KS.money.reduce(function (a, m) { return a + (m.funds_swm || 0); }, 0), fPct = fAlloc ? Math.round(fUsed / fAlloc * 100) : null;
+    var unacc = nat("2022-23", "CPCB", "unaccounted"), uKey = unacc ? "India|2022-23|unaccounted|" + unacc.source_doc : "";
+    var segC = KS.segregation.filter(function (x) { return x.indicator.indexOf("D2D") >= 0; })[0], segS = KS.segregation.filter(function (x) { return x.indicator.indexOf("Segregation") >= 0; })[0];
+    var agentOn = !!(root.KS_CONFIG && root.KS_CONFIG.agentEndpoint);
     function steps(open) {
       return '<section class="op-start' + (open ? "" : " min") + '" id="op-start" aria-label="' + esc(T("newhere", "New here? Three steps")) + '"><h2>' + esc(T("newhere", "New here? Three steps")) + "</h2><ol>" +
         '<li><a href="#/claim"><span class="n">1</span><span><b>' + esc(T("step1", "Type a claim")) + '</b><span class="d">' + esc(T("step1d", "Paste a number someone quoted")) + "</span></span></a></li>" +
@@ -65,6 +70,22 @@
       '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(DOCS[ct.source_doc] || ct.source_doc) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
       steps(startOpen) +
 
+      '<section class="op-sec" aria-labelledby="op-why-h"><p class="op-eyebrow">' + esc(T("why_k", "Why this matters")) + '</p><h2 class="op-h2" id="op-why-h">' + esc(T("why_h", "Plans and money start from these numbers.")) + '</h2>' +
+      '<p class="op-p">' + esc(T("why_p", "Plants, landfills and funding are planned from reported figures. When the figures do not agree, nobody can tell where the waste goes, or whether the money is working. Four things the published records show:")) + '</p><div class="op-finds">' +
+      (fPct == null ? "" : '<div class="op-find"><span class="n">' + fPct + '%</span><p>of the solid-waste money set aside for states for 2021-2026 had been used by 25 Nov 2024.<small>Lok Sabha Q682. The table prints no unit, so we use only the share.</small></p><a href="#/gaps/money">See which states &rarr;</a></div>') +
+      (unacc ? '<div class="op-find"><span class="n">' + n0(unacc.value) + '</span><p>tonnes a day in 2022-23 that CPCB found neither treated nor landfilled.<small>CPCB report, ' + esc(unacc.source_doc) + ", p." + esc(unacc.source_page) + ".</small>" + rbtn(uKey) + '</p><a href="#/gaps">Where the gaps are &rarr;</a></div>' : "") +
+      (segC && segS ? '<div class="op-find"><span class="n">' + Math.round(segC.share_pct_computed) + '% vs ' + Math.round(segS.share_pct_computed) + '%</span><p>of wards had over 90% door-to-door collection, but only that many had over 90% source segregation (2022).<small>MoHUA Garbage Free Cities 2022 dashboard; shares computed against the wards covered.</small></p><a href="#/help/bins">Which bin does it go in? &rarr;</a></div>' : "") +
+      (gap != null ? '<div class="op-find"><span class="n">' + n0(gap) + '</span><p>tonnes a day apart: the two official national &ldquo;treated&rdquo; totals.<small>Different years, so part of it may be real progress.</small></p><a href="#/claim">Check a number &rarr;</a></div>' : "") +
+      '</div></section>' +
+
+      '<section class="op-sec" aria-labelledby="op-p-h"><p class="op-eyebrow">' + esc(T("parts_k", "The main parts")) + '</p><h2 class="op-h2" id="op-p-h">' + esc(T("parts_h", "From what was said to what you can do.")) + '</h2>' +
+      '<p class="op-p">' + esc(T("parts_p", "Four steps. Each part opens on real data, and every figure keeps its source page.")) + '</p>' +
+      grp("1", "Promise", "What did they say?", row("#/claim", "i-claim", T("idx_claim", "Check a claim"), T("idx_claim_d", "Test a number you heard against every source we hold.")) + row("#/ask", "i-ask", T("idx_ask", "Ask"), T("idx_ask_d", "Questions in English, Hindi, Tamil or Telugu, answered from the data."), agentOn ? "" : "assistant not connected")) +
+      grp("2", "Proof", "Is it true on paper?", row("#/map", "i-map", T("idx_map", "Map"), T("idx_map_d", "Both official figures for every state, with the source page.")) + row("#/gaps", "i-gaps", T("idx_gaps", "Gaps"), T("idx_gaps_d", "Money, trucks and reporting gaps, state by state.")) + row("#/explore", "i-explore", T("idx_explore", "Explore"), T("idx_explore_d", "Audit order, source pages, swings and definitions."))) +
+      grp("3", "Reality", "Is it true on my street?", row("#/ward", "i-ward", "Your ward", "Tap whether the truck came; it stays on your device.", "prototype") + row("#/city", "i-city", T("idx_city", "Your city"), T("idx_city_d", "Upload ward data and see which figures cannot all be true.")) + row("#/school", "i-more", "Schools", "Weigh a week of school waste and get a report card.")) +
+      grp("4", "Action", "What can I do?", row("#/help/complain", "i-help", "Get help", "Write a complaint, keep a log, send an escalation letter.") + row("#/help/bins", "i-bin", "Which bin?", "The four streams under the 2026 rules.") + row("#/dropoff", "i-bin", "Nearest drop-off", "Where to take batteries, e-waste and other special items.") + row("#/brief/card", "i-more", "Explain my state", "A shareable card and a briefing for an MP, MLA or councillor.")) +
+      '</section>' +
+
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
       '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p></div>' +
       '<div><div class="op-charts"><div class="dots m"><div class="num">' + (mpct == null ? "&ndash;" : mpct + "%") + "</div>" + dots(mpct || 0) +
@@ -80,12 +101,6 @@
       (kerala ? '<div class="op-find"><span class="n">' + kerala.n_years + ' years</span><p>' + esc(kerala.state) + ' reported more waste treated than collected, in ' + esc(kerala.years.split("; ").join(", ")) + '.<small>CPCB figures. Both cannot be true.</small></p><a href="#/map/' + encodeURIComponent(kerala.state) + '">Open ' + esc(kerala.state) + ' &rarr;</a></div>' : "") +
       (vol ? '<div class="op-find"><span class="n">' + vol.swing_ratio + '&times;</span><p>' + esc(vol.state) + '\'s reported generated waste is ' + n0(vol.max_tpd) + ' tonnes a day in ' + esc(vol.max_in) + ' and ' + n0(vol.min_tpd) + ' in ' + esc(vol.min_in) + '.<small>The same state, in different reports.</small></p><a href="#/explore/swings">See the swings &rarr;</a></div>' : "") +
       '<div class="op-find"><span class="n">' + diffPairs + '</span><p>state-and-metric pairs where MoHUA and CPCB differ by more than 10%.<small>Different years, so part of the difference may be real change.</small></p><a href="#/map">See them on the map &rarr;</a></div></div></section>' +
-
-      '<section class="op-sec" aria-labelledby="op-i-h"><h2 class="op-h2" id="op-i-h">' + esc(T("index_h", "Where to go next")) + '</h2><div class="op-index">' +
-      row("#/map", "i-map", T("idx_map", "Map"), T("idx_map_d", "Both official figures for every state, with the source page.")) + row("#/claim", "i-claim", T("idx_claim", "Check a claim"), T("idx_claim_d", "Test a number you heard against every source we hold.")) +
-      row("#/gaps", "i-gaps", T("idx_gaps", "Gaps"), T("idx_gaps_d", "Money, trucks and reporting gaps, state by state.")) + row("#/city", "i-city", T("idx_city", "Your city"), T("idx_city_d", "Upload ward data and see which figures cannot all be true.")) +
-      row("#/ask", "i-ask", T("idx_ask", "Ask"), T("idx_ask_d", "Questions in English, Hindi, Tamil or Telugu, answered from the data.")) + row("#/explore", "i-explore", T("idx_explore", "Explore"), T("idx_explore_d", "Audit order, source pages, swings and definitions.")) + '</div>' +
-      '<p class="op-more">Also: <a href="#/help/complain">my garbage isn\'t being collected</a> · <a href="#/help/bins">which bin?</a> · <a href="#/dropoff">nearest drop-off for batteries and e-waste</a> · <a href="#/ward">your ward</a> · <a href="#/school">schools</a> · <a href="#/brief/card">explain my state</a></p></section>' +
 
       '<section class="op-sec" aria-labelledby="op-t-h"><h2 class="op-h2" id="op-t-h">' + esc(T("try_h", "Heard a number? Check it.")) + '</h2><div class="try"><div class="ask"><input id="op-in" type="text" aria-label="A claim about India\'s waste figures" placeholder="e.g. 81% of India\'s urban waste is processed" autocomplete="off"><button class="go" id="op-go" type="button">' + esc(T("check", "Check")) + '</button></div>' +
       '<div class="ex">' + EXAMPLES.map(function (x, i) { return '<button class="chip" type="button" data-i="' + i + '">' + esc(x) + "</button>"; }).join("") + '</div><div class="res" id="op-res" aria-live="polite"></div></div></section>' +

@@ -166,3 +166,14 @@
 .readmap>div{font-size:var(--t-sm);color:var(--ink2)}
 .dots .num{text-align:left}
 .op-pt h3.full{grid-column:1/-1}
+
+/* the main parts, grouped by the loop (Promise, Proof, Reality, Action) */
+.op-grp{margin-top:var(--sp-6)}
+.op-grp-h{display:flex;align-items:center;gap:var(--sp-3)}
+.op-grp-h .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--forest-700);color:var(--ivory);font-weight:800;flex:none}
+:root[data-theme="dark"] .op-grp-h .n{background:var(--lime);color:var(--forest-900)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .op-grp-h .n{background:var(--lime);color:var(--forest-900)}}
+.op-grp-h h3{margin:0;font-size:var(--t-xl);letter-spacing:-.03em}
+.op-grp-h p{margin:0;color:var(--ink2);font-size:var(--t-sm)}
+.op-grp .op-index{margin-top:var(--sp-2)}
+.op-chip{display:inline-block;margin-left:6px;padding:1px 8px;border:1px solid var(--ink2);border-radius:999px;color:var(--ink2);font-size:var(--t-xs);font-weight:600;vertical-align:1px;letter-spacing:.02em}
