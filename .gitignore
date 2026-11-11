@@ -1,1 +1,7 @@
 dist/
+.venv/
+.codenow/
+__pycache__/
+*.pyc
+.env
+agent/.env
