@@ -64,6 +64,64 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname
 
 FALLBACK_NOTE = "\n\n(AI model unavailable, showing data-only answer)"
 
+# Fixed translations for the tools-only fallback. Only labels and short phrases
+# are translated; numbers, state names, file names and metric names are always
+# printed exactly as the tools return them.
+TEXT = {
+    "en": {
+        "generated": "generated", "treated": "treated", "collected": "collected",
+        "landfilled": "landfilled", "source": "source", "page": "page",
+        "not_reported": "not reported", "not_in_data": "Not in the data",
+        "sources_disagree": "The sources disagree",
+        "fallback_note": "AI model unavailable, showing data-only answer",
+    },
+    "hi": {
+        "generated": "उत्पन्न", "treated": "उपचारित", "collected": "एकत्रित",
+        "landfilled": "लैंडफिल किया गया", "source": "स्रोत", "page": "पृष्ठ",
+        "not_reported": "रिपोर्ट नहीं किया गया", "not_in_data": "डेटा में नहीं है",
+        "sources_disagree": "स्रोत आपस में असहमत हैं",
+        "fallback_note": "AI मॉडल उपलब्ध नहीं है, केवल डेटा-आधारित उत्तर दिखाया जा रहा है",
+    },
+    "ta": {
+        "generated": "உருவாக்கப்பட்டது", "treated": "பதப்படுத்தப்பட்டது",
+        "collected": "சேகரிக்கப்பட்டது", "landfilled": "நிலத்தில் புதைக்கப்பட்டது",
+        "source": "ஆதாரம்", "page": "பக்கம்",
+        "not_reported": "அறிக்கையிடப்படவில்லை", "not_in_data": "தரவில் இல்லை",
+        "sources_disagree": "ஆதாரங்கள் ஒன்றுக்கொன்று முரண்படுகின்றன",
+        "fallback_note": "AI மாதிரி கிடைக்கவில்லை, தரவு மட்டும் அடிப்படையிலான பதில் காட்டப்படுகிறது",
+    },
+    "te": {
+        "generated": "ఉత్పత్తి అయినది", "treated": "శుద్ధి చేసినది",
+        "collected": "సేకరించినది", "landfilled": "ల్యాండ్‌ఫిల్‌కు పంపినది",
+        "source": "మూలం", "page": "పేజీ",
+        "not_reported": "నివేదించబడలేదు", "not_in_data": "డేటాలో లేదు",
+        "sources_disagree": "మూలాలు ఒకదానికొకటి విభేదిస్తున్నాయి",
+        "fallback_note": "AI మోడల్ అందుబాటులో లేదు, డేటా ఆధారిత సమాధానం చూపబడుతోంది",
+    },
+}
+
+
+def _norm_lang(language: str) -> str:
+    """'hi', 'ta', 'te' (also 'hi-IN', 'ta_IN'); anything else -> 'en'."""
+    code = (language or "en").lower().replace("_", "-").split("-")[0]
+    return code if code in TEXT else "en"
+
+
+def _fmt_tpd(v) -> str:
+    """Thousands separators, all decimals kept: 17843.455 -> '17,843.455'.
+    Anything that isn't a plain number is returned unchanged."""
+    s = str(v).strip().replace(",", "")
+    intpart, dot, frac = s.partition(".")
+    sign = "-" if intpart.startswith("-") else ""
+    digits = intpart.lstrip("+-")
+    if digits.isdigit() and (not dot or frac.isdigit()):
+        return f"{sign}{int(digits):,}{dot}{frac}"
+    return str(v)
+
+
+def fallback_note(language: str) -> str:
+    return f"\n\n({TEXT[_norm_lang(language)]['fallback_note']})"
+
 
 def _redact(msg: str) -> str:
     """Strip the API key from any text before logging."""
@@ -271,14 +329,19 @@ def _json_run_tool(name: str, args: dict) -> Any:
         return res
 
 
-def call_fallback_tools_only(question: str) -> tuple[str, list[dict]]:
-    """Fallback mode: answer with tools only, no AI model, in English.
+def call_fallback_tools_only(question: str, language: str = "en") -> tuple[str, list[dict]]:
+    """Fallback mode: answer with tools only, no AI model.
+
+    Labels and short phrases are in the request's language (hi, ta, te; else
+    English); all data values come straight from the tools.
 
     This is a small rule-based handler that uses the provided tools to answer
     common question patterns from the acceptance tests. It is not a full
     replacement for the model-based agent but should handle the six run-sheet
     questions when no model key is present.
     """
+    lang = _norm_lang(language)
+    t = TEXT[lang]
     q = question.strip()
     ql = q.lower()
     sources = []
@@ -307,6 +370,8 @@ def call_fallback_tools_only(question: str) -> tuple[str, list[dict]]:
             matches = res.get("matching_records") or []
             nonmatches = res.get("non_matching_records") or []
             answer += f"Matches: {len(matches)}; Non-matching: {len(nonmatches)}."
+            if verdict == "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS":
+                answer += f" {t['sources_disagree']}."
             # Attach some source docs
             for r in (matches + nonmatches)[:4]:
                 doc = r.get("source_doc") or r.get("source") or r.get("source_name")
@@ -322,7 +387,10 @@ def call_fallback_tools_only(question: str) -> tuple[str, list[dict]]:
         treated = _json_run_tool("lookup_state", {"state": state, "metric": "treated"})
         collected = _json_run_tool("lookup_state", {"state": state, "metric": "collected"})
         flags = _json_run_tool("get_flags", {"state": state, "rule": "6_"})
-        answer_lines = [f"Treated vs collected for {state} (from tools):"]
+        if lang == "en":
+            answer_lines = [f"Treated vs collected for {state} (from tools):"]
+        else:
+            answer_lines = [f"{state}: {t['treated']} / {t['collected']}"]
         def fmt_rows(rows):
             if isinstance(rows, dict) and rows.get("result") == "no rows":
                 return ["no rows"]
@@ -330,8 +398,8 @@ def call_fallback_tools_only(question: str) -> tuple[str, list[dict]]:
                 return ["no rows"]
             out = []
             for r in rows:
-                v = r.get("value_tpd") or "not reported"
-                out.append(f"{r.get('year')}: {r.get('metric')} {v} tpd (source: {r.get('source_name')}, {r.get('source_doc')}, page {r.get('source_page')})")
+                v = _fmt_tpd(r["value_tpd"]) if r.get("value_tpd") else t["not_reported"]
+                out.append(f"{r.get('year')}: {r.get('metric')} {v} tpd ({t['source']}: {r.get('source_name')}, {r.get('source_doc')}, {t['page']} {r.get('source_page')})")
             return out
         try:
             t_rows = treated if isinstance(treated, list) else []
@@ -377,15 +445,19 @@ def call_fallback_tools_only(question: str) -> tuple[str, list[dict]]:
             args["year"] = year
         rows = _json_run_tool("lookup_state", args)
         if isinstance(rows, dict) and rows.get("result") == "no rows":
-            return f"No rows found for {state} {metric} {year or ''}. Not in the data.", []
+            if lang == "en":
+                return f"No rows found for {state} {metric} {year or ''}. Not in the data.", []
+            return f"{state} {t[metric]} {year or ''}: {t['not_in_data']}.", []
         # Format single-row responses
-        lines = [f"{state} {metric} {year if year else ''}:"]
+        metric_label = metric if lang == "en" else t[metric]
+        lines = [f"{state} {metric_label} {year if year else ''}:"]
         for r in (rows if isinstance(rows, list) else []):
-            v = r.get("value_tpd") or "not reported"
-            note = r.get("note") or ""
-            lines.append(f"{v} tpd. Source: {r.get('source_name')}, {r.get('source_doc')}, page {r.get('source_page')}")
+            v = _fmt_tpd(r["value_tpd"]) if r.get("value_tpd") else t["not_reported"]
+            note =r.get("note") or ""
+            lines.append(f"{v} tpd. {t['source'].capitalize()}: {r.get('source_name')}, {r.get('source_doc')}, {t['page']} {r.get('source_page')}")
             if not r.get("value_tpd"):
-                lines.append(f"Note: {note}")
+                # The note text comes from the data as-is; only English gets the "Note:" label.
+                lines.append(f"Note: {note}" if lang == "en" else note)
             doc = r.get("source_doc")
             if doc:
                 sources.append({"document": doc})
@@ -437,13 +509,13 @@ def ask():
         
         # Check if we have API key and provider
         if not MODEL_PROVIDER or not MODEL_API_KEY:
-            answer, sources = call_fallback_tools_only(question)
+            answer, sources = call_fallback_tools_only(question, language)
         elif MODEL_PROVIDER in ("gemini", "anthropic"):
             global _gemini_down_until
             if MODEL_PROVIDER == "gemini" and time.monotonic() < _gemini_down_until:
                 log.info("gemini in cooldown; using tools-only fallback")
-                answer, sources = call_fallback_tools_only(question)
-                answer += FALLBACK_NOTE
+                answer, sources = call_fallback_tools_only(question, language)
+                answer += fallback_note(language)
             else:
                 call = call_gemini_tool_use if MODEL_PROVIDER == "gemini" else call_anthropic_tool_use
                 try:
@@ -452,8 +524,8 @@ def ask():
                     log.error("%s call failed: %s: %s", MODEL_PROVIDER, type(e).__name__, _redact(str(e))[:300])
                     if MODEL_PROVIDER == "gemini":
                         _gemini_down_until = time.monotonic() + GEMINI_COOLDOWN_S
-                    answer, sources = call_fallback_tools_only(question)
-                    answer += FALLBACK_NOTE
+                    answer, sources = call_fallback_tools_only(question, language)
+                    answer += fallback_note(language)
         else:
             return jsonify({
                 "error": f"Unknown MODEL_PROVIDER: {MODEL_PROVIDER}. Use 'gemini' or 'anthropic'."
