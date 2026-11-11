@@ -15,6 +15,11 @@ MODEL_API_KEY=your-key-here
 # Optional: Gemini model name (default gemini-3.8-flash)
 GEMINI_MODEL=gemini-3.8-flash
 
+# Which web pages may call the API from a browser (comma-separated exact origins, with port).
+# Default if unset: http://localhost and http://127.0.0.1 (no port). Example for local testing:
+# ALLOWED_ORIGINS=http://127.0.0.1:8777
+ALLOWED_ORIGINS=
+
 # Optional: Flask debug mode
 FLASK_DEBUG=True
 FLASK_ENV=development

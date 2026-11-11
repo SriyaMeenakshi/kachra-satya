@@ -30,6 +30,13 @@ Test with curl
       -H "Content-Type: application/json" \
       -d '{"question": "Kerala treated vs collected", "language": "en"}'
 
+Connect the web app
+
+1. Start the agent (above) and note its URL, for example `http://127.0.0.1:5000/ask`.
+2. Put that URL in `web/app/config.js` (`agentEndpoint`). Leave it empty to keep the Ask page's honest "not connected yet" notice.
+3. The Ask page sends `{"question", "message", "language": "en"|"hi"|"ta"|"te"}` and shows `answer` plus a "Sources:" line from `sources`.
+4. A static site (GitHub Pages) cannot run this server. For a public Ask page the agent must be hosted somewhere (any host that runs Flask, behind a production server such as gunicorn, with `ALLOWED_ORIGINS` set to the public site). Until then keep `agentEndpoint` empty on the deployed site.
+
 Acceptance test
 
 Follow docs/agentfoundry_run_sheet.md. The six questions are listed in docs/agentfoundry_setup.md. Use the same phrasing and language when testing.
@@ -38,7 +45,7 @@ Notes
 
 - The system prompt is taken verbatim from docs/agentfoundry_setup.md (via scripts/qa_agent.py).
 - The existing tools from scripts/qa_agent.py are used (run_tool import). Do not modify scripts/ or data/.
-- CORS allows all origins. Change CORS(app, origins="*") in agent/app.py to restrict it to your website.
+- CORS is **restricted**: by default only `http://localhost` and `http://127.0.0.1` (no port) may call the API from a browser. Set `ALLOWED_ORIGINS` (comma-separated, exact origins including the port) to the site that hosts the web app, for example `ALLOWED_ORIGINS=http://127.0.0.1:8777` when the app is served with `python -m http.server 8777`, or `https://<owner>.github.io` for GitHub Pages. An origin not on the list is refused.
 - No API keys are written to disk by this code.
 
 If you want changes, tell me which piece to adjust.
