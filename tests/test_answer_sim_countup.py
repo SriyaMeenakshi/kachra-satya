@@ -46,12 +46,17 @@ console.log(JSON.stringify({a:C.frame('17,420',0.5),b:C.frame('86% vs 35%',0.5),
     assert r["e"] == "Your turn" and r["f"] == "0"
 
 
-def test_simulation_cards_use_the_real_data_and_checker():
-    r = node("""global.window={};require(process.cwd()+'/web/trust/data.js');require(process.cwd()+'/web/trust/claim.js');
-window.KSClaim=require(process.cwd()+'/web/trust/claim.js');
-require(process.cwd()+'/web/app/sim.js');
-const S=window.KSSim;
-console.log(JSON.stringify({m:Math.round(S._share('India','MoHUA')),c:Math.round(S._share('India','CPCB')),none:S._share('Atlantis','CPCB'),v70:S._verdictFor(70),v81:S._verdictFor(81),v100:S._verdictFor(99.9),html:S.html().length>500}))""")
-    assert r["m"] == 81 and r["c"] == 62 and r["none"] is None             # the same two numbers as everywhere else; an unknown place is "not reported"
-    assert r["v70"]["label"] == "The sources disagree" and r["v81"]["label"] == "The sources disagree"
-    assert r["v100"]["cls"] in ("bad", "mix") and r["html"]
+def test_demo_screens_use_the_real_data_and_functions():
+    r = node("""global.window={};require(process.cwd()+'/web/trust/data.js');window.KSClaim=require(process.cwd()+'/web/trust/claim.js');
+window.KSAnswer=require(process.cwd()+'/web/app/answer.js');require(process.cwd()+'/web/app/saathi.js');window.matchMedia=()=>({matches:true});
+require(process.cwd()+'/web/app/demo.js');
+const D=window.KSDemo, html=D.html(), demos=D._build();
+const steps=demos.map(d=>d.steps.map(s=>s.html(s.type||undefined)));
+console.log(JSON.stringify({tabs:(html.match(/role="tab"/g)||[]).length,labels:demos.map(d=>d.label),counts:steps.map(x=>x.length),all:steps.map(x=>x.join('||'))}))""")
+    assert r["tabs"] == 4 and r["counts"] == [4, 3, 3, 3]
+    assert r["labels"][0] == "My garbage isn't collected" and r["labels"][1] == "Someone quoted a number"
+    garbage, claim, brief, school = r["all"]
+    assert "not collected on 5 days" in garbage and "page" in garbage and "unverified" in garbage and "example" in garbage      # the real letter functions, with made-up taps
+    assert "81%" in claim and "61.62%" in claim and "Lok Sabha Q50" in claim and "The sources disagree" in claim            # the real checker, with real documents
+    assert "Kerala" in brief and "Audit priority #" in brief and "86.2%" in brief and "97.7%" in brief                       # Kerala's real figures from the data
+    assert "made-up numbers" in school and "Special care" in school

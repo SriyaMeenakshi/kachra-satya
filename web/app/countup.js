@@ -17,7 +17,7 @@
   var api = { frame: frame };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }
 
-  var SEL = ".op-find .n,.op-float .big,.jy-proof b,.kpi .v,.sim-big";
+  var SEL = ".op-find .n,.op-float .big,.jy-proof b,.kpi .v";
   var reduce = false; try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
   var io = null, busy = false;
   function run(el) {

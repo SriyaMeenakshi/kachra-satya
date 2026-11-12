@@ -13,6 +13,8 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 - **Why this matters:** four stakes computed from the data, not typed in: the share of solid-waste money used, tonnes a day CPCB found neither treated nor landfilled, door-to-door collection against source segregation, and the gap between the two national "treated" totals.
 - **The main parts as one road:** Hear it, Check it, See your street, Do something, each with a real number and links to the pages.
 
+- **See it working:** four short demo screens, one per door, that play by themselves while on screen and always have Back, Next, Pause and Replay. The inputs are made up and marked "example"; the figures, verdicts, document names and letter sentences are the real ones from the data and the real functions. They cover: a resident (ward taps, complaint, log, letter with the tally), a quoted number (typed sentence, verdict, evidence), a briefing (pick any state, its card and questions), and a school (bins, weighing grid, report card with made-up numbers).
+
 ## 2. Map (`#/map`)
 **For:** seeing where the two official sources differ.
 - A geographic map of 36 states and UTs coloured by the MoHUA figure, the CPCB figure, or the gap between them. A Tiles switch gives an equal-size tile map.

@@ -95,7 +95,7 @@
       (segC && segS ? '<div class="op-find"><span class="n">' + Math.round(segC.share_pct_computed) + '% vs ' + Math.round(segS.share_pct_computed) + '%</span><p>of wards had over 90% door-to-door collection, but only that many had over 90% source segregation (2022).<small>MoHUA Garbage Free Cities 2022 dashboard; shares computed against the wards covered.</small></p><a href="#/help/bins">Which bin does it go in? &rarr;</a></div>' : "") +
       '</div></section>' +
 
-      (root.KSSim ? root.KSSim.html() : "") +
+      (root.KSDemo ? root.KSDemo.html() : "") +
       '<section class="op-sec op-close" aria-labelledby="op-c-h"><h2 class="op-h2" id="op-c-h">' + esc(T("close_h", "Want to see how it is checked?")) + '</h2><p class="op-p">' + esc(T("close_p", "Every figure is copied from a published document and opens on its source page. Where sources disagree, we say so and never pick a winner.")) + '</p>' +
       '<div class="op-cta"><a class="op-btn primary" href="#/claim">' + esc(T("check", "Check a number")) + '</a><a class="op-btn ghost" href="#/about">How we check</a><a class="op-btn ghost" href="#/gaps">See the insights</a></div>' +
       '<p class="op-honest">Data built ' + esc(KS.built) + ". This is a demonstration; we draft complaints and letters and never send them.</p></section></div>";
@@ -103,7 +103,7 @@
     drawMap();
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
     if (root.KSGuide) root.KSGuide.wireGoals(view);
-    if (root.KSSim) root.KSSim.wire(view);
+    if (root.KSDemo) root.KSDemo.wire(view);
 
     /* reveal: content is visible by default; .pre hides it only while it is about to be revealed, and everything is forced visible after 4 s so a throttled tab never stays blank */
     var targets = [].slice.call(view.querySelectorAll(".dots .g, .op-find, .stamp"));
