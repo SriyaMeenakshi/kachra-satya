@@ -75,3 +75,16 @@ def test_landfill_tab_shows_dumpsites_honestly():
     for s in ("function dumpsites()", "The 214 priority dumpsites, by state", "The same list, city by city", "The other 25 priority sites", "not printed", "do not read the difference as a precise rate of progress"):
         assert s in app, s
     assert "dumpsites" in open(os.path.join(ROOT, "scripts", "export_web_data.py"), encoding="utf-8").read()
+
+
+def test_map_has_a_priority_dumpsites_layer_that_names_missing_states():
+    app = open(os.path.join(ROOT, "web", "app", "app.js"), encoding="utf-8").read()
+    for s in ('["dump", "Priority dumpsites"]', "var RESERVED", "var DUMP", "function dumpBlock", "printed as Reserved in the annexure, no figures", "no priority dumpsite listed", "Math.sqrt"):
+        assert s in app, s
+    d = rows("dumpsites_drap.csv")
+    state_lakh = {}
+    for r in d:
+        if r["ulb"]:
+            state_lakh[r["state"]] = state_lakh.get(r["state"], 0) + float(r["legacy_waste_tonnes"]) / 1e5
+    assert round(state_lakh["Delhi"], 1) == 158.0 and round(state_lakh["Karnataka"], 1) == 142.3      # the figures the map shows
+    assert "Maharashtra" not in state_lakh and "Bihar" not in state_lakh                                # named as Reserved, never given a number

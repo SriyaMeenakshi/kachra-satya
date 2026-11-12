@@ -153,16 +153,25 @@
     D[s] = { cpcb: cg && ct != null ? ct / cg * 100 : null, mohua: mg && mt != null ? mt / mg * 100 : null };
     D[s].gap = D[s].cpcb != null && D[s].mohua != null ? D[s].mohua - D[s].cpcb : null;
   });
+  /* Priority dumpsites layer: legacy waste at the dumpsites listed in the MoHUA DRAP annexure (Nov 2025), summed by state, in lakh tonnes. States not listed stay blank;
+     Maharashtra and Bihar are printed as Reserved with no figures, and are named that way. */
+  var RESERVED = {}; (KS.dumpsites || []).forEach(function (r) { if (!r.ulb) RESERVED[r.state] = 1; });
+  var DUMP = {}; (KS.dumpsites || []).forEach(function (r) { if (r.ulb && r.legacy_waste_tonnes != null) DUMP[r.state] = (DUMP[r.state] || 0) + r.legacy_waste_tonnes / 1e5; });
+  Object.keys(GRID).forEach(function (s) { D[s].dump = DUMP[s] != null ? DUMP[s] : null; });
+  function valText(mode, v, s) {
+    if (v == null) return mode === "dump" ? (RESERVED[s] ? "printed as Reserved in the annexure, no figures" : "no priority dumpsite listed") : "not reported";
+    return mode === "gap" ? v.toFixed(1) + " points" : mode === "dump" ? v.toFixed(1) + " lakh tonnes of legacy waste at priority dumpsites" : v.toFixed(1) + "%";
+  }
   var flagged = {}; KS.flags.forEach(function (f) { if (f.rule.indexOf("3_") !== 0) flagged[f.state] = 1; });
-  var STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7"], MODE = "cpcb", VIEW = (function () { try { return localStorage.getItem("ks-mapview") || "geo"; } catch (e) { return "geo"; } })(), QUERY = "", DOM = { cpcb: [0, 100], mohua: [0, 100], gap: [0, 80] };
+  var STEPS = ["--s1", "--s2", "--s3", "--s4", "--s5", "--s6", "--s7"], MODE = "cpcb", VIEW = (function () { try { return localStorage.getItem("ks-mapview") || "geo"; } catch (e) { return "geo"; } })(), QUERY = "", DOM = { cpcb: [0, 100], mohua: [0, 100], gap: [0, 80], dump: [0, 160] };
   function css(v) { return getComputedStyle(root).getPropertyValue(v).trim(); }
   function lum(hex) { var m = hex.replace("#", ""); if (m.length === 3) m = m.replace(/./g, "$&$&"); var c = [0, 2, 4].map(function (i) { var x = parseInt(m.substr(i, 2), 16) / 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; }
   function colourFor(v) { return rampColour(MODE, v, false); }
-  var MODES = [["cpcb", "CPCB % treated"], ["mohua", "MoHUA % processed"], ["gap", "Gap"]];
-  var NOTE = { cpcb: "CPCB 2023-24: treated / generated", mohua: "MoHUA 2025-26: processed / generated", gap: "MoHUA minus CPCB, percentage points (different years)" };
+  var MODES = [["cpcb", "CPCB % treated"], ["mohua", "MoHUA % processed"], ["gap", "Gap"], ["dump", "Priority dumpsites"]];
+  var NOTE = { cpcb: "CPCB 2023-24: treated / generated", mohua: "MoHUA 2025-26: processed / generated", gap: "MoHUA minus CPCB, percentage points (different years)", dump: "legacy waste at the 214 priority dumpsites, lakh tonnes, by state (MoHUA DRAP annexure, Nov 2025); the colour runs from fewer on the left of the legend to more on the right, on a square-root scale" };
   /* ramps: % treated or processed is lime to forest, the difference is coral; on the always-dark hero stage the ramps run dark to bright (tokens in theme.css) */
   var GSTEPS = ["--g1", "--g2", "--g3", "--g4", "--g5", "--g6", "--g7"], DSTEPS = ["--d1", "--d2", "--d3", "--d4", "--d5", "--d6", "--d7"], DGSTEPS = ["--dg1", "--dg2", "--dg3", "--dg4", "--dg5", "--dg6", "--dg7"];
-  function rampColour(mode, v, onDark) { var d = DOM[mode], k = Math.max(0, Math.min(6, Math.floor((v - d[0]) / (d[1] - d[0]) * 7))); return css((mode === "gap" ? (onDark ? DGSTEPS : GSTEPS) : (onDark ? DSTEPS : STEPS))[k]); }
+  function rampColour(mode, v, onDark) { var d = DOM[mode], f = mode === "dump" ? Math.sqrt(Math.max(0, v) / d[1]) : (v - d[0]) / (d[1] - d[0]), k = Math.max(0, Math.min(6, Math.floor(f * 7))); return css((mode === "gap" || mode === "dump" ? (onDark ? DGSTEPS : GSTEPS) : (onDark ? DSTEPS : STEPS))[k]); }
   /* shared with opening.js so the Start page map reads the same numbers, colours and flags as the Map page */
   window.KSMapKit = { states: Object.keys(GRID), dom: DOM, value: function (s, mode) { return D[s] ? D[s][mode] : null; }, colour: rampColour, ink: function (bg) { return lum(bg) > .179 ? "#0b0b0b" : "#fff"; }, flagged: flagged, abb: ABB,
     label: function (s, mode) { var v = D[s][mode]; return s + ": " + (v == null ? "not reported" : mode === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); } };
@@ -178,10 +187,10 @@
       '<div class="section" id="mapsec"><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
       MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
       [["geo", "Map"], ["tiles", "Tiles"]].map(function (m) { return '<button type="button" data-v="' + m[0] + '" aria-pressed="' + (VIEW === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div>' +
-      '<details class="more readmap"><summary>How to read this map</summary><div><p><strong>Colour.</strong> Each state is coloured by the share of the waste it reports generating that it also reports treated (CPCB, 2023-24) or processed (MoHUA, 2025-26). Lighter is less, darker is more. The "Gap" layer is the difference between the two, in coral.</p><p><strong>Red dot or corner.</strong> A <button class="term" type="button" data-g="flag">flag</button>: figures in that state\'s own reports cannot all be true, for example more waste treated than collected. It does not say which figure to trust.</p><p><strong>Hatched.</strong> <button class="term" type="button" data-g="notreported">Not reported</button>: the source left the figure blank, or reports generated waste as 0 so no percentage can be worked out. We never fill gaps in.</p><p class="note">The two layers are different years and the two bodies may define their words differently, so a gap is a reason to look at the source pages, not a verdict.</p></div></details></div>' +
+      '<details class="more readmap"><summary>How to read this map</summary><div><p><strong>Colour.</strong> Each state is coloured by the share of the waste it reports generating that it also reports treated (CPCB, 2023-24) or processed (MoHUA, 2025-26). Lighter is less, darker is more. The "Gap" layer is the difference between the two, in coral. The "Priority dumpsites" layer is different: it colours states by the legacy waste at the dumpsites on the MoHUA list of the 214 highest-impact sites (blank means none listed; Maharashtra and Bihar are printed as Reserved, with no figures). It shows where the list says legacy waste is, not how dangerous a site is or how far it has been cleared.</p><p><strong>Red dot or corner.</strong> A <button class="term" type="button" data-g="flag">flag</button>: figures in that state\'s own reports cannot all be true, for example more waste treated than collected. It does not say which figure to trust.</p><p><strong>Hatched.</strong> <button class="term" type="button" data-g="notreported">Not reported</button>: the source left the figure blank, or reports generated waste as 0 so no percentage can be worked out. We never fill gaps in.</p><p class="note">The two layers are different years and the two bodies may define their words differently, so a gap is a reason to look at the source pages, not a verdict.</p></div></details></div>' +
       '<aside class="card pad sp" id="detail" aria-live="polite"></aside></div></div>';
     var el = $("tiles"), geo = VIEW === "geo" && window.KS_INDIA && window.KSGeo;
-    function slab(s) { var v = D[s][MODE]; return s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); }
+    function slab(s) { var v = D[s][MODE]; return s + ": " + valText(MODE, v, s) + (flagged[s] ? ", has data flags" : ""); }
     if (geo) {
       el.className = "geo";
       KSGeo.draw(el, { value: function (s) { return D[s][MODE]; }, colour: colourFor, ink: function (bg) { return lum(bg) > .179 ? "#0b0b0b" : "#fff"; }, label: slab, selected: sel, flagged: flagged, abb: ABB,
@@ -191,7 +200,7 @@
     (geo ? [] : Object.keys(GRID)).forEach(function (s) {
       var p = GRID[s], v = D[s][MODE], b = document.createElement("button"); b.type = "button"; b.dataset.s = s; b.className = "tile" + (v == null ? " none" : "") + (flagged[s] ? " fl" : "");
       b.style.gridRow = p[0] + 1; b.style.gridColumn = p[1] + 1; b.setAttribute("aria-pressed", sel === s);
-      var lab = s + ": " + (v == null ? "not reported" : MODE === "gap" ? v.toFixed(1) + " points" : v.toFixed(1) + "%") + (flagged[s] ? ", has data flags" : ""); b.setAttribute("aria-label", lab);
+      var lab = s + ": " + valText(MODE, v, s) + (flagged[s] ? ", has data flags" : ""); b.setAttribute("aria-label", lab);
       if (v != null) { var bg = colourFor(v); b.style.background = bg; b.style.color = lum(bg) > .179 ? "#0b0b0b" : "#fff"; }
       b.innerHTML = "<b>" + ABB[s] + "</b><small>" + (v == null ? "n/r" : Math.round(v)) + "</small>";
       b.onclick = function () { history.replaceState(null, "", "#/map/" + encodeURIComponent(s)); renderMap(s); if (matchMedia("(max-width:900px)").matches) $("detail").scrollIntoView({ behavior: "smooth", block: "start" }); };
@@ -209,7 +218,8 @@
       el.appendChild(b);
     });
     var d = DOM[MODE];
-    $("legend").innerHTML = "<span>" + d[0] + (MODE === "gap" ? " pts" : "%") + '</span><span class="ramp" aria-hidden="true">' + (MODE === "gap" ? GSTEPS : STEPS).map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + (MODE === "gap" ? "+ pts" : "%") + "</span><span>· " + NOTE[MODE] + "</span><span>· " + (geo ? "red dot" : "red corner") + " = flagged</span><span>· hatched = not reported</span>" + (geo ? '<span>· outlines simplified, not an authoritative boundary</span>' : "");
+    var UN = { gap: [" pts", "+ pts"], dump: [" lakh t", "+ lakh t"] }[MODE] || ["%", "%"];
+    $("legend").innerHTML = "<span>" + d[0] + UN[0] + '</span><span class="ramp" aria-hidden="true">' + (MODE === "gap" || MODE === "dump" ? GSTEPS : STEPS).map(function (s) { return '<i style="background:var(' + s + ')"></i>'; }).join("") + "</span><span>" + d[1] + UN[1] + "</span><span>· " + NOTE[MODE] + "</span><span>· " + (geo ? "red dot" : "red corner") + " = flagged</span><span>· hatched = not reported</span>" + (geo ? '<span>· outlines simplified, not an authoritative boundary</span>' : "");
     document.querySelectorAll(".seg button[data-m]").forEach(function (b) { b.onclick = function () { MODE = b.dataset.m; renderMap(sel); }; });
     document.querySelectorAll(".seg button[data-v]").forEach(function (b) { b.onclick = function () { VIEW = b.dataset.v; try { localStorage.setItem("ks-mapview", VIEW); } catch (e) {} renderMap(sel); }; });
     function dim() { var q = QUERY.toLowerCase(); el.querySelectorAll(".tile,.geo-s").forEach(function (t) { t.classList.toggle("dim", !!q && t.dataset.s.toLowerCase().indexOf(q) < 0); }); }
@@ -220,6 +230,15 @@
     };
     dim(); stateDetail(sel); wireR($("detail"));
     if (sel && document.activeElement === document.body) { var t = el.querySelector('[data-s="' + sel + '"]'); if (t) t.focus({ preventScroll: true }); }
+  }
+
+  function dumpBlock(s) {
+    var rows = (KS.dumpsites || []).filter(function (r) { return r.state === s && r.ulb; });
+    if (!rows.length) return RESERVED[s] ? '<h3>Priority dumpsites</h3><p class="note">The MoHUA annexure prints ' + esc(s) + ' as Reserved, with no figures. <a href="#/gaps/landfill">What that means</a></p>' : '<h3>Priority dumpsites</h3><p class="note">None listed for ' + esc(s) + ' in the MoHUA annexure of the 214 highest-impact dumpsites. <a href="#/gaps/landfill">Landfill and dumpsites</a></p>';
+    var sites = rows.reduce(function (a, r) { return a + (r.dumpsites || 0); }, 0);
+    return '<h3>Priority dumpsites</h3><p class="note" style="margin-top:0">' + sites + " dumpsite" + (sites === 1 ? "" : "s") + " in " + rows.length + " urban local bod" + (rows.length === 1 ? "y" : "ies") + ", from the MoHUA DRAP annexure (" + esc(dn(rows[0].source_doc)) + ', pages 6 to 9). Legacy waste in tonnes, as printed.</p><div class="tw"><table><tbody>' +
+      rows.slice().sort(function (a, b) { return (b.legacy_waste_tonnes || 0) - (a.legacy_waste_tonnes || 0); }).slice(0, 6).map(function (r) { return "<tr><td>" + esc(r.ulb) + '</td><td class="num">' + fmt(r.legacy_waste_tonnes) + "</td></tr>"; }).join("") + "</tbody></table></div>" +
+      (rows.length > 6 ? '<p class="note">' + (rows.length - 6) + ' more in <a href="#/gaps/landfill">the Landfill tab</a>.</p>' : '<p class="note"><a href="#/gaps/landfill">Landfill and dumpsites</a></p>');
   }
 
   /* plain-English lines and "not reported" reasons (shared by the state panel, claim evidence and the tables) */
@@ -258,6 +277,7 @@
       '<p class="note" style="margin-bottom:0"><strong>CPCB 2023-24</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2023-24", "CPCB", "generated") + numcard("collected", s, "2023-24", "CPCB", "collected") + numcard("treated", s, "2023-24", "CPCB", "treated") + "</div>" +
       '<p class="note" style="margin-bottom:0"><strong>MoHUA 2025-26</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2025-26", "MoHUA", "generated") + numcard("processed", s, "2025-26", "MoHUA", "treated") + "</div>" +
       (fl.length ? '<details class="more"><summary>' + fl.length + " flag" + (fl.length > 1 ? "s" : "") + " in this state's own reports</summary><div><p>A " + KSi18n.term("flag") + " means two reported figures cannot both be true. It does not say which one to trust.</p>" + fl.map(function (f) { return '<div class="flag"><span class="pill">' + esc(f.year) + "</span><span>" + esc(f.explanation) + ' <span class="note">(' + esc(f.values) + ")</span></span></div>"; }).join("") + "</div></details>" : '<p class="note">No flags in this state\'s own reports.</p>') +
+      dumpBlock(s) +
       '<p><a class="alt" style="display:inline-block;text-decoration:none" href="#/explore/receipts/' + encodeURIComponent(s) + '">All years and source pages</a></p>';
     box.innerHTML = h;
   }

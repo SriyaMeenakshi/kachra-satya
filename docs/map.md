@@ -2,6 +2,8 @@
 
 The Map page now draws a geographic map of India's 28 states and 8 union territories, coloured by CPCB % treated, MoHUA % processed, or the gap. A "Tiles" switch gives the earlier tile-grid map, which is easier for tiny units and never touches the question of borders. The choice is remembered in the browser. Tiny units (Delhi, Chandigarh, Goa, Puducherry, Lakshadweep, Dadra and Nagar Haveli and Daman and Diu, the Andaman and Nicobar Islands) also get round pins so they can be seen and tapped. Keyboard: one unit is in the tab order, the arrow keys move to the nearest unit in that direction, Enter selects.
 
+**Priority dumpsites layer.** A fourth colour layer shows the legacy waste (lakh tonnes) at the dumpsites on MoHUA's list of the 214 highest-impact sites, summed by state from `data/dumpsites_drap.csv`, on a square-root scale. It is a state-level layer: the source names cities, not sites, so the map has no dumpsite points. A state with no listed site is blank; Maharashtra and Bihar are printed as Reserved with no figures and are labelled that way. Selecting a state lists its cities and tonnes from the annexure.
+
 Files: `web/app/geomap.js` (drawing), `web/app/geomap.css`, `web/app/india.js` (outlines, generated), `scripts/build_india_map.py` (builds `india.js`).
 
 ## Where the outlines come from
