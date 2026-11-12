@@ -40,7 +40,7 @@ Saathi basics (complaint writer, dated log, escalation letter, four-stream guide
 | SHOULD | School audit challenge (M3) | 5 | Template, weighing guide and a report card using `scripts/audit_city.py` |
 | SHOULD | Human spot-check | 2 | 5 to 10 rows checked by hand against the PDFs; update `SOURCES.md` |
 | ROADMAP | Compost calculator spec (O3), dumpsite watch spec (O5) | 4 | Two one-page specs |
-By-hand publishing steps stay with you: choose the data licence, fill author names, send the permission requests (`docs/permission_requests.md`), upload to Zenodo.
+By-hand publishing steps stay with you: choose the data licence, fill author names, upload to Zenodo.
 
 ## Sriya: Reality and the money story (40 h)
 | Tier | Item | h | Done means |

@@ -101,7 +101,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 
 ## Data, sources and attribution
 - `data/raw/` and `receipts/pages/` are unchanged copies of published government documents, kept so a figure can be checked against its page. Rights stay with each publisher ([data/raw/NOTICE.md](data/raw/NOTICE.md), [receipts/NOTICE.md](receipts/NOTICE.md)). We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA.
-- Reuse terms for most sources are not confirmed: read [docs/licences.md](docs/licences.md) before any public data release. Draft permission requests are in [docs/permission_requests.md](docs/permission_requests.md) and have not been sent.
+- Reuse terms for most sources are not confirmed: read [docs/licences.md](docs/licences.md) before any public data release. No permission requests have been sent; the team decided to use the public records with attribution.
 - Code and our compiled data are MIT ([LICENSE](LICENSE), chosen 2026-11-12). That covers our compilation, checks and derived tables, not the source documents, whose rights stay with their publishers. Citation: [CITATION.cff](CITATION.cff). Release package: `scripts/build_release.py` (no documents or page images included).
 
 ## Repository map
@@ -131,4 +131,4 @@ The data, the checks, the integrated app and its Home page, guided paths and Mor
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
 - **Impact evidence:** what we can and cannot show is written down in [docs/impact_evidence.md](docs/impact_evidence.md): the problem is documented from the sources, but no people have used it yet in recorded sessions.
 - **User tests:** none run, count 0 ([docs/user_tests.md](docs/user_tests.md)). Ward QR scanning on a real phone, 375 px and screen-reader checks are also pending.
-- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, (optional) send the permission requests ([drafts ready](docs/permission_requests.md); the team decided to use the public documents with attribution, see docs/licences.md), record the human spot check, verify the map boundary.
+- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, record the human spot check, verify the map boundary.
