@@ -59,7 +59,7 @@ ALLOWED_ORIGINS=http://127.0.0.1:8777 python agent/app.py
 ```
 and set `agentEndpoint` in `web/app/config.js` to `http://127.0.0.1:5000/ask`. Without `MODEL_API_KEY` the agent answers in a fallback mode from the data. Do not commit a key.
 
-**Static site.** `python scripts/build_site.py` writes `dist/` (the web app and receipts only; no source documents or CSVs). Deploy notes: [docs/deploy.md](docs/deploy.md). A manual GitHub Pages workflow exists (`.github/workflows/pages.yml`) and has not been run.
+**Live site.** https://kachra-satya.onrender.com runs the whole project as one Render web service: the Flask agent serves the built site and answers Ask (`render.yaml`, [docs/deploy.md](docs/deploy.md)). It is on a free plan, so the first visit after a quiet spell can take about a minute; `/health` wakes it. **Static build.** `python scripts/build_site.py` writes `dist/` (the web app and receipts only; no source documents or CSVs). A manual GitHub Pages workflow exists (`.github/workflows/pages.yml`) and has not been run.
 
 ### Rebuild from the source documents in `data/raw/`
 ```bash
@@ -124,10 +124,10 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 
 Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
-## Status (2026-11-11)
-The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 79 tests. Not done yet:
-- **Public URL.** Not deployed ([docs/deploy.md](docs/deploy.md)); publishing page images is a decision for people ([docs/licences.md](docs/licences.md)).
-- **Ask online.** Needs the agent hosted somewhere and `agentEndpoint` set.
+## Status (2026-11-12)
+The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 79 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
+- **Page images are public before the licence decision.** The live site serves the receipt page images (copies of government document pages), but reuse terms are not confirmed and no permission request has been sent ([docs/licences.md](docs/licences.md)). Keep them or take them down: a decision for people.
+- **Live site checks still open.** Done on 2026-11-12 in a desktop browser: pages load, data files are not exposed, Ask answers in Hindi, Tamil and Telugu with sources ([docs/deploy.md](docs/deploy.md)). Not done: a phone, light and dark themes, the six acceptance questions in model mode, a native-speaker read of the translations.
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
 - **User tests:** none run, count 0 ([docs/user_tests.md](docs/user_tests.md)). Ward QR scanning on a real phone, 375 px and screen-reader checks are also pending.
 - **By hand:** choose a data licence, confirm author names in `CITATION.cff` and `.zenodo.json`, send permission requests, record the human spot check, verify the map boundary.
