@@ -1,0 +1,28 @@
+/* Loading screen (#splash in index.html) and the "this is a demo" notice (splash.js). Tokens from theme.css.
+   The loading screen hides itself with CSS alone after 8 s, so a script failure can never leave the site covered. */
+#splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:var(--forest-900,#0E2A20);color:#F6F1E4;transition:opacity .45s ease,visibility .45s;animation:sp-away .01s 8s forwards}
+#splash.out{opacity:0;visibility:hidden;pointer-events:none}
+@keyframes sp-away{to{opacity:0;visibility:hidden;pointer-events:none}}
+.sp-in{display:flex;flex-direction:column;align-items:center;gap:14px;padding:24px;text-align:center}
+.sp-mark{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;background:var(--forest-800,#143C2D);border:1px solid color-mix(in srgb,#BFE84F 35%,transparent);animation:sp-pop 1.4s ease-in-out infinite}
+.sp-mark svg{width:34px;height:34px;stroke:#BFE84F;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.sp-name{margin:0;font-size:1.9rem;font-weight:800;letter-spacing:-.04em}
+.sp-sub{margin:0;color:#B4C4B8;font-size:.95rem}
+.sp-bar{width:min(240px,60vw);height:4px;border-radius:99px;background:color-mix(in srgb,#BFE84F 18%,transparent);overflow:hidden}
+.sp-bar i{display:block;height:100%;width:40%;border-radius:99px;background:#BFE84F;animation:sp-run 1.1s ease-in-out infinite}
+@keyframes sp-run{0%{transform:translateX(-110%)}100%{transform:translateX(260%)}}
+@keyframes sp-pop{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.sp-mark,.sp-bar i{animation:none}.sp-bar i{width:100%}#splash{transition:none}}
+@media print{#splash,.demo-back{display:none!important}}
+
+.demo-back{position:fixed;inset:0;z-index:900;display:grid;place-items:center;padding:16px;background:rgba(6,18,13,.66);backdrop-filter:blur(3px)}
+.demo-box{max-width:480px;width:100%;padding:28px;border-radius:var(--r-3,20px);background:var(--card);color:var(--ink);border:1px solid var(--hair);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.demo-tag{display:inline-block;margin:0 0 10px;padding:3px 12px;border-radius:999px;background:var(--lime,#BFE84F);color:#0E2A20;font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.demo-box h2{margin:0 0 10px;font-size:1.5rem;letter-spacing:-.03em}
+.demo-box p{margin:0 0 10px;color:var(--ink2)}
+.demo-box ul{margin:0 0 16px;padding-left:1.2em;color:var(--ink2)}
+.demo-box li{margin-bottom:4px}
+.demo-ok{min-height:48px;padding:10px 26px;border:0;border-radius:999px;background:var(--forest-700,#17503A);color:#F6F1E4;font:inherit;font-weight:700;cursor:pointer}
+.demo-ok:focus-visible{outline:3px solid var(--lime,#BFE84F);outline-offset:3px}
+:root[data-theme="dark"] .demo-ok{background:var(--lime,#BFE84F);color:#0E2A20}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .demo-ok{background:var(--lime,#BFE84F);color:#0E2A20}}

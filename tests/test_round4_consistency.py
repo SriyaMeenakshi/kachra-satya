@@ -45,3 +45,14 @@ console.log(JSON.stringify(t))"""
     t = json.loads(subprocess.run(["node", "-e", js], capture_output=True, text=True, encoding="utf-8", check=True).stdout.strip().splitlines()[-1])
     assert "complaints logged 2 (open 1, resolved 1)" in t and "ward days tapped 3 (truck did not come 2)" in t
     assert "Secret" not in t and "Hyderabad" not in t                       # no names, places or text
+
+
+def test_loading_screen_and_demo_notice_are_wired_and_safe():
+    html = read("web/app/index.html")
+    assert 'id="splash"' in html and 'href="splash.css"' in html and 'src="splash.js" defer' in html
+    assert "<noscript><style>#splash{display:none}</style></noscript>" in html            # never covers a visitor without JavaScript
+    css = read("web/app/splash.css")
+    assert "animation:sp-away .01s 8s forwards" in css and "prefers-reduced-motion" in css  # CSS removes it even if the script fails
+    js = read("web/app/splash.js")
+    assert 'role="dialog"' in js and 'aria-modal="true"' in js and "Escape" in js and "This site is for demonstration" in js
+    assert "not an official government site" in js and "sessionStorage" in js               # honest wording; works when storage is blocked
