@@ -35,7 +35,8 @@ Connect the web app
 1. Start the agent (above) and note its URL, for example `http://127.0.0.1:5000/ask`.
 2. Put that URL in `web/app/config.js` (`agentEndpoint`). Leave it empty to keep the Ask page's honest "not connected yet" notice.
 3. The Ask page sends `{"question", "message", "language": "en"|"hi"|"ta"|"te"}` and shows `answer` plus a "Sources:" line from `sources`.
-4. A static site (GitHub Pages) cannot run this server. For a public Ask page the agent must be hosted somewhere (any host that runs Flask, behind a production server such as gunicorn, with `ALLOWED_ORIGINS` set to the public site). Until then keep `agentEndpoint` empty on the deployed site.
+4. **One service:** if `dist/` exists (`python scripts/build_site.py`), this server also serves the website and the Ask page uses `/ask` on the same address with no extra setting. `render.yaml` and `docs/deploy.md` (Option C) describe hosting it that way on Render.
+5. A static site (GitHub Pages) cannot run this server. For a public Ask page the agent must be hosted somewhere (any host that runs Flask, behind a production server such as gunicorn, with `ALLOWED_ORIGINS` set to the public site). Until then keep `agentEndpoint` empty on the deployed site.
 
 Acceptance test
 

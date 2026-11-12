@@ -15,6 +15,16 @@ Checked on 2026-11-11: the built `dist/` served under a sub-path (`/kachra-satya
 ## Option B: any static host
 Run `python scripts/build_site.py`, then upload `dist/` (Netlify drop, Cloudflare Pages, a school server). No `_redirects` or server config is needed: the root `index.html` redirect is plain HTML and keeps `#/route` links.
 
+## Option C: everything as one service on Render (set up, not run)
+`agent/app.py` can also serve the built website. If `dist/` exists next to it, the same Flask server answers `POST /ask` and serves the pages, so there is one address, no CORS setting and no second service. It serves only the files inside `dist/` (no CSVs, no source documents, no `agent/` code, no `.env`), and it answers `/web/app/config.js` itself with `agentEndpoint: "/ask"`, so the Ask page connects without editing `config.js`. `SERVE_SITE=0` turns this off. `tests/test_agent_serves_site.py` checks all of this.
+`render.yaml` describes the service. Steps:
+1. Render dashboard, **New, Blueprint**, pick this repo and the branch to deploy. When asked for `MODEL_API_KEY`, paste your key (or leave it empty for lookup-only mode).
+2. Render runs `pip install -r agent/requirements.txt && python scripts/build_site.py`, then `gunicorn --chdir agent app:app`. The first build takes a few minutes.
+3. Open `https://<name>.onrender.com/health`, then the root address, then the Ask page.
+Checked locally on 2026-11-12 with `python agent/app.py` (the same Flask app): the site loads, the Ask page connects and answers with a source. **Not tested:** running under gunicorn on Render, the Blueprint itself, and any model key (local runs used lookup-only mode).
+Trade-off: a free Render web service sleeps after about 15 minutes idle, so the first visit afterwards can take around a minute for the whole site. Open `/health` just before a demo or a user test.
+To change the settings later (for example the key or provider): the service, **Environment**, edit, **Save**; Render redeploys.
+
 ## Check before publishing (these are decisions for people, not code)
 1. **Page images.** `receipts/pages/` are unchanged copies of pages from published government documents. Publishing them on a public site is a release of that material. `docs/licences.md` says reuse terms for most sources are not confirmed, and `docs/permission_requests.md` (drafts, not sent) is the plan. Decide, with the team, whether to publish now with the attribution notices (`receipts/NOTICE.md`) or wait for replies. The site's footer already says rights stay with each publisher and that we are not affiliated with any of them.
 2. **The Q&A agent** (`agent/`) is a Flask server, so GitHub Pages cannot run it. With `agentEndpoint` empty in `web/app/config.js` the deployed Ask page shows "not connected yet", which is honest and fine for a first deploy. To connect it, host the agent somewhere that runs Flask behind a production server, set `ALLOWED_ORIGINS` to the public site, put its `/ask` URL in `config.js`, and rerun the checks in `docs/agentfoundry_run_sheet.md`. Never put an API key in the web files: keys belong only in the agent's environment.

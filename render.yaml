@@ -1,0 +1,19 @@
+# Render Blueprint: the whole project as ONE web service (the Flask agent also serves the built website).
+# Create it with: Render dashboard -> New -> Blueprint -> pick this repo. Render asks for MODEL_API_KEY (it is never stored in git).
+# See docs/deploy.md, "Option C". Not yet run on Render.
+services:
+  - type: web
+    name: kachra-satya
+    runtime: python
+    plan: free
+    # Install the agent's libraries, then build dist/ (web/ and receipts/ only; no source documents or CSVs).
+    buildCommand: pip install -r agent/requirements.txt && python scripts/build_site.py
+    startCommand: gunicorn --chdir agent app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION          # the agent pins pandas 2.1.4, which has no prebuilt package for Python 3.13 or newer
+        value: 3.12.7
+      - key: MODEL_PROVIDER          # gemini or anthropic; leave the key empty to run in lookup-only fallback mode
+        value: gemini
+      - key: MODEL_API_KEY           # secret: Render asks for it when the Blueprint is created
+        sync: false
