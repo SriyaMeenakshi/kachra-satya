@@ -55,6 +55,7 @@
     var unacc = nat("2022-23", "CPCB", "unaccounted"), uKey = unacc ? "India|2022-23|unaccounted|" + unacc.source_doc : "";
     var segC = KS.segregation.filter(function (x) { return x.indicator.indexOf("D2D") >= 0; })[0], segS = KS.segregation.filter(function (x) { return x.indicator.indexOf("Segregation") >= 0; })[0];
     var agentOn = !!(root.KS_CONFIG && root.KS_CONFIG.agentEndpoint);
+    var taps = 0; try { var wr = JSON.parse(localStorage.getItem("ks-ward-reports-v1") || "null"); taps = wr && Array.isArray(wr.reports) ? wr.reports.length : 0; } catch (e) { taps = 0; }   /* this device only; storage may be blocked */
     function steps() {      /* "What brings you here?": goals, not tools. Each goal starts a guided path (guide.js). */
       return '<section class="op-goals" id="op-start" aria-labelledby="op-go-h"><h2 id="op-go-h">' + esc(T("goal_h", "What brings you here?")) + '</h2><p class="op-p">' + esc(T("goal_p", "Pick the one that sounds most like you. We will take you through it one step at a time.")) + "</p>" + (root.KSGuide ? root.KSGuide.chooser() : "") + "</section>";
     }
@@ -86,7 +87,7 @@
          [["#/claim", "Check a claim", true], ["#/ask", "Ask a question", false, agentOn ? "" : "not connected"]]) +
       jy("02", "Check the proof", "Is it true on paper?", String(withPage), "figures open on the page they came from",
          [["#/map", "Open the map", true], ["#/gaps", "See the gaps"], ["#/explore", "Explore the sources"]]) +
-      jy("03", "See your street", "Is it true where I live?", "0", "street reports so far: it fills as people tap in their ward",
+      jy("03", "See your street", "Is it true where I live?", taps ? String(taps) : "Your turn", taps ? "days you have tapped on this device, unverified" : "tap whether the truck came; it stays on your device",
          [["#/ward", "Your ward", true, "prototype"], ["#/city", "Audit your city"], ["#/school", "Weigh school waste"]]) +
       jy("04", "Do something", "What can I actually do?", "Complaint &rarr; log &rarr; letter", "written for you; you send it, we never do",
          [["#/help/complain", "Get my garbage collected", true], ["#/help/bins", "Which bin?"], ["#/dropoff", "Nearest drop-off"], ["#/brief/card", "Explain my state"]]) +

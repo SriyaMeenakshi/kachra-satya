@@ -130,10 +130,43 @@
 
   function claimLine(state) {
     if (!state) return "";
-    function f(y, s, m) { var r = KS.waste.filter(function (x) { return x.state === state && x.year === y && x.source_name === s && x.metric === m; })[0]; return r && r.value_tpd != null ? r.value_tpd : null; }
+    function row(y, s, m) { return KS.waste.filter(function (x) { return x.state === state && x.year === y && x.source_name === s && x.metric === m; })[0] || null; }
+    function f(y, s, m) { var r = row(y, s, m); return r && r.value_tpd != null ? r.value_tpd : null; }
+    function pg(r) { return r && r.source_page != null && r.source_page !== "" ? ", page " + r.source_page : ""; }
     var cg = f("2023-24", "CPCB", "generated"), ct = f("2023-24", "CPCB", "treated"), mg = f("2025-26", "MoHUA", "generated"), mt = f("2025-26", "MoHUA", "treated");
+    var mPg = pg(row("2025-26", "MoHUA", "treated")), cPg = pg(row("2023-24", "CPCB", "treated"));
     if (!(cg && ct != null && mg && mt != null)) return "For " + state + ", the figures we hold are incomplete (not reported by one of the sources), so we do not quote a comparison.";
-    return "For " + state + ", the Ministry of Housing and Urban Affairs reports about " + Math.round(mt / mg * 100) + " kg of every 100 kg of waste processed (2025-26, Rajya Sabha Unstarred Question 2433), while the Central Pollution Control Board's figures for 2023-24 show about " + Math.round(ct / cg * 100) + " kg treated (Lok Sabha Unstarred Question 50, 1 December 2025). These two sources describe different years and disagree.";
+    return "For " + state + ", the Ministry of Housing and Urban Affairs reports about " + Math.round(mt / mg * 100) + " kg of every 100 kg of waste processed (2025-26, Rajya Sabha Unstarred Question 2433" + mPg + "), while the Central Pollution Control Board's figures for 2023-24 show about " + Math.round(ct / cg * 100) + " kg treated (Lok Sabha Unstarred Question 50, 1 December 2025" + cPg + "). These two sources describe different years and disagree.";
+  }
+
+  /* The resident's own truck taps from the Your ward page (key ks-ward-reports-v1, this device only). Read-only: nothing is invented.
+     A ward id is "state~city~ward". The tally covers the last 30 days up to today. */
+  var WARD_KEY = "ks-ward-reports-v1";
+  function wardReports() { try { var s = JSON.parse(localStorage.getItem(WARD_KEY) || "null"); return s && Array.isArray(s.reports) ? s.reports : []; } catch (e) { return []; } }
+  function wardList(reports) {
+    var seen = {}, out = [];
+    (reports || []).forEach(function (r) { if (r && r.ward && !seen[r.ward]) { var p = String(r.ward).split("~"); if (p.length === 3) { seen[r.ward] = 1; out.push({ id: r.ward, state: p[0], city: p[1], ward: p[2] }); } } });
+    return out;
+  }
+  function wardTally(reports, wardId, todayStr, n) {
+    n = n || 30; var from = new Date(todayStr + "T00:00:00"); from.setDate(from.getDate() - (n - 1));
+    var lo = from.getFullYear() + "-" + ("0" + (from.getMonth() + 1)).slice(-2) + "-" + ("0" + from.getDate()).slice(-2), by = {};
+    (reports || []).forEach(function (r) { if (r.ward === wardId && r.date >= lo && r.date <= todayStr) by[r.date] = r.status; });
+    var nc = 0, c = 0; Object.keys(by).forEach(function (d) { if (by[d] === "not_collected") nc++; else if (by[d] === "collected") c++; });
+    return { window: n, notCollected: nc, collected: c, reported: nc + c };
+  }
+  /* Returns "" when there is nothing to say (no ward chosen, or no taps in the window). */
+  function wardLine(reports, wardId, todayStr) {
+    var p = String(wardId || "").split("~"); if (p.length !== 3) return "";
+    var t = wardTally(reports, wardId, todayStr, 30); if (!t.reported) return "";
+    return "My own record for " + p[2] + ", " + p[1] + ": in the last " + t.window + " days I marked the garbage truck as not collected on " + t.notCollected + " day" + (t.notCollected === 1 ? "" : "s") + " and collected on " + t.collected + " (days I did not tap have no record). These are my own unverified taps, kept on my device; they are not an official figure.";
+  }
+  function bestWard(wards, city, area) {
+    var c = String(city || "").trim().toLowerCase(), a = String(area || "").trim().toLowerCase();
+    var inCity = wards.filter(function (w) { return c && w.city.toLowerCase() === c; });
+    if (!inCity.length) return wards.length === 1 && !c ? wards[0] : null;
+    var exact = inCity.filter(function (w) { return a && w.ward.toLowerCase() === a; });
+    return exact[0] || (inCity.length === 1 ? inCity[0] : null);
   }
 
   function tabEscalate(el, args) {
@@ -144,18 +177,24 @@
       '<div class="grid2" style="margin-top:10px"><div><label for="e-city">City or town</label><input id="e-city" type="text"></div><div><label for="e-area">Area or landmark</label><input id="e-area" type="text"></div>' +
       '<div><label for="e-issue">Problem</label><select id="e-issue">' + ISSUES.map(function (i) { return "<option>" + i + "</option>"; }).join("") + '</select></div><div><label for="e-date">Date you filed</label><input id="e-date" type="date" max="' + today() + '"></div>' +
       '<div><label for="e-since">Problem since (optional)</label><input id="e-since" type="date" max="' + today() + '"></div><div><label for="e-tk">Complaint number</label><input id="e-tk" type="text"></div><div><label for="e-days">Ask for action within (days)</label><input id="e-days" type="number" min="1" value="7"></div>' +
-      '<div><label for="e-state">State (to cite the official figures)</label><select id="e-state"><option value="">Do not include</option>' + states.map(function (s) { return "<option>" + esc(s) + "</option>"; }).join("") + '</select></div><div><label for="e-name">Your name</label><input id="e-name" type="text"></div></div>' +
+      '<div><label for="e-state">State (to cite the official figures)</label><select id="e-state"><option value="">Do not include</option>' + states.map(function (s) { return "<option>" + esc(s) + "</option>"; }).join("") + '</select></div><div><label for="e-ward">Add my truck tally from Your ward</label><select id="e-ward"><option value="">Do not include</option></select></div><div><label for="e-name">Your name</label><input id="e-name" type="text"></div></div>' +
       '<div class="rowbtn"><button class="go" id="e-go" type="button">Write the letter</button></div><div id="e-out" aria-live="polite"></div></div>';
     function fill(r) { if (!r) return; $("e-city").value = r.city; $("e-area").value = r.area; $("e-issue").value = r.issue; $("e-date").value = r.filed; $("e-tk").value = r.ticket || ""; $("e-since").value = r.since || ""; }
-    fill(pre); $("e-pick").onchange = function () { fill(l.filter(function (r) { return r.id === $("e-pick").value; })[0]); };
+    var wreps = wardReports(), wards = wardList(wreps).filter(function (w) { return wardTally(wreps, w.id, today(), 30).reported > 0; });
+    $("e-ward").innerHTML = '<option value="">Do not include</option>' + wards.map(function (w) { var t = wardTally(wreps, w.id, today(), 30); return '<option value="' + esc(w.id) + '">' + esc(w.ward + ", " + w.city + " (" + t.notCollected + " not collected of " + t.reported + " days tapped)") + "</option>"; }).join("");
+    function pickWard() { var b = bestWard(wards, $("e-city").value, $("e-area").value); $("e-ward").value = b ? b.id : ""; }
+    fill(pre); pickWard();
+    $("e-pick").onchange = function () { fill(l.filter(function (r) { return r.id === $("e-pick").value; })[0]); pickWard(); };
+    $("e-city").onchange = pickWard; $("e-area").onchange = pickWard;
     $("e-go").onclick = function () {
       var since = $("e-since").value, city = $("e-city").value.trim(), area = $("e-area").value.trim(), date = $("e-date").value, tk = $("e-tk").value.trim(), days = $("e-days").value || "7", name = $("e-name").value.trim(), issue = $("e-issue").value;
       if (!city || !area || !date) { $("e-out").innerHTML = '<p class="note" role="alert">Please add the city, the area and the date you filed.</p>'; return; }
-      var n = daysBetween(date, today()), cl = claimLine($("e-state").value);
+      var wsel = $("e-ward").value, wst = wsel ? wsel.split("~")[0] : "", stSel = $("e-state").value || (states.indexOf(wst) >= 0 ? wst : "");
+      var n = daysBetween(date, today()), cl = claimLine(stSel), wl = wardLine(wreps, wsel, today());
       var text = "To,\nThe Municipal Commissioner,\n" + city + "\n\nDate: " + fmtDate(today()) + "\n\nSubject: Unresolved solid waste complaint" + (tk ? " no. " + tk : "") + " at " + area + "\n\nSir or Madam,\n\n" +
         "I filed a complaint about \"" + issue.toLowerCase() + "\" at " + area + ", " + city + " on " + fmtDate(date) + (tk ? " (complaint number " + tk + ", Swachhata-MoHUA app)" : "") + ". " + (n > 0 ? "It has remained unresolved for " + n + " day" + (n === 1 ? "" : "s") + "." : "It has not yet been resolved.") + (since ? " The problem itself has existed since " + fmtDate(since) + "." : "") + "\n\n" +
         "The Solid Waste Management Rules, 2026, which came into force on 1 April 2026, make local bodies responsible for the collection, segregation and transportation of solid waste (Ministry of Environment, Forest and Climate Change, press release of 28 January 2026). " +
-        "The Ministry of Housing and Urban Affairs reports that door-to-door collection has reached 97% (MoHUA Annual Report 2025-26, section 4.13)." + (cl ? " " + cl : "") + "\n\n" +
+        "The Ministry of Housing and Urban Affairs reports that door-to-door collection has reached 97% (MoHUA Annual Report 2025-26, section 4.13)." + (cl ? " " + cl : "") + "\n\n" + (wl ? wl + "\n\n" : "") +
         "I request that the waste at this location be cleared within " + days + " days, and that I be told in writing what action was taken.\n\nYours faithfully,\n" + (name || "[your name]") + "\n[your address and phone number]";
       $("e-out").innerHTML = '<label for="e-text" style="margin-top:12px">Your letter (edit before sending)</label><textarea class="out" id="e-text" style="min-height:330px">' + esc(text) + '</textarea><div class="rowbtn"><button class="alt" id="e-copy" type="button">Copy text</button><button class="alt" id="e-dl" type="button">Download as .txt</button></div>' +
         '<p class="mini">We cite published sources only; check each line is true for your case before you send it. We do not send anything.</p>';
@@ -193,5 +232,5 @@
     };
   }
 
-  root.KSSaathi = { renderStart: renderStart, renderHelp: renderHelp, _claimLine: claimLine, _STREAMS: STREAMS, _match: match };
+  root.KSSaathi = { renderStart: renderStart, renderHelp: renderHelp, _claimLine: claimLine, _wardLine: wardLine, _bestWard: bestWard, _wardList: wardList, _STREAMS: STREAMS, _match: match };
 })(window);

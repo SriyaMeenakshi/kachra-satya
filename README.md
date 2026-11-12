@@ -9,7 +9,7 @@ Built for the Code for a Billion hackathon, Waste Management track (submissions 
 ## The problem in two numbers
 | | Figure | Source |
 |---|---|---|
-| Housing Ministry (MoHUA) | 80.26% of 161,910 tonnes per day processed | Lok Sabha Q682, 28 Nov 2024 |
+| Housing Ministry (MoHUA) | 81% processed: 131,530 of 162,372 tonnes per day, 2025-26 | Rajya Sabha Q2433 (MoHUA answer, p.3) |
 | CPCB | 114,110 of 185,195 tonnes per day treated, 61.6% | Lok Sabha Q50, 1 Dec 2025 (CPCB 2023-24) |
 | Gap between the two national "treated" totals | 17,420 tonnes per day | MoHUA 2025-26 against CPCB 2023-24 |
 
@@ -85,7 +85,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
 - A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
-- **74 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
+- **79 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
 
 Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md](docs/validation_summary.md).
 
