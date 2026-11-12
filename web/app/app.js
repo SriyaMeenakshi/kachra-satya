@@ -509,8 +509,9 @@
     var live = !!CFG.agentEndpoint;
     view.innerHTML = '<h2>Ask</h2><p class="sub">Ask in English, Hindi, Tamil or Telugu. Answers come only from the dataset, with the source and page for every figure.</p>' +
       (live ? "" : '<div class="notice"><strong>The assistant isn\'t connected yet.</strong> Meanwhile, <a href="#/claim">check a claim</a> or <a href="#/explore/receipts">browse the figures</a>.</div>') +
-      '<div class="chat" id="chat" aria-live="polite"></div><div class="chips">' + SUGGEST.map(function (s) { return '<button class="chip" type="button"' + (live ? "" : " disabled") + ">" + esc(s) + "</button>"; }).join("") + '</div>' +
+      '<div class="chips">' + SUGGEST.map(function (s) { return '<button class="chip" type="button"' + (live ? "" : " disabled") + ">" + esc(s) + "</button>"; }).join("") + '</div>' +
       '<div class="ask"><input id="q" type="text" maxlength="500" aria-label="Your question" placeholder="Ask about a state, a year or a claim"' + (live ? "" : " disabled") + '><select id="lang" aria-label="Language" style="width:auto"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select><button class="go" id="send" type="button"' + (live ? "" : " disabled") + ">Ask</button></div>" +
+      '<div class="chat" id="chat" aria-live="polite" style="margin-top:var(--sp-4)"></div>' +
       '<div class="voice"><button class="alt" id="mic" type="button" aria-pressed="false"' + (live && SR ? "" : " disabled") + '>🎤 Speak</button><label class="chk"><input type="checkbox" id="speak"' + (live && window.speechSynthesis ? "" : " disabled") + "> Read answers aloud</label>" +
       '<span class="note" id="vnote" role="status">' + (SR ? "" : "Voice input is not available in this browser (Chrome or Edge work best). You can still type.") + "</span></div>" +
       (live ? '<p class="note"><strong>Privacy:</strong> your question is sent to our server, and may be sent to an AI service (Google Gemini) to write the answer. Do not type names, addresses or other personal details. Everything else on this site stays in your browser.</p>' : "") +
@@ -537,7 +538,7 @@
       rec.onend = function () { btn.setAttribute("aria-pressed", "false"); btn.textContent = "🎤 Speak"; };
       try { rec.start(); } catch (err) { note.textContent = "Could not start the microphone. Type your question instead."; rec.onend(); }
     };
-    view.querySelectorAll(".chips .chip").forEach(function (b) { b.onclick = function () { send(b.textContent); }; });
+    view.querySelectorAll(".chips .chip").forEach(function (b) { b.onclick = function () { var q = $("q"); q.value = b.textContent; q.focus(); }; });   /* a suggestion fills the question bar; the person presses Ask */
   }
 
   go();

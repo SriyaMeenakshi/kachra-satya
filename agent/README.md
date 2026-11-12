@@ -13,7 +13,8 @@ Setup
     python -m pip install -r agent/requirements.txt
 
 2. Configure environment variables (either export them or create agent/.env):
-    MODEL_PROVIDER=gemini  # or anthropic
+    MODEL_PROVIDER=gemini  # or grok (xAI) or anthropic
+    # for Grok also optionally: GROK_MODEL (default grok-4; use a model your key can access) and GROK_BASE_URL (default https://api.x.ai/v1)
     MODEL_API_KEY=your_api_key_here
 
    If you do not set MODEL_API_KEY, the server runs in fallback mode and will only use the lookup tools (no model).

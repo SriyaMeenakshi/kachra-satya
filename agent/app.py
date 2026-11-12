@@ -3,7 +3,7 @@
 Exposes POST /ask with {"question": "...", "language": "en"}
 that returns {"answer": "...", "sources": [...]}.
 
-Uses Google Gemini or Anthropic Claude based on MODEL_PROVIDER env var.
+Uses Google Gemini, xAI Grok or Anthropic Claude based on MODEL_PROVIDER env var.
 Fallback mode (no API key): answers with tools only, in English.
 
 Setup:
@@ -55,6 +55,8 @@ MODEL_PROVIDER = os.environ.get("MODEL_PROVIDER", "").lower()
 MODEL_API_KEY = os.environ.get("MODEL_API_KEY", "").strip()
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash").strip() or "gemini-3.8-flash"
 MODEL_TIMEOUT_S = float(os.environ.get("MODEL_TIMEOUT_S", "15"))   # total budget for all model calls in one /ask
+GROK_MODEL = os.environ.get("GROK_MODEL", "grok-4").strip() or "grok-4"                 # xAI model name; set it to one your key can use
+GROK_BASE_URL = os.environ.get("GROK_BASE_URL", "https://api.x.ai/v1").strip().rstrip("/")
 GEMINI_MAX_TOOL_ROUNDS = int(os.environ.get("GEMINI_MAX_TOOL_ROUNDS", "5"))
 GEMINI_COOLDOWN_S = float(os.environ.get("GEMINI_COOLDOWN_S", "60"))           # skip Gemini after a failure
 _gemini_down_until = 0.0
@@ -305,6 +307,53 @@ def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
             result_parts.append(types.Part.from_function_response(name=fc.name, response=payload))
         contents.append(types.Content(role="user", parts=result_parts))
 
+    raise RuntimeError(f"no final answer after {GEMINI_MAX_TOOL_ROUNDS} tool rounds")
+
+
+def _grok_post(payload: dict, timeout_s: float) -> dict:
+    """One call to xAI's chat completions endpoint. Kept separate so tests can replace it without a network."""
+    import requests
+    r = requests.post(GROK_BASE_URL + "/chat/completions", json=payload, timeout=timeout_s,
+                      headers={"Authorization": "Bearer " + MODEL_API_KEY, "Content-Type": "application/json"})
+    if r.status_code != 200:
+        raise RuntimeError(f"Grok returned HTTP {r.status_code}: {_redact(r.text)[:200]}")
+    return r.json()
+
+
+def call_grok_tool_use(question: str) -> tuple[str, list[dict]]:
+    """Call xAI Grok with function calling. Same bounds as Gemini: GEMINI_MAX_TOOL_ROUNDS calls and MODEL_TIMEOUT_S in total.
+    Raises on any failure so the caller can fall back to the data-only answer."""
+    tools = [{"type": "function", "function": {"name": t["name"], "description": t.get("description", ""),
+                                                "parameters": t.get("input_schema") or {"type": "object", "properties": {}}}} for t in TOOLS]
+    messages = [{"role": "system", "content": SYSTEM}, {"role": "user", "content": question}]
+    start = time.monotonic()
+    used_docs: set = set()
+    for rnd in range(1, GEMINI_MAX_TOOL_ROUNDS + 1):
+        remaining = MODEL_TIMEOUT_S - (time.monotonic() - start)
+        if remaining <= 0.5:
+            raise TimeoutError(f"model budget {MODEL_TIMEOUT_S}s exhausted before round {rnd}")
+        data = _grok_post({"model": GROK_MODEL, "messages": messages, "tools": tools, "max_tokens": 2000}, remaining)
+        choices = data.get("choices") or []
+        if not choices:
+            raise RuntimeError("Grok returned no choices")
+        msg = choices[0].get("message") or {}
+        calls = msg.get("tool_calls") or []
+        log.info("round %d model=%s tool_calls=%s", rnd, GROK_MODEL, [(c.get("function") or {}).get("name") for c in calls])
+        if not calls:
+            text = (msg.get("content") or "").strip()
+            if not text:
+                raise RuntimeError("Grok returned empty text")
+            return text, extract_sources(text, used_docs)
+        messages.append({"role": "assistant", "content": msg.get("content") or "", "tool_calls": calls})
+        for c in calls:
+            fn = c.get("function") or {}
+            try:
+                args = json.loads(fn.get("arguments") or "{}")
+            except Exception:
+                args = {}
+            raw = run_tool(fn.get("name", ""), args if isinstance(args, dict) else {})
+            _note_docs(raw, used_docs)
+            messages.append({"role": "tool", "tool_call_id": c.get("id", ""), "content": raw if isinstance(raw, str) else json.dumps(raw)})
     raise RuntimeError(f"no final answer after {GEMINI_MAX_TOOL_ROUNDS} tool rounds")
 
 
@@ -598,25 +647,25 @@ def ask():
         # Check if we have API key and provider
         if not MODEL_PROVIDER or not MODEL_API_KEY:
             answer, sources = call_fallback_tools_only(question, language)
-        elif MODEL_PROVIDER in ("gemini", "anthropic"):
+        elif MODEL_PROVIDER in ("gemini", "grok", "anthropic"):
             global _gemini_down_until
-            if MODEL_PROVIDER == "gemini" and time.monotonic() < _gemini_down_until:
-                log.info("gemini in cooldown; using tools-only fallback")
+            if MODEL_PROVIDER in ("gemini", "grok") and time.monotonic() < _gemini_down_until:
+                log.info("%s in cooldown; using tools-only fallback", MODEL_PROVIDER)
                 answer, sources = call_fallback_tools_only(question, language)
                 answer += fallback_note(language)
             else:
-                call = call_gemini_tool_use if MODEL_PROVIDER == "gemini" else call_anthropic_tool_use
+                call = {"gemini": call_gemini_tool_use, "grok": call_grok_tool_use}.get(MODEL_PROVIDER, call_anthropic_tool_use)
                 try:
                     answer, sources = call(question)
                 except Exception as e:
                     log.error("%s call failed: %s: %s", MODEL_PROVIDER, type(e).__name__, _redact(str(e))[:300])
-                    if MODEL_PROVIDER == "gemini":
+                    if MODEL_PROVIDER in ("gemini", "grok"):
                         _gemini_down_until = time.monotonic() + GEMINI_COOLDOWN_S
                     answer, sources = call_fallback_tools_only(question, language)
                     answer += fallback_note(language)
         else:
             return jsonify({
-                "error": f"Unknown MODEL_PROVIDER: {MODEL_PROVIDER}. Use 'gemini' or 'anthropic'."
+                "error": f"Unknown MODEL_PROVIDER: {MODEL_PROVIDER}. Use 'gemini', 'grok' or 'anthropic'."
             }), 400
 
         return jsonify({
