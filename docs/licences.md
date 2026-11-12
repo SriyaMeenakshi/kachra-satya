@@ -19,6 +19,9 @@ The Guidelines for Indian Government Websites describe a "liberal" copyright pol
 ## Decision (2026-11-10)
 For the public repo we **keep** the raw documents and the receipt page images, with attribution: `data/raw/NOTICE.md` and `receipts/NOTICE.md` state that they are unchanged copies with the source named, that rights stay with each publisher, that we are not affiliated or endorsed, and that we will remove any document on its publisher's request. The web page footer says the same. The permission risk described below for Lok Sabha pages, and for the unconfirmed sources, remains. The Zenodo release still excludes `data/raw/` and `receipts/pages/`.
 
+## Decision (2026-11-12): licence
+Our code **and our compiled data** are released under the MIT licence (`LICENSE`, `CITATION.cff`, `.zenodo.json` agree). The licence covers our extraction, checks, flags and derived tables. It does not cover `data/raw/` or `receipts/pages/`, and it does not change anyone's rights in the underlying figures, which come from the cited government documents under their own terms. Item 1 below (a CC BY 4.0 data licence) is therefore replaced by MIT; the rest of this page still applies.
+
 ## What we recommend
 1. **Publish our own work under an open licence, and say the figures are not ours.** Our additions are the compilation, the checks and flags, the derived indicators, the crosswalk and the code. The code is already MIT (`LICENSE`). A data licence such as CC BY 4.0 for our compilation, with a clear line that the underlying figures come from the cited government documents under their own terms, is a team decision; no data licence file has been added yet.
 2. **Publish figures with citations, not the documents.** A Zenodo release should hold the CSVs (each row already has document, page and retrieval date) and exclude `data/raw/` and `receipts/pages/`.

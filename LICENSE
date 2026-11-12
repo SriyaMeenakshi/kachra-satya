@@ -19,3 +19,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Scope: this licence covers the code and the data files compiled by this project (our extraction, checks, flags and derived tables). It does not cover the source documents in data/raw/ or the page images in receipts/pages/, whose rights stay with their publishers (see data/raw/NOTICE.md and receipts/NOTICE.md). The underlying figures come from the cited government documents under their own terms.

@@ -106,6 +106,13 @@
     };
   }
 
+  /* Counts only, no text, names or places: something a person can paste into a shared form (for example after a user test). Pure, so tests can run it. */
+  function summaryText(log, wardReps, todayStr) {
+    log = log || []; wardReps = wardReps || [];
+    var open = log.filter(function (r) { return r.status !== "Resolved"; }).length, nc = wardReps.filter(function (r) { return r.status === "not_collected"; }).length;
+    return "Kachra Satya anonymous summary (" + todayStr + "): complaints logged " + log.length + " (open " + open + ", resolved " + (log.length - open) + "); ward days tapped " + wardReps.length + " (truck did not come " + nc + "). Counts only: no names, places or text.";
+  }
+
   function tabLog(el) {
     var l = load();
     el.innerHTML = storeNote() + '<div class="card pad"><p class="mini" style="margin-top:0">Stays in this browser only; we do not upload it. Download it to keep a copy or share it.</p>' +
@@ -113,7 +120,7 @@
         l.map(function (r) { var open = r.status !== "Resolved", age = open ? daysBetween(r.filed, today()) : null;
           return '<tr data-id="' + esc(r.id) + '"><td>' + esc(r.filed) + "</td><td>" + esc(r.area) + ", " + esc(r.city) + "</td><td>" + esc(r.issue) + '</td><td><input class="tk" type="text" value="' + esc(r.ticket) + '" aria-label="Complaint number" style="width:9em"></td>' +
             '<td><select class="st" aria-label="Status">' + ["Open", "Resolved", "Reopened"].map(function (s) { return "<option" + (s === r.status ? " selected" : "") + ">" + s + "</option>"; }).join("") + '</select></td><td class="num age">' + (age == null ? "&ndash;" : age) + '</td><td><a href="#/help/escalate/' + esc(r.id) + '">Write letter</a> <button class="link del" type="button">Delete</button></td></tr>'; }).join("") +
-        '</tbody></table></div><div class="rowbtn"><button class="alt" id="l-csv" type="button">Download as CSV</button></div>'
+        '</tbody></table></div><div class="rowbtn"><button class="alt" id="l-csv" type="button">Download as CSV</button> <button class="alt" id="l-sum" type="button">Copy my anonymous summary</button></div>'
         : '<p class="note">Nothing here yet. <a href="#/help/complain">Write a complaint</a> and save it, and it will appear here.</p>') + "</div>";
     el.querySelectorAll("tr[data-id]").forEach(function (tr) {
       var id = tr.dataset.id;
@@ -122,6 +129,7 @@
       tr.querySelector(".st").onchange = function () { var v = this.value; upd(function (r) { r.status = v; }); renderHelp("log"); };
       tr.querySelector(".del").onclick = function () { if (confirm("Delete this entry from your log?")) { save(load().filter(function (r) { return r.id !== id; })); renderHelp("log"); } };
     });
+    if ($("l-sum")) $("l-sum").onclick = function () { copy(summaryText(load(), wardReports(), today()), this); };
     if ($("l-csv")) $("l-csv").onclick = function () {
       var q = function (v) { return '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"'; };
       download("kachra_complaint_log.csv", ["filed,city,area,problem,complaint_number,status,notes"].concat(load().map(function (r) { return [r.filed, r.city, r.area, r.issue, r.ticket, r.status, r.notes].map(q).join(","); })).join("\n") + "\n", "text/csv");
@@ -232,5 +240,5 @@
     };
   }
 
-  root.KSSaathi = { renderStart: renderStart, renderHelp: renderHelp, _claimLine: claimLine, _wardLine: wardLine, _bestWard: bestWard, _wardList: wardList, _STREAMS: STREAMS, _match: match };
+  root.KSSaathi = { renderStart: renderStart, renderHelp: renderHelp, _claimLine: claimLine, _summary: summaryText, _wardLine: wardLine, _bestWard: bestWard, _wardList: wardList, _STREAMS: STREAMS, _match: match };
 })(window);

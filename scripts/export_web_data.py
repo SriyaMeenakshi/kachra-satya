@@ -5,6 +5,7 @@ Output: web/trust/data.js defining  window.KS = {waste, national, flags, volatil
 Blank cells stay null (shown as "not reported" by the pages).
 """
 import json
+import os
 import pandas as pd
 
 def tbl(path, cols=None):
@@ -31,5 +32,5 @@ ks = {
     "completeness": tbl("data/completeness.csv"),
     "receipts": json.load(open("receipts/index.json", encoding="utf-8")),
 }
-open("web/trust/data.js", "w", encoding="utf-8").write("window.KS = " + json.dumps(ks, ensure_ascii=False, separators=(",", ":")) + ";\n")
+open(os.environ.get("KS_DATA_OUT", "web/trust/data.js"), "w", encoding="utf-8").write("window.KS = " + json.dumps(ks, ensure_ascii=False, separators=(",", ":")) + ";\n")
 print({k: (len(v) if hasattr(v, "__len__") else v) for k, v in ks.items()})

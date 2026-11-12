@@ -85,7 +85,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
 - A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
-- **85 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
+- **96 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
 
 Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md](docs/validation_summary.md).
 
@@ -102,7 +102,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 ## Data, sources and attribution
 - `data/raw/` and `receipts/pages/` are unchanged copies of published government documents, kept so a figure can be checked against its page. Rights stay with each publisher ([data/raw/NOTICE.md](data/raw/NOTICE.md), [receipts/NOTICE.md](receipts/NOTICE.md)). We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA.
 - Reuse terms for most sources are not confirmed: read [docs/licences.md](docs/licences.md) before any public data release. Draft permission requests are in [docs/permission_requests.md](docs/permission_requests.md) and have not been sent.
-- Code is MIT ([LICENSE](LICENSE)). A licence for the compiled data has not been chosen. Citation: [CITATION.cff](CITATION.cff). Release package: `scripts/build_release.py` (no documents or page images included).
+- Code and our compiled data are MIT ([LICENSE](LICENSE), chosen 2026-11-12). That covers our compilation, checks and derived tables, not the source documents, whose rights stay with their publishers. Citation: [CITATION.cff](CITATION.cff). Release package: `scripts/build_release.py` (no documents or page images included).
 
 ## Repository map
 | Folder | What is in it |
@@ -115,7 +115,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `receipts/` | Source page images and the index placing each figure on its page |
 | `briefs/` | One-page Action Briefs per state |
 | `docs/` | Methodology, licences, track coverage, UI, team plan, deploy, demo script, submission checklist, user tests, roadmap |
-| `tests/` | The 85 automated tests |
+| `tests/` | The 96 automated tests |
 
 ## Team
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
@@ -125,9 +125,10 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 Features explained page by page: [docs/features.md](docs/features.md). Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
 ## Status (2026-11-12)
-The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 85 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
+The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 96 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
 - **Page images are public before the licence decision.** The live site serves the receipt page images (copies of government document pages), but reuse terms are not confirmed and no permission request has been sent ([docs/licences.md](docs/licences.md)). Keep them or take them down: a decision for people.
 - **Live site checks still open.** Done on 2026-11-12 in a desktop browser: pages load, data files are not exposed, Ask answers in Hindi, Tamil and Telugu with sources ([docs/deploy.md](docs/deploy.md)). Not done: a phone, light and dark themes, the six acceptance questions in model mode, a native-speaker read of the translations.
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
+- **Impact evidence:** what we can and cannot show is written down in [docs/impact_evidence.md](docs/impact_evidence.md): the problem is documented from the sources, but no people have used it yet in recorded sessions.
 - **User tests:** none run, count 0 ([docs/user_tests.md](docs/user_tests.md)). Ward QR scanning on a real phone, 375 px and screen-reader checks are also pending.
-- **By hand:** choose a data licence, confirm author names in `CITATION.cff` and `.zenodo.json`, send permission requests, record the human spot check, verify the map boundary.
+- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, send permission requests, record the human spot check, verify the map boundary.

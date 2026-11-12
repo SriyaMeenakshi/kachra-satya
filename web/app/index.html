@@ -28,6 +28,8 @@
   <symbol id="i-ward" viewBox="0 0 24 24"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-.9.6-1.5 1-1.5 2M12 17h.01"/></symbol>
   <symbol id="i-bin" viewBox="0 0 24 24"><path d="M5 7h14M9 7V5h6v2M7 7l1 13h8l1-13M10 11v6M14 11v6"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24"><path d="M7 3h8l4 4v14H7zM15 3v4h4M10 12h6M10 16h6"/></symbol>
+  <symbol id="i-school" viewBox="0 0 24 24"><path d="M2 9l10-5 10 5-10 5zM6 11.5V16c0 1.5 3 3 6 3s6-1.5 6-3v-4.5M22 9v6"/></symbol>
   <symbol id="i-more" viewBox="0 0 24 24"><path d="M5 12h.01M12 12h.01M19 12h.01" style="stroke-width:3"/></symbol>
 </defs></svg>
 <a class="skip" href="#view">Skip to content</a>
@@ -53,8 +55,8 @@
         <a class="m-only" href="#/city" data-r="city"><svg class="ic" aria-hidden="true"><use href="#i-city"/></svg><span data-i="nav_city">Your city</span></a>
         <a class="d-only" href="#/help" data-r="help"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg><span data-i="nav_help">Get help</span></a>
         <a href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
-        <a href="#/brief/card" data-r="brief"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span>Briefing</span></a>
-        <a href="#/school" data-r="school"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span>Schools</span></a>
+        <a href="#/brief/card" data-r="brief"><svg class="ic" aria-hidden="true"><use href="#i-brief"/></svg><span>Briefing</span></a>
+        <a href="#/school" data-r="school"><svg class="ic" aria-hidden="true"><use href="#i-school"/></svg><span>Schools</span></a>
         <a href="#/dropoff" data-r="dropoff"><svg class="ic" aria-hidden="true"><use href="#i-bin"/></svg><span data-i="nav_dropoff">Nearest drop-off</span></a>
       </div>
     </details>
@@ -69,25 +71,25 @@
 <div class="tip" id="tip" role="tooltip"></div>
 <dialog id="dlg" aria-label="Source page"><button class="alt x" type="button" id="dlgx">Close</button><div id="dlgbody"></div></dialog>
 
-<script src="../trust/data.js"></script>
-<script src="../trust/claim.js"></script>
-<script src="city.js"></script>
-<script src="config.js"></script>
-<script src="i18n.js"></script>
-<script src="india.js"></script>
-<script src="geomap.js"></script>
-<script src="saathi.js"></script>
-<script src="guide.js"></script>
-<script src="answer.js"></script>
-<script src="sim.js"></script>
-<script src="opening.js"></script>
-<script src="leaders.js"></script>
-<script src="school.js"></script>
-<script src="vendor/qrcode.js"></script>
-<script src="ward.js"></script>
-<script src="dropoff_data.js"></script>
-<script src="dropoff.js"></script>
-<script src="app.js"></script>
-<script src="countup.js"></script>
+<script src="../trust/data.js" defer></script>
+<script src="../trust/claim.js" defer></script>
+<script src="city.js" defer></script>
+<script src="config.js" defer></script>
+<script src="i18n.js" defer></script>
+<script src="india.js" defer></script>
+<script src="geomap.js" defer></script>
+<script src="saathi.js" defer></script>
+<script src="guide.js" defer></script>
+<script src="answer.js" defer></script>
+<script src="sim.js" defer></script>
+<script src="opening.js" defer></script>
+<script src="leaders.js" defer></script>
+<script src="school.js" defer></script>
+<script src="vendor/qrcode.js" defer></script>
+<script src="ward.js" defer></script>
+<script src="dropoff_data.js" defer></script>
+<script src="dropoff.js" defer></script>
+<script src="app.js" defer></script>
+<script src="countup.js" defer></script>
 </body>
 </html>
