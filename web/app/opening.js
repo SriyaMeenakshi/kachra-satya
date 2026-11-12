@@ -95,7 +95,9 @@
       '</ol></div></section>' +
 
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
-      '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p></div>' +
+      '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p>' +
+      '<ul class="op-why3" aria-label="Three reasons the two numbers differ"><li><b>Different years</b><span>MoHUA 2025-26, CPCB 2023-24.</span></li><li><b>Different words</b><span>&ldquo;Processed&rdquo; and &ldquo;treated&rdquo; are not defined the same way.</span></li><li><b>Different totals</b><span>' + (mg ? n0(mg.value) : "&ndash;") + ' and ' + (cg ? n0(cg.value) : "&ndash;") + ' tonnes a day to start from.</span></li></ul>' +
+      '<p class="op-why3-note">We do not say which number is right.</p><div class="op-why3-cta"><a class="op-btn primary" href="#/claim">Check a number</a><a class="op-btn ghost" href="#/map">See it by state</a></div></div>' +
       '<div><div class="op-charts"><div class="dots m"><div class="num">' + (mpct == null ? "&ndash;" : mpct + "%") + "</div>" + dots(mpct || 0) +
       '<p class="cap">' + esc(T("mo_cap", "MoHUA: processed, 2025-26")) + '</p><p class="meta">' + (mt && mg ? n0(mt.value) + " of " + n0(mg.value) + " tonnes a day, as MoHUA reports." : "") + (mp ? " " + esc(DOCS[mp.source_doc] || mp.source_doc) + ", p." + esc(mp.source_page) : "") + rbtn(mKey) + (mt ? '<span class="mean">≈ ' + r3(mt.value / 10).toLocaleString("en-IN") + " " + term("truckload") + "s a day</span>" : "") + "</p></div>" +
       '<div class="dots c"><div class="num">' + (cpct == null ? "&ndash;" : cpct + "%") + "</div>" + dots(cpct || 0) +
