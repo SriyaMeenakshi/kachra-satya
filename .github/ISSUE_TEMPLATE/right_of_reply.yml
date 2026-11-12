@@ -1,0 +1,45 @@
+name: Right of reply (state, city or department)
+description: Respond to a figure or comparison on Kachra Satya that concerns your state, city or department.
+title: "Reply: "
+labels: ["right-of-reply"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every figure on this site is copied from a published document and shown with its page. We compare reports; we never say a source is wrong. If you speak for a state, city or department, you can reply here and we will show your reply next to the figure.
+        We do not delete a published figure. We do fix our own extraction mistakes and note the fix in the change log.
+  - type: input
+    id: where
+    attributes:
+      label: Where on the site (page address or screenshot link)
+      placeholder: "https://kachra-satya.onrender.com/web/app/index.html#/map/Kerala"
+    validations:
+      required: true
+  - type: input
+    id: who
+    attributes:
+      label: Who you are (role and body)
+      placeholder: "e.g. Solid Waste Management cell, [city] corporation"
+    validations:
+      required: true
+  - type: textarea
+    id: reply
+    attributes:
+      label: Your reply
+      description: What the figure means in your records, or what is missing from the comparison (for example, a different definition or reporting year).
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: A published document that supports it (link and page)
+  - type: dropdown
+    id: quote
+    attributes:
+      label: May we show your reply publicly beside the figure?
+      options:
+        - "Yes, with the name of the body"
+        - "Yes, without a name"
+        - "No, for our records only"
+    validations:
+      required: true

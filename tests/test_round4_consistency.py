@@ -100,3 +100,12 @@ def test_demo_film_plays_by_itself_and_can_be_stopped():
     assert "stopTimers" in js and "hashchange" in js                                  # no timer keeps running after leaving Home
     css = read("web/app/demo.css")
     assert "@keyframes dm-fill" in css and "prefers-reduced-motion" in css
+
+
+def test_right_of_reply_forms_and_links():
+    for f in ("right_of_reply.yml", "report_an_error.yml"):
+        t = read(".github/ISSUE_TEMPLATE/" + f)
+        assert t.startswith("name:") and "body:" in t and "required: true" in t
+    assert "We do not delete a published figure" in read(".github/ISSUE_TEMPLATE/right_of_reply.yml")
+    about = read("web/app/about.js")
+    assert "issues/new/choose" in about and 'rel="noopener"' in about and "Reply or report an error" in about

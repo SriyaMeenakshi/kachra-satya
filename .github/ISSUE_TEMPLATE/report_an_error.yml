@@ -1,0 +1,27 @@
+name: Report an error in a figure
+description: A number on the site does not match its source page, or a page, label or calculation looks wrong.
+title: "Error: "
+labels: ["data-error"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Where on the site (page address)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: What the site shows, and what the source document shows instead.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: The source document and page you checked
+      placeholder: "e.g. Lok Sabha Q50, page 1"
+  - type: markdown
+    attributes:
+      value: |
+        We check each report against the source page. If the mistake is ours, we correct it and say so in the change log. If the sources themselves disagree, that is shown as a disagreement, not changed.

@@ -117,6 +117,9 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `docs/` | Methodology, licences, track coverage, UI, team plan, deploy, demo script, submission checklist, user tests, roadmap |
 | `tests/` | The 96 automated tests |
 
+## Reply or report an error
+A state, city or department can reply to a figure, and anyone can report a mismatch with its source page, through the issue forms in `.github/ISSUE_TEMPLATE/`. We show replies beside the figure, never delete a published figure, and fix and log our own mistakes.
+
 ## Team
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
 - **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.
