@@ -217,3 +217,8 @@
 .op-why3 b{letter-spacing:-.02em}.op-why3 span{color:var(--ink2);font-size:var(--t-sm)}
 .op-why3-note{margin:var(--sp-3) 0;color:var(--ink2);font-size:var(--t-sm);font-weight:600}
 .op-why3-cta{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+
+/* The hero text column now also holds the four doors, so the headline is smaller and the doors stay near the first screen on a laptop */
+.op-stage .op-h1{font-size:clamp(2.2rem,3.9vw,3.4rem);margin-bottom:var(--sp-3)}
+.op-stage .op-lede{margin-bottom:var(--sp-2)}
+@media (min-width:981px){.op-doors .gd-goal span{display:none}.op-doors .gd-goal{min-height:0}}

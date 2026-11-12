@@ -9,32 +9,26 @@
 
   /* Each step is an existing page. route is matched as a prefix of location.hash. */
   var PATHS = {
-    garbage: { title: "Get my garbage collected", goal: "My garbage isn't being collected", sub: "Write a complaint, keep a log, escalate if it stays unfixed.", steps: [
+    garbage: { title: "My garbage isn't collected", goal: "My garbage isn't collected", sub: "Tap the missed days, write the complaint, keep a log, escalate.", steps: [
+      { route: "#/ward", title: "Tap the days the truck did not come", why: "A few taps build your own record. It stays on your device, is marked unverified, and your letter can include the tally." },
       { route: "#/help/complain", title: "Write your complaint", why: "A clear complaint with a landmark and a photo is far more likely to be read. We write the text; you file it on the official Swachhata-MoHUA app." },
       { route: "#/help/log", title: "Keep a log", why: "Note the complaint number and the date. Days open is your evidence if you need to escalate." },
-      { route: "#/help/escalate", title: "If it is not fixed, escalate", why: "A letter to the Municipal Commissioner that cites the 2026 rules and the official figures. We draft it; you send it." },
-      { route: "#/help/bins", title: "Check your own bins", why: "Four streams are now required at source. Getting yours right removes an easy excuse." } ] },
-    claim: { title: "Check a number someone quoted", goal: "Someone quoted a number. Is it true?", sub: "Test it, open the source pages, share what you found.", steps: [
+      { route: "#/help/escalate", title: "If it is not fixed, escalate", why: "A letter to the Municipal Commissioner that cites the 2026 rules, the official figures and your own tally. We draft it; you send it. Which bin and the nearest drop-off are in the What next row." } ] },
+    claim: { title: "Check a number someone quoted", goal: "Someone quoted a number", sub: "Test it, open the source page, share a state card.", steps: [
       { route: "#/claim", title: "Check the number", why: "We compare it with every source we hold and show who agrees and who does not." },
       { route: "#/explore/receipts", title: "Open the source pages", why: "Every figure opens on the page it came from, with the number boxed. Check it yourself." },
-      { route: "#/map", title: "See your state", why: "The national total hides large differences between states. Tap yours." },
       { route: "#/brief/card", title: "Share it in plain words", why: "A state card you can copy as a message, with the sources attached." } ] },
-    understand: { title: "Understand the problem in 3 minutes", goal: "I want to understand the problem", sub: "Two numbers, where they differ, why it matters.", steps: [
-      { route: "#/start", title: "The two numbers", why: "The Housing Ministry and the pollution board publish different figures for the same waste. Start with the two numbers on the Home page." },
-      { route: "#/map", title: "Where they differ", why: "Colour the map by the difference to see which states disagree most. Different years, so part may be real change." },
-      { route: "#/gaps", title: "Money and gaps", why: "Where solid-waste money has not been used, and where waste goes uncollected." },
-      { route: "#/explore/defs", title: "What the words mean", why: "'Processed' and 'treated' may not mean the same thing. This is why we never say who is right." } ] },
-    official: { title: "Prepare something to cite or ask", goal: "I'm a reporter, councillor or MP", sub: "A state card, a briefing, and the sources to back it.", steps: [
+    official: { title: "Prepare a briefing", goal: "I'm preparing a briefing", sub: "State card, one-page briefing, the gaps, and your city's data.", steps: [
       { route: "#/brief/card", title: "Pick a state, read its card", why: "The two official numbers for a state in plain words, with source pages." },
       { route: "#/brief/briefing", title: "Get the briefing", why: "A one-page text with questions that could be put, generated only from what the data shows. Check your House's rules on form and timing." },
-      { route: "#/claim", title: "Check anything you will quote", why: "Test a figure before you repeat it." },
-      { route: "#/explore/receipts", title: "Keep the source pages", why: "Cite the document and page, not our site." } ] },
-    school: { title: "Run a school waste challenge", goal: "Our school wants to do something", sub: "Weigh a week of waste, learn the bins, get a report card.", steps: [
+      { route: "#/gaps", title: "See where money and tonnes go missing", why: "Phantom tonnes, unused funds and collection gaps, state by state, each with its source." },
+      { route: "#/city", title: "Check your city's own data", why: "Upload ward figures and see which cannot all be true. The file is read in your browser only." } ] },
+    school: { title: "Run a school waste challenge", goal: "Our school", sub: "Learn the bins, weigh a week of waste, get a report card.", steps: [
       { route: "#/help/bins", title: "Learn the four streams", why: "Wet, dry, sanitary and special care. Students should know them before weighing." },
       { route: "#/school", title: "Weigh and fill in the grid", why: "A week of weighing becomes a report card. Safety first: gloves, sealed bags, no opening of special care waste." },
       { route: "#/help/bulk", title: "Are you a bulk generator?", why: "Institutions with 100 kg a day or more have extra duties under the 2026 rules." } ] }
   };
-  var ORDER = ["garbage", "claim", "understand", "official", "school"];
+  var ORDER = ["garbage", "claim", "official", "school"];     /* four doors, one per kind of visitor */
 
   /* "What next?" for pages outside a path: routes without a hash tail match by name. */
   var NEXT = {
@@ -105,7 +99,7 @@
   function chooser() {
     return '<div class="gd-goals" role="list">' + ORDER.map(function (id) { var P = PATHS[id];
       return '<button type="button" class="gd-goal" role="listitem" data-path="' + id + '"><b>' + esc(P.goal) + '</b><span>' + esc(P.sub) + '</span><i aria-hidden="true">' + P.steps.length + " steps &rarr;</i></button>"; }).join("") +
-      '<a class="gd-goal gd-look" href="#/map" role="listitem"><b>I just want to look around</b><span>Open the map and tap a state.</span><i aria-hidden="true">no steps &rarr;</i></a></div>';
+      '</div><p class="gd-look-link"><a href="#/map">Or just look around the map &rarr;</a></p>';
   }
   function wireGoals(scope) { [].slice.call((scope || document).querySelectorAll("[data-path]")).forEach(function (b) { b.onclick = function () { start(b.dataset.path); }; }); }
 

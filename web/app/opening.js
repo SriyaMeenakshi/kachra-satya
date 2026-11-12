@@ -56,20 +56,19 @@
     var segC = KS.segregation.filter(function (x) { return x.indicator.indexOf("D2D") >= 0; })[0], segS = KS.segregation.filter(function (x) { return x.indicator.indexOf("Segregation") >= 0; })[0];
     var agentOn = !!(root.KS_CONFIG && root.KS_CONFIG.agentEndpoint);
     var taps = 0; try { var wr = JSON.parse(localStorage.getItem("ks-ward-reports-v1") || "null"); taps = wr && Array.isArray(wr.reports) ? wr.reports.length : 0; } catch (e) { taps = 0; }   /* this device only; storage may be blocked */
-    function steps() {      /* "What brings you here?": goals, not tools. Each goal starts a guided path (guide.js). */
-      return '<section class="op-goals" id="op-start" aria-labelledby="op-go-h"><h2 id="op-go-h">' + esc(T("goal_h", "What brings you here?")) + '</h2><p class="op-p">' + esc(T("goal_p", "Pick the one that sounds most like you. We will take you through it one step at a time.")) + "</p>" + (root.KSGuide ? root.KSGuide.chooser() : "") + "</section>";
+    function doors() {      /* "What brings you here?": four doors, one per kind of visitor. Each starts a guided path (guide.js). */
+      return '<div class="op-doors" role="group" aria-labelledby="op-go-h"><h2 id="op-go-h" class="op-doors-h">' + esc(T("goal_h", "What brings you here?")) + '</h2>' + (root.KSGuide ? root.KSGuide.chooser() : "") + '<p class="op-explore"><a href="#/map">' + esc(T("cta_explore", "Explore the data")) + ' &rarr;</a></p></div>';
     }
     view.innerHTML = '<div class="op">' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
       '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'India\'s waste story <span class="mark">doesn\'t always</span> add up.') + '</h1><p class="op-lede">' + esc(T("lede", "Follow the numbers, compare official claims and uncover what India's waste data actually says.")) + '</p>' +
-      '<div class="op-cta"><a class="op-btn primary" href="#/map">' + esc(T("cta_explore", "Explore the data")) + '</a><a class="op-btn ghost" href="#/claim">' + esc(T("cta_claim", "Check a claim")) + '</a><a class="op-btn ghost" href="#/help/complain">' + esc(T("cta_help", "Garbage not collected?")) + '</a></div>' +
+      doors() +
       '<p class="op-what">' + esc(T("what", "Kachra Satya puts India's two official waste numbers side by side, shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
       '<div class="op-mapwrap"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
       [["gap", T("layer_gap", "Difference")], ["mohua", T("layer_mohua", "MoHUA processed")], ["cpcb", T("layer_cpcb", "CPCB treated")]].map(function (m) { return '<button type="button" data-l="' + m[0] + '" aria-pressed="' + (LAYER === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div>" +
       '<div class="geo op-map" id="op-map"></div><div class="op-legend" id="op-legend"></div><p class="op-maphint">' + esc(T("map_hint", "Select a state to open its figures")) + "</p>" +
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(DOCS[mp.source_doc] || mp.source_doc) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
       '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(DOCS[ct.source_doc] || ct.source_doc) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
-      steps() +
 
       '<section class="op-sec" aria-labelledby="op-why-h"><p class="op-eyebrow">' + esc(T("why_k", "Why this matters")) + '</p><h2 class="op-h2" id="op-why-h">' + esc(T("why_h", "Plans and money start from these numbers.")) + '</h2>' +
       '<p class="op-p">' + esc(T("why_p", "Plants, landfills and funding are planned from reported figures. When the figures do not agree, nobody can tell where the waste goes, or whether the money is working. Four things the published records show:")) + '</p><div class="op-finds">' +
