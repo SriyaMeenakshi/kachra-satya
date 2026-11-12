@@ -39,3 +39,21 @@
 .dm-open{margin-left:auto;font-weight:700}
 @media (max-width:600px){.dm-screen{padding:var(--sp-4);min-height:260px}.dm-cal{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.dm-day span{display:none}.dm-open{margin-left:0}}
 @media (prefers-reduced-motion:reduce){.dm-caret{animation:none}}
+
+/* it plays like a short film: timeline, recording light, and each screen arrives with a little motion */
+.dm-tl{height:4px;background:var(--hair)}
+.dm-tl i{display:block;height:100%;width:0;background:var(--accent,var(--forest-700))}
+@keyframes dm-fill{from{width:0}to{width:100%}}
+.dm-rec{margin-left:auto;font-size:var(--t-xs);font-weight:700;color:var(--ink2)}.dm-rec.on{color:var(--crit)}
+.dm-rec.on::first-letter{animation:dm-blink 1.2s steps(1) infinite}
+.dm-num{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:4px;border-radius:50%;border:1.5px solid currentColor;font-size:.75rem}
+.dm-screen.enter>*{animation:dm-rise .5s both}
+.dm-screen.enter>*:nth-child(2){animation-delay:.12s}.dm-screen.enter>*:nth-child(3){animation-delay:.24s}.dm-screen.enter>*:nth-child(4){animation-delay:.36s}
+@keyframes dm-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes dm-pop{0%{transform:scale(.6);opacity:0}70%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+.dm-screen.enter .dm-day.bad{animation:dm-pop .45s both}
+.dm-screen.enter .dm-day.bad:nth-of-type(n){animation-delay:calc(.35s + var(--i,0) * .18s)}
+.dm-screen.enter .dm-verdict{animation:dm-pop .5s .3s both}
+.dm-screen.enter .dm-fig{animation:dm-rise .6s both}.dm-screen.enter .dm-fig:nth-child(2){animation-delay:.25s}
+.dm-screen.enter .dm-letter .dm-hl{animation:dm-rise .7s .5s both}
+@media (prefers-reduced-motion:reduce){.dm-screen.enter>*,.dm-screen.enter .dm-day.bad,.dm-screen.enter .dm-verdict,.dm-screen.enter .dm-fig,.dm-screen.enter .dm-letter .dm-hl{animation:none}.dm-tl{display:none}}

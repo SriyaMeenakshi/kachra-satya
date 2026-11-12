@@ -89,3 +89,14 @@ def test_navigation_insights_about_city_claim_map_structure():
     for gone in ("op-journey", "op-method", 'id="op-in"', "op-f-h"):
         assert gone not in op, gone                                                          # the Home page was trimmed from nine sections to five
     assert op.count("<section") == 5 or op.count('<section class="op-') + op.count("<section class=\"op-sec\"") >= 4
+
+
+def test_demo_film_plays_by_itself_and_can_be_stopped():
+    js = read("web/app/demo.js")
+    assert "STEP_MS" in js and "(cur + 1) % DEMOS.length" in js                     # steps advance on a timer, parts follow each other, and it loops
+    assert 'id="dm-play"' in js and "aria-pressed" in js and "Pause" in js            # a visible pause control (people must be able to stop moving content)
+    assert "prefers-reduced-motion" in js and "reduce" in js                          # reduced motion: still screens, no autoplay
+    assert "IntersectionObserver" in js and "scroll" in js                            # starts when it comes into view, with a fallback
+    assert "stopTimers" in js and "hashchange" in js                                  # no timer keeps running after leaving Home
+    css = read("web/app/demo.css")
+    assert "@keyframes dm-fill" in css and "prefers-reduced-motion" in css

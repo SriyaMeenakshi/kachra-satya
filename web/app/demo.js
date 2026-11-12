@@ -21,7 +21,7 @@
     return { label: "My garbage isn't collected", url: "Your ward", link: ["#/ward", "Open Your ward"], steps: [
       { cap: "1. Tap the days the truck did not come. It stays on your device and is marked unverified.", html: function () {
         var cells = ""; for (var i = 13; i >= 0; i--) { var d = daysAgo(i), t = taps.filter(function (r) { return r.date === ymd(d); })[0], st = i === 0 ? "" : t ? t.status : "";
-          cells += '<div class="dm-day ' + (st === "not_collected" ? "bad" : st === "collected" ? "ok" : "") + '"><b>' + d.getDate() + '</b><span>' + (st === "not_collected" ? "&#10007; missed" : st === "collected" ? "&#10003; came" : "&ndash;") + "</span></div>"; }
+          cells += '<div class="dm-day ' + (st === "not_collected" ? "bad" : st === "collected" ? "ok" : "") + '" style="--i:' + (13 - i) + '"><b>' + d.getDate() + '</b><span>' + (st === "not_collected" ? "&#10007; missed" : st === "collected" ? "&#10003; came" : "&ndash;") + "</span></div>"; }
         return '<p class="dm-h">Ward 12, Hyderabad <span class="dm-chip">example ward</span></p><div class="dm-cal">' + cells + '</div><p class="dm-note">Last 14 days. Unverified: one resident\'s own taps, kept only in this browser.</p>'; } },
       { cap: "2. We write the complaint. You file it yourself on the official Swachhata-MoHUA app.", type: "Garbage has not been collected near the water tank, Ward 12, Hyderabad, since " + since + ". It has now been 5 days. A photo taken from a safe distance is attached. Please clear it and tell me what action was taken.",
         html: function (t) { return '<p class="dm-h">Complaint draft <span class="dm-chip">nothing is sent</span></p><div class="dm-text" id="dm-typed">' + esc(t || "") + '</div><p class="dm-note">Place and details are made up for this example.</p>'; } },
@@ -82,56 +82,79 @@
     ] };
   }
 
-  /* ---------- the player ---------- */
-  var DEMOS = null, cur = 0, step = 0, timer = null, typer = null, paused = false, seen = false;
+  /* ---------- the player: plays like a short video, on its own ---------- */
+  var STEP_MS = 5200;                                           /* time on each step: long enough to read the caption */
+  var DEMOS = null, cur = 0, step = 0, timer = null, typer = null, paused = false, playing = false, started = false;
   function build() { DEMOS = [garbage(), claim(), brief(), school()]; }
 
   function html() {
     build();
     return '<section class="op-sec demo" id="demo" aria-labelledby="demo-h2"><p class="op-eyebrow">See it working</p><h2 class="op-h2" id="demo-h2">Watch it do the job.</h2>' +
-      '<p class="op-p">Four short walk-throughs. The inputs are made up and marked <span class="dm-chip">example</span>; the figures, verdicts and documents are the real ones.</p>' +
-      '<div class="dm-tabs" role="tablist" aria-label="Pick a walk-through">' + DEMOS.map(function (d, i) { return '<button type="button" role="tab" class="dm-tab" id="dm-t' + i + '" data-i="' + i + '" aria-selected="' + (i === 0) + '" aria-controls="dm-panel">' + esc(d.label) + "</button>"; }).join("") + "</div>" +
-      '<div class="dm-frame" role="tabpanel" id="dm-panel" aria-labelledby="dm-t0"><div class="dm-bar" aria-hidden="true"><i></i><i></i><i></i><span id="dm-url"></span></div><div class="dm-screen" id="dm-screen" aria-live="polite"></div></div>' +
-      '<p class="dm-cap" id="dm-cap" role="status"></p>' +
-      '<div class="dm-ctl"><button type="button" class="alt" id="dm-back">&larr; Back</button><span class="dm-prog" id="dm-prog" aria-hidden="true"></span><button type="button" class="alt" id="dm-next">Next &rarr;</button><button type="button" class="alt" id="dm-play">Pause</button><a class="dm-open" id="dm-open" href="#/ward">Open the real page &rarr;</a></div></section>';
+      '<p class="op-p">A short film that plays by itself: four walk-throughs, one after another. The inputs are made up and marked <span class="dm-chip">example</span>; the figures, verdicts and documents are the real ones. You can pause it or jump to any part.</p>' +
+      '<div class="dm-tabs" role="tablist" aria-label="Parts of the film">' + DEMOS.map(function (d, i) { return '<button type="button" role="tab" class="dm-tab" id="dm-t' + i + '" data-i="' + i + '" aria-selected="' + (i === 0) + '" aria-controls="dm-panel"><span class="dm-num">' + (i + 1) + "</span> " + esc(d.label) + "</button>"; }).join("") + "</div>" +
+      '<div class="dm-frame" role="tabpanel" id="dm-panel" aria-labelledby="dm-t0"><div class="dm-bar" aria-hidden="true"><i></i><i></i><i></i><span id="dm-url"></span><b class="dm-rec" id="dm-rec">&#9679; playing</b></div><div class="dm-screen" id="dm-screen"></div><div class="dm-tl" aria-hidden="true"><i id="dm-tlbar"></i></div></div>' +
+      '<p class="dm-cap" id="dm-cap" role="status" aria-live="polite"></p>' +
+      '<div class="dm-ctl"><button type="button" class="alt" id="dm-back">&larr; Back</button><span class="dm-prog" id="dm-prog" aria-hidden="true"></span><button type="button" class="alt" id="dm-next">Next &rarr;</button><button type="button" class="alt" id="dm-play" aria-pressed="false">Pause</button><a class="dm-open" id="dm-open" href="#/ward">Open the real page &rarr;</a></div></section>';
   }
 
-  function stop() { if (timer) { clearInterval(timer); timer = null; } if (typer) { clearInterval(typer); typer = null; } }
+  function stopTimers() { if (timer) { clearTimeout(timer); timer = null; } if (typer) { clearInterval(typer); typer = null; } }
+  function restartBar() {
+    var b = $("dm-tlbar"); if (!b) return;
+    b.style.animation = "none"; void b.offsetWidth;
+    b.style.animation = (playing && !paused && !reduce) ? "dm-fill " + STEP_MS + "ms linear forwards" : "none";
+    b.style.width = (playing && !paused && !reduce) ? "" : "0";
+  }
+  function setRec() { var r = $("dm-rec"); if (!r) return; var on = playing && !paused && !reduce; r.textContent = on ? "\u25CF playing" : "\u275A\u275A paused"; r.className = "dm-rec" + (on ? " on" : ""); var pl = $("dm-play"); if (pl) { pl.textContent = on ? "Pause" : "Play"; pl.setAttribute("aria-pressed", String(!on)); } }
+
   function show(animate) {
     var d = DEMOS[cur], s = d.steps[step];
     $("dm-url").textContent = "kachra-satya / " + d.url; $("dm-cap").textContent = s.cap;
     $("dm-prog").innerHTML = d.steps.map(function (x, i) { return "<i" + (i === step ? ' class="on"' : "") + "></i>"; }).join("");
-    $("dm-back").disabled = step === 0; $("dm-next").disabled = step === d.steps.length - 1;
-    $("dm-open").setAttribute("href", d.link[0]); $("dm-open").textContent = d.link[1] + " →";
-    var scr = $("dm-screen");
-    if (typer) { clearInterval(typer); typer = null; }
+    $("dm-back").disabled = cur === 0 && step === 0;
+    $("dm-open").setAttribute("href", d.link[0]); $("dm-open").textContent = d.link[1] + " \u2192";
+    [].slice.call(document.querySelectorAll(".dm-tab")).forEach(function (b, k) { b.setAttribute("aria-selected", String(k === cur)); }); $("dm-panel").setAttribute("aria-labelledby", "dm-t" + cur);
+    var scr = $("dm-screen"); if (typer) { clearInterval(typer); typer = null; }
     if (s.type) {
-      if (animate && !reduce) {
-        var n = 0; scr.innerHTML = s.html(""); typer = setInterval(function () { n += 2; var el = $("dm-typed"); if (el) el.textContent = s.type.slice(0, n); if (n >= s.type.length) { clearInterval(typer); typer = null; } }, 28);
-      } else scr.innerHTML = s.html(s.type);
+      if (animate && !reduce) { var n = 0; scr.innerHTML = s.html(""); typer = setInterval(function () { n += 2; var el = $("dm-typed"); if (el) el.textContent = s.type.slice(0, n); if (n >= s.type.length) { clearInterval(typer); typer = null; } }, 30); }
+      else scr.innerHTML = s.html(s.type);
     } else scr.innerHTML = s.html();
-    var sel = $("dm-state"); if (sel) sel.onchange = function () { var fresh = brief(sel.value); DEMOS[cur] = fresh; step = 1; show(false); };
+    if (animate && !reduce) { scr.classList.remove("enter"); void scr.offsetWidth; scr.classList.add("enter"); }
+    var sel = $("dm-state"); if (sel) sel.onchange = function () { stopPlay(); DEMOS[cur] = brief(sel.value); step = 1; show(false); };
+    restartBar(); setRec();
   }
-  function pick(i) { stop(); cur = i; step = 0; [].slice.call(document.querySelectorAll(".dm-tab")).forEach(function (b, k) { b.setAttribute("aria-selected", k === i); }); $("dm-panel").setAttribute("aria-labelledby", "dm-t" + i); show(true); autoplay(); }
-  function autoplay() {
-    stop(); if (reduce || paused || !seen) return;
-    timer = setInterval(function () { var d = DEMOS[cur]; if (step >= d.steps.length - 1) { stop(); $("dm-play").textContent = "Replay"; return; } step++; show(true); }, 4200);
+
+  /* go to the next step; at the end of a part go to the next part; after the last part start again (a loop) */
+  function advance() {
+    var d = DEMOS[cur];
+    if (step < d.steps.length - 1) step++; else { cur = (cur + 1) % DEMOS.length; step = 0; if (cur === 0) DEMOS[2] = brief(); }
+    show(true); schedule();
   }
+  function schedule() { if (timer) clearTimeout(timer); timer = null; if (playing && !paused && !reduce) timer = setTimeout(advance, STEP_MS); }
+  function stopPlay() { paused = true; stopTimers(); restartBar(); setRec(); }
+  function startPlay() { paused = false; playing = true; show(false); restartBar(); setRec(); schedule(); }
+
+  function visible() { var e = $("demo"); if (!e) return false; var r = e.getBoundingClientRect(), vh = root.innerHeight || 800, h = Math.max(1, r.height), seen = Math.min(r.bottom, vh) - Math.max(r.top, 0); return seen > Math.min(h, vh) * 0.35; }
 
   function wire() {
     if (!$("demo")) return;
     if (!DEMOS) build();
-    cur = 0; step = 0; paused = false; seen = false; stop();
-    [].slice.call(document.querySelectorAll(".dm-tab")).forEach(function (b) { b.onclick = function () { $("dm-play").textContent = "Pause"; paused = false; pick(+b.dataset.i); }; b.onkeydown = function (e) { var k = +b.dataset.i, n = e.key === "ArrowRight" ? (k + 1) % DEMOS.length : e.key === "ArrowLeft" ? (k + DEMOS.length - 1) % DEMOS.length : null; if (n != null) { e.preventDefault(); $("dm-t" + n).focus(); $("dm-t" + n).click(); } }; });
-    $("dm-next").onclick = function () { stop(); paused = true; $("dm-play").textContent = "Play"; if (step < DEMOS[cur].steps.length - 1) { step++; show(true); } };
-    $("dm-back").onclick = function () { stop(); paused = true; $("dm-play").textContent = "Play"; if (step > 0) { step--; show(false); } };
-    $("dm-play").onclick = function () {
-      var d = DEMOS[cur];
-      if (this.textContent === "Replay") { step = 0; paused = false; this.textContent = "Pause"; show(true); autoplay(); }
-      else if (paused) { paused = false; this.textContent = "Pause"; autoplay(); } else { paused = true; this.textContent = "Play"; stop(); }
-    };
-    show(false);
-    if ("IntersectionObserver" in root && !reduce) { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { seen = true; io.disconnect(); step = 0; show(true); autoplay(); } }); }, { threshold: 0.35 }); io.observe($("demo")); }
+    cur = 0; step = 0; paused = false; playing = false; started = false; stopTimers();
+    [].slice.call(document.querySelectorAll(".dm-tab")).forEach(function (b) {
+      b.onclick = function () { cur = +b.dataset.i; step = 0; DEMOS[2] = DEMOS[2]; playing = true; paused = false; show(true); schedule(); };
+      b.onkeydown = function (e) { var k = +b.dataset.i, n = e.key === "ArrowRight" ? (k + 1) % DEMOS.length : e.key === "ArrowLeft" ? (k + DEMOS.length - 1) % DEMOS.length : null; if (n != null) { e.preventDefault(); $("dm-t" + n).focus(); $("dm-t" + n).click(); } };
+    });
+    $("dm-next").onclick = function () { stopPlay(); var d = DEMOS[cur]; if (step < d.steps.length - 1) step++; else { cur = (cur + 1) % DEMOS.length; step = 0; } show(true); };
+    $("dm-back").onclick = function () { stopPlay(); if (step > 0) step--; else if (cur > 0) { cur--; step = DEMOS[cur].steps.length - 1; } show(false); };
+    $("dm-play").onclick = function () { if (paused || !playing || reduce) { if (reduce) { return; } startPlay(); } else stopPlay(); };
+    show(false);                                                  /* the first screen is there at once, even if nothing ever plays */
+    function begin() { if (started || reduce) return; started = true; playing = true; paused = false; step = 0; show(true); schedule(); }
+    if (!reduce) {
+      if ("IntersectionObserver" in root) { var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); begin(); } }); }, { threshold: 0.35 }); io.observe($("demo")); }
+      var onScroll = function () { if (!started && visible()) { root.removeEventListener("scroll", onScroll); begin(); } };       /* fallback where IntersectionObserver is unavailable or silent */
+      root.addEventListener("scroll", onScroll, { passive: true }); setTimeout(onScroll, 600);
+    }
+    /* leaving Home removes the section; make sure no timer keeps running behind it */
+    root.addEventListener("hashchange", function once() { if (!$("demo")) { stopTimers(); root.removeEventListener("hashchange", once); } });
   }
   root.KSDemo = { html: html, wire: wire, _build: function () { build(); return DEMOS; } };
 })(window);
