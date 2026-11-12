@@ -122,7 +122,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 - **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.
 - **Likhitha:** platform and design system, Q&A agent setup, deployment, demo and submission.
 
-Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
+Features explained page by page: [docs/features.md](docs/features.md). Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
 ## Status (2026-11-12)
 The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 79 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
