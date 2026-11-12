@@ -169,12 +169,33 @@ def _df(name: str) -> pd.DataFrame:
     return _cache[name]
 
 
-def extract_sources(text: str) -> list[dict]:
+def _note_docs(raw, used: set) -> None:
+    """Remember every source_doc that a tool result contained (the documents the answer was actually built from)."""
+    try:
+        data = json.loads(raw) if isinstance(raw, str) else raw
+    except Exception:
+        return
+    def walk(x):
+        if isinstance(x, dict):
+            d = x.get("source_doc")
+            if isinstance(d, str) and d:
+                used.add(d)
+            for v in x.values():
+                walk(v)
+        elif isinstance(x, list):
+            for v in x:
+                walk(v)
+    walk(data)
+
+
+def extract_sources(text: str, used=None) -> list[dict]:
     """Extract source citations from agent reply text.
     
     Looks for mentions of source_name, source_doc, source_page in the text.
     This is a simple heuristic; a full implementation might use structured output.
     """
+    if used:                                   # model mode: the documents the tools returned, not a guess from the answer text
+        return [{"document": d} for d in sorted(used)]
     sources = []
     docs = set()
     
@@ -245,6 +266,7 @@ def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
     )
     contents = [types.Content(role="user", parts=[types.Part(text=question)])]
     start = time.monotonic()
+    used_docs: set = set()
 
     for rnd in range(1, GEMINI_MAX_TOOL_ROUNDS + 1):
         remaining = MODEL_TIMEOUT_S - (time.monotonic() - start)
@@ -266,12 +288,13 @@ def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
             text = "".join(p.text for p in parts if p.text)
             if not text:
                 raise RuntimeError(f"Gemini returned empty text (finish_reason={cand.finish_reason})")
-            return text, extract_sources(text)
+            return text, extract_sources(text, used_docs)
 
         contents.append(cand.content)
         result_parts = []
         for fc in calls:
             raw = run_tool(fc.name, dict(fc.args or {}))
+            _note_docs(raw, used_docs)
             try:
                 payload = json.loads(raw)
             except Exception:
@@ -291,6 +314,7 @@ def call_anthropic_tool_use(question: str) -> tuple[str, list[dict]]:
     
     start = time.monotonic()
     messages = [{"role": "user", "content": question}]
+    used_docs: set = set()
     max_steps = 5
     
     for _ in range(max_steps):
@@ -299,7 +323,7 @@ def call_anthropic_tool_use(question: str) -> tuple[str, list[dict]]:
             raise TimeoutError(f"model budget {MODEL_TIMEOUT_S}s exhausted")
         client = anthropic.Anthropic(api_key=MODEL_API_KEY, timeout=remaining, max_retries=0)
         response = client.messages.create(
-            model="claude-3-5-sonnet-20241022",
+            model=os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5-5"),
             max_tokens=1500,
             system=SYSTEM,
             tools=TOOLS,
@@ -310,7 +334,7 @@ def call_anthropic_tool_use(question: str) -> tuple[str, list[dict]]:
         
         if response.stop_reason != "tool_use":
             text = "".join(b.text for b in response.content if b.type == "text")
-            sources = extract_sources(text)
+            sources = extract_sources(text, used_docs)
             return text, sources
         
         # Process tool calls
@@ -318,6 +342,7 @@ def call_anthropic_tool_use(question: str) -> tuple[str, list[dict]]:
         for block in response.content:
             if block.type == "tool_use":
                 tool_result = run_tool(block.name, block.input)
+                _note_docs(tool_result, used_docs)
                 tool_results.append({
                     "type": "tool_result",
                     "tool_use_id": block.id,

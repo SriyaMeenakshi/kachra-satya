@@ -208,7 +208,7 @@
   function r3(n) { return n >= 1000 ? Math.round(n / 100) * 100 : n >= 100 ? Math.round(n / 10) * 10 : Math.max(1, Math.round(n)); }
   function mean(tpd) {          /* 10 tonnes = one truck: an everyday picture, defined in the glossary */
     if (tpd == null || tpd === 0) return "";
-    var n = tpd / 10; return '<div class="mean">' + (n < 1 ? "less than one " : n < 1.5 ? "≈ 1 " : "≈ " + r3(n).toLocaleString("en-IN") + " ") + KSi18n.term("truckload") + (n < 1 ? " a day" : n < 1.5 ? " a day" : "s a day") + "</div>";
+    var n = tpd / 10; return '<div class="mean">' + (n < 1 ? "less than one " : n < 1.5 ? "≈ 1 " : "≈ " + r3(n).toLocaleString("en-IN") + " ") + KSi18n.term("truckload") + (n < 1 ? " a day" : n < 1.5 ? " a day" : "s a day") + ' <span class="note">(a picture, not a fleet count)</span></div>';
   }
   function meanPct(p) { if (p == null) return ""; return '<div class="mean">' + (p < 5 ? "almost none of it" : p > 95 ? "almost all of it" : "about " + Math.round(p / 10) + " in every 10 tonnes") + "</div>"; }
   function nr(reason) { return '<span class="nr">' + KSi18n.term("notreported") + '</span><div class="note">' + esc(reason || "the source gives no figure") + "</div>"; }
@@ -454,7 +454,7 @@
     ["dragenter", "dragover"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add("over"); }); });
     ["dragleave", "drop"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.remove("over"); }); });
     dz.addEventListener("drop", function (e) { read(e.dataTransfer.files[0]); });
-    function read(f) { if (!f) return; var rd = new FileReader(); rd.onload = function () { run(String(rd.result), f.name); }; rd.onerror = function () { $("cerr").textContent = "Could not read that file."; }; rd.readAsText(f); }
+    function read(f) { if (!f) return; if (f.size > 5 * 1024 * 1024) { $("cerr").textContent = "That file is over 5 MB. Please send one city at a time, or fewer rows."; return; } var rd = new FileReader(); rd.onload = function () { run(String(rd.result), f.name); }; rd.onerror = function () { $("cerr").textContent = "Could not read that file."; }; rd.readAsText(f); }
     function run(text, name) {
       $("cerr").textContent = ""; $("cres").innerHTML = "";
       var r; try { r = KSCity.audit(KSCity.parseCSV(text)); } catch (e) { $("cerr").textContent = e.message; return; }

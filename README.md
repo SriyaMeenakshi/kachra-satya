@@ -33,7 +33,7 @@ Open it and the Home page asks "What brings you here?". Pick a goal and the app 
 | **Your ward** | `#/ward` | Tap whether the garbage truck came, keep a 30-day calendar, print a QR code for a ward, green-ward badge ([docs/ward_reports.md](docs/ward_reports.md)). Reports are unverified and stay in the user's own browser; there is no shared server |
 | **Nearest drop-off** | `#/dropoff` | Where to take batteries, e-waste and other special items |
 
-Design: the "Eco-Intelligence Observatory" system ([docs/ui_theme.md](docs/ui_theme.md)), light and dark, English plus partial Hindi, Tamil and Telugu.
+Design: the "Eco-Intelligence Observatory" system ([docs/ui_theme.md](docs/ui_theme.md)), light and dark. The interface is in English, with Hindi and Telugu partly translated (a native speaker has not reviewed them). Ask answers in English, Hindi, Tamil and Telugu.
 
 ### Guided paths
 For a visitor who knows nothing about the data, five goals each become a short path of existing pages with a bar showing the step, why it matters, and Back/Next: get my garbage collected, check a number someone quoted, understand the problem in 3 minutes, prepare something to cite or ask, run a school waste challenge. Pages outside a path show a "What next?" row. State lives in `sessionStorage`; if storage is blocked the pages still work ([docs/guided_paths.md](docs/guided_paths.md)).

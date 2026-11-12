@@ -49,3 +49,14 @@ def test_rate_limit_per_visitor(agent, monkeypatch):
     assert codes == [200, 200, 200, 429, 429]
     other = c.post("/ask", json={"question": "hi"}, headers={"X-Forwarded-For": "5.6.7.8"})   # another visitor is not affected
     assert other.status_code == 200
+
+
+def test_sources_come_from_what_the_tools_returned(agent):
+    used = set()
+    agent._note_docs('{"records": [{"source_doc": "mohua_81pct_answer.pdf", "source_page": 4}, {"source_doc": "ls_au50_2025-12-01.pdf"}], "x": {"source_doc": "cpcb_2023-24.pdf"}}', used)
+    agent._note_docs("not json at all", used)                                   # a bad tool result must not break the answer
+    assert used == {"mohua_81pct_answer.pdf", "ls_au50_2025-12-01.pdf", "cpcb_2023-24.pdf"}
+    # model mode: only documents a tool returned, including .docx files the old text guess missed
+    assert agent.extract_sources("The answer mentions CPCB and other.pdf", used) == [{"document": d} for d in sorted(used)]
+    # no tool documents (fallback path): the old text heuristic still applies
+    assert {"document": "CPCB"} in agent.extract_sources("CPCB says so", set())

@@ -46,6 +46,8 @@
     ward: [["#/help/complain", "Write a complaint"], ["#/city", "Audit your city's data"], ["#/start", "Back to the start"]],
     ask: [["#/claim", "Check a number yourself"], ["#/map", "Open the map"], ["#/start", "Back to the start"]],
     dropoff: [["#/help/bins", "Which bin does it go in?"], ["#/help/complain", "Garbage not collected?"], ["#/start", "Back to the start"]],
+    help: [["#/claim", "Check a number someone quoted"], ["#/ward", "Report on your own ward"], ["#/dropoff", "Nearest drop-off for special waste"]],
+    school: [["#/help/bins", "Learn the four streams"], ["#/map", "Open the map"], ["#/start", "Back to the start"]],
     brief: [["#/claim", "Check a figure before you quote it"], ["#/explore/receipts", "Open the source pages"], ["#/map", "Open the map"]]
   };
 

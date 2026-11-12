@@ -88,7 +88,7 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 - Pages outside a path end with a "What next?" row. If browser storage is blocked, the pages still work without the bar.
 
 ## 13. Across the app
-- **Languages:** English, with Hindi, Tamil and Telugu partly translated. The Hindi, Tamil and Telugu stream names are provisional until a native speaker checks them.
+- **Languages:** the interface is English, with Hindi and Telugu partly translated (first drafts). Ask answers in English, Hindi, Tamil and Telugu, and the bin guide shows stream names in all three, which are provisional until a native speaker checks them. Machine answers in Hindi, Tamil and Telugu are not reviewed.
 - **Design:** the "Eco-Intelligence Observatory" system, light and dark ([ui_theme.md](ui_theme.md)).
 - **Privacy:** logs, ward reports and uploads stay in your browser.
 - **Honesty:** every figure keeps its source document and page; see [methodology.md](methodology.md) and [track_coverage.md](track_coverage.md) for limits.
