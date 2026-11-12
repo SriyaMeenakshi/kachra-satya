@@ -203,3 +203,8 @@
 .jy-btn.primary:hover{background:var(--ivory);border-color:var(--ivory)}
 .jy-btn .op-chip{color:inherit;border-color:currentColor;margin-left:4px;opacity:.85;font-size:.7rem;padding:0 6px;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.jy-step,.jy-btn{transition:none}.jy-step:hover{transform:none}}
+
+/* Touch targets: at least 44px. Controls get the height; small inline links and buttons keep their look and get a larger hit area. */
+.bar .tools .tg,.op .op-layers button{min-height:44px}   /* more specific than the theme's own rules, which load later */
+.op .srcbtn,.op p a,.op .term{position:relative}
+.op .srcbtn::after,.op p a::after,.op .term::after{content:"";position:absolute;inset:-12px -6px}

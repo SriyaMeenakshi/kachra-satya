@@ -21,6 +21,8 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 - Type a sentence such as "81% of India's urban waste is processed".
 - The checker compares it with every source we hold and shows who agrees and who does not. The verdict can be "the sources disagree".
 - The browser checker gives the same verdicts as the Python one (a test enforces it).
+- If no source gives your figure but the sources themselves disagree (for example 70% when the sources range from 47% to 81%), it says the sources disagree instead of calling you wrong. Outside every figure we hold, it says nothing supports it.
+- It refuses what it cannot check and says why: a place we hold no figures for, or a collection or segregation percentage (we hold no such percentage in that form).
 - It does not say which source is correct.
 
 ## 4. Gaps (`#/gaps`)
@@ -41,6 +43,7 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 **For:** questions in your own words and language.
 - English, Hindi, Tamil or Telugu, answered from the data, with the source named.
 - Voice: speak a question and hear the answer where the browser has speech tools. Typing always works.
+- Your question is sent to our server and may go to Google Gemini; the page says so and asks you not to type personal details. Questions are limited to 500 characters and 20 a minute per visitor.
 - Needs the Q&A agent (`agent/`). Without it the page says "not connected yet". See [../agent/README.md](../agent/README.md) and [deploy.md](deploy.md).
 
 ## 7. Explore (`#/explore`)

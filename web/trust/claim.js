@@ -60,11 +60,16 @@
       r.matches = r.difference != null && r.difference <= (unit === "percent" ? PCT_TOL : TPD_TOL_PCT);
     });
     var m = recs.filter(function (r) { return r.matches; }), x = recs.filter(function (r) { return !r.matches; });
-    var verdict = m.length && !x.length ? "SUPPORTED" : x.length && !m.length ? "CONTRADICTED" : "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS";
+    var vals = recs.map(function (r) { return r.value; }), lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    /* No figure matches, but the claim sits between the lowest and highest figure we hold: the sources disagree with each other, so
+       "contradicted" would pick a side. Outside the whole range nothing supports it: CONTRADICTED. (Same rule as scripts/claim_checker.py.) */
+    var between = !!(x.length && !m.length && lo < value && value < hi);
+    var verdict = m.length && !x.length ? "SUPPORTED" : x.length && !m.length && !between ? "CONTRADICTED" : "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS";
     var years = Array.from(new Set(recs.map(function (r) { return r.year; }))).sort();
     var reason = { SUPPORTED: "every comparable figure in the dataset agrees with the claim",
                    CONTRADICTED: "comparable figures exist but none agree with the claim",
                    SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: "some sources agree with the claim and others do not; the sources disagree with each other" }[verdict];
+    if (between) reason = "no source gives this figure, and the sources disagree with each other (they range from " + String(r2(lo)) + " to " + String(r2(hi)) + ")";
     if (years.length > 1) reason += ". The figures cover different years (" + years.join(", ") + "), so part of any difference may be real change.";
     recs.sort(function (p, q) { return (p.matches === q.matches ? 0 : p.matches ? -1 : 1) || (p.year < q.year ? -1 : p.year > q.year ? 1 : 0); });
     return { verdict: verdict, reason: reason, claim: claim,
@@ -89,6 +94,20 @@
     var names = Array.from(new Set(KS.waste.map(function (r) { return r.state; })));
     names.sort(function (a, b) { return b.length - a.length; });
     for (var i = 0; i < names.length; i++) if (low.indexOf(names[i].toLowerCase()) >= 0) { out.state = names[i]; break; }
+    /* Guards: say so instead of checking the wrong thing. out.reason is shown to the person; metric stays null so nothing is checked. */
+    if (pct && /collect|segregat|door.?to.?door|landfill|recycl|\bwards?\b/i.test(t) && !/process|treat/i.test(t)) {
+      out.metric = null;
+      out.reason = "We hold no percentage figure for collection, segregation, landfill or recycling, so we cannot check that sentence here. We can check how much waste is processed or treated, or a figure in tonnes per day. National collection and segregation shares are on the Gaps page.";
+      return out;
+    }
+    if (!out.state) {
+      var subj = t.match(/^\s*((?:[A-Z][a-z]+)(?:\s+[A-Z][a-z]+){0,2})\s+(?:generates?|produces?|processes?|treats?|collects?|landfills?|recycles?|manages?)\b/);
+      var common = /^(india|indian|cities|city|towns|urban|rural|municipalities|municipal|states|we|they|it|the|our|all|most|many|ulbs|mohua|cpcb|government|ministry|nation|country)$/i;
+      if (subj && !common.test(subj[1].split(/\s+/)[0]) && subj[1].toLowerCase() !== "india") {
+        out.metric = null;
+        out.reason = "We hold no figures for “" + subj[1] + "”. We hold " + names.length + " states and union territories, and India as a whole. Name one of those, or leave the place out to check India.";
+      }
+    }
     return out;
   }
 

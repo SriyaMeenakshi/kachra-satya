@@ -19,7 +19,7 @@
   /* brand */
   --forest-900:#0E2A20;--forest-800:#143C2D;--forest-700:#17503A;--forest-500:#2F7A57;--lime:#BFE84F;--lime-soft:#E4F3B5;--coral:#E4795B;--ivory:#FAF7EF;
   /* surfaces and text */
-  --page:#FAF7EF;--card:#FFFEFB;--soft:#EEF3DC;--ink:#14201A;--ink2:#4A5A50;--muted:#6F7C73;--hair:#E3DECF;--axis:#C9C4B4;
+  --page:#FAF7EF;--card:#FFFEFB;--soft:#EEF3DC;--ink:#14201A;--ink2:#4A5A50;--muted:#5B675F;--hair:#E3DECF;--axis:#C9C4B4;
   /* roles */
   --accent:#17503A;--accent-ink:#FAF7EF;--focus:#17503A;--link:#17503A;
   --crit:#B4472B;--crit-soft:#FBEBE3;--good:#1F7A4D;--good-soft:#E5F1E5;--warn:#8A5A00;--warn-soft:#FBF0D3;
@@ -79,6 +79,7 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 #nav .ic{display:none;width:20px;height:20px;flex:none;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 #nav .menu .ic{display:block}
 #nav .l-m,#nav .m-only{display:none}
+#nav .more .menu a.m-only{display:none}   /* phone-only copies stay hidden in the menu on wide screens */
 #nav .more{position:relative}
 #nav .more .menu{position:absolute;right:0;top:calc(100% + 6px);min-width:220px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-2);padding:var(--sp-2);box-shadow:0 18px 40px rgba(14,42,32,.16);display:grid;gap:2px;z-index:30}
 #nav .more .menu a{display:flex;align-items:center;gap:var(--sp-2);padding:10px 12px;border-radius:var(--r-1);color:var(--ink);text-decoration:none;font-size:var(--t-sm);min-height:44px}
@@ -98,6 +99,7 @@ select.tg{appearance:none;padding-right:14px;width:auto}
   :root[data-theme="dark"] #nav .more:has(.menu a.m-only[aria-current="page"])>summary{background:var(--lime);color:var(--forest-900)}
   #nav .d-only,#nav .l-d{display:none}#nav .l-m,#nav .m-only{display:inline-flex}
   #nav .more .menu a.m-only{display:flex}
+  #nav .more .menu a.d-only{display:none}
   #nav .more .menu{position:fixed;left:var(--sp-3);right:var(--sp-3);bottom:calc(72px + env(safe-area-inset-bottom));top:auto;min-width:0;box-shadow:0 -8px 40px rgba(14,42,32,.25)}
   main{padding-bottom:96px}footer{padding-bottom:88px}
 }

@@ -62,7 +62,7 @@
     view.innerHTML = '<div class="op">' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
       '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'India\'s waste story <span class="mark">doesn\'t always</span> add up.') + '</h1><p class="op-lede">' + esc(T("lede", "Follow the numbers, compare official claims and uncover what India's waste data actually says.")) + '</p>' +
-      '<div class="op-cta"><a class="op-btn primary" href="#/map">' + esc(T("cta_explore", "Explore the data")) + '</a><a class="op-btn ghost" href="#/claim">' + esc(T("cta_claim", "Check a claim")) + '</a></div>' +
+      '<div class="op-cta"><a class="op-btn primary" href="#/map">' + esc(T("cta_explore", "Explore the data")) + '</a><a class="op-btn ghost" href="#/claim">' + esc(T("cta_claim", "Check a claim")) + '</a><a class="op-btn ghost" href="#/help/complain">' + esc(T("cta_help", "Garbage not collected?")) + '</a></div>' +
       '<p class="op-what">' + esc(T("what", "Kachra Satya puts India's two official waste numbers side by side, shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
       '<div class="op-mapwrap"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
       [["gap", T("layer_gap", "Difference")], ["mohua", T("layer_mohua", "MoHUA processed")], ["cpcb", T("layer_cpcb", "CPCB treated")]].map(function (m) { return '<button type="button" data-l="' + m[0] + '" aria-pressed="' + (LAYER === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div>" +
@@ -134,6 +134,7 @@
     }
     function check(text) {
       var p = root.KSClaim.parseSentence(KS, text), res = $("op-res");
+      if (p.reason) { res.innerHTML = '<p class="note" role="alert">' + esc(p.reason) + "</p>"; return; }
       if (p.value == null || !p.metric) { res.innerHTML = '<p class="note">We could not find a number in that sentence. Try a figure with % or &ldquo;tonnes per day&rdquo;, or use <a href="#/claim">Check a claim</a>.</p>'; return; }
       var r = root.KSClaim.checkClaim(KS, { metric: p.metric, value: p.value, unit: p.unit, state: p.state || null, year: p.year || null }), V = LBL[r.verdict], pct = r.claim && r.claim.unit === "percent";
       res.innerHTML = '<span class="vrd ' + V[1] + '">' + esc(T(V[2], V[0])) + '</span><p class="vs">' + esc(T(V[3], "")) + "</p>" + (r.records.length ? r.records.slice(0, 6).map(function (x) {

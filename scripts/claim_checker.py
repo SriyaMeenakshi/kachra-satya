@@ -75,6 +75,11 @@ def _records(metric, state, year):
     return out
 
 
+def _num(v):
+    """Two decimals at most, no trailing zeros (the browser version prints the same text)."""
+    return ("%.2f" % v).rstrip("0").rstrip(".")
+
+
 def check_claim(metric, value, unit=None, state=None, year=None):
     metric = metric.strip().lower()
     if metric not in ("generated", "collected", "treated", "landfilled", "processed_pct"):
@@ -94,12 +99,18 @@ def check_claim(metric, value, unit=None, state=None, year=None):
         r["matches"] = bool(r["difference"] is not None and r["difference"] <= tol)
     m = [r for r in recs if r["matches"]]
     x = [r for r in recs if not r["matches"]]
-    verdict = ("SUPPORTED" if m and not x else "CONTRADICTED" if x and not m
+    lo, hi = min(r["value"] for r in recs), max(r["value"] for r in recs)
+    # No figure matches, but the claim sits between the lowest and the highest figure we hold: the sources disagree with each other,
+    # so "contradicted" would pick a side. Say the sources disagree. Outside the whole range, nothing supports it: CONTRADICTED.
+    between = bool(x and not m and lo < value < hi)
+    verdict = ("SUPPORTED" if m and not x else "CONTRADICTED" if x and not m and not between
                else "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS")
     years = sorted({r["year"] for r in recs})
     reason = {"SUPPORTED": "every comparable figure in the dataset agrees with the claim",
               "CONTRADICTED": "comparable figures exist but none agree with the claim",
               "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS": "some sources agree with the claim and others do not; the sources disagree with each other"}[verdict]
+    if between:
+        reason = f"no source gives this figure, and the sources disagree with each other (they range from {_num(lo)} to {_num(hi)})"
     if len(years) > 1:
         reason += f". The figures cover different years ({', '.join(years)}), so part of any difference may be real change."
     return {"verdict": verdict, "reason": reason, "claim": dict(metric=metric, value=value, unit=unit, state=state or "India", year=year),

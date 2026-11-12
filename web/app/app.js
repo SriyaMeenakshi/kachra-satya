@@ -109,6 +109,7 @@
     }
     function fromSentence() {
       var p = KSClaim.parseSentence(KS, $("cin").value);
+      if (p.reason) { $("cres").innerHTML = '<p class="note" role="alert">' + esc(p.reason) + "</p>"; return; }   /* a sentence we cannot check: say why, check nothing */
       if (p.metric) $("metric").value = p.metric; if (p.value != null) $("value").value = p.value; else $("value").value = "";
       $("cstate").value = p.state || "India (national)"; $("cyear").value = p.year && years.indexOf(p.year) >= 0 ? p.year : ""; check();
     }
@@ -509,9 +510,10 @@
     view.innerHTML = '<h2>Ask</h2><p class="sub">Ask in English, Hindi, Tamil or Telugu. Answers come only from the dataset, with the source and page for every figure.</p>' +
       (live ? "" : '<div class="notice"><strong>The assistant isn\'t connected yet.</strong> Meanwhile, <a href="#/claim">check a claim</a> or <a href="#/explore/receipts">browse the figures</a>.</div>') +
       '<div class="chat" id="chat" aria-live="polite"></div><div class="chips">' + SUGGEST.map(function (s) { return '<button class="chip" type="button"' + (live ? "" : " disabled") + ">" + esc(s) + "</button>"; }).join("") + '</div>' +
-      '<div class="ask"><input id="q" type="text" aria-label="Your question" placeholder="Ask about a state, a year or a claim"' + (live ? "" : " disabled") + '><select id="lang" aria-label="Language" style="width:auto"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select><button class="go" id="send" type="button"' + (live ? "" : " disabled") + ">Ask</button></div>" +
+      '<div class="ask"><input id="q" type="text" maxlength="500" aria-label="Your question" placeholder="Ask about a state, a year or a claim"' + (live ? "" : " disabled") + '><select id="lang" aria-label="Language" style="width:auto"><option>English</option><option>Hindi</option><option>Tamil</option><option>Telugu</option></select><button class="go" id="send" type="button"' + (live ? "" : " disabled") + ">Ask</button></div>" +
       '<div class="voice"><button class="alt" id="mic" type="button" aria-pressed="false"' + (live && SR ? "" : " disabled") + '>🎤 Speak</button><label class="chk"><input type="checkbox" id="speak"' + (live && window.speechSynthesis ? "" : " disabled") + "> Read answers aloud</label>" +
       '<span class="note" id="vnote" role="status">' + (SR ? "" : "Voice input is not available in this browser (Chrome or Edge work best). You can still type.") + "</span></div>" +
+      (live ? '<p class="note"><strong>Privacy:</strong> your question is sent to our server, and may be sent to an AI service (Google Gemini) to write the answer. Do not type names, addresses or other personal details. Everything else on this site stays in your browser.</p>' : "") +
       '<p class="note">Voice uses your browser\'s own speech tools. How well it handles Hindi, Tamil and Telugu depends on your browser and device. Typing always works.</p>';
     if (!live) return;
     function send(q) {

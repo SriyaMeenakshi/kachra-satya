@@ -12,6 +12,8 @@ from claim_checker import check_claim
 CASES = [
     dict(metric="processed_pct", value=81),
     dict(metric="processed_pct", value=62),
+    dict(metric="processed_pct", value=70),                    # no source gives 70, but the sources span 47 to 81
+    dict(metric="processed_pct", value=95, state="Kerala"),
     dict(metric="treated", value=7542, unit="tpd", state="Delhi", year="2023-24"),
     dict(metric="processed_pct", value=90, state="Bihar"),
     dict(metric="landfilled", value=100, state="Kerala", year="2023-24"),
@@ -26,7 +28,7 @@ require('./web/trust/data.js'.replace('./', process.cwd() + '/'));
 const KS = global.window.KS || window.KS;
 const {checkClaim} = require(process.cwd() + '/web/trust/claim.js');
 const cases = JSON.parse(process.argv[1]);
-console.log(JSON.stringify(cases.map(c => { const r = checkClaim(KS, c); return {verdict: r.verdict, n: r.records.length, matches: r.records.filter(x => x.matches).length}; })));
+console.log(JSON.stringify(cases.map(c => { const r = checkClaim(KS, c); return {verdict: r.verdict, reason: r.reason, n: r.records.length, matches: r.records.filter(x => x.matches).length}; })));
 """
 
 
@@ -37,6 +39,7 @@ def test_js_matches_python():
     for case, j in zip(CASES, js):
         p = check_claim(case["metric"], case["value"], case.get("unit"), case.get("state"), case.get("year"))
         assert j["verdict"] == p["verdict"], case
+        assert j["reason"] == p["reason"], case
         assert j["n"] == len(p["records"]), case
         assert j["matches"] == sum(r["matches"] for r in p["records"]), case
 

@@ -23,3 +23,7 @@ ALLOWED_ORIGINS=
 # Optional: Flask debug mode
 FLASK_DEBUG=True
 FLASK_ENV=development
+
+# Optional limits (defaults shown): longest question in characters, and questions per visitor per minute (0 turns the limit off)
+# MAX_QUESTION_CHARS=500
+# RATE_LIMIT_PER_MIN=20

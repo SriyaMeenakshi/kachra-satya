@@ -58,6 +58,32 @@ MODEL_TIMEOUT_S = float(os.environ.get("MODEL_TIMEOUT_S", "15"))   # total budge
 GEMINI_MAX_TOOL_ROUNDS = int(os.environ.get("GEMINI_MAX_TOOL_ROUNDS", "5"))
 GEMINI_COOLDOWN_S = float(os.environ.get("GEMINI_COOLDOWN_S", "60"))           # skip Gemini after a failure
 _gemini_down_until = 0.0
+MAX_QUESTION_CHARS = int(os.environ.get("MAX_QUESTION_CHARS", "500"))
+RATE_LIMIT_PER_MIN = int(os.environ.get("RATE_LIMIT_PER_MIN", "20"))           # questions per visitor per minute; 0 turns the limit off
+_hits: dict = {}                                                                # visitor -> recent request times (in memory, one worker)
+
+
+def _visitor() -> str:
+    """The visitor's address. Behind Render's proxy the real address is the last entry of X-Forwarded-For."""
+    xff = request.headers.get("X-Forwarded-For", "")
+    return (xff.split(",")[-1].strip() if xff else "") or (request.remote_addr or "?")
+
+
+def _rate_limited(who: str) -> bool:
+    """True when this visitor has already asked RATE_LIMIT_PER_MIN questions in the last 60 seconds."""
+    if RATE_LIMIT_PER_MIN <= 0:
+        return False
+    now = time.monotonic()
+    recent = [t for t in _hits.get(who, []) if now - t < 60]
+    if len(recent) >= RATE_LIMIT_PER_MIN:
+        _hits[who] = recent
+        return True
+    recent.append(now)
+    _hits[who] = recent
+    if len(_hits) > 2000:                                                       # keep memory bounded: drop visitors with nothing recent
+        for k in [k for k, v in _hits.items() if not v or now - v[-1] >= 60]:
+            _hits.pop(k, None)
+    return False
 log = logging.getLogger("kachra.gemini")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s")
 
@@ -526,15 +552,23 @@ def ask():
     Response: {"answer": "...", "sources": [...]}
     """
     try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"error": "Invalid JSON"}), 400
-        
-        question = data.get("question", "").strip()
-        language = data.get("language", "en").lower()
-        
+        data = request.get_json(silent=True)          # silent: a wrong content type or bad JSON is a 400, not a server error
+        if not isinstance(data, dict):
+            return jsonify({"error": "Send JSON like {\"question\": \"...\"}"}), 400
+
+        question = data.get("question")
+        if not isinstance(question, str):
+            return jsonify({"error": "question must be text"}), 400
+        question = question.strip()
+        language = data.get("language", "en")
+        language = language.lower() if isinstance(language, str) else "en"
+
         if not question:
             return jsonify({"error": "question is required"}), 400
+        if len(question) > MAX_QUESTION_CHARS:
+            return jsonify({"error": f"question is too long (at most {MAX_QUESTION_CHARS} characters)"}), 400
+        if _rate_limited(_visitor()):
+            return jsonify({"error": "Too many questions in a minute. Please wait a little and try again."}), 429
         
         # Check if we have API key and provider
         if not MODEL_PROVIDER or not MODEL_API_KEY:
@@ -568,7 +602,7 @@ def ask():
 
     except Exception as e:
         app.logger.exception("Error in /ask")
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": "Something went wrong on our side. Please try again."}), 500   # no internal error text goes to the visitor
 
 
 @app.route("/health", methods=["GET"])

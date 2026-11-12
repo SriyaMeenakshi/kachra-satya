@@ -85,7 +85,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
 - A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
-- **79 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
+- **85 automated tests pass** (`python -m pytest -q tests`), including that the browser Claim Checker gives the same verdicts as the Python one, design-system contrast and language coverage, no typed-in counts, and guided-path and opening-page structure. They test extraction and consistency, not whether a source is correct.
 
 Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md](docs/validation_summary.md).
 
@@ -115,7 +115,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `receipts/` | Source page images and the index placing each figure on its page |
 | `briefs/` | One-page Action Briefs per state |
 | `docs/` | Methodology, licences, track coverage, UI, team plan, deploy, demo script, submission checklist, user tests, roadmap |
-| `tests/` | The 79 automated tests |
+| `tests/` | The 85 automated tests |
 
 ## Team
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
@@ -125,7 +125,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 Features explained page by page: [docs/features.md](docs/features.md). Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
 ## Status (2026-11-12)
-The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 79 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
+The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 85 tests, and the site is live at https://kachra-satya.onrender.com with the Q&A agent connected. Not done yet:
 - **Page images are public before the licence decision.** The live site serves the receipt page images (copies of government document pages), but reuse terms are not confirmed and no permission request has been sent ([docs/licences.md](docs/licences.md)). Keep them or take them down: a decision for people.
 - **Live site checks still open.** Done on 2026-11-12 in a desktop browser: pages load, data files are not exposed, Ask answers in Hindi, Tamil and Telugu with sources ([docs/deploy.md](docs/deploy.md)). Not done: a phone, light and dark themes, the six acceptance questions in model mode, a native-speaker read of the translations.
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).

@@ -23,3 +23,12 @@ def test_supported_contradicted_cannot_verify():
 def test_agent_tool_wired():
     out = json.loads(qa_agent.run_tool("check_claim", {"metric": "processed_pct", "value": 81}))
     assert out["verdict"] == "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS"
+
+
+def test_claim_between_the_sources_is_not_called_contradicted():
+    """70% is given by no source, but the sources themselves span 47 to 81: the honest verdict is that the sources disagree."""
+    r = check_claim("processed_pct", 70)
+    assert r["verdict"] == "SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS" and not any(x["matches"] for x in r["records"])
+    assert "no source gives this figure" in r["reason"] and "47.05 to 81.01" in r["reason"]
+    # outside every figure we hold, nothing supports it
+    assert check_claim("treated", 5000000, unit="tpd", state="Delhi", year="2023-24")["verdict"] == "CONTRADICTED"
