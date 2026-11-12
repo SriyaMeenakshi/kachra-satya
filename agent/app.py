@@ -35,7 +35,7 @@ import sys
 import time
 import pandas as pd
 from typing import Any
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory, Response
 from flask_cors import CORS
 from datetime import datetime
 
@@ -579,6 +579,33 @@ def health():
         "model_provider": MODEL_PROVIDER if MODEL_API_KEY else "none (fallback mode)",
         "timestamp": datetime.utcnow().isoformat(),
     }), 200
+
+
+# ---- Optional: serve the built website from this same server (one-service hosting, e.g. on Render) ----
+# Build the site first with `python scripts/build_site.py`; it writes dist/ (web/ and receipts/ only: no source documents, no CSVs).
+# If dist/ exists, this server also serves it, and the Ask page talks to /ask on the same address, so no CORS setting is needed.
+# If dist/ does not exist (local development of the agent), nothing below is registered and the server behaves as before.
+# Set SERVE_SITE=0 to turn it off. Only files inside dist/ can be served (send_from_directory refuses paths that leave it).
+SITE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "dist"))
+SERVE_SITE = os.path.isdir(SITE_DIR) and os.environ.get("SERVE_SITE", "1") != "0"
+
+if SERVE_SITE:
+    @app.route("/web/app/config.js", methods=["GET"])
+    def site_config():
+        """The page and the agent share one address, so the Ask page can use a relative /ask. Overrides the static config.js."""
+        js = ("/* Served by the agent: the Ask page uses this same server. */\n"
+              "window.KS_CONFIG = { agentEndpoint: \"/ask\" };\n")
+        r = Response(js, mimetype="application/javascript")
+        r.headers["Cache-Control"] = "no-cache"
+        return r
+
+    @app.route("/", methods=["GET"])
+    def site_root():
+        return send_from_directory(SITE_DIR, "index.html")
+
+    @app.route("/<path:filename>", methods=["GET"])
+    def site_file(filename):
+        return send_from_directory(SITE_DIR, filename)
 
 
 if __name__ == "__main__":

@@ -115,7 +115,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `receipts/` | Source page images and the index placing each figure on its page |
 | `briefs/` | One-page Action Briefs per state |
 | `docs/` | Methodology, licences, track coverage, UI, team plan, deploy, demo script, submission checklist, user tests, roadmap |
-| `tests/` | The 74 automated tests |
+| `tests/` | The 79 automated tests |
 
 ## Team
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
@@ -125,7 +125,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 Plan: [docs/team_split_v3.md](docs/team_split_v3.md).
 
 ## Status (2026-11-11)
-The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 74 tests. Not done yet:
+The data, the checks, the integrated app and its Home page, guided paths and More menu are in the repo and pass 79 tests. Not done yet:
 - **Public URL.** Not deployed ([docs/deploy.md](docs/deploy.md)); publishing page images is a decision for people ([docs/licences.md](docs/licences.md)).
 - **Ask online.** Needs the agent hosted somewhere and `agentEndpoint` set.
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
