@@ -35,6 +35,7 @@
   $("dlgx").onclick = function () { $("dlg").close(); };
   $("dlg").addEventListener("click", function (e) { if (e.target === this) this.close(); });
   function hasR(key) { return KS.receipts[key] && KS.receipts[key].image; }
+  function dn(d) { return window.KSAnswer ? KSAnswer.docName(d) : d; }      /* plain document name for a file name (Lok Sabha Q50, not ls_au50_2025-12-01.pdf) */
   function rbtn(key, label) { return hasR(key) ? '<button class="link" data-rkey="' + esc(key) + '" type="button">' + (label || "page") + "</button>" : ""; }
   function wireR(el) { el.querySelectorAll("[data-rkey]").forEach(function (b) { b.onclick = function () { openReceipt(b.dataset.rkey); }; }); }
 
@@ -102,7 +103,7 @@
         (r.records.length ? '<div class="note" style="margin-top:6px">' + na + " match, " + nd + " don't" + (yrs.length > 1 ? " · the figures cover " + yrs[0] + " to " + yrs[yrs.length - 1] + ", so part of any difference may be real change" : "") + ".</div>" : "") + "</div>";
       if (r.records.length) h += '<div class="recs">' + r.records.map(function (x) {
         var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|");
-        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(x.source_doc) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fmt(x.value) + (pct ? "%" : "") + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
+        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(dn(x.source_doc)) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fmt(x.value) + (pct ? "%" : "") + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
       }).join("") + "</div>";
       h += '<details class="more"><summary>How we read this</summary><div>' + (r.claim ? "<p>Read as: " + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as matching within " + esc(r.tolerance) + ".</p>" : "") + "<p>" + esc(r.reason) + ".</p></div></details>";
       $("cres").innerHTML = h; wireR($("cres"));
@@ -154,8 +155,8 @@
     var cg = natrow("2023-24", "CPCB", "generated").value, ct = natrow("2023-24", "CPCB", "treated"), mg = natrow("2025-26", "MoHUA", "generated").value, mt = natrow("2025-26", "MoHUA", "treated");
     var I = KSi18n, mp = Math.round(mt.value / mg * 100), cp = Math.round(ct.value / cg * 100);
     view.innerHTML = '<h2>' + esc(I.t("nav_map")) + '</h2><p class="sub">Both official figures for every state and union territory, with the source page behind each. Select a state to open it.</p>' +
-      '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(mt.source_doc) + ", p." + esc(mt.source_page) + " " + rbtn("India|2025-26|treated|" + mt.source_doc, "source page") + '</span></div>' +
-      '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(ct.source_doc) + ", p." + esc(ct.source_page) + " " + rbtn("India|2023-24|treated|" + ct.source_doc, "source page") + '</span></div>' +
+      '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(dn(mt.source_doc)) + ", p." + esc(mt.source_page) + " " + rbtn("India|2025-26|treated|" + mt.source_doc, "source page") + '</span></div>' +
+      '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(dn(ct.source_doc)) + ", p." + esc(ct.source_page) + " " + rbtn("India|2023-24|treated|" + ct.source_doc, "source page") + '</span></div>' +
       '<div><b>' + n0(mt.value - ct.value) + '</b><span>tonnes a day apart. Different years, and we compare MoHUA\'s "processed" with CPCB\'s "treated" as our assumption, not a stated equivalence. <a href="#/explore/defs">Definitions</a></span></div></div>' +
       '<div class="section" id="mapsec"><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
       MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
@@ -273,7 +274,7 @@
         : KS.waste.map(function (r) { return { state: r.state, year: r.year, metric: r.metric, value: r.value_tpd, source_name: r.source_name, source_doc: r.source_doc, source_page: r.source_page, note: r.note }; });
       mountTable($("rtab"), [
         { label: "Year", k: "year" }, { label: "Figure", k: "metric" }, { label: "Value", k: "value", num: true, html: function (r) { return r.value == null ? nr(r.note) : fmt(r.value) + (r.metric === "processed_pct" ? meanPct(r.value) : mean(r.value)); } },
-        { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_name) + ' <span class="note">' + esc(r.source_doc) + ", p." + esc(r.source_page) + "</span>"; }, text: function (r) { return r.source_name + " " + r.source_doc; } },
+        { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_name) + ' <span class="note">' + esc(dn(r.source_doc)) + ", p." + esc(r.source_page) + "</span>"; }, text: function (r) { return r.source_name + " " + r.source_doc; } },
         { label: "Page", k: "x", html: function (r) { var key = [r.state, r.year, r.metric, r.source_doc].join("|"); return rbtn(key, "open page") || '<span class="note">' + (r.value == null ? "not reported" : "no page image") + "</span>"; }, val: function (r) { return hasR([r.state, r.year, r.metric, r.source_doc].join("|")) ? 0 : 1; }, text: function () { return ""; } }
       ], src.filter(function (r) { return r.state === s && (!y || r.year === y) && (!m || r.metric === m); }), { limit: 12, ph: "Search this list" });
     }
@@ -295,7 +296,7 @@
       '</div><h3>What MoHUA has said over time</h3><div class="card pad" id="st"></div>';
     wireGlossary(el, rest);
     mountTable($("st"), [{ label: "Date", k: "statement_date" }, { label: "Generated", k: "generated_tpd", num: true, html: function (r) { return fmt(r.generated_tpd); } }, { label: "Processed", k: "processed_tpd", num: true, html: function (r) { return fmt(r.processed_tpd); } },
-      { label: "%", k: "processed_pct_stated", num: true, html: function (r) { return fmt(r.processed_pct_stated); } }, { label: "Source", k: "source_doc", html: function (r) { return esc(r.source_doc) + ", p." + esc(r.source_page) + '<br><span class="note">' + esc(r.note) + "</span>"; } }], KS.statements, { search: false });
+      { label: "%", k: "processed_pct_stated", num: true, html: function (r) { return fmt(r.processed_pct_stated); } }, { label: "Source", k: "source_doc", html: function (r) { return esc(dn(r.source_doc)) + ", p." + esc(r.source_page) + '<br><span class="note">' + esc(r.note) + "</span>"; } }], KS.statements, { search: false });
   }
 
   /* ---------- Gaps: phantom tonnes, money vs mess, collection and trucks, segregation, completeness ---------- */

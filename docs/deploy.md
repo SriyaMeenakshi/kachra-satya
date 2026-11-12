@@ -5,7 +5,7 @@ Status: **live on Render** at https://kachra-satya.onrender.com (Option C below)
 **Open decision:** the live site already serves the receipt page images (`/receipts/pages/...`), which are copies of pages from government documents, while the licence decision in `docs/licences.md` is still open and no permission request has been sent. See "Check before publishing", item 1.
 
 ## What gets published
-`python scripts/build_site.py` writes `dist/` with `web/` and `receipts/` only (page images, `index.json`, `NOTICE.md`) plus a root `index.html` that redirects to the app. It does **not** copy `data/raw/` (the source documents) or the CSVs: the app reads everything from `web/trust/data.js`. All paths are relative, so it works at a domain root or under a project path such as `https://<owner>.github.io/kachra-satya/`.
+On Render the build first runs `python scripts/export_web_data.py`, which rebuilds `web/trust/data.js` from the CSVs, so a CSV edit always reaches the site (a test also fails if the committed `data.js` drifts). `python scripts/build_site.py` writes `dist/` with `web/` and `receipts/` only (page images, `index.json`, `NOTICE.md`) plus a root `index.html` that redirects to the app. It does **not** copy `data/raw/` (the source documents) or the CSVs: the app reads everything from `web/trust/data.js`. All paths are relative, so it works at a domain root or under a project path such as `https://<owner>.github.io/kachra-satya/`.
 
 ## Option A: GitHub Pages from this repo (set up, not run)
 `.github/workflows/pages.yml` builds and deploys `dist/`. It is **manual only** (`workflow_dispatch`), so merging it publishes nothing.

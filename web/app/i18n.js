@@ -13,7 +13,7 @@
       nav_home: "Home", nav_map: "Map", nav_claim: "Check a claim", nav_claim_m: "Claim", nav_gaps: "Gaps", nav_city: "Your city", nav_city_m: "City", nav_ask: "Ask", nav_explore: "Explore", nav_more: "More", nav_ward: "Your ward", nav_help: "Get help", nav_dropoff: "Nearest drop-off", theme: "Theme", language: "Language",
       kicker: "Waste data observatory · India", h1: "India's waste story doesn't always add up.", lede: "Follow the numbers, compare official claims and uncover what India's waste data actually says.",
       cta_explore: "Explore the data", cta_claim: "Check a claim",
-      what: "Kachra Satya puts India's two official waste numbers side by side, shows the source page behind each, and flags figures that can't all be true.",
+      what: "Kachra Satya puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.",
       layer_label: "Colour the map by", layer_mohua: "MoHUA processed", layer_cpcb: "CPCB treated", layer_gap: "Difference", map_hint: "Select a state to open its figures",
       stat_mohua_who: "MoHUA says", stat_cpcb_who: "CPCB figures give",
       newhere: "New here? Three steps", hide: "Hide", show3: "Show the 3 steps",

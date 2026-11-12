@@ -7,7 +7,7 @@
   var DOCNAME = {
     "ls_au50_2025-12-01.pdf": "Lok Sabha Q50", "rs_q358_2025-02-06.pdf": "Rajya Sabha Q358", "mohua_81pct_answer.pdf": "Rajya Sabha Q2433 (MoHUA)",
     "mohua_state_answer.pdf": "Rajya Sabha Q855 (MoHUA)", "cpcb_2021-22.pdf": "CPCB report 2021-22", "cpcb_2022-23.pdf": "CPCB report 2022-23",
-    "cpcb_2023-24.pdf": "CPCB report 2023-24", "cpcb_2024-25.pdf": "CPCB report 2024-25", "ls_au3198_2023-12-21.docx": "Lok Sabha Q3198"
+    "cpcb_2023-24.pdf": "CPCB report 2023-24", "cpcb_2024-25.pdf": "CPCB report 2024-25", "ls_au3198_2023-12-21.docx": "Lok Sabha Q3198", "ls_au682_2024-11-28.docx": "Lok Sabha Q682", "mohua_annual_report_2025-26.pdf": "MoHUA Annual Report 2025-26", "sbm_gfc2022_dashboard_snapshot.txt": "SBM-U Garbage Free Cities 2022 dashboard"
   };
   var RULE = {
     "3_sources_differ_gt_10pct": "The two sources differ by more than 10%", "4_metric_missing": "A figure is not reported",

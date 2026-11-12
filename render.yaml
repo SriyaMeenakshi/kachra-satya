@@ -6,8 +6,8 @@ services:
     name: kachra-satya
     runtime: python
     plan: free
-    # Install the agent's libraries, then build dist/ (web/ and receipts/ only; no source documents or CSVs).
-    buildCommand: pip install -r agent/requirements.txt && python scripts/build_site.py
+    # Install the agent's libraries, rebuild web/trust/data.js from the CSVs (so CSV edits always reach the site), then build dist/ (web/ and receipts/ only; no source documents or CSVs).
+    buildCommand: pip install -r agent/requirements.txt && python scripts/export_web_data.py && python scripts/build_site.py
     startCommand: gunicorn --chdir agent app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 60
     healthCheckPath: /health
     envVars:

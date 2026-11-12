@@ -56,3 +56,15 @@ def test_loading_screen_and_demo_notice_are_wired_and_safe():
     js = read("web/app/splash.js")
     assert 'role="dialog"' in js and 'aria-modal="true"' in js and "Escape" in js and "This site is for demonstration" in js
     assert "not an official government site" in js and "sessionStorage" in js               # honest wording; works when storage is blocked
+
+
+def test_plain_document_names_and_honest_counts_and_render_rebuilds_data():
+    app = read("web/app/app.js")
+    assert "KSAnswer.docName" in app and app.count("dn(") >= 4                              # file names are shown as document names
+    from_answer = read("web/app/answer.js")
+    for doc in ("ls_au682_2024-11-28.docx", "mohua_annual_report_2025-26.pdf", "sbm_gfc2022_dashboard_snapshot.txt"):
+        assert doc in from_answer
+    op = read("web/app/opening.js")
+    assert "with the number boxed" in op and "KS.receipts[k].bbox" in op                    # 696 open on a page vs 605 boxed: both said, neither inflated
+    assert "the Housing Ministry, MoHUA" in op and "pollution control board, CPCB" in op     # acronyms explained once, in the hero
+    assert "scripts/export_web_data.py && python scripts/build_site.py" in read("render.yaml")
