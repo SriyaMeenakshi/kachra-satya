@@ -182,6 +182,10 @@ def _note_docs(raw, used: set) -> None:
             d = x.get("source_doc")
             if isinstance(d, str) and d:
                 used.add(d)
+            sl = x.get("sources")                  # gap_ranking lists its documents in one text field ("CPCB: ls_au50_2025-12-01.pdf p.3; ...")
+            if isinstance(sl, str):
+                import re
+                used.update(re.findall(r"[\w.\-]+\.(?:pdf|docx)", sl))
             for v in x.values():
                 walk(v)
         elif isinstance(x, list):

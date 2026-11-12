@@ -90,3 +90,11 @@ def test_grok_failure_falls_back_to_the_data_answer(agent, monkeypatch):
     r = agent.app.test_client().post("/ask", json={"question": "What is the biggest gap?"})
     body = r.get_json()
     assert r.status_code == 200 and body["answer"] and "test-key-not-real" not in r.get_data(as_text=True)   # still answers, key never shown
+
+
+def test_sources_are_read_from_the_gap_ranking_text_field(agent):
+    """gap_ranking names its documents inside one text field; they must become source chips, not a guess like a bare "CPCB"."""
+    used = set()
+    agent._note_docs('[{"state": "Chandigarh", "sources": "CPCB: ls_au50_2025-12-01.pdf p.3; MoHUA 2025-26: mohua_81pct_answer.pdf p.3; MoHUA as on 21-12-2023: ls_au3198_2023-12-21.docx annexure"}]', used)
+    assert used == {"ls_au50_2025-12-01.pdf", "mohua_81pct_answer.pdf", "ls_au3198_2023-12-21.docx"}
+    assert agent.extract_sources("The biggest gap is in Chandigarh. CPCB and MoHUA differ.", used) == [{"document": d} for d in sorted(used)]
