@@ -131,4 +131,4 @@ The data, the checks, the integrated app and its Home page, guided paths and Mor
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
 - **Impact evidence:** what we can and cannot show is written down in [docs/impact_evidence.md](docs/impact_evidence.md): the problem is documented from the sources, but no people have used it yet in recorded sessions.
 - **User tests:** none run, count 0 ([docs/user_tests.md](docs/user_tests.md)). Ward QR scanning on a real phone, 375 px and screen-reader checks are also pending.
-- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, send permission requests, record the human spot check, verify the map boundary.
+- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, send the four permission requests ([drafts ready](docs/permission_requests.md); decision recorded in docs/licences.md), record the human spot check, verify the map boundary.
