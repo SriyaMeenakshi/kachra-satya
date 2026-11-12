@@ -228,3 +228,9 @@
 .op-words dt{font-weight:700}.op-words dd{margin:0;color:var(--ink2);font-size:var(--t-sm)}
 @media (max-width:520px){.op-words{grid-template-columns:1fr}.op-words dd{margin-bottom:6px}}
 .op-apart .s strong{color:var(--ink)}
+
+/* Wide screens: the page was capped at 1180px, which left wide empty margins on a laptop or monitor. Let it use more of the screen, and let the map grow with it. */
+@media (min-width:1300px){html .wrap{max-width:1440px}.op-map svg{max-height:720px}}      /* html .wrap: more specific than the theme's own .wrap, which loads later */
+@media (min-width:1700px){html .wrap{max-width:1600px}}
+/* the page container takes focus after each page change (so screen readers start at the top); it is not a control, so it needs no ring */
+#view:focus,#view:focus-visible{outline:none}
