@@ -21,4 +21,4 @@ Status as of 2026-11-12. Tick an item only when you have done it and seen it wit
 ## Team and process
 - [ ] Everyone has pushed under their own git identity; agree before pushing to the shared repo.
 - [ ] Whoever owns each MUST item has confirmed it in the deployed app, not only locally.
-- [ ] By-hand publishing steps that stay with the team: choose the data licence, fill author names, send the permission requests, upload to Zenodo.
+- [ ] By-hand publishing steps that stay with the team: choose the data licence, fill author names, upload to Zenodo (permission requests are optional; see docs/licences.md).
