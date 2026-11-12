@@ -523,7 +523,8 @@
       var pend = document.createElement("div"); pend.className = "msg a"; pend.textContent = "Looking it up…"; chat.appendChild(pend); $("send").disabled = true;
       askAgent(q, $("lang").value).then(function (res) {
         var t = res.text, docs = Array.from(new Set(res.sources.map(function (x) { return x.document || x.source_doc || x; }))).filter(Boolean);
-        pend.textContent = t + (docs.length ? String.fromCharCode(10, 10) + "Sources: " + docs.join(", ") : "");        /* the sources are shown, but only the answer is read aloud */
+        if (window.KSAnswer) { pend.innerHTML = KSAnswer.format(t, docs); pend.classList.add("rich"); }          /* cards, badges and source chips; the same words, re-arranged */
+        else pend.textContent = t + (docs.length ? String.fromCharCode(10, 10) + "Sources: " + docs.join(", ") : "");        /* the sources are shown, but only the answer is read aloud */
         if ($("speak") && $("speak").checked) speak(t, $("lang").value);
       }, function (e) { pend.textContent = e.message + " Try Check a claim instead."; pend.classList.add("bad"); }).then(function () { $("send").disabled = false; });
     }

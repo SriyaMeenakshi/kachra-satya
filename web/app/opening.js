@@ -79,6 +79,7 @@
       (gap != null ? '<div class="op-find"><span class="n">' + n0(gap) + '</span><p>tonnes a day apart: the two official national &ldquo;treated&rdquo; totals.<small>Different years, so part of it may be real progress.</small></p><a href="#/claim">Check a number &rarr;</a></div>' : "") +
       '</div></section>' +
 
+      (root.KSSim ? root.KSSim.html() : "") +
       '<section class="op-sec op-journey stage" aria-labelledby="op-p-h"><div class="jy-in"><p class="op-eyebrow">' + esc(T("parts_k", "The main parts")) + '</p>' +
       '<h2 class="op-h2 jy-h" id="op-p-h">' + esc(T("parts_h", "Hear it. Check it. See your street. Do something.")) + '</h2>' +
       '<p class="jy-lede">' + esc(T("parts_p", "One road from a number you heard to a complaint you can file. Every stop opens on real data, and every figure keeps its source page.")) + '</p>' +
@@ -123,6 +124,7 @@
     drawMap();
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
     if (root.KSGuide) root.KSGuide.wireGoals(view);
+    if (root.KSSim) root.KSSim.wire(view);
 
     /* reveal: content is visible by default; .pre hides it only while it is about to be revealed, and everything is forced visible after 4 s so a throttled tab never stays blank */
     var targets = [].slice.call(view.querySelectorAll(".dots .g, .op-find, .stamp"));
