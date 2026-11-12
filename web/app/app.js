@@ -40,16 +40,16 @@
   function wireR(el) { el.querySelectorAll("[data-rkey]").forEach(function (b) { b.onclick = function () { openReceipt(b.dataset.rkey); }; }); }
 
   /* ---------- routing ---------- */
-  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", dropoff: "Nearest drop-off", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Gaps", city: "Your city", ask: "Ask", explore: "Explore" };
+  var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", dropoff: "Nearest drop-off", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Insights", city: "Your city", ask: "Ask", explore: "Insights", about: "About" };
   function route() {
     var h = decodeURIComponent((location.hash || "#/start").replace(/^#\/?/, "")).split("/"), n = h[0], a = h.slice(1);
-    if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
+    if (n === "insights") { n = "gaps"; } else if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
     return { name: TITLES[n] ? n : "start", args: a };
   }
   function go() {
     var r = route(); document.title = TITLES[r.name] + " | Kachra Satya"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
-    document.querySelectorAll("#nav a").forEach(function (a) { if (a.dataset.r === r.name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
-    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, dropoff: function () { KSDropoff.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore })[r.name](r.args[0], r.args);
+    document.querySelectorAll("#nav a").forEach(function (a) { if ((a.dataset.r || "").split(" ").indexOf(r.name) >= 0) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+    ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, dropoff: function () { KSDropoff.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore, about: function () { KSAbout.render(); } })[r.name](r.args[0], r.args);
     wireR(view);
     /* every page gets one level-1 heading (so a screen reader announces the page) and a matching icon (so the pages read as one product) */
     var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help", dropoff: "i-bin" }, hh = view.querySelector("h1, h2");
@@ -99,18 +99,35 @@
       var r = KSClaim.checkClaim(KS, { metric: $("metric").value, value: v, state: st.indexOf("India") === 0 ? null : st, year: $("cyear").value || null }), V = VERD[r.verdict];
       var yrs = Array.from(new Set(r.records.map(function (x) { return x.year; }))).sort(), pct = r.claim && r.claim.unit === "percent";
       var na = r.records.filter(function (x) { return x.matches; }).length, nd = r.records.length - na, T = KSi18n.t;
-      var h = '<div class="verdict v-' + r.verdict + '"><div class="b"><span aria-hidden="true">' + VICON[r.verdict] + "</span> " + esc(T(V[0])) + '</div><div class="vsent">' + esc(T(V[1])) + "</div>" +
-        (r.records.length ? '<div class="note" style="margin-top:6px">' + na + " match, " + nd + " don't" + (yrs.length > 1 ? " · the figures cover " + yrs[0] + " to " + yrs[yrs.length - 1] + ", so part of any difference may be real change" : "") + ".</div>" : "") + "</div>";
-      if (r.records.length) h += '<div class="recs">' + r.records.map(function (x) {
+      /* Conclusion first: the claim, the verdict, the headline figure from each source, what it means, the evidence. Every source record stays one tap away. */
+      function newest(src) {
+        var rs = r.records.filter(function (x) { return x.source_name === src; }).sort(function (p, q) { return (q.year > p.year ? 1 : q.year < p.year ? -1 : 0) || (p.kind === "stated" ? -1 : 1); });
+        return rs[0] || null;
+      }
+      var heads = ["MoHUA", "CPCB"].map(newest).filter(Boolean);
+      if (heads.length < 2) heads = heads.concat(r.records.filter(function (x) { return heads.indexOf(x) < 0; }).slice(0, 2 - heads.length));
+      function fig(x) { return fmt(x.value) + (pct ? "%" : " tonnes a day"); }
+      function recRow(x) {
         var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|");
-        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(dn(x.source_doc)) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fmt(x.value) + (pct ? "%" : "") + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
-      }).join("") + "</div>";
-      h += '<details class="more"><summary>How we read this</summary><div>' + (r.claim ? "<p>Read as: " + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as matching within " + esc(r.tolerance) + ".</p>" : "") + "<p>" + esc(r.reason) + ".</p></div></details>";
+        return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(dn(x.source_doc)) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed by us: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fig(x) + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
+      }
+      var said = ($("cin").value || "").trim(), sentence = said || (r.claim ? $("metric").selectedOptions[0].text + " = " + r.claim.value + (pct ? "%" : " tpd") + ", " + r.claim.state : "");
+      var h = '<div class="claimcard"><p class="cc-claim"><span class="cc-l">Claim</span> ' + esc(sentence) + "</p>" +
+        '<div class="verdict v-' + r.verdict + '"><div class="b"><span aria-hidden="true">' + VICON[r.verdict] + "</span> " + esc(T(V[0])) + '</div><div class="vsent">' + esc(T(V[1])) + "</div></div>";
+      if (heads.length) h += '<div class="cc-figs">' + heads.map(function (x) {
+        return '<div class="cc-fig"><div class="cc-n">' + fig(x) + '</div><div class="cc-s"><b>' + esc(x.source_name) + "</b><br>" + esc(x.year) + " " + (x.kind === "computed" ? "computed by us" : "reported figure") + "</div></div>"; }).join("") + "</div>";
+      h += '<h3 class="cc-h">What does this mean?</h3><p class="cc-p">' + (r.records.length ? na + " of " + r.records.length + " source figures match the claim. " : "") +
+        (yrs.length > 1 || heads.length > 1 ? "The reports cover different years" + (yrs.length > 1 ? " (" + yrs[0] + " to " + yrs[yrs.length - 1] + ")" : "") + " and may use different words (&ldquo;processed&rdquo;, &ldquo;treated&rdquo;), so these figures should not be read as a like-for-like comparison of the same period. " : "") +
+        "We do not say which source is right.</p>";
+      if (heads.length) h += '<h3 class="cc-h">Evidence</h3><ul class="cc-ev">' + heads.map(function (x) { var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|"); return "<li>" + esc(dn(x.source_doc)) + ", page " + esc(x.source_page) + " " + rbtn(key, "open the page") + "</li>"; }).join("") + "</ul>";
+      if (r.records.length) h += '<details class="more cc-all"><summary>See all source records (' + r.records.length + ')</summary><div class="recs">' + r.records.map(recRow).join("") + "</div></details>";
+      h += '<details class="more"><summary>How we read this</summary><div>' + (r.claim ? "<p>Read as: " + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as matching within " + esc(r.tolerance) + ".</p>" : "") + "<p>" + esc(r.reason) + ".</p></div></details></div>";
       $("cres").innerHTML = h; wireR($("cres"));
     }
     function fromSentence() {
       var p = KSClaim.parseSentence(KS, $("cin").value);
       if (p.reason) { $("cres").innerHTML = '<p class="note" role="alert">' + esc(p.reason) + "</p>"; return; }   /* a sentence we cannot check: say why, check nothing */
+      if (p.year && years.indexOf(p.year) < 0) { $("cres").innerHTML = '<p class="note" role="alert">We hold no figures for ' + esc(p.year) + ". Our years run from " + esc(years[0]) + " to " + esc(years[years.length - 1]) + ". Remove the year to check every year, or pick one of ours.</p>"; return; }   /* never quietly drop the year and check something else */
       if (p.metric) $("metric").value = p.metric; if (p.value != null) $("value").value = p.value; else $("value").value = "";
       $("cstate").value = p.state || "India (national)"; $("cyear").value = p.year && years.indexOf(p.year) >= 0 ? p.year : ""; check();
     }
@@ -120,7 +137,7 @@
     if (o.focus) $("cin").focus();
   }
   function renderClaim() {
-    view.innerHTML = '<h2>Check a claim</h2><p class="sub">Type or paste a number someone quoted. We compare it with every source we hold and show who agrees.</p><div class="card pad" id="cbox"></div>';
+    view.innerHTML = '<h2>Check a claim</h2><p class="sub">Type or paste a number someone quoted. We compare it with every source we hold and show who agrees.</p><div class="card pad" id="cbox"></div><p class="note">Prefer your own words, or Hindi, Tamil or Telugu? <a href="#/ask">Ask a question instead</a>.</p>';
     mountClaim($("cbox"), { focus: true }); $("cin").value = EXAMPLES[0]; $("cgo").click();
   }
 
@@ -157,7 +174,7 @@
     view.innerHTML = '<h2>' + esc(I.t("nav_map")) + '</h2><p class="sub">Both official figures for every state and union territory, with the source page behind each. Select a state to open it.</p>' +
       '<div class="mapfacts"><div><b>' + mp + '%</b><span>' + I.term("mohua") + " says " + I.term("processed") + ", 2025-26 · " + esc(dn(mt.source_doc)) + ", p." + esc(mt.source_page) + " " + rbtn("India|2025-26|treated|" + mt.source_doc, "source page") + '</span></div>' +
       '<div><b>' + cp + '%</b><span>' + I.term("cpcb") + " figures give " + I.term("treated") + ", 2023-24, computed by us · " + esc(dn(ct.source_doc)) + ", p." + esc(ct.source_page) + " " + rbtn("India|2023-24|treated|" + ct.source_doc, "source page") + '</span></div>' +
-      '<div><b>' + n0(mt.value - ct.value) + '</b><span>tonnes a day apart. Different years, and we compare MoHUA\'s "processed" with CPCB\'s "treated" as our assumption, not a stated equivalence. <a href="#/explore/defs">Definitions</a></span></div></div>' +
+      '<div><b>' + n0(mt.value - ct.value) + '</b><span>tonnes a day between the two reports: a difference between reports, not missing waste. The years differ, and we compare MoHUA\'s "processed" with CPCB\'s "treated" as our assumption, not a stated equivalence. <a href="#/explore/defs">Definitions</a></span></div></div>' +
       '<div class="section" id="mapsec"><div class="maprow"><div class="card"><div class="maptools"><input class="find" id="find" list="stl" type="search" placeholder="Find a state" aria-label="Find a state" value="' + esc(QUERY) + '"><datalist id="stl">' + states.map(function (s) { return '<option value="' + esc(s) + '">'; }).join("") + '</datalist><div class="seg" role="group" aria-label="Colour by">' +
       MODES.map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (MODE === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div><div class="seg" role="group" aria-label="Map style">' +
       [["geo", "Map"], ["tiles", "Tiles"]].map(function (m) { return '<button type="button" data-v="' + m[0] + '" aria-pressed="' + (VIEW === m[0]) + '">' + m[1] + "</button>"; }).join("") + '</div></div><div class="tiles" id="tiles" role="group" aria-label="States and union territories"></div><div class="legend" id="legend"></div>' +
@@ -224,7 +241,15 @@
   }
   function stateDetail(s) {
     var box = $("detail");
-    if (!s) { box.innerHTML = '<div class="empty"><div class="big">👆</div><p>Pick a state on the map, or type its name, to see both figures side by side with the source pages.</p></div>'; return; }
+    if (!s) {            /* nothing selected: show India as a whole, so the panel is useful before the first tap */
+      var ng = natrow("2023-24", "CPCB", "generated").value, nt = natrow("2023-24", "CPCB", "treated").value, mg2 = natrow("2025-26", "MoHUA", "generated").value, mt2 = natrow("2025-26", "MoHUA", "treated").value;
+      var withGap = states.filter(function (x) { return D[x] && D[x].gap != null; }), none = states.length - withGap.length;
+      var top3 = withGap.slice().sort(function (a, b) { return Math.abs(D[b].gap) - Math.abs(D[a].gap); }).slice(0, 3);
+      box.innerHTML = '<h3>India, nationally</h3><p class="note" style="margin-top:0">Pick a state on the map, or type its name, to replace this with the figures and source pages of that state.</p>' +
+        meter("CPCB 2023-24 " + KSi18n.term("treated"), ng ? Math.round(nt / ng * 1000) / 10 : null, "c", "needs both a generated and a treated figure") + meter("MoHUA 2025-26 " + KSi18n.term("processed"), mg2 ? Math.round(mt2 / mg2 * 1000) / 10 : null, "", "needs both a generated and a treated figure") +
+        '<p class="note">Different years, and the two bodies may not mean the same thing by their words. We do not say which is right.</p>' +
+        '<h3>How to read the map</h3><ul class="note" style="margin:0;padding-left:1.2em"><li>Colour shows the chosen figure, or in Difference mode how far MoHUA sits above CPCB. Darker means a bigger difference between the two reports.</li><li>Grey means not enough is reported to compare: ' + none + ' of ' + states.length + ' states and UTs.</li></ul>' +
+        (top3.length ? '<h3>Largest differences between the reports</h3><ol class="note" style="margin:0;padding-left:1.2em">' + top3.map(function (x) { return '<li><a href="#/map/' + encodeURIComponent(x) + '">' + esc(x) + "</a> (" + Math.abs(D[x].gap).toFixed(1) + " points)</li>"; }).join("") + "</ol>" : ""); return; }
     var fl = KS.flags.filter(function (f) { return f.state === s && f.rule.indexOf("3_") !== 0; }), au = KS.audit.filter(function (a) { return a.state === s; })[0], x = D[s];
     function why(y, src) { var g = val(row(s, y, src, "generated")); return g === 0 ? "generated waste is reported as 0, so no percentage can be worked out" : "needs both a generated and a treated figure"; }
     var h = "<h3>" + esc(s) + "</h3>" + (au ? '<a class="rank" href="#/explore/audit" style="text-decoration:none">Audit priority #' + au.rank + " of 36</a>" : "") +
@@ -239,9 +264,14 @@
 
   /* ---------- Explore: audit first, receipts, swings, definitions ---------- */
   var TABS = [["audit", "Audit first"], ["receipts", "Receipts"], ["swings", "Swings"], ["defs", "Definitions"]];
+  /* Insights = the old Gaps and Explore pages under one heading and one tab strip. Their routes (#/gaps/..., #/explore/...) are unchanged. */
+  function insightsNav(page, tab) {
+    function strip(label, list, base, on) { return '<p class="ins-l">' + label + '</p><nav class="tabs" aria-label="' + label + '">' + list.map(function (t) { return '<a href="#/' + base + "/" + t[0] + '"' + (page === base && t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + "</nav>"; }
+    return '<div class="ins">' + strip("Money and gaps", GTABS, "gaps") + strip("Sources and checks", TABS, "explore") + "</div>";
+  }
   function renderExplore(tab, args) {
     if (!TABS.some(function (t) { return t[0] === tab; })) tab = "audit";
-    view.innerHTML = '<h2>Explore</h2><nav class="tabs" aria-label="Explore sections">' + TABS.map(function (t) { return '<a href="#/explore/' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + '</nav><div id="tab"></div>';
+    view.innerHTML = '<h2>Insights</h2><p class="sub">Where the figures disagree, where money and results do not line up, and the source pages behind every number.</p>' + insightsNav("explore", tab) + '<div id="tab"></div>';
     ({ audit: tabAudit, receipts: tabReceipts, swings: tabSwings, defs: tabDefs })[tab]($("tab"), args ? args.slice(1) : []);
   }
   function tabAudit(el) {
@@ -303,8 +333,7 @@
   var GTABS = [["phantom", "Phantom tonnes"], ["money", "Money vs mess"], ["trucks", "Collection and trucks"], ["segregation", "Segregation"], ["complete", "Completeness"]];
   function renderGaps(tab) {
     if (!GTABS.some(function (t) { return t[0] === tab; })) tab = "phantom";
-    view.innerHTML = '<h2>Gaps</h2><p class="sub">Where reported figures cannot all be true, where money and results do not line up, and what states leave unreported. These are prompts for questions, not findings that any state is at fault.</p><nav class="tabs" aria-label="Gaps sections">' +
-      GTABS.map(function (t) { return '<a href="#/gaps/' + t[0] + '"' + (t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + '</nav><div id="gtab"></div>';
+    view.innerHTML = '<h2>Insights</h2><p class="sub">Where reported figures cannot all be true, where money and results do not line up, and what states leave unreported. These are prompts for questions, not findings that any state is at fault.</p>' + insightsNav("gaps", tab) + '<div id="gtab"></div>';
     ({ phantom: gPhantom, money: gMoney, trucks: gTrucks, segregation: gSeg, complete: gComplete })[tab]($("gtab"));
   }
   function stateLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/map/' + encodeURIComponent(s) + '">' + esc(s) + "</a>" : esc(s); }
@@ -322,7 +351,7 @@
     var by = {}; KS.phantom.forEach(function (r) { var k = r.counter.charAt(0); (by[k] = by[k] || []).push(r); });
     var head = (by.D || []).filter(function (r) { return r.year === "MoHUA 2025-26 vs CPCB 2023-24"; })[0];
     el.innerHTML = '<p class="sub">Reported figures that cannot all be true, in separate counters. <strong>Do not add the counters together:</strong> each measures something different, and every row names its years. The data cannot say which figure is wrong.</p>' +
-      (head ? '<div class="kpis"><div class="kpi"><div class="v">' + n0(head.tpd) + '</div><div class="l">tonnes per day apart: ' + esc(head.values) + "<br>" + esc(head.year) + "</div></div></div>" : "") +
+      (head ? '<div class="kpis"><div class="kpi"><div class="v">' + n0(head.tpd) + '</div><div class="l">tonnes per day, the difference between two reports for one figure (not a measure of missing waste): ' + esc(head.values) + "<br>" + esc(head.year) + "</div></div></div>" : "") +
       ["D", "E", "A", "B", "C"].filter(function (k) { return by[k]; }).map(function (k) {
         return '<h3>' + PH[k][0] + ' <span class="note">(' + by[k].length + ")</span></h3><p class=\"note\">" + PH[k][1] + '</p><div class="card pad" id="ph' + k + '"></div>';
       }).join("");
@@ -445,11 +474,20 @@
   function toCSV(cols, rows) { var q = function (v) { v = String(v == null ? "" : v); return /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; }; return cols.join(",") + "\n" + rows.map(function (r) { return cols.map(function (c) { return q(r[c]); }).join(","); }).join("\n") + "\n"; }
   var RULES = { C1: "Collected > generated", C2: "Segregated > collected", C3: "Treated > collected", C4: "Treated + landfilled > generated", C5: "Not reported" };
   function renderCity() {
-    view.innerHTML = '<h2>Audit your city</h2><p class="sub">Drop a ward-level CSV and see which figures cannot all be true, and which wards leave the most waste uncollected. It runs in your browser; nothing is uploaded.</p>' +
-      '<label class="drop" id="drop" for="file" style="display:block;cursor:pointer"><div class="big" aria-hidden="true">📄</div><p style="margin:8px 0 2px"><strong>Drop a CSV here</strong> or click to choose</p><p class="note" style="margin:0">Blank cells mean "not reported" and are never filled in.</p><input type="file" id="file" accept=".csv,text/csv"></label>' +
-      '<p style="margin-top:12px"><button class="alt" id="ex" type="button">Try a fictional example</button> <button class="alt" id="tpl" type="button">Get the empty template</button></p><div id="cerr" class="err" role="alert"></div><div id="cres" aria-live="polite"></div>';
+    view.innerHTML = '<h2>Audit your city</h2><p class="sub">Check a city\'s ward-level waste figures for numbers that cannot all be true, and see which wards leave the most waste uncollected. The example below is fictional, so you can see what you get before using any real file.</p>' +
+      '<div class="card pad"><h3 style="margin-top:0">What goes in the file</h3><p class="note" style="margin-top:0">One row per ward per month, in tonnes per day. Leave a cell blank if it was not reported: blanks are never filled in. Ask your municipal office for these figures, or start with the empty template.</p>' +
+      '<div class="tw"><table class="fmt"><thead><tr><th scope="col">Column</th><th scope="col">Meaning</th><th scope="col">Example</th></tr></thead><tbody>' +
+      '<tr><td>ulb, ward</td><td>City or town, and the ward</td><td>Hyderabad, Ward 12</td></tr><tr><td>period</td><td>Year and month</td><td>2024-01</td></tr>' +
+      '<tr><td>generated_tpd</td><td>Waste produced</td><td>10</td></tr><tr><td>collected_tpd</td><td>Waste picked up</td><td>9</td></tr><tr><td>segregated_tpd</td><td>Waste separated at source</td><td>5</td></tr>' +
+      '<tr><td>treated_tpd, landfilled_tpd</td><td>Waste treated, waste landfilled</td><td>4, 3</td></tr></tbody></table></div>' +
+      '<p style="margin:12px 0 0"><button class="alt" id="tpl" type="button">Get the empty template</button> <button class="alt" id="ex" type="button">Show the fictional example again</button></p>' +
+      '<p class="note" style="margin-bottom:0">Your file is read in this browser. Nothing is uploaded or stored.</p></div>' +
+      '<div id="cbanner" class="notice" role="status" style="margin-top:16px"><strong>You are looking at a fictional example</strong>, not real data. It shows the kind of result you get.</div>' +
+      '<div id="cerr" class="err" role="alert"></div><div id="cres" aria-live="polite"></div>' +
+      '<h3 style="margin-top:28px">Now try your own file</h3><label class="drop" id="drop" for="file" style="display:block;cursor:pointer"><div class="big" aria-hidden="true">📄</div><p style="margin:8px 0 2px"><strong>Drop a CSV here</strong> or click to choose</p><p class="note" style="margin:0">Up to 5 MB. Blank cells mean "not reported".</p><input type="file" id="file" accept=".csv,text/csv"></label>';
     $("tpl").onclick = function () { download("city_audit_template.csv", TEMPLATE); };
     $("ex").onclick = function () { run(EXAMPLE, "Fictional example (not real data)"); };
+    setTimeout(function () { if ($("cres") && !$("cres").innerHTML) run(EXAMPLE, "Fictional example (not real data)"); }, 0);        /* show a worked example at once; an empty upload box teaches nothing */
     $("file").onchange = function () { read(this.files[0]); };
     var dz = $("drop");
     ["dragenter", "dragover"].forEach(function (ev) { dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add("over"); }); });
@@ -458,6 +496,7 @@
     function read(f) { if (!f) return; if (f.size > 5 * 1024 * 1024) { $("cerr").textContent = "That file is over 5 MB. Please send one city at a time, or fewer rows."; return; } var rd = new FileReader(); rd.onload = function () { run(String(rd.result), f.name); }; rd.onerror = function () { $("cerr").textContent = "Could not read that file."; }; rd.readAsText(f); }
     function run(text, name) {
       $("cerr").textContent = ""; $("cres").innerHTML = "";
+      if ($("cbanner")) $("cbanner").innerHTML = name.indexOf("Fictional") === 0 ? "<strong>You are looking at a fictional example</strong>, not real data. It shows the kind of result you get." : "<strong>Results for your file:</strong> " + esc(name) + ". Nothing was uploaded.";
       var r; try { r = KSCity.audit(KSCity.parseCSV(text)); } catch (e) { $("cerr").textContent = e.message; return; }
       if (!r.rows) { $("cerr").textContent = "The file has no data rows."; return; }
       var present = Object.keys(RULES).filter(function (k) { return r.flags.some(function (f) { return f.rule.indexOf(k) === 0; }); }), pick = "";

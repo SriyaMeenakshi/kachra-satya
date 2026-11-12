@@ -15,7 +15,8 @@ def test_opening_js_is_honest():
     assert "setTimeout" in js and "4000" in js                     # fail-safe: everything forced visible after 4 s
     assert "The sources disagree" in js
     assert "wrong" not in re.search(r"var LBL = .*", js).group(0)   # verdict labels never say a source is wrong (the page may say "we don't say a figure is wrong")
-    assert "No reports yet" in js                                  # the Reality step admits it is not built
+    about = open("web/app/about.js", encoding="utf-8").read()
+    assert "unverified" in about and "no shared server" in about   # the site admits street reports stay on the device and are unverified
     assert 'aria-hidden="true"><div class="tr">' in js            # the ticker is decorative
     assert re.search(r"KS\.national", js) and "KS.waste" in js     # numbers come from the data
     assert "Math.round(mp.value)" in js

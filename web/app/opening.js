@@ -72,29 +72,6 @@
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(nm(mp.source_doc)) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
       '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(nm(ct.source_doc)) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
 
-      '<section class="op-sec" aria-labelledby="op-why-h"><p class="op-eyebrow">' + esc(T("why_k", "Why this matters")) + '</p><h2 class="op-h2" id="op-why-h">' + esc(T("why_h", "Plans and money start from these numbers.")) + '</h2>' +
-      '<p class="op-p">' + esc(T("why_p", "Plants, landfills and funding are planned from reported figures. When the figures do not agree, nobody can tell where the waste goes, or whether the money is working. Four things the published records show:")) + '</p><div class="op-finds">' +
-      (fPct == null ? "" : '<div class="op-find"><span class="n">' + fPct + '%</span><p>of the solid-waste money set aside for states for 2021-2026 had been used by 25 Nov 2024.<small>Lok Sabha Q682. The table prints no unit, so we use only the share.</small></p><a href="#/gaps/money">See which states &rarr;</a></div>') +
-      (unacc ? '<div class="op-find"><span class="n">' + n0(unacc.value) + '</span><p>tonnes a day in 2022-23 that CPCB found neither treated nor landfilled.<small>CPCB report, ' + esc(nm(unacc.source_doc)) + ", p." + esc(unacc.source_page) + ".</small>" + rbtn(uKey) + '</p><a href="#/gaps">Where the gaps are &rarr;</a></div>' : "") +
-      (segC && segS ? '<div class="op-find"><span class="n">' + Math.round(segC.share_pct_computed) + '% vs ' + Math.round(segS.share_pct_computed) + '%</span><p>of wards had over 90% door-to-door collection, but only that many had over 90% source segregation (2022).<small>MoHUA Garbage Free Cities 2022 dashboard; shares computed against the wards covered.</small></p><a href="#/help/bins">Which bin does it go in? &rarr;</a></div>' : "") +
-      (gap != null ? '<div class="op-find"><span class="n">' + n0(gap) + '</span><p>tonnes a day apart: the two official national &ldquo;treated&rdquo; totals.<small>Different years, so part of it may be real progress.</small></p><a href="#/claim">Check a number &rarr;</a></div>' : "") +
-      '</div></section>' +
-
-      (root.KSSim ? root.KSSim.html() : "") +
-      '<section class="op-sec op-journey stage" aria-labelledby="op-p-h"><div class="jy-in"><p class="op-eyebrow">' + esc(T("parts_k", "The main parts")) + '</p>' +
-      '<h2 class="op-h2 jy-h" id="op-p-h">' + esc(T("parts_h", "Hear it. Check it. See your street. Do something.")) + '</h2>' +
-      '<p class="jy-lede">' + esc(T("parts_p", "One road from a number you heard to a complaint you can file. Every stop opens on real data, and every figure keeps its source page.")) + '</p>' +
-      '<ol class="jy-steps">' +
-      jy("01", "Hear a promise", "What did they say?", (mpct == null || cpct == null ? "&ndash;" : mpct + "% vs " + cpct + "%"), "two official figures for the same waste",
-         [["#/claim", "Check a claim", true], ["#/ask", "Ask a question", false, agentOn ? "" : "not connected"]]) +
-      jy("02", "Check the proof", "Is it true on paper?", String(withPage), "figures open on their source page; " + boxed + " with the number boxed",
-         [["#/map", "Open the map", true], ["#/gaps", "See the gaps"], ["#/explore", "Explore the sources"]]) +
-      jy("03", "See your street", "Is it true where I live?", taps ? String(taps) : "Your turn", taps ? "days you have tapped on this device, unverified" : "tap whether the truck came; it stays on your device",
-         [["#/ward", "Your ward", true, "prototype"], ["#/city", "Audit your city"], ["#/school", "Weigh school waste"]]) +
-      jy("04", "Do something", "What can I actually do?", "Complaint &rarr; log &rarr; letter", "written for you; you send it, we never do",
-         [["#/help/complain", "Get my garbage collected", true], ["#/help/bins", "Which bin?"], ["#/dropoff", "Nearest drop-off"], ["#/brief/card", "Explain my state"]]) +
-      '</ol></div></section>' +
-
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
       '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p>' +
       '<ul class="op-why3" aria-label="Three reasons the two numbers differ"><li><b>Different years</b><span>MoHUA 2025-26, CPCB 2023-24.</span></li><li><b>Different words</b><span>&ldquo;Processed&rdquo; and &ldquo;treated&rdquo; are not defined the same way.</span></li><li><b>Different totals</b><span>' + (mg ? n0(mg.value) : "&ndash;") + ' and ' + (cg ? n0(cg.value) : "&ndash;") + ' tonnes a day to start from.</span></li></ul>' +
@@ -103,26 +80,25 @@
       '<p class="cap">' + esc(T("mo_cap", "MoHUA: processed, 2025-26")) + '</p><p class="meta">' + (mt && mg ? n0(mt.value) + " of " + n0(mg.value) + " tonnes a day, as MoHUA reports." : "") + (mp ? " " + esc(nm(mp.source_doc)) + ", p." + esc(mp.source_page) : "") + rbtn(mKey) + (mt ? '<span class="mean">≈ ' + r3(mt.value / 10).toLocaleString("en-IN") + " " + term("truckload") + "s a day</span>" : "") + "</p></div>" +
       '<div class="dots c"><div class="num">' + (cpct == null ? "&ndash;" : cpct + "%") + "</div>" + dots(cpct || 0) +
       '<p class="cap">' + esc(T("cp_cap", "CPCB: treated, 2023-24")) + '</p><p class="meta">' + (ct && cg ? n0(ct.value) + " of " + n0(cg.value) + " tonnes a day (" + cexact + "%, computed by us)." : "") + (ct ? " " + esc(nm(ct.source_doc)) + ", p." + esc(ct.source_page) : "") + rbtn(cKey) + (ct ? '<span class="mean">≈ ' + r3(ct.value / 10).toLocaleString("en-IN") + " " + term("truckload") + "s a day</span>" : "") + "</p></div></div>" +
-      '<div class="op-apart"><b>' + esc(T("apart", "{n} tonnes a day apart", { n: n0(gap) })) + '</b><span class="s">MoHUA 2025-26 processed minus CPCB 2023-24 treated. Different years.</span><span class="stamp">The sources disagree</span></div>' +
+      '<div class="op-apart"><b>' + esc(T("apart", "{n} tonnes a day between two reports", { n: n0(gap) })) + '</b><span class="s">A numerical difference between two reports: MoHUA 2025-26 processed minus CPCB 2023-24 treated. The years differ and the definitions may too, so <strong>this is not an amount of waste that went missing.</strong></span><span class="stamp">The sources disagree</span></div>' +
       '<div class="op-pt"><h3 class="full">' + esc(T("proc_h", "Processed or treated?")) + '</h3><p>' + term("mohua") + ' reports ' + term("processed") + ' (column "Total Waste Processed"). The documents we hold do not define the word.</p>' +
       '<p>' + term("cpcb") + ' reports ' + term("treated") + ' (column "Treated"). Its report defines treatment as a method that changes waste to reduce its volume and harm.</p>' +
-      '<p class="op-assume">To compare them we store MoHUA\'s "processed" as "treated". That is our assumption, not a stated equivalence. The years differ (2025-26 and 2023-24), and so do the totals each percentage is divided by (' + (mg ? n0(mg.value) : "") + ' and ' + (cg ? n0(cg.value) : "") + ' tonnes a day), so our data holds no same-year, same-definition comparison. <a href="#/explore/defs">Read the definitions</a></p></div></div></section>' +
+      '<p class="op-assume">To compare them we store MoHUA\'s "processed" as "treated". That is our assumption, not a stated equivalence. The years differ (2025-26 and 2023-24), and so do the totals each percentage is divided by (' + (mg ? n0(mg.value) : "") + ' and ' + (cg ? n0(cg.value) : "") + ' tonnes a day), so our data holds no same-year, same-definition comparison. <a href="#/explore/defs">Read the definitions</a></p>' +
+      '<dl class="op-words" aria-label="What the words mean"><dt>Generated</dt><dd>Waste produced, as reported by states and cities. Nobody here weighs it.</dd><dt>Collected</dt><dd>Waste picked up from homes and streets.</dd>' +
+      '<dt>Treated or processed</dt><dd>Waste sent through a plant or method. The two bodies use different words and we cannot show they mean the same.</dd><dt>Landfilled</dt><dd>Waste sent to a landfill.</dd>' +
+      '<dt>Reported or computed</dt><dd><b>Reported</b> is printed in a document. <b>Computed</b> is a share we worked out from two printed figures, and is labelled that way.</dd></dl></div></div></section>' +
 
-      '<section class="op-sec" aria-labelledby="op-f-h"><p class="op-eyebrow">' + esc(T("findings_h", "What the numbers show")) + '</p><h2 class="op-h2" id="op-f-h">' + esc(T("findings_t", "Three places to look first")) + '</h2><div class="op-finds">' +
-      (kerala ? '<div class="op-find"><span class="n">' + kerala.n_years + ' years</span><p>' + esc(kerala.state) + ' reported more waste treated than collected, in ' + esc(kerala.years.split("; ").join(", ")) + '.<small>CPCB figures. Both cannot be true.</small></p><a href="#/map/' + encodeURIComponent(kerala.state) + '">Open ' + esc(kerala.state) + ' &rarr;</a></div>' : "") +
-      (vol ? '<div class="op-find"><span class="n">' + vol.swing_ratio + '&times;</span><p>' + esc(vol.state) + '\'s reported generated waste is ' + n0(vol.max_tpd) + ' tonnes a day in ' + esc(vol.max_in) + ' and ' + n0(vol.min_tpd) + ' in ' + esc(vol.min_in) + '.<small>The same state, in different reports.</small></p><a href="#/explore/swings">See the swings &rarr;</a></div>' : "") +
-      '<div class="op-find"><span class="n">' + diffPairs + '</span><p>state-and-metric pairs where MoHUA and CPCB differ by more than 10%.<small>Different years, so part of the difference may be real change.</small></p><a href="#/map">See them on the map &rarr;</a></div></div></section>' +
+      '<section class="op-sec" aria-labelledby="op-why-h"><p class="op-eyebrow">' + esc(T("why_k", "Why this matters")) + '</p><h2 class="op-h2" id="op-why-h">' + esc(T("why_h", "Plans and money start from these numbers.")) + '</h2>' +
+      '<p class="op-p">' + esc(T("why_p", "Plants, landfills and funding are planned from reported figures. When the figures do not agree, nobody can tell where the waste goes, or whether the money is working. Three things the published records show:")) + '</p><div class="op-finds">' +
+      (fPct == null ? "" : '<div class="op-find"><span class="n">' + fPct + '%</span><p>of the solid-waste money set aside for states for 2021-2026 had been used by 25 Nov 2024.<small>Lok Sabha Q682. The table prints no unit, so we use only the share.</small></p><a href="#/gaps/money">See which states &rarr;</a></div>') +
+      (unacc ? '<div class="op-find"><span class="n">' + n0(unacc.value) + '</span><p>tonnes a day in 2022-23 that CPCB found neither treated nor landfilled.<small>CPCB report, ' + esc(nm(unacc.source_doc)) + ", p." + esc(unacc.source_page) + ".</small>" + rbtn(uKey) + '</p><a href="#/gaps">Where the gaps are &rarr;</a></div>' : "") +
+      (segC && segS ? '<div class="op-find"><span class="n">' + Math.round(segC.share_pct_computed) + '% vs ' + Math.round(segS.share_pct_computed) + '%</span><p>of wards had over 90% door-to-door collection, but only that many had over 90% source segregation (2022).<small>MoHUA Garbage Free Cities 2022 dashboard; shares computed against the wards covered.</small></p><a href="#/help/bins">Which bin does it go in? &rarr;</a></div>' : "") +
+      '</div></section>' +
 
-      '<section class="op-sec" aria-labelledby="op-t-h"><h2 class="op-h2" id="op-t-h">' + esc(T("try_h", "Heard a number? Check it.")) + '</h2><div class="try"><div class="ask"><input id="op-in" type="text" aria-label="A claim about India\'s waste figures" placeholder="e.g. 81% of India\'s urban waste is processed" autocomplete="off"><button class="go" id="op-go" type="button">' + esc(T("check", "Check")) + '</button></div>' +
-      '<div class="ex">' + EXAMPLES.map(function (x, i) { return '<button class="chip" type="button" data-i="' + i + '">' + esc(x) + "</button>"; }).join("") + '</div><div class="res" id="op-res" aria-live="polite"></div></div></section>' +
-
-      '<section class="op-sec" aria-labelledby="op-m-h"><div class="op-method"><div><h2 class="op-h2" id="op-m-h">' + esc(T("method_h", "How we check")) + '</h2></div><div><ol>' +
-      '<li><span><strong>Every figure is copied from a published document</strong> and opens on the page it came from, with its number boxed where we could place it.</span></li>' +
-      '<li><span><strong>Where sources disagree, we say so.</strong> We compare, we do not pick a winner, and we never accuse a source.</span></li>' +
-      '<li><span><strong>Blank means "not reported".</strong> We never fill gaps in or estimate a missing figure.</span></li>' +
-      '<li><span><strong>All figures are self-reported</strong> by states, cities and boards. We check consistency, not what is on your street.</span></li></ol></div></div>' +
-      '<div class="op-nums"><div><b>' + states + '</b><span>' + esc(T("trust_states", "states and UTs")) + '</span></div><div><b>' + reported + '</b><span>' + esc(T("trust_figs", "reported figures")) + '</span></div><div><b>' + withPage + '</b><span>' + esc(T("trust_pages", "open on a source page")) + '</span></div><div><b>' + KS.flags.length + '</b><span>' + esc(T("trust_flags", "flags: figures that cannot all be true")) + '</span></div></div>' +
-      '<p class="op-honest"><strong>What we won\'t do.</strong> We draft complaints and letters, we never send them. The Reality step of the loop, reports from your own street, has No reports yet: it only fills as people tap in their ward. Data built ' + esc(KS.built) + ".</p></section></div>";
+      (root.KSSim ? root.KSSim.html() : "") +
+      '<section class="op-sec op-close" aria-labelledby="op-c-h"><h2 class="op-h2" id="op-c-h">' + esc(T("close_h", "Want to see how it is checked?")) + '</h2><p class="op-p">' + esc(T("close_p", "Every figure is copied from a published document and opens on its source page. Where sources disagree, we say so and never pick a winner.")) + '</p>' +
+      '<div class="op-cta"><a class="op-btn primary" href="#/claim">' + esc(T("check", "Check a number")) + '</a><a class="op-btn ghost" href="#/about">How we check</a><a class="op-btn ghost" href="#/gaps">See the insights</a></div>' +
+      '<p class="op-honest">Data built ' + esc(KS.built) + ". This is a demonstration; we draft complaints and letters and never send them.</p></section></div>";
 
     drawMap();
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
@@ -137,17 +113,6 @@
       targets.forEach(function (n) { io.observe(n); });
       setTimeout(function () { targets.forEach(function (n) { n.classList.remove("pre"); }); }, 4000);
     }
-    function check(text) {
-      var p = root.KSClaim.parseSentence(KS, text), res = $("op-res");
-      if (p.reason) { res.innerHTML = '<p class="note" role="alert">' + esc(p.reason) + "</p>"; return; }
-      if (p.value == null || !p.metric) { res.innerHTML = '<p class="note">We could not find a number in that sentence. Try a figure with % or &ldquo;tonnes per day&rdquo;, or use <a href="#/claim">Check a claim</a>.</p>'; return; }
-      var r = root.KSClaim.checkClaim(KS, { metric: p.metric, value: p.value, unit: p.unit, state: p.state || null, year: p.year || null }), V = LBL[r.verdict], pct = r.claim && r.claim.unit === "percent";
-      res.innerHTML = '<span class="vrd ' + V[1] + '">' + esc(T(V[2], V[0])) + '</span><p class="vs">' + esc(T(V[3], "")) + "</p>" + (r.records.length ? r.records.slice(0, 6).map(function (x) {
-        return '<div class="rec2"><span><span class="' + (x.matches ? "y" : "nn") + '">' + (x.matches ? "&#10003;" : "&#10007;") + "</span> " + esc(x.source_name) + " " + esc(x.year) + (x.kind === "computed" ? " (computed)" : "") + '</span><span>' + (+x.value).toLocaleString("en-IN", { maximumFractionDigits: 2 }) + (pct ? "%" : " t/day") + "</span></div>"; }).join("") +
-        '<p class="note"><a href="#/claim">See every source and open the pages</a>. Figures cover ' + Array.from(new Set(r.records.map(function (x) { return x.year; }))).sort().join(", ") + "; part of any difference may be real change.</p>" : '<p class="note">' + esc(r.reason) + "</p>");
-    }
-    $("op-go").onclick = function () { check($("op-in").value); }; $("op-in").onkeydown = function (e) { if (e.key === "Enter") check(this.value); };
-    view.querySelectorAll(".try .chip").forEach(function (b) { b.onclick = function () { $("op-in").value = EXAMPLES[+b.dataset.i]; check($("op-in").value); }; });
   }
   root.KSOpening = { render: render };
 })(window);

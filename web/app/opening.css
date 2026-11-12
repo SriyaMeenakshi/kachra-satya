@@ -222,3 +222,9 @@
 .op-stage .op-h1{font-size:clamp(2.2rem,3.9vw,3.4rem);margin-bottom:var(--sp-3)}
 .op-stage .op-lede{margin-bottom:var(--sp-2)}
 @media (min-width:981px){.op-doors .gd-goal span{display:none}.op-doors .gd-goal{min-height:0}}
+
+/* the five words, next to the two numbers */
+.op-words{display:grid;grid-template-columns:minmax(110px,max-content) 1fr;gap:6px var(--sp-4);margin:var(--sp-4) 0 0;padding:var(--sp-4);border:1px solid var(--hair);border-radius:var(--r-2);background:var(--card)}
+.op-words dt{font-weight:700}.op-words dd{margin:0;color:var(--ink2);font-size:var(--t-sm)}
+@media (max-width:520px){.op-words{grid-template-columns:1fr}.op-words dd{margin-bottom:6px}}
+.op-apart .s strong{color:var(--ink)}

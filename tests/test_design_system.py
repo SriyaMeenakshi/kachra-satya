@@ -80,9 +80,10 @@ def test_wording_never_accuses_a_source():
 
 def test_start_page_counts_come_from_the_data_not_typed_in():
     js = open("web/app/opening.js", encoding="utf-8").read()
+    about = open("web/app/about.js", encoding="utf-8").read()                  # the platform counts moved from Home to the About page
     for typed in ("697", "696", "36 states", "72 flags", "17,420", "114,110", "131,530"):
-        assert typed not in js, typed
-    assert "value_tpd != null" in js and "KS.flags.length" in js and "KS.recurrence" in js and "KS.volatility" in js
+        assert typed not in js and typed not in about, typed
+    assert "value_tpd != null" in js and "KS.flags.length" in about and "KS.receipts" in about
 
 
 def _ramp(tk, prefix):

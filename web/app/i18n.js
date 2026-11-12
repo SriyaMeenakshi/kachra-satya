@@ -18,7 +18,7 @@
       stat_mohua_who: "MoHUA says", stat_cpcb_who: "CPCB figures give",
       newhere: "New here? Three steps", hide: "Hide", show3: "Show the 3 steps",
       step1: "Type a claim", step1d: "Paste a number someone quoted", step2: "Tap your state", step2d: "See both official figures", step3: "Open the source page", step3d: "See the number boxed on the document",
-      two_h: "Two official numbers. One country.", apart: "{n} tonnes a day apart", proc_h: "Processed or treated?", findings_h: "What the numbers show", index_h: "Where to go next",
+      two_h: "Two official numbers. One country.", apart: "{n} tonnes a day between two reports", proc_h: "Processed or treated?", findings_h: "What the numbers show", index_h: "Where to go next",
       idx_map: "Map", idx_map_d: "Both official figures for every state, with the source page.", idx_claim: "Check a claim", idx_claim_d: "Test a number you heard against every source we hold.",
       idx_gaps: "Gaps", idx_gaps_d: "Money, trucks and reporting gaps, state by state.", idx_city: "Your city", idx_city_d: "Upload ward data and see which figures cannot all be true.",
       idx_ask: "Ask", idx_ask_d: "Questions in English, Hindi, Tamil or Telugu, answered from the data.", idx_explore: "Explore", idx_explore_d: "Audit order, source pages, swings and definitions.",

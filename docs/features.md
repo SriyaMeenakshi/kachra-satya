@@ -4,6 +4,9 @@ This page explains every feature of the Kachra Satya web app (`web/app/`) in pla
 
 Two rules hold everywhere: we never invent a figure (a blank says "not reported"), and when the sources disagree we say "the sources disagree" instead of picking one.
 
+## 0. Insights and About
+Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (Money and gaps; Sources and checks). Their links (`#/gaps/...`, `#/explore/...`) are unchanged. **About** (`#/about`) holds how we check, the site's numbers, what we will not do, the sources and the licence. The top bar is Home, Map, Check a claim, Insights, Get help and More (Your city, Ask, Your ward, Briefing, Schools, Nearest drop-off, About).
+
 ## 1. Home (`#/start`)
 **For:** anyone arriving cold.
 - **Goal chooser:** "What brings you here?" offers five goals plus "just look around". Each goal starts a guided path (section 12).
@@ -25,7 +28,7 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 - It refuses what it cannot check and says why: a place we hold no figures for, or a collection or segregation percentage (we hold no such percentage in that form).
 - It does not say which source is correct.
 
-## 4. Gaps (`#/gaps`)
+## 4. Insights, the Gaps half (`#/gaps`)
 **For:** where the money and the tonnes go missing.
 - **Phantom tonnes:** waste reported generated but not accounted as treated or landfilled.
 - **Money vs mess:** share of solid-waste funds used against percent treated, per state.
@@ -35,6 +38,7 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 - Limit: the funds table prints no unit, so only ratios are used.
 
 ## 5. Your city (`#/city`)
+- Opens on a fictional worked example (labelled as fictional) and a table of what goes in the file, so a visitor with no data can see what they would get. Then a drop box for their own CSV.
 **For:** a municipality, journalist or student with ward-level data.
 - Upload a table and the checker shows which figures cannot all be true (for example, treated above collected).
 - The file is read in your browser; nothing is uploaded to a server.
@@ -46,7 +50,7 @@ Two rules hold everywhere: we never invent a figure (a blank says "not reported"
 - Your question is sent to our server and may go to Google Gemini; the page says so and asks you not to type personal details. Questions are limited to 500 characters and 20 a minute per visitor.
 - Needs the Q&A agent (`agent/`). Without it the page says "not connected yet". See [../agent/README.md](../agent/README.md) and [deploy.md](deploy.md).
 
-## 7. Explore (`#/explore`)
+## 7. Insights, the Explore half (`#/explore`)
 **For:** checking our work and finding what to audit.
 - **Audit first:** a transparent ranking of states where an audit would learn most.
 - **Receipts:** open the source page for a figure with the number boxed. 605 of 706 figures are located; the rest show the page or say there is no page image.

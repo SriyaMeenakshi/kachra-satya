@@ -129,3 +129,17 @@ footer{padding:24px 0 40px;color:var(--ink2);font-size:.8rem;border-top:1px soli
 .legend2{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.84rem;color:var(--ink2)}.kd{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
 h3{margin:22px 0 4px}
 .voice{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:10px 0 4px}.chk{display:inline-flex;gap:6px;align-items:center;margin:0;font-weight:500;color:var(--ink)}.chk input{width:auto}
+
+/* Check a claim: the conclusion first */
+.claimcard{display:flex;flex-direction:column;gap:var(--sp-3);margin-top:var(--sp-4)}
+.cc-claim{margin:0;font-size:var(--t-lg);letter-spacing:-.02em}.cc-l{font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);margin-right:6px}
+.cc-figs{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--sp-3)}
+.cc-fig{padding:var(--sp-4);border:1px solid var(--hair);border-radius:var(--r-2);background:var(--card)}
+.cc-n{font-size:2.1rem;font-weight:800;letter-spacing:-.04em;line-height:1.05;font-variant-numeric:tabular-nums}.cc-s{margin-top:6px;color:var(--ink2);font-size:var(--t-sm)}
+.cc-h{margin:var(--sp-2) 0 0;font-size:var(--t-lg)}.cc-p{margin:0;color:var(--ink2);max-width:70ch}
+.cc-ev{margin:0;padding-left:1.2em}.cc-ev li{margin:2px 0}
+
+/* Insights: one heading, two labelled tab rows */
+.ins{display:flex;flex-direction:column;gap:2px;margin:var(--sp-3) 0 var(--sp-4)}
+.ins-l{margin:var(--sp-2) 0 2px;font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.ins .tabs{margin:0}

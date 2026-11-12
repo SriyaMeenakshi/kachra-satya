@@ -11,7 +11,7 @@ Built for the Code for a Billion hackathon, Waste Management track (submissions 
 |---|---|---|
 | Housing Ministry (MoHUA) | 81% processed: 131,530 of 162,372 tonnes per day, 2025-26 | Rajya Sabha Q2433 (MoHUA answer, p.3) |
 | CPCB | 114,110 of 185,195 tonnes per day treated, 61.6% | Lok Sabha Q50, 1 Dec 2025 (CPCB 2023-24) |
-| Gap between the two national "treated" totals | 17,420 tonnes per day | MoHUA 2025-26 against CPCB 2023-24 |
+| Difference between the two national "treated" totals (a difference between reports, not missing waste) | 17,420 tonnes per day | MoHUA 2025-26 against CPCB 2023-24 |
 
 These are different years, and CPCB says "treated" where MoHUA says "processed". We do not know that the two words mean the same thing ([data/definition_crosswalk.csv](data/definition_crosswalk.csv)), so we never say which figure is right.
 
@@ -20,13 +20,13 @@ Open it and the Home page asks "What brings you here?". Pick a goal and the app 
 
 | Page | Route | What it gives you |
 |---|---|---|
-| **Home** | `#/start` | Goal chooser, why this matters (four stakes computed from the data), and the main parts as one road: Hear it, Check it, See your street, Do something |
-| **Map** | `#/map` | Geographic map of 36 states and UTs, coloured by MoHUA, CPCB or the gap, with a Tiles switch. Tap a state for both figures and the source page ([docs/map.md](docs/map.md)) |
-| **Check a claim** | `#/claim` | Type a sentence such as "81% of India's urban waste is processed". Result: who agrees and who does not, never "true" or "false" when sources disagree |
-| **Gaps** | `#/gaps` | Phantom tonnes, money vs mess (share of SWM funds used against percent treated), collection gap and trucks, the national segregation gap, reporting completeness per state |
-| **Your city** | `#/city` | Upload ward-level data and see which figures cannot all be true |
+| **Home** | `#/start` | Four doors by visitor (garbage not collected, a quoted number, a briefing, a school), the two official numbers with the three reasons they differ and the five words, three stakes computed from the data, and three Try-it simulation cards |
+| **Map** | `#/map` | Geographic map of 36 states and UTs, coloured by MoHUA, CPCB or the gap, with a Tiles switch. It opens on an India summary with how to read the colours; tap a state for both figures and the source page ([docs/map.md](docs/map.md)) |
+| **Check a claim** | `#/claim` | Type a sentence such as "81% of India's urban waste is processed". Result: the verdict, the headline figure from each source, what it means and the evidence first; every source record is one tap away. Never "true" or "false" when sources disagree |
+| **Insights** | `#/gaps`, `#/explore` | One page, two tab rows. Money and gaps: phantom tonnes, money vs mess (share of SWM funds used against percent treated), collection gap and trucks, the national segregation gap, reporting completeness per state. Sources and checks: audit-first ranking, receipts (source pages with the figure boxed), year-to-year swings, definitions |
+| **Your city** | `#/city` | Opens on a fictional worked example and a guide to the file format; then upload ward-level data (read in the browser) and see which figures cannot all be true |
 | **Ask** | `#/ask` | Questions in English, Hindi, Tamil or Telugu, answered from the data, with voice in and out where the browser supports it. Needs the Q&A agent (see Run it) |
-| **Explore** | `#/explore` | Audit-first ranking, receipts (source pages with the figure boxed), year-to-year swings, definitions |
+| **About** | `#/about` | How we check, the numbers behind the site, what we will not do, where the figures come from, the licence |
 | **Get help** | `#/help` | Complaint writer for the official Swachhata-MoHUA app, a dated log, an escalation letter, which-bin guide under the 2026 rules, bulk-generator check ([docs/saathi.md](docs/saathi.md)) |
 | **Briefing / State card** | `#/brief` | A shareable plain-words card per state and a one-page briefing for an MP, MLA or councillor |
 | **Schools** | `#/school` | A school waste challenge: weigh a week, get a report card |

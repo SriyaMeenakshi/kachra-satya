@@ -65,6 +65,27 @@ def test_plain_document_names_and_honest_counts_and_render_rebuilds_data():
     for doc in ("ls_au682_2024-11-28.docx", "mohua_annual_report_2025-26.pdf", "sbm_gfc2022_dashboard_snapshot.txt"):
         assert doc in from_answer
     op = read("web/app/opening.js")
-    assert "with the number boxed" in op and "KS.receipts[k].bbox" in op                    # 696 open on a page vs 605 boxed: both said, neither inflated
+    about = read("web/app/about.js")
+    assert "with the number boxed" in about and "r.bbox" in about and "open on a source page" in about   # figures open on a page vs figures boxed: both said, neither inflated
     assert "the Housing Ministry, MoHUA" in op and "pollution control board, CPCB" in op     # acronyms explained once, in the hero
     assert "scripts/export_web_data.py && python scripts/build_site.py" in read("render.yaml")
+
+
+def test_navigation_insights_about_city_claim_map_structure():
+    html = read("web/app/index.html")
+    nav = html[html.index('<nav aria-label="Main"'):html.index("</nav>", html.index('<nav aria-label="Main"'))]
+    top = nav[:nav.index('<details class="more">')]
+    for label in ("Home", "Map", "Insights", "Get help"):
+        assert f"<span" in top and label in top
+    assert 'href="#/gaps" data-r="gaps explore"' in nav and 'href="#/about"' in nav
+    assert 'href="#/ask"' not in top and 'href="#/explore"' not in top                    # Ask, Your city and Explore no longer crowd the top bar
+    app = read("web/app/app.js")
+    assert "function insightsNav" in app and app.count("insightsNav(") >= 3                  # Gaps and Explore share one heading and tab strip
+    assert 'about: function () { KSAbout.render(); }' in app and 'insights"' in app          # the About route and the #/insights alias exist
+    assert "Show the fictional example again" in app and "You are looking at a fictional example" in app and "setTimeout(function () { if ($(\"cres\")" in app
+    assert "claimcard" in app and "See all source records" in app and "What does this mean?" in app
+    assert "India, nationally" in app and "How to read the map" in app
+    op = read("web/app/opening.js")
+    for gone in ("op-journey", "op-method", 'id="op-in"', "op-f-h"):
+        assert gone not in op, gone                                                          # the Home page was trimmed from nine sections to five
+    assert op.count("<section") == 5 or op.count('<section class="op-') + op.count("<section class=\"op-sec\"") >= 4
