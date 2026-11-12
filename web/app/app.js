@@ -330,11 +330,11 @@
   }
 
   /* ---------- Gaps: phantom tonnes, money vs mess, collection and trucks, segregation, completeness ---------- */
-  var GTABS = [["phantom", "Phantom tonnes"], ["money", "Money vs mess"], ["trucks", "Collection and trucks"], ["segregation", "Segregation"], ["complete", "Completeness"]];
+  var GTABS = [["phantom", "Phantom tonnes"], ["money", "Money vs mess"], ["trucks", "Collection and trucks"], ["landfill", "Landfill"], ["segregation", "Segregation"], ["complete", "Completeness"]];
   function renderGaps(tab) {
     if (!GTABS.some(function (t) { return t[0] === tab; })) tab = "phantom";
     view.innerHTML = '<h2>Insights</h2><p class="sub">Where reported figures cannot all be true, where money and results do not line up, and what states leave unreported. These are prompts for questions, not findings that any state is at fault.</p>' + insightsNav("gaps", tab) + '<div id="gtab"></div>';
-    ({ phantom: gPhantom, money: gMoney, trucks: gTrucks, segregation: gSeg, complete: gComplete })[tab]($("gtab"));
+    ({ phantom: gPhantom, money: gMoney, trucks: gTrucks, landfill: gLandfill, segregation: gSeg, complete: gComplete })[tab]($("gtab"));
   }
   function stateLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/map/' + encodeURIComponent(s) + '">' + esc(s) + "</a>" : esc(s); }
   function pagesLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/explore/receipts/' + encodeURIComponent(s) + '">source pages</a>' : '<span class="note">see Why</span>'; }
@@ -414,7 +414,7 @@
   function gTrucks(el) {
     var ly = Array.from(new Set(KS.indicators.filter(function (r) { return r.landfill_pct != null; }).map(function (r) { return r.year; }))).sort();
     el.innerHTML = '<h3>Where the most waste goes uncollected</h3><p class="note">States ranked by the tonnes per day left uncollected (generated minus collected), CPCB 2023-24. This is prioritisation by tonnage, not route optimisation, which needs ward and vehicle data.</p><div class="card pad" id="tr"></div>' +
-      '<h3>How much waste ends up in landfill</h3><p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>';
+      '<p class="note">How much waste ends up in landfill, nationally and by state, is on the <a href="#/gaps/landfill">Landfill</a> tab.</p>';
     var mx = Math.max.apply(null, KS.trucks.map(function (r) { return r.uncollected_tpd || 0; })) || 1;
     mountTable($("tr"), [
       { label: "#", k: "rank", num: true }, { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
@@ -423,6 +423,20 @@
       { label: "Generated (tpd)", k: "generated_tpd", num: true, html: function (r) { return fmt(r.generated_tpd); } },
       { label: "Page", k: "x", html: function (r) { return rbtn([r.state, r.year, "collected", "ls_au50_2025-12-01.pdf"].join("|"), "source page") || '<span class="note">' + esc(r.year) + "</span>"; }, text: function () { return ""; }, val: function () { return 0; } }
     ], KS.trucks, { sort: "#", ph: "Search states" });
+  }
+
+  /* Landfill: national share for three years, the state table for two, and what we do not hold. All from the CPCB tables we already have. */
+  function gLandfill(el) {
+    var ly = Array.from(new Set(KS.indicators.filter(function (r) { return r.landfill_pct != null; }).map(function (r) { return r.year; }))).sort();
+    var nat = ["2021-22", "2022-23", "2023-24"].map(function (y) {
+      var g = KS.national.filter(function (r) { return r.state === "India" && r.year === y && r.source_name === "CPCB" && r.metric === "generated"; })[0], l = KS.national.filter(function (r) { return r.state === "India" && r.year === y && r.source_name === "CPCB" && r.metric === "landfilled"; })[0];
+      return { y: y, g: g, l: l };
+    }).filter(function (x) { return x.g && x.l && x.g.value && x.l.value != null; });
+    el.innerHTML = '<h3>Landfill, nationally</h3><p class="note">Tonnes of municipal waste a day that CPCB reports as landfilled, and the share of the waste generated. Three CPCB reports, three different years.</p>' +
+      '<div class="kpis">' + nat.map(function (x) { return '<div class="kpi"><div class="v">' + fmt(x.l.value) + '</div><div class="l">tonnes a day landfilled, ' + esc(x.y) + " (" + (Math.round(x.l.value / x.g.value * 1000) / 10) + "% of generated)<br>" + esc(dn(x.l.source_doc)) + ", p." + esc(x.l.source_page) + " " + rbtn(["India", x.y, "landfilled", x.l.source_doc].join("|"), "page") + "</div></div>"; }).join("") + "</div>" +
+      '<p class="note">The three years come from different reports and may not be measured the same way, so do not read the change between them as a trend.</p>' +
+      '<h3>By state</h3><p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>' +
+      '<h3>What we do not have</h3><div class="card pad"><ul style="margin:0"><li><strong>Where the dumpsites are.</strong> We hold state totals, not site locations or boundaries.</li><li><strong>How much legacy waste each site holds</strong>, and how much has been cleared. Those figures are in the ministry\'s own dumpsite remediation plans, which we have not yet extracted.</li><li><strong>Anything about fires, run-off or people living nearby.</strong></li></ul><p class="note" style="margin-bottom:0">We will add a site-level view only from published government documents, with the page for each figure, as everywhere else on this site. If you hold or know of such a document, <a href="https://github.com/SriyaMeenakshi/kachra-satya/issues/new/choose" target="_blank" rel="noopener">tell us</a>.</p></div>';
     function lf() {
       var y = $("lfy").value, rows = KS.indicators.filter(function (r) { return r.year === y && r.landfill_pct != null; });
       mountTable($("lf"), [

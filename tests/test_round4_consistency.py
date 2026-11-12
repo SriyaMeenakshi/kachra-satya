@@ -109,3 +109,10 @@ def test_right_of_reply_forms_and_links():
     assert "We do not delete a published figure" in read(".github/ISSUE_TEMPLATE/right_of_reply.yml")
     about = read("web/app/about.js")
     assert "issues/new/choose" in about and 'rel="noopener"' in about and "Reply or report an error" in about
+
+
+def test_landfill_tab_is_from_our_own_data_and_says_what_is_missing():
+    app = read("web/app/app.js")
+    assert '["landfill", "Landfill"]' in app and "landfill: gLandfill" in app and "function gLandfill" in app
+    assert "What we do not have" in app and "Where the dumpsites are" in app            # no site-level claims: we hold state and national totals only
+    assert 'href="#/gaps/landfill"' in app                                              # the trucks tab points to it
