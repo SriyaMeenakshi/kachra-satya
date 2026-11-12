@@ -9,6 +9,8 @@ Status: **script only, not recorded.** Every figure below was checked against `w
 4. Have a second, narrow window ready to show a phone-width view. Do not use a real person's complaint or ward data. Everything personal on screen must be the fictional example the app provides.
 5. If you show Hindi or Telugu, say they are a first draft awaiting a native-speaker check.
 
+**One line to say in the first 10 seconds:** "Every waste promise deserves a receipt." Then walk the loop the site itself shows on its Home page and on every page: Promise, Proof, Reality, Action.
+
 ## The beats (follow the loop: Promise, Proof, Reality, Action)
 | Time | On screen | Narration |
 |---|---|---|

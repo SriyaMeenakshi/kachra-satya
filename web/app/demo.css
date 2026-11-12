@@ -9,6 +9,7 @@
 .dm-bar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--hair);background:var(--soft)}
 .dm-bar i{width:10px;height:10px;border-radius:50%;background:var(--hair);display:inline-block}
 .dm-bar span{margin-left:10px;font-size:var(--t-xs);color:var(--ink2)}
+.dm-bar .dm-stage{margin-left:auto}.dm-bar .dm-stage+.dm-rec{margin-left:12px}
 .dm-screen{padding:var(--sp-5);min-height:300px}
 .dm-h{margin:0 0 var(--sp-3);font-size:var(--t-lg);font-weight:700;letter-spacing:-.02em}
 .dm-chip{display:inline-block;margin-left:8px;padding:1px 10px;border:1px solid var(--ink2);border-radius:999px;color:var(--ink2);font-size:var(--t-xs);font-weight:600;vertical-align:2px;letter-spacing:.02em}

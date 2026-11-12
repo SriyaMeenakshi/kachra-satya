@@ -1,0 +1,32 @@
+/* The loop: Promise, Proof, Reality, Action (loop.js). Tokens from theme.css. */
+.loop-strip{margin-top:var(--sp-8)}
+.loop-steps{list-style:none;margin:var(--sp-5) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-3);position:relative}
+@media (max-width:1000px){.loop-steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.loop-steps{grid-template-columns:1fr}}
+.loop-step a{display:flex;flex-direction:column;gap:var(--sp-2);height:100%;padding:var(--sp-4);border:1.5px solid var(--hair);border-radius:var(--r-2);background:var(--card);color:var(--ink);text-decoration:none;transition:transform var(--dur-1,.15s),border-color var(--dur-1,.15s)}
+.loop-step a:hover{transform:translateY(-3px);border-color:var(--ink)}
+.loop-step:not(:last-child) a{position:relative}
+@media (min-width:1001px){.loop-step:not(:last-child) a::after{content:"\2192";position:absolute;right:-18px;top:50%;transform:translateY(-50%);font-weight:800;color:var(--ink2);background:var(--page);padding:0 2px;z-index:1}}
+.loop-n{display:inline-grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--forest-700);color:var(--ivory);font-weight:800}
+:root[data-theme="dark"] .loop-n{background:var(--lime);color:var(--forest-900)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .loop-n{background:var(--lime);color:var(--forest-900)}}
+.loop-t{display:flex;flex-direction:column;gap:2px}.loop-t b{font-size:var(--t-xl);letter-spacing:-.03em}
+.loop-q{font-weight:600}.loop-l{color:var(--ink2);font-size:var(--t-sm)}
+.loop-go{margin-top:auto;font-weight:700;color:var(--link)}
+.loop-back{margin:var(--sp-3) 0 0;color:var(--ink2);font-size:var(--t-sm)}
+
+/* the bar on each page */
+.loop-bar{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-4);margin:0 0 var(--sp-4);padding:var(--sp-2) var(--sp-3);border:1px solid var(--hair);border-radius:var(--r-2);background:var(--soft)}
+.loop-bar ol{list-style:none;display:flex;gap:6px;margin:0;padding:0}
+.loop-bar li a{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:4px 12px 4px 6px;border-radius:var(--r-pill);color:var(--ink2);text-decoration:none;font-size:var(--t-sm);font-weight:600}
+.loop-bar li a .loop-n{width:24px;height:24px;font-size:.75rem;background:var(--hair);color:var(--ink2)}
+.loop-bar li.on a{background:var(--forest-700);color:var(--ivory)}.loop-bar li.on a .loop-n{background:var(--lime);color:var(--forest-900)}
+:root[data-theme="dark"] .loop-bar li.on a{background:var(--lime);color:var(--forest-900)}:root[data-theme="dark"] .loop-bar li.on a .loop-n{background:var(--forest-900);color:var(--lime)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .loop-bar li.on a{background:var(--lime);color:var(--forest-900)}:root:where(:not([data-theme="light"])) .loop-bar li.on a .loop-n{background:var(--forest-900);color:var(--lime)}}
+.loop-here{margin:0;font-size:var(--t-sm);color:var(--ink2)}.loop-here a{font-weight:700;margin-left:6px}
+@media (max-width:640px){.loop-bar{gap:var(--sp-1) var(--sp-3)}.loop-bar li a{min-height:44px;padding:4px 10px 4px 6px}.loop-bar li:not(.on) a{font-size:0}.loop-bar li:not(.on) a .loop-n{font-size:.75rem}.loop-here{flex:1 1 100%}}
+@media print{.loop-bar{display:none!important}}
+
+/* the chip used in the demo film */
+.loop-chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:var(--t-xs);font-weight:700;letter-spacing:.03em;border:1.5px solid var(--ink2);color:var(--ink)}
+.loop-promise{border-color:var(--coral)}.loop-proof{border-color:var(--forest-500)}.loop-reality{border-color:var(--lime-soft,#BFE84F)}.loop-action{border-color:var(--ink)}

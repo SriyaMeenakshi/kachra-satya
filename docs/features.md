@@ -4,6 +4,9 @@ This page explains every feature of the Kachra Satya web app (`web/app/`) in pla
 
 Two rules hold everywhere: we never invent a figure (a blank says "not reported"), and when the sources disagree we say "the sources disagree" instead of picking one.
 
+## The loop on every page
+The central idea, *a receipt for every waste promise*, is visible: the Home headline says it, a four-step strip under the hero shows Promise, Proof, Reality, Action, and every other page carries a step bar ("Step 2 of 4, Proof") with a link to the next stop. The demo film labels each step with its stop. The page-to-stop mapping lives in `web/app/loop.js`.
+
 ## 0. Insights and About
 Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (Money and gaps; Sources and checks). Their links (`#/gaps/...`, `#/explore/...`) are unchanged. **About** (`#/about`) holds how we check, the site's numbers, what we will not do, the sources and the licence. The top bar is Home, Map, Check a claim, Insights, Get help and More (Your city, Ask, Your ward, Briefing, Schools, Nearest drop-off, About).
 

@@ -116,3 +116,31 @@ def test_landfill_tab_is_from_our_own_data_and_says_what_is_missing():
     assert '["landfill", "Landfill"]' in app and "landfill: gLandfill" in app and "function gLandfill" in app
     assert "What we do not have" in app and "Where each dumpsite is" in app            # no site-level claims: the documents name cities, not sites
     assert 'href="#/gaps/landfill"' in app                                              # the trucks tab points to it
+
+
+@pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")
+def test_every_browser_script_parses():
+    """A single unescaped apostrophe in a long string once broke the About page while every other test passed. Parse every script the browser loads."""
+    import glob
+    files = sorted(glob.glob("web/app/*.js") + glob.glob("web/trust/*.js"))
+    assert len(files) > 20
+    bad = []
+    for f in files:
+        r = subprocess.run(["node", "--check", f], capture_output=True, text=True, encoding="utf-8")
+        if r.returncode != 0:
+            bad.append((f, r.stderr.strip().splitlines()[-1][:120] if r.stderr.strip() else "syntax error"))
+    assert not bad, bad
+
+
+def test_the_loop_is_defined_once_and_used_everywhere():
+    loop = read("web/app/loop.js")
+    for stop in ("Promise", "Proof", "Reality", "Action"):
+        assert stop in loop
+    for route, stage in (("claim", "promise"), ("map", "proof"), ("gaps", "proof"), ("ward", "reality"), ("city", "reality"), ("help", "action"), ("school", "action")):
+        assert f'{route}: "{stage}"' in loop, route
+    assert "Every waste promise" in read("web/app/opening.js") and "KSLoop.strip()" in read("web/app/opening.js")
+    assert "KSLoop.bar(r.name)" in read("web/app/app.js")
+    demo = read("web/app/demo.js")
+    assert demo.count('{ stage: "') == 13 and "KSLoop.chip(s.stage)" in demo                 # every demo step names its stop on the loop
+    assert 'src="loop.js"' in read("web/app/index.html") and 'href="loop.css"' in read("web/app/index.html")
+    assert "## The idea in one loop" in read("README.md")

@@ -6,6 +6,18 @@
 
 Built for the Code for a Billion hackathon, Waste Management track (submissions close 15 Nov 2026).
 
+## The idea in one loop
+Every page is one stop on the same loop, and each page says which one:
+
+| Stop | A person asks | Pages |
+|---|---|---|
+| **1. Promise** | What did they say? | Check a claim, Ask |
+| **2. Proof** | Is it true on paper? | Map, Insights (gaps, landfill, receipts, definitions), About |
+| **3. Reality** | Is it true on my street? | Your ward, Your city |
+| **4. Action** | What can I do about it? | Get help, Briefing, Schools, Nearest drop-off |
+
+The Home page shows the loop, every other page carries a step bar with a link to the next stop, and the demo film labels each step with its stop. The definition is in `web/app/loop.js`.
+
 ## The problem in two numbers
 | | Figure | Source |
 |---|---|---|

@@ -55,6 +55,8 @@
     var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help", dropoff: "i-bin" }, hh = view.querySelector("h1, h2");
     if (hh && !view.querySelector("h1")) hh.setAttribute("aria-level", "1");
     if (hh && PG[r.name] && hh.parentNode === view && !hh.querySelector(".pg-ic")) hh.insertAdjacentHTML("afterbegin", '<svg class="pg-ic" aria-hidden="true"><use href="#' + PG[r.name] + '"/></svg>');
+    /* where this page sits in the loop (Promise, Proof, Reality, Action) and the next stop: loop.js */
+    if (window.KSLoop && r.name !== "start") { var lb = KSLoop.bar(r.name), ref = hh; if (lb) { if (ref && ref.parentNode === view) { if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("sub")) ref = ref.nextElementSibling; ref.insertAdjacentHTML("afterend", lb); } else view.insertAdjacentHTML("afterbegin", lb); } }
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   window.addEventListener("hashchange", go);

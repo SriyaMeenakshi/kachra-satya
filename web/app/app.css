@@ -143,3 +143,6 @@ h3{margin:22px 0 4px}
 .ins{display:flex;flex-direction:column;gap:2px;margin:var(--sp-3) 0 var(--sp-4)}
 .ins-l{margin:var(--sp-2) 0 2px;font-size:var(--t-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
 .ins .tabs{margin:0}
+
+/* the map has four colour layers now; on a phone the buttons wrap instead of pushing the page sideways */
+.maptools .seg{flex-wrap:wrap;max-width:100%}

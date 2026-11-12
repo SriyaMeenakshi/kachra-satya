@@ -63,7 +63,7 @@
     }
     view.innerHTML = '<div class="op">' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
-      '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'India\'s waste story <span class="mark">doesn\'t always</span> add up.') + '</h1><p class="op-lede">' + esc(T("lede", "Follow the numbers, compare official claims and uncover what India's waste data actually says.")) + '</p>' +
+      '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'Every waste promise <span class="mark">deserves a receipt.</span>') + '</h1><p class="op-lede">' + esc(T("lede", "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.")) + '</p>' +
       doors() +
       '<p class="op-what">' + esc(T("what", "Kachra Satya puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
       '<div class="op-mapwrap"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
@@ -72,6 +72,7 @@
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(nm(mp.source_doc)) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
       '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(nm(ct.source_doc)) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
 
+      (root.KSLoop ? root.KSLoop.strip() : "") +
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
       '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p>' +
       '<ul class="op-why3" aria-label="Three reasons the two numbers differ"><li><b>Different years</b><span>MoHUA 2025-26, CPCB 2023-24.</span></li><li><b>Different words</b><span>&ldquo;Processed&rdquo; and &ldquo;treated&rdquo; are not defined the same way.</span></li><li><b>Different totals</b><span>' + (mg ? n0(mg.value) : "&ndash;") + ' and ' + (cg ? n0(cg.value) : "&ndash;") + ' tonnes a day to start from.</span></li></ul>' +
