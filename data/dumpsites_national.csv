@@ -1,0 +1,21 @@
+statement_date,source_name,metric,value,unit,source_doc,source_page,retrieved_on,note
+2024-11-28,Lok Sabha,dumpsites_identified,2417,count,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,"Dumpsites with more than 1000 tonnes of waste, in major urban centres including Delhi and Mumbai"
+2024-11-28,Lok Sabha,legacy_waste_identified,24.88,crore tonnes,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,Printed as 24.88 Cr. MT
+2024-11-28,Lok Sabha,area_identified,14732.66,acres,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,"Printed as 14,732.66 Ac."
+2024-11-28,Lok Sabha,dumpsites_remediated_completely,641,count,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,
+2024-11-28,Lok Sabha,dumpsites_in_progress,1144,count,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,Printed as sites under progress
+2024-11-28,Lok Sabha,legacy_waste_remediated,12.66,crore tonnes,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,Cumulative; printed as 12.66 Cr. MT (51%)
+2024-11-28,Lok Sabha,land_reclaimed,5694.86,acres,ls_au682_2024-11-28.docx,"Reply to part (b), Word copy, no page number",2026-11-12,Printed as 5694.86 Ac. (39%)
+2025-11,MoHUA,dumpsites_identified,2476,count,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,Printed as 'out of 2476 dumpsites'; the FAQ says they were identified at the launch of SBM-U 2.0 in 2021
+2025-11,MoHUA,legacy_waste_identified,25,crore tonnes,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,Printed as 'nearly 25 Cr MT'
+2025-11,MoHUA,dumpsites_remediated_completely,1048,count,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,Printed as 'fully remediated'
+2025-11,MoHUA,legacy_waste_remediated,14.33,crore tonnes,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,Printed as processed: '14.33 crore metric tons of legacy waste have been processed'
+2025-11,MoHUA,land_reclaimed,7580,acres,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,"Printed as 'nearly 7,580 acres (50%) of land'"
+2025-11,MoHUA,dumpsites_in_progress,1428,count,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,Printed as 'sites are undergoing remediation'
+2025-11,MoHUA,priority_dumpsites,214,count,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,"Hold about 80% of the legacy waste, across 202 ULBs; the annexure on pages 6 to 9 lists them"
+2025-11,MoHUA,priority_legacy_waste,8.8,crore tonnes,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,"Printed as 'approximately 8.8 crore MT' for the priority sites; the annexure's Grand Total (page 9) is 13,02,73,139 tonnes of legacy waste, a different figure we do not reconcile"
+2025-11,MoHUA,target_date,2026-09,month,mohua_drap_concept_note_2025-11.pdf,1,2026-11-12,"Lakshya Zero Dumpsites by September 2026, as printed in the concept note"
+2025-11-08,MoHUA,dumpsites_identified,2476,count,mohua_drap_launch_faq_2025-11.pdf,1,2026-11-12,"Printed as '2,476 dumpsites containing vast quantities of legacy waste were identified across urban India'"
+2025-11-08,MoHUA,dumpsites_remediated_completely,1048,count,mohua_drap_launch_faq_2025-11.pdf,1,2026-11-12,Printed as 'fully remediated' over the past four years
+2025-11-08,MoHUA,legacy_waste_remediated,14.33,crore tonnes,mohua_drap_launch_faq_2025-11.pdf,1,2026-11-12,Printed as processed: 14.33 crore metric tonnes
+2025-11-08,MoHUA,land_reclaimed,7580,acres,mohua_drap_launch_faq_2025-11.pdf,1,2026-11-12,"Printed as 'nearly 7,580 acres of land'; the FAQ attaches '50%' to the identified sites, the concept note attaches it to the land. We keep both wordings"

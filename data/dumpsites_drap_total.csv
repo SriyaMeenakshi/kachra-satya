@@ -1,0 +1,7 @@
+metric,printed_grand_total,sum_of_printed_rows,not_itemised,source_doc,source_page,retrieved_on,note
+dumpsites,214,189.0,25.0,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,Maharashtra and Bihar are printed as Reserved with no rows; the document does not say the difference is theirs
+legacy_waste_tonnes,130273139,90037487.0,40235652.0,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,
+waste_to_remediate_tonnes,92483832,61327444.0,31156388.0,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,
+approved_legacy_waste_lmt,1221,794.86,426.14,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,
+approved_total_cost_cr,6697,4761.79,1935.21,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,
+approved_aca_cr,2716,2208.36,507.64,mohua_drap_concept_note_2025-11.pdf,9,2026-11-12,

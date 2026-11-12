@@ -114,5 +114,5 @@ def test_right_of_reply_forms_and_links():
 def test_landfill_tab_is_from_our_own_data_and_says_what_is_missing():
     app = read("web/app/app.js")
     assert '["landfill", "Landfill"]' in app and "landfill: gLandfill" in app and "function gLandfill" in app
-    assert "What we do not have" in app and "Where the dumpsites are" in app            # no site-level claims: we hold state and national totals only
+    assert "What we do not have" in app and "Where each dumpsite is" in app            # no site-level claims: the documents name cities, not sites
     assert 'href="#/gaps/landfill"' in app                                              # the trucks tab points to it

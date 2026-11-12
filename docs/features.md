@@ -39,6 +39,12 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 - **Completeness:** how much of each state's data is reported.
 - Limit: the funds table prints no unit, so only ratios are used.
 
+## 4b. Insights, the Landfill tab (`#/gaps/landfill`)
+- National landfilled tonnes and share of generated waste for three CPCB years, and a state table for two.
+- **Legacy dumpsites:** MoHUA's national statements side by side (Lok Sabha Q682, Nov 2024, and the DRAP concept note, Nov 2025), with the wording differences kept, not reconciled.
+- **The 214 priority dumpsites** from the MoHUA DRAP annexure, by state and by city, searchable and sortable. The annexure itemises 189 of the 214 (Maharashtra and Bihar are printed as Reserved), and the page says so. Blank cells stay blank.
+- It has no site coordinates: the documents name cities, not sites.
+
 ## 5. Your city (`#/city`)
 - Opens on a fictional worked example (labelled as fictional) and a table of what goes in the file, so a visitor with no data can see what they would get. Then a drop box for their own CSV.
 **For:** a municipality, journalist or student with ward-level data.

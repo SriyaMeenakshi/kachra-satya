@@ -30,6 +30,9 @@ ks = {
     "trucks": tbl("data/truck_priority.csv"),
     "segregation": tbl("data/national_segregation.csv"),
     "completeness": tbl("data/completeness.csv"),
+    "dumpsites": tbl("data/dumpsites_drap.csv"),
+    "dumpsite_total": tbl("data/dumpsites_drap_total.csv"),
+    "dumpsite_national": tbl("data/dumpsites_national.csv"),
     "receipts": json.load(open("receipts/index.json", encoding="utf-8")),
 }
 open(os.environ.get("KS_DATA_OUT", "web/trust/data.js"), "w", encoding="utf-8").write("window.KS = " + json.dumps(ks, ensure_ascii=False, separators=(",", ":")) + ";\n")

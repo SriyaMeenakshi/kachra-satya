@@ -436,7 +436,10 @@
       '<div class="kpis">' + nat.map(function (x) { return '<div class="kpi"><div class="v">' + fmt(x.l.value) + '</div><div class="l">tonnes a day landfilled, ' + esc(x.y) + " (" + (Math.round(x.l.value / x.g.value * 1000) / 10) + "% of generated)<br>" + esc(dn(x.l.source_doc)) + ", p." + esc(x.l.source_page) + " " + rbtn(["India", x.y, "landfilled", x.l.source_doc].join("|"), "page") + "</div></div>"; }).join("") + "</div>" +
       '<p class="note">The three years come from different reports and may not be measured the same way, so do not read the change between them as a trend.</p>' +
       '<h3>By state</h3><p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>' +
-      '<h3>What we do not have</h3><div class="card pad"><ul style="margin:0"><li><strong>Where the dumpsites are.</strong> We hold state totals, not site locations or boundaries.</li><li><strong>How much legacy waste each site holds</strong>, and how much has been cleared. Those figures are in the ministry\'s own dumpsite remediation plans, which we have not yet extracted.</li><li><strong>Anything about fires, run-off or people living nearby.</strong></li></ul><p class="note" style="margin-bottom:0">We will add a site-level view only from published government documents, with the page for each figure, as everywhere else on this site. If you hold or know of such a document, <a href="https://github.com/SriyaMeenakshi/kachra-satya/issues/new/choose" target="_blank" rel="noopener">tell us</a>.</p></div>';
+      '<h3>Legacy dumpsites: what MoHUA says, nationally</h3><p class="note">Two sets of national statements a year apart. They use different dates, a different count of dumpsites and different words (&ldquo;remediated&rdquo; in 2024, &ldquo;processed&rdquo; in 2025), so do not read the difference as a precise rate of progress.</p><div class="card pad" id="dsn"></div>' +
+      '<h3>The 214 priority dumpsites, by state</h3><p class="note" id="dsnote"></p><div class="card pad" id="dss"></div>' +
+      '<h3>The same list, city by city</h3><p class="note">One row per urban local body, as printed. A blank means the annexure prints nothing in that cell; we never fill it in.</p><div class="card pad" id="dsc"></div>' +
+      '<h3>What we do not have</h3><div class="card pad"><ul style="margin:0"><li><strong>Where each dumpsite is.</strong> The annexure names the city, not the site, and gives no coordinates or boundaries.</li><li><strong>The other 25 priority sites.</strong> The annexure\'s Grand Total says 214, but it itemises 189; Maharashtra and Bihar are printed as &ldquo;Reserved&rdquo; with no rows. The document does not say the gap is theirs.</li><li><strong>How much has been cleared at each site since November 2025</strong>, and anything about fires or people nearby.</li></ul><p class="note" style="margin-bottom:0">Every figure here is from a published MoHUA or Lok Sabha document, with its page. If you hold or know of a document with site-level figures, <a href="https://github.com/SriyaMeenakshi/kachra-satya/issues/new/choose" target="_blank" rel="noopener">tell us</a>.</p></div>';
     function lf() {
       var y = $("lfy").value, rows = KS.indicators.filter(function (r) { return r.year === y && r.landfill_pct != null; });
       mountTable($("lf"), [
@@ -448,6 +451,42 @@
       ], rows, { sort: "Landfill share (%)", dir: -1, ph: "Search states" });
     }
     $("lfy").onchange = lf; lf();
+    dumpsites();
+  }
+
+  function dumpsites() {
+    var N = KS.dumpsite_national || [], D = KS.dumpsites || [], T = KS.dumpsite_total || [];
+    function nv(date, metric) { return N.filter(function (r) { return r.statement_date === date && r.metric === metric; })[0]; }
+    var metrics = [["dumpsites_identified", "Dumpsites identified", ""], ["legacy_waste_identified", "Legacy waste in them", " crore tonnes"], ["dumpsites_remediated_completely", "Remediated completely", ""], ["dumpsites_in_progress", "Under remediation", ""],
+      ["legacy_waste_remediated", "Legacy waste remediated or processed", " crore tonnes"], ["land_reclaimed", "Land reclaimed", " acres"]];
+    function cell(r, unit) { return r ? '<strong>' + fmt(r.value) + esc(unit) + '</strong>' + (r.note && /\(\d+%\)|nearly|approximately/.test(r.note) ? '<br><span class="note">' + esc(r.note) + "</span>" : "") : '<span class="note">not stated</span>'; }
+    var q = "2024-11-28", c = "2025-11";
+    var dq = N.filter(function (r) { return r.statement_date === q; })[0], dc = N.filter(function (r) { return r.statement_date === c; })[0];
+    $("dsn").innerHTML = '<div class="tw"><table><thead><tr><th scope="col">Statement</th><th scope="col">Lok Sabha Q682, 28 Nov 2024<br><span class="note">' + (dq ? esc(dq.source_page) : "") + '</span></th><th scope="col">MoHUA DRAP concept note, Nov 2025<br><span class="note">page ' + (dc ? esc(dc.source_page) : "") + '</span></th></tr></thead><tbody>' +
+      metrics.map(function (m) { return "<tr><td>" + esc(m[1]) + "</td><td>" + cell(nv(q, m[0]), m[2]) + "</td><td>" + cell(nv(c, m[0]), m[2]) + "</td></tr>"; }).join("") + '</tbody></table></div>' +
+      '<p class="note" style="margin-bottom:0">Also in the concept note: 214 priority dumpsites in 202 urban local bodies hold about 80% of the legacy waste (about 8.8 crore tonnes), and the target is &ldquo;Lakshya Zero Dumpsites&rdquo; by September 2026. The launch FAQ repeats the 2025 figures and attaches &ldquo;50%&rdquo; to the identified sites where the concept note attaches it to the land; we show both wordings in the data.</p>';
+    var rows = D.filter(function (r) { return r.ulb; }), by = {};
+    rows.forEach(function (r) { var o = by[r.state] = by[r.state] || { state: r.state, ulbs: 0, sites: 0, legacy: 0, remediate: 0, cost: 0, costN: 0 }; o.ulbs++; o.sites += r.dumpsites || 0; o.legacy += r.legacy_waste_tonnes || 0; o.remediate += r.waste_to_remediate_tonnes || 0; if (r.approved_total_cost_cr != null) { o.cost += r.approved_total_cost_cr; o.costN++; } });
+    var st = Object.keys(by).map(function (k) { return by[k]; }), sum = function (f) { return st.reduce(function (a, o) { return a + o[f]; }, 0); };
+    var printed = T.filter(function (r) { return r.metric === "dumpsites"; })[0];
+    $("dsnote").innerHTML = "The annexure itemises <strong>" + fmt(sum("sites")) + " of " + (printed ? fmt(printed.printed_grand_total) : "214") + "</strong> priority dumpsites in " + fmt(sum("ulbs")) + " urban local bodies in " + st.length + " states and UTs (" + esc(dn("mohua_drap_concept_note_2025-11.pdf")) + ", pages 6 to 9). Tonnes are the legacy waste as printed, not a measure of danger or of progress.";
+    mountTable($("dss"), [
+      { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+      { label: "Cities listed", k: "ulbs", num: true },
+      { label: "Dumpsites", k: "sites", num: true },
+      { label: "Legacy waste (tonnes)", k: "legacy", num: true, html: function (r) { return fmt(r.legacy); } },
+      { label: "To remediate (tonnes)", k: "remediate", num: true, html: function (r) { return fmt(r.remediate); } },
+      { label: "Approved cost (Rs crore)", k: "cost", num: true, html: function (r) { return r.costN ? fmt(Math.round(r.cost * 100) / 100) + (r.costN < r.ulbs ? ' <span class="note">(' + r.costN + " of " + r.ulbs + " cities print it)</span>" : "") : '<span class="note">not printed</span>'; } }
+    ], st, { sort: "Legacy waste (tonnes)", dir: -1, ph: "Search states" });
+    mountTable($("dsc"), [
+      { label: "City or body", k: "ulb" },
+      { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
+      { label: "Dumpsites", k: "dumpsites", num: true },
+      { label: "Legacy waste (tonnes)", k: "legacy_waste_tonnes", num: true, html: function (r) { return fmt(r.legacy_waste_tonnes); } },
+      { label: "To remediate (tonnes)", k: "waste_to_remediate_tonnes", num: true, html: function (r) { return fmt(r.waste_to_remediate_tonnes); } },
+      { label: "Approved cost (Rs crore)", k: "approved_total_cost_cr", num: true, html: function (r) { return r.approved_total_cost_cr == null ? '<span class="note">not printed</span>' : fmt(r.approved_total_cost_cr); } },
+      { label: "Page", k: "source_page", num: true, html: function (r) { return "p." + esc(r.source_page); } }
+    ], rows, { sort: "Legacy waste (tonnes)", dir: -1, ph: "Search cities" });
   }
 
   /* Segregation gap (national only) */
