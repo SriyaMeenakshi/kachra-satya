@@ -17,3 +17,10 @@ services:
         value: gemini
       - key: MODEL_API_KEY           # secret: Render asks for it when the Blueprint is created
         sync: false
+      # Sign-in with Google and shared ward totals (agent/accounts.py). Leave GOOGLE_CLIENT_ID empty to keep them off.
+      - key: GOOGLE_CLIENT_ID        # from Google Cloud console, OAuth client of type Web, with this site's address as an authorised JavaScript origin
+        sync: false
+      - key: KS_SECRET               # signs sessions and salts the anonymous ids; Render makes one
+        generateValue: true
+      - key: DATABASE_URL            # PostgreSQL connection string; the free web service's own disk is wiped on every deploy
+        sync: false

@@ -1,0 +1,313 @@
+; Home (the parts not already covered by i18n.js and i18n_pages.js) and words shared by many pages.
+
+= English
+English
+English
+
+= State
+राज्य
+రాష్ట్రం
+
+= Page
+पृष्ठ
+పేజీ
+
+= Why
+क्यों
+ఎందుకు
+
+= India
+भारत
+భారతదేశం
+
+= Generated
+उत्पन्न
+ఉత్పత్తి
+
+= Collected
+एकत्र
+సేకరణ
+
+= Landfilled
+लैंडफ़िल
+ల్యాండ్‌ఫిల్
+
+= Reported
+दर्ज
+నివేదించినది
+
+= Computed
+गणना किया हुआ
+లెక్కించినది
+
+= # pts
+# अंक
+# పాయింట్లు
+
+= #+ pts
+#+ अंक
+#+ పాయింట్లు
+
+= Darker coral: MoHUA's figure sits further above CPCB's (different years).
+गहरा कोरल: MoHUA का आँकड़ा CPCB से ज़्यादा ऊपर है (वर्ष अलग हैं)।
+ముదురు కోరల్ రంగు: MoHUA సంఖ్య CPCB కంటే మరింత ఎక్కువ (సంవత్సరాలు వేరు).
+
+= MoHUA #-#: share of generated waste reported processed.
+MoHUA #-#: उत्पन्न कचरे का वह हिस्सा जो प्रसंस्कृत दर्ज है।
+MoHUA #-#: ఉత్పత్తి అయిన చెత్తలో ప్రాసెస్ అయినట్టు నివేదించిన వాటా.
+
+= CPCB #-#: share of generated waste reported treated.
+CPCB #-#: उत्पन्न कचरे का वह हिस्सा जो उपचारित दर्ज है।
+CPCB #-#: ఉత్పత్తి అయిన చెత్తలో శుద్ధి అయినట్టు నివేదించిన వాటా.
+
+= Different years
+अलग वर्ष
+వేర్వేరు సంవత్సరాలు
+
+= Different words
+अलग शब्द
+వేర్వేరు పదాలు
+
+= “Processed” and “treated” are not defined the same way.
+“Processed” और “treated” की परिभाषा एक जैसी नहीं है।
+“Processed”, “treated” పదాల నిర్వచనాలు ఒకటి కావు.
+
+= Different totals
+अलग कुल योग
+వేర్వేరు మొత్తాలు
+
+= # and # tonnes a day to start from.
+शुरुआत ही # और # टन प्रतिदिन से होती है।
+మొదలే రోజుకు #, # టన్నులతో.
+
+= We do not say which number is right.
+हम नहीं कहते कि कौन-सा आँकड़ा सही है।
+ఏ సంఖ్య సరైనదో మేము చెప్పం.
+
+= Check a number
+आँकड़ा जाँचें
+సంఖ్యను తనిఖీ చేయండి
+
+= See it by state
+राज्यवार देखें
+రాష్ట్రాల వారీగా చూడండి
+
+= A numerical difference between two reports: MoHUA #-# processed minus CPCB #-# treated. The years differ and the definitions may too, so
+दो रिपोर्टों के बीच संख्या का अंतर: MoHUA #-# का प्रसंस्कृत आँकड़ा घटा CPCB #-# का उपचारित आँकड़ा। वर्ष अलग हैं और परिभाषाएँ भी अलग हो सकती हैं, इसलिए
+రెండు నివేదికల మధ్య సంఖ్యా తేడా: MoHUA #-# ప్రాసెస్ సంఖ్య నుంచి CPCB #-# శుద్ధి సంఖ్యను తీసివేస్తే వచ్చేది. సంవత్సరాలు వేరు, నిర్వచనాలూ వేరై ఉండవచ్చు; కాబట్టి
+
+= this is not an amount of waste that went missing.
+यह ग़ायब हुए कचरे की मात्रा नहीं है।
+ఇది మాయమైన చెత్త పరిమాణం కాదు.
+
+= The sources disagree
+स्रोत सहमत नहीं
+మూలాలు ఏకీభవించలేదు
+
+= reports
+दर्ज करता है:
+నివేదించేది:
+
+= (column "Total Waste Processed"). The documents we hold do not define the word.
+(कॉलम "Total Waste Processed")। हमारे पास के दस्तावेज़ इस शब्द की परिभाषा नहीं देते।
+("Total Waste Processed" నిలువు వరుస). మా వద్ద ఉన్న పత్రాలు ఈ పదాన్ని నిర్వచించలేదు.
+
+= (column "Treated"). Its report defines treatment as a method that changes waste to reduce its volume and harm.
+(कॉलम "Treated")। इसकी रिपोर्ट के अनुसार उपचार वह तरीक़ा है जो कचरे को बदलकर उसकी मात्रा और नुक़सान घटाता है।
+("Treated" నిలువు వరుస). దాని నివేదిక ప్రకారం శుద్ధి అంటే చెత్తను మార్చి దాని పరిమాణాన్ని, హానిని తగ్గించే పద్ధతి.
+
+= To compare them we store MoHUA's "processed" as "treated". That is our assumption, not a stated equivalence. The years differ (#-# and #-#), and so do the totals each percentage is divided by (# and # tonnes a day), so our data holds no same-year, same-definition comparison.
+तुलना के लिए हम MoHUA के "processed" को "treated" के रूप में रखते हैं। यह हमारी धारणा है, कोई घोषित समानता नहीं। वर्ष अलग हैं (#-# और #-#), और वे कुल योग भी जिनसे हर प्रतिशत निकाला गया है (# और # टन प्रतिदिन); इसलिए हमारे डेटा में एक ही वर्ष और एक ही परिभाषा वाली कोई तुलना नहीं है।
+పోల్చడానికి MoHUA "processed"ను మేము "treated"గా నిల్వ చేస్తున్నాం. ఇది మా ఊహ; ఎవరూ ప్రకటించిన సమానత్వం కాదు. సంవత్సరాలు వేరు (#-#, #-#); ప్రతి శాతాన్ని లెక్కించిన మొత్తాలూ వేరు (రోజుకు #, # టన్నులు). కాబట్టి ఒకే సంవత్సరం, ఒకే నిర్వచనంతో పోలిక మా డేటాలో లేదు.
+
+= Read the definitions
+परिभाषाएँ पढ़ें
+నిర్వచనాలు చదవండి
+
+= Waste produced, as reported by states and cities. Nobody here weighs it.
+पैदा हुआ कचरा, जैसा राज्य और शहर दर्ज करते हैं। यहाँ कोई इसे तौलता नहीं।
+ఉత్పత్తి అయిన చెత్త, రాష్ట్రాలు, నగరాలు నివేదించినట్టుగా. ఇక్కడ దీన్ని ఎవరూ తూచరు.
+
+= Waste picked up from homes and streets.
+घरों और गलियों से उठाया गया कचरा।
+ఇళ్లు, వీధుల నుంచి తీసుకెళ్లిన చెత్త.
+
+= Treated or processed
+उपचारित या प्रसंस्कृत
+శుద్ధి లేదా ప్రాసెస్
+
+= Waste sent through a plant or method. The two bodies use different words and we cannot show they mean the same.
+किसी प्लांट या तरीक़े से गुज़ारा गया कचरा। दोनों संस्थाएँ अलग शब्द इस्तेमाल करती हैं और हम यह नहीं दिखा सकते कि दोनों का मतलब एक है।
+ప్లాంట్ లేదా ఏదైనా పద్ధతి ద్వారా పంపిన చెత్త. రెండు సంస్థలు వేర్వేరు పదాలు వాడతాయి; వాటి అర్థం ఒకటేనని మేము చూపలేం.
+
+= Waste sent to a landfill.
+लैंडफ़िल में भेजा गया कचरा।
+ల్యాండ్‌ఫిల్‌కు పంపిన చెత్త.
+
+= Reported or computed
+दर्ज या गणना किया हुआ
+నివేదించినది లేదా లెక్కించినది
+
+= is printed in a document.
+किसी दस्तावेज़ में छपा होता है।
+ఏదైనా పత్రంలో ముద్రించి ఉంటుంది.
+
+= is a share we worked out from two printed figures, and is labelled that way.
+वह हिस्सा है जो हमने दो छपे आँकड़ों से निकाला है, और उस पर यही लिखा होता है।
+రెండు ముద్రిత సంఖ్యల నుంచి మేము లెక్కించిన వాటా; దానిపై అలాగే రాసి ఉంటుంది.
+
+= of the solid-waste money set aside for states for #-# had been used by # Nov #.
+राज्यों के लिए #-# के ठोस-कचरा धन का इतना हिस्सा # नवंबर # तक खर्च हुआ था।
+#-# కోసం రాష్ట్రాలకు కేటాయించిన ఘన వ్యర్థాల నిధుల్లో # నవంబర్ # నాటికి ఖర్చయిన వాటా ఇది.
+
+= See which states →
+कौन-से राज्य, देखें →
+ఏ రాష్ట్రాలో చూడండి →
+
+= tonnes a day in #-# that CPCB found neither treated nor landfilled.
+टन प्रतिदिन कचरा, जो #-# में CPCB के अनुसार न उपचारित हुआ न लैंडफ़िल में गया।
+#-#లో రోజుకు ఇన్ని టన్నుల చెత్త శుద్ధి కాలేదు, ల్యాండ్‌ఫిల్‌కూ పోలేదని CPCB గుర్తించింది.
+
+= Where the gaps are →
+अंतर कहाँ हैं →
+తేడాలు ఎక్కడ ఉన్నాయి →
+
+= #% vs #%
+#% बनाम #%
+#% vs #%
+
+= of wards had over #% door-to-door collection, but only that many had over #% source segregation (#).
+वार्डों में #% से ज़्यादा घर-घर संग्रह था, पर #% से ज़्यादा स्रोत पर छँटाई सिर्फ़ इतने वार्डों में थी (#)।
+వార్డుల్లో #% పైగా ఇంటింటి సేకరణ ఉంది; కానీ #% పైగా మూలం వద్ద వేరు చేయడం అంత తక్కువ వార్డుల్లోనే ఉంది (#).
+
+= Which bin does it go in? →
+यह किस डिब्बे में जाएगा? →
+ఇది ఏ డబ్బాలో వేయాలి? →
+
+= See it working
+इसे काम करते देखें
+ఇది పనిచేయడం చూడండి
+
+= Watch it do the job.
+इसे काम करते हुए देखिए।
+ఇది పని ఎలా చేస్తుందో చూడండి.
+
+= A short film that plays by itself: four walk-throughs, one after another. The inputs are made up and marked
+अपने आप चलने वाली छोटी फ़िल्म: एक के बाद एक चार उदाहरण। इनपुट काल्पनिक हैं और उन पर लिखा है
+తనంతట తానే నడిచే చిన్న చిత్రం: ఒకదాని తర్వాత ఒకటిగా నాలుగు ఉదాహరణలు. ఇందులో ఇచ్చిన వివరాలు కల్పితం; వాటిపై ఇలా రాసి ఉంటుంది:
+
+= example
+उदाहरण
+ఉదాహరణ
+
+= ; the figures, verdicts and documents are the real ones. You can pause it or jump to any part.
+; आँकड़े, नतीजे और दस्तावेज़ असली हैं। आप इसे रोक सकते हैं या किसी भी हिस्से पर जा सकते हैं।
+; సంఖ్యలు, ఫలితాలు, పత్రాలు మాత్రం నిజమైనవే. మీరు దీన్ని ఆపవచ్చు లేదా ఏ భాగానికైనా వెళ్లవచ్చు.
+
+= My garbage isn't collected
+मेरा कचरा नहीं उठता
+మా చెత్త తీసుకెళ్లడం లేదు
+
+= Someone quoted a number
+किसी ने एक आँकड़ा बताया
+ఎవరో ఒక సంఖ్య చెప్పారు
+
+= I'm preparing a briefing
+मुझे ब्रीफ़िंग तैयार करनी है
+నేను ఒక నివేదిక సిద్ధం చేస్తున్నాను
+
+= Our school
+हमारा स्कूल
+మా పాఠశాల
+
+= ❚❚ paused
+❚❚ रुका हुआ
+❚❚ ఆగి ఉంది
+
+= example ward
+उदाहरण वार्ड
+ఉదాహరణ వార్డు
+
+= ✓ came
+✓ आई
+✓ వచ్చింది
+
+= ✗ missed
+✗ नहीं आई
+✗ రాలేదు
+
+= Last # days. Unverified: one resident's own taps, kept only in this browser.
+पिछले # दिन। सत्यापित नहीं: एक निवासी के अपने टैप, सिर्फ़ इसी ब्राउज़र में।
+గత # రోజులు. ధృవీకరించనిది: ఒక నివాసి సొంత ట్యాప్‌లు, ఈ బ్రౌజర్‌లోనే ఉంటాయి.
+
+= #. Tap the days the truck did not come. It stays on your device and is marked unverified.
+#. जिन दिनों गाड़ी नहीं आई, उन पर टैप करें। यह आपके डिवाइस में रहता है और असत्यापित चिह्नित होता है।
+#. బండి రాని రోజులపై ట్యాప్ చేయండి. ఇది మీ పరికరంలోనే ఉంటుంది; ధృవీకరించనిదిగా గుర్తించబడుతుంది.
+
+= ← Back
+← पीछे
+← వెనక్కి
+
+= Next →
+आगे →
+తరువాత →
+
+= Play
+चलाएँ
+ప్లే
+
+= Pause
+रोकें
+ఆపు
+
+= Open Your ward →
+"आपका वार्ड" खोलें →
+"మీ వార్డు" తెరవండి →
+
+= How we check
+हम कैसे जाँचते हैं
+మేము ఎలా తనిఖీ చేస్తాం
+
+= See the insights
+विश्लेषण देखें
+విశ్లేషణ చూడండి
+
+= Data built #-#-#. This is a demonstration; we draft complaints and letters and never send them.
+डेटा तैयार: #-#-#। यह एक प्रदर्शन है; हम शिकायतें और पत्र तैयार करते हैं, भेजते कभी नहीं।
+డేటా తయారైన తేదీ: #-#-#. ఇది ఒక నమూనా; మేము ఫిర్యాదులు, లేఖలు సిద్ధం చేస్తాం, ఎప్పుడూ పంపం.
+
+= Open the map →
+नक्शा खोलें →
+మ్యాప్ తెరవండి →
+
+= Get a briefing for an MP or councillor →
+सांसद या पार्षद के लिए ब्रीफ़िंग पाएँ →
+ఎంపీ లేదా కౌన్సిలర్ కోసం సారాంశం పొందండి →
+
+= Get my garbage collected →
+मेरा कचरा उठवाएँ →
+మా చెత్త తీసుకెళ్లేలా చేయండి →
+
+= Every row behind this
+इसके पीछे की हर पंक्ति
+దీని వెనుక ఉన్న ప్రతి వరుస
+
+= All states (#)
+सभी राज्य (#)
+అన్ని రాష్ట్రాలు (#)
+
+= Show all #
+सभी # दिखाएँ
+అన్నీ చూపు (#)
+
+= Show fewer
+कम दिखाएँ
+తక్కువ చూపు
+
+= Show
+दिखाएँ
+చూపు
+
+= Hide
+छिपाएँ
+దాచు

@@ -234,3 +234,13 @@
 @media (min-width:1700px){html .wrap{max-width:1600px}}
 /* the page container takes focus after each page change (so screen readers start at the top); it is not a control, so it needs no ring */
 #view:focus,#view:focus-visible{outline:none}
+/* the lead finding: one place, two receipts (lead.js) */
+.op-lead-g{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:var(--sp-4);align-items:stretch;margin-top:var(--sp-5)}
+@media (max-width:700px){.op-lead-g{grid-template-columns:1fr}.op-lead-vs{justify-self:center}}
+.op-lead-c{display:flex;flex-direction:column;gap:4px;padding:var(--sp-5);border:1.5px solid var(--hair);border-radius:var(--r-2);background:var(--card)}
+.op-lead-c.m{border-top:5px solid var(--forest-500)}.op-lead-c.c{border-top:5px solid var(--coral)}
+.op-lead-c .who{font-size:var(--t-sm);color:var(--ink2);font-weight:600}
+.op-lead-c .big{font-size:clamp(2.8rem,8vw,4.6rem);font-weight:800;letter-spacing:-.05em;line-height:1;font-variant-numeric:tabular-nums}
+.op-lead-c .sm{font-size:var(--t-sm);color:var(--ink2);line-height:1.5}
+.op-lead-vs{align-self:center;font-size:2rem;font-weight:800;color:var(--ink2)}
+.op-lead-note{margin:var(--sp-2) 0 0;color:var(--ink2);font-size:var(--t-sm);max-width:70ch}

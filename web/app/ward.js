@@ -1,6 +1,7 @@
 /* Your ward: garbage uptime calendar (O1), QR one-tap flow (M1) and green ward badge (M2). Route #/ward and #/ward/<ward id>.
-   Rules: never invent a tap or a report. Residents' taps are labelled UNVERIFIED and are stored only in this browser (localStorage);
-   there is no shared server, so a ward page shows the taps made on this device, never "your neighbours'". See docs/ward_reports.md.
+   Rules: never invent a tap or a report. Residents' taps are labelled UNVERIFIED and are stored in this browser (localStorage).
+   A tap leaves the device only when the person has signed in to share it (account.js): then it is added to the ward's shared total,
+   which is shown as counts of reports, never as "verified". See docs/ward_reports.md.
    The official figures are shown beside the calendar for context; they describe a state or the country, so they are not compared with one ward.
    The pure functions at the top are exported for tests (tests/test_ward.py runs them in Node). Needs window.KS and vendor/qrcode.js in the browser. */
 (function (root) {
@@ -97,7 +98,7 @@
   function download(name, text) { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: "text/csv" })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000); }
   function today() { return ymd(new Date()); }
 
-  var NOTE = '<div class="notice"><strong>Reports here are unverified.</strong> They are one resident\'s taps, kept only in this browser. We have no shared server yet, so you see the taps made on this device, not your neighbours\'. A ward total needs a shared store and a way to handle duplicate taps; <a href="https://github.com/SriyaMeenakshi/kachra-satya/blob/main/docs/ward_reports.md" target="_blank" rel="noopener">the plan is written down</a>. Nothing is sent anywhere.</div>';
+  var NOTE = '<div class="notice"><strong>Reports here are unverified.</strong> The calendar below is one resident\'s taps, kept only in this browser. A tap leaves this device only if you sign in to share it with your ward\'s total, further down; shared reports are stored without your name or email. How duplicate taps are handled: <a href="https://github.com/SriyaMeenakshi/kachra-satya/blob/main/docs/ward_reports.md" target="_blank" rel="noopener">the plan is written down</a>. Nothing is sent anywhere.</div>';
 
   function render(args) {
     load();
@@ -133,17 +134,21 @@
       '<div class="section"><h3>Did the truck come?</h3><div class="card pad"><div class="grid2" style="max-width:260px"><div><label for="wdate">Day</label><select id="wdate">' + back.map(function (d, i) { return '<option value="' + d + '">' + (i === 0 ? "Today, " : i === 1 ? "Yesterday, " : "") + nice(d) + "</option>"; }).join("") + '</select></div></div>' +
       '<p style="margin-bottom:6px"><button class="go" id="wyes" type="button">✓ The truck came</button> <button class="alt" id="wno" type="button">✗ The truck did not come</button></p><div id="wmsg" class="note" role="status" aria-live="polite"></div></div></div>' +
       '<div class="section"><h3>Last ' + WINDOW + ' days</h3><div id="wcal"></div></div>' +
+      '<div class="section"><h3>Your ward&rsquo;s shared total</h3><div id="wshare"></div></div>' +
       '<div class="section"><h3>Official figures, for context</h3>' + official + "</div>" +
       '<div class="section"><h3>Green ward badge</h3><div id="wbadge"></div></div>' +
       '<div class="section" id="qrcard"><h3>QR code for this ward</h3><div class="card pad" id="wqr"></div></div>' +
       '<p><button class="alt" id="wdl" type="button">Download these reports (CSV)</button> <button class="alt" id="wclear" type="button">Delete this ward\'s reports from this device</button></p>';
-    drawCal(s); drawBadge(s, b); drawQR(w);
+    drawCal(s); drawBadge(s, b); drawQR(w); drawShare(w);
     function tap(status) {
       var r = recordTap(mem.reports, { ward: w.id, date: $("wdate").value, status: status, today: today(), device: mem.device });
       if (r.error) { $("wmsg").textContent = r.error; return; }
       mem.reports = r.list; save();
       var s2 = summarise(mem.reports, w.id, today()); drawCal(s2); drawBadge(s2, badge(s2));
-      $("wmsg").textContent = "Saved on this device as an unverified report: " + STATUS[status].toLowerCase() + ", " + nice($("wdate").value) + "." + (r.replaced ? " It replaced your earlier report for that day." : "");
+      var day = $("wdate").value, said = "Saved on this device as an unverified report: " + STATUS[status].toLowerCase() + ", " + nice(day) + "." + (r.replaced ? " It replaced your earlier report for that day." : "");
+      $("wmsg").textContent = said;
+      var A = root.KSAccount;      /* sharing is on: the same tap also goes to the ward's total */
+      if (A && A.available() && A.signedIn()) A.report(w.id, day, status).then(function () { if ($("wmsg")) $("wmsg").textContent = said + " Added to your ward's shared total."; if (drawShare.refresh) drawShare.refresh(""); }, function (e) { if ($("wmsg")) $("wmsg").textContent = said + " It could not be shared: " + e.message; if (drawShare.refresh) drawShare.refresh(""); });
     }
     $("wyes").onclick = function () { tap("collected"); }; $("wno").onclick = function () { tap("not_collected"); };
     $("wdl").onclick = function () { download("ward_reports.csv", toCSV(mem.reports, w.id)); };
@@ -151,6 +156,62 @@
       if (!confirm("Delete all reports for this ward from this device? This cannot be undone.")) return;
       mem.reports = mem.reports.filter(function (r) { return r.ward !== w.id; }); save(); wardPage(w);
     };
+  }
+
+  /* The ward's shared total (account.js, agent/accounts.py). Off until a person turns it on: nothing is sent, and Google's script is not loaded, before that. */
+  function drawShare(w) {
+    var A = root.KSAccount, box = $("wshare"); if (!box) return;
+    if (!A || A.base() === null) { box.innerHTML = '<div class="card pad"><p class="note" style="margin:0">Shared ward totals need the site&rsquo;s server, and this copy has none. Your taps stay on this device.</p></div>'; return; }
+    box.innerHTML = '<div class="card pad"><p class="note" style="margin:0">Checking for a shared total&hellip;</p></div>';
+    A.config().then(function (c) {
+      if (!$("wshare")) return;
+      if (!c.signIn) { box.innerHTML = '<div class="card pad"><p class="note" style="margin:0">Shared ward totals are not switched on for this site yet. Your taps stay on this device.</p></div>'; return; }
+      paint();
+    });
+    function total(cb) {
+      A.summary(w.id).then(function (s) { cb(A.tally(s)); }, function () { cb(null); });
+    }
+    function paint(msg) {
+      total(function (t) {
+        if (!$("wshare")) return;
+        var head = t === null ? '<p class="note">The shared total could not be loaded just now.</p>'
+          : t.reporters === 0 ? '<p style="margin-top:0"><strong>No one has shared a report for this ward yet.</strong> Be the first.</p>'
+          : '<div class="kpis"><div class="kpi"><div class="v">' + t.reporters + '</div><div class="l">' + (t.reporters === 1 ? "person has" : "people have") + ' reported in the last 30 days</div></div><div class="kpi"><div class="v">' + t.collected + '</div><div class="l">reports that the truck came</div></div><div class="kpi"><div class="v">' + t.notCollected + '</div><div class="l">reports that it did not come</div></div></div>' +
+            (t.contested ? '<p class="note">On ' + t.contested + (t.contested === 1 ? " day" : " days") + ' people disagreed. We show both counts and do not pick one.</p>' : "") +
+            '<p class="note">Unverified: one report per signed-in person per day. These are counts of reports, not a measurement of the service.</p>';
+        var body;
+        if (A.signedIn()) {
+          body = '<p><strong>Sharing is on' + (A.name() ? " for " + esc(A.name()) : "") + '.</strong> Your taps for this ward are added to the total above.</p>' +
+            '<p><button class="alt" id="wsync" type="button">Share my earlier taps for this ward</button> <button class="alt" id="wout" type="button">Sign out</button> <button class="alt" id="wdelme" type="button">Delete everything I shared</button></p>';
+        } else {
+          body = '<p style="margin-bottom:6px"><strong>Add your taps to your ward&rsquo;s total.</strong> Sign in with Google so each person counts once.</p>' +
+            '<details class="more" id="wwhat"><summary>What is stored if I sign in</summary><div><ul><li><strong>Stored:</strong> an anonymous code made from your Google account, this ward, the day, and whether the truck came.</li><li><strong>Not stored:</strong> your name, your email address, your picture or your location.</li><li>You can delete everything you shared at any time.</li><li>Google&rsquo;s sign-in script is loaded only after you press the button below.</li></ul></div></details>' +
+            '<p><button class="go" id="wshareon" type="button">Turn on sharing</button></p><div id="wgbtn"></div>';
+        }
+        box.innerHTML = '<div class="card pad">' + head + body + '<p class="note" id="wsmsg" role="status" aria-live="polite" style="margin-bottom:0">' + esc(msg || "") + "</p></div>";
+        var say = function (m) { if ($("wsmsg")) $("wsmsg").textContent = m; };
+        if ($("wshareon")) $("wshareon").onclick = function () {
+          this.disabled = true; say("Loading Google sign-in…");
+          A.button($("wgbtn"), function (err) { if (err) say(err.message); else sync("You are signed in. "); }).then(function () { say("Press the Google button to sign in."); }, function (e) { say(e.message); if ($("wshareon")) $("wshareon").disabled = false; });
+        };
+        if ($("wout")) $("wout").onclick = function () { A.signOut(); paint("Signed out. Your taps stay on this device."); };
+        if ($("wsync")) $("wsync").onclick = function () { sync(""); };
+        if ($("wdelme")) $("wdelme").onclick = function () {
+          if (!confirm("Delete every report you have shared, for all wards? This cannot be undone. Your taps on this device are kept.")) return;
+          A.deleteMine().then(function (j) { paint("Deleted " + j.deleted + (j.deleted === 1 ? " shared report." : " shared reports.")); }, function (e) { paint(e.message); });
+        };
+      });
+    }
+    /* send this device's taps for this ward (the last 60 days) one by one; the server keeps one per person per day */
+    function sync(prefix) {
+      var mine = mem.reports.filter(function (r) { return r.ward === w.id && r.date >= addDays(today(), -MAX_BACK); }), ok = 0, i = 0;
+      if (!mine.length) { paint(prefix + "You have no taps for this ward on this device yet."); return; }
+      (function next() {
+        if (i >= mine.length) { paint(prefix + "Shared " + ok + " of " + mine.length + (mine.length === 1 ? " tap." : " taps.")); return; }
+        var r = mine[i++]; A.report(r.ward, r.date, r.status).then(function () { ok++; next(); }, function (e) { paint(prefix + "Shared " + ok + " of " + mine.length + ". " + e.message); });
+      })();
+    }
+    drawShare.refresh = function (m) { paint(m); };
   }
 
   function drawCal(s) {
@@ -174,10 +235,10 @@
   }
 
   function drawQR(w) {
-    var host = location.hostname, local = !host || /^(localhost|127\.|\[::1\])/.test(host) || location.protocol === "file:";
-    $("wqr").innerHTML = '<p style="margin-top:0">Print this and put it on a bin or a truck. A neighbour who scans it lands on this ward page and can tap whether the truck came. <strong>Each scan is a separate device, and in this version their taps stay on their own phone.</strong></p>' +
-      '<label for="wbase">Public address of the site</label><input id="wbase" value="' + esc(location.href.split("#")[0]) + '">' +
-      (local ? '<p class="err">This address only works on this computer. Replace it with the public address of the deployed site before printing.</p>' : "") +
+    var host = location.hostname, local = !host || /^(localhost|127\.|\[::1\])/.test(host) || location.protocol === "file:", pub = (root.KS_CONFIG && root.KS_CONFIG.publicBase) || "";
+    $("wqr").innerHTML = '<p style="margin-top:0">Print this and put it on a bin or a truck. A neighbour who scans it lands on this ward page and can tap whether the truck came. <strong>Each scan is a separate device. Their taps stay on their own phone unless they sign in to share them with the ward&rsquo;s total.</strong></p>' +
+      '<label for="wbase">Public address of the site</label><input id="wbase" value="' + esc(local && pub ? pub : location.href.split("#")[0]) + '">' +
+      (local ? (pub ? '<p class="note">You are on a test copy of the site, so the QR code points to the live site instead of this computer.</p>' : '<p class="err">This address only works on this computer. Replace it with the public address of the deployed site before printing.</p>') : "") +
       '<div id="wsvg" class="qrbox"></div><p class="note" id="wlink"></p><p><button class="alt" id="wprint" type="button">Print this QR code</button></p>';
     function draw() {
       var url = $("wbase").value.trim().split("#")[0] + "#/ward/" + encodeURIComponent(w.id);

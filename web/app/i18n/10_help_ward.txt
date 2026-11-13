@@ -1,0 +1,357 @@
+; Shared chrome, Get help (all tabs) and Your ward. Three lines per entry: = English, Hindi, Telugu.
+
+= Skip to content
+मुख्य सामग्री पर जाएँ
+ప్రధాన విషయానికి వెళ్లండి
+
+= Close
+बंद करें
+మూసివేయండి
+
+= Check
+जाँचें
+తనిఖీ చేయండి
+
+= Find
+खोजें
+వెతకండి
+
+= What next?
+आगे क्या?
+తరువాత ఏమిటి?
+
+= Check a number someone quoted →
+किसी का बताया आँकड़ा जाँचें →
+ఎవరో చెప్పిన సంఖ్యను తనిఖీ చేయండి →
+
+= Report on your own ward →
+अपने वार्ड की रिपोर्ट दर्ज करें →
+మీ వార్డు గురించి నమోదు చేయండి →
+
+= Nearest drop-off for special waste →
+विशेष कचरे के लिए नज़दीकी संग्रह केंद्र →
+ప్రత్యేక చెత్త కోసం దగ్గరి సేకరణ కేంద్రం →
+
+= Write a complaint →
+शिकायत लिखें →
+ఫిర్యాదు రాయండి →
+
+= Audit your city's data →
+अपने शहर के आँकड़े जाँचें →
+మీ నగర డేటాను పరిశీలించండి →
+
+= Back to the start →
+शुरुआत पर वापस →
+మొదటికి తిరిగి వెళ్లండి →
+
+= All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged from the cited document, with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built
+सभी आँकड़े राज्यों, शहरों और बोर्डों ने ख़ुद दर्ज किए हैं और प्रकाशित सरकारी दस्तावेज़ों से लिए गए हैं; यह साइट आँकड़ों का आपसी मेल जाँचती है, सच्चाई नहीं। पृष्ठों की छवियाँ उद्धृत दस्तावेज़ से बिना बदलाव के ली गई हैं और स्रोत का नाम दिया गया है; अधिकार प्रकाशक के पास हैं। हमारा लोकसभा या राज्यसभा सचिवालय, CPCB या MoHUA से कोई संबंध नहीं है और न ही उनका समर्थन प्राप्त है। डेटा तैयार:
+అన్ని సంఖ్యలూ రాష్ట్రాలు, నగరాలు, బోర్డులు స్వయంగా నివేదించినవే; ప్రచురిత ప్రభుత్వ పత్రాల నుంచి తీసుకున్నవి. ఈ సైట్ సంఖ్యలు ఒకదానితో ఒకటి సరిపోతున్నాయో లేదో చూస్తుంది, నిజమో కాదో కాదు. పేజీ చిత్రాలను ఉదహరించిన పత్రం నుంచి మార్పు లేకుండా తీసుకున్నాం, మూలం పేరు ఇచ్చాం; హక్కులు ప్రచురణకర్తవే. లోక్‌సభ లేదా రాజ్యసభ సచివాలయం, CPCB, MoHUAలతో మాకు సంబంధం లేదు, వాటి ఆమోదం కూడా లేదు. డేటా తయారైన తేదీ:
+
+= Write a complaint
+शिकायत लिखें
+ఫిర్యాదు రాయండి
+
+= My log
+मेरा रिकॉर्ड
+నా రికార్డు
+
+= Escalation letter
+आगे बढ़ाने का पत्र
+పై అధికారికి లేఖ
+
+= Which bin
+कौन-सा डिब्बा
+ఏ డబ్బా
+
+= Bulk generator?
+थोक कचरा उत्पादक?
+భారీగా చెత్త ఉత్పత్తి చేస్తున్నారా?
+
+= City or town
+शहर या कस्बा
+నగరం లేదా పట్టణం
+
+= Area, street or landmark
+इलाक़ा, गली या पहचान की जगह
+ప్రాంతం, వీధి లేదా గుర్తు
+
+= What is the problem
+समस्या क्या है
+సమస్య ఏమిటి
+
+= Since when (date)
+कब से (तारीख़)
+ఎప్పటి నుంచి (తేదీ)
+
+= Anything else (optional)
+और कुछ (ज़रूरी नहीं)
+ఇంకేమైనా (ఐచ్ఛికం)
+
+= Write my complaint
+मेरी शिकायत लिखें
+నా ఫిర్యాదు రాయండి
+
+= Where to file it
+इसे कहाँ दर्ज करें
+దీన్ని ఎక్కడ నమోదు చేయాలి
+
+= The official citizen complaint channel is the
+नागरिकों की शिकायत का आधिकारिक माध्यम है
+పౌరుల ఫిర్యాదులకు అధికారిక మార్గం
+
+= Swachhata-MoHUA app
+स्वच्छता-MoHUA ऐप
+స్వచ్ఛత-MoHUA యాప్
+
+= . Public descriptions say you post a photo and location, the complaint goes to the local civic body, the official uploads a photo as proof when it is resolved, and you can reopen it if you are not satisfied.
+। सार्वजनिक विवरण के अनुसार आप फ़ोटो और जगह डालते हैं, शिकायत स्थानीय निकाय को जाती है, हल होने पर अधिकारी सबूत के तौर पर फ़ोटो डालता है, और संतुष्ट न हों तो आप उसे दोबारा खोल सकते हैं।
+. బహిరంగ వివరాల ప్రకారం మీరు ఫోటో, స్థలం పెడతారు; ఫిర్యాదు స్థానిక పురపాలక సంస్థకు వెళ్తుంది; పరిష్కారమైనప్పుడు అధికారి రుజువుగా ఫోటో పెడతారు; మీకు తృప్తి లేకపోతే మళ్లీ తెరవవచ్చు.
+
+= Open the app and choose the garbage-related category that fits.
+ऐप खोलें और कचरे से जुड़ी सही श्रेणी चुनें।
+యాప్ తెరిచి, చెత్తకు సంబంధించిన సరైన విభాగాన్ని ఎంచుకోండి.
+
+= Take a photo of the problem in the app and add the landmark.
+ऐप में समस्या की फ़ोटो लें और पहचान की जगह जोड़ें।
+యాప్‌లో సమస్య ఫోటో తీసి, గుర్తు చేర్చండి.
+
+= Paste the text we wrote into the description.
+हमारा लिखा पाठ विवरण में चिपकाएँ।
+మేము రాసిన పాఠాన్ని వివరణలో పేస్ట్ చేయండి.
+
+= Note the complaint number, then save it in
+शिकायत संख्या नोट करें, फिर उसे यहाँ सहेजें:
+ఫిర్యాదు సంఖ్యను రాసుకుని, దీనిలో భద్రపరచండి:
+
+= your log
+आपका रिकॉर्ड
+మీ రికార్డు
+
+= Check the app for its exact category names and how long it says resolution takes; we have not verified those. The ministry's resolution figures count tickets closed by the civic body, not residents satisfied.
+श्रेणियों के सही नाम और समाधान में लगने वाला समय ऐप में देखें; हमने इनकी पुष्टि नहीं की है। मंत्रालय के समाधान के आँकड़े निकाय द्वारा बंद किए गए टिकट गिनते हैं, संतुष्ट निवासियों को नहीं।
+విభాగాల ఖచ్చితమైన పేర్లు, పరిష్కారానికి పట్టే సమయం యాప్‌లో చూడండి; వాటిని మేము ధృవీకరించలేదు. మంత్రిత్వ శాఖ పరిష్కార గణాంకాలు పురపాలక సంస్థ మూసివేసిన టికెట్లను లెక్కిస్తాయి, తృప్తి చెందిన నివాసులను కాదు.
+
+= More tools
+और साधन
+మరిన్ని సాధనాలు
+
+= State card
+राज्य कार्ड
+రాష్ట్ర కార్డు
+
+= The two official numbers for a state in plain words, to share
+किसी राज्य के दो सरकारी आँकड़े सरल शब्दों में, साझा करने के लिए
+ఒక రాష్ట్రానికి చెందిన రెండు అధికారిక సంఖ్యలు సులభమైన మాటల్లో, పంచుకోవడానికి
+
+= Briefing for an MP, MLA or councillor
+सांसद, विधायक या पार्षद के लिए ब्रीफ़िंग
+ఎంపీ, ఎమ్మెల్యే లేదా కౌన్సిలర్ కోసం సారాంశం
+
+= One page with sourced questions to put
+पूछने लायक़, स्रोत सहित सवालों का एक पन्ना
+అడగాల్సిన ప్రశ్నలు, వాటి మూలాలతో ఒక పేజీ
+
+= School waste challenge
+स्कूल कचरा चुनौती
+పాఠశాల చెత్త సవాలు
+
+= Weigh a week of waste and get a report card
+हफ़्ते भर का कचरा तौलें और रिपोर्ट कार्ड पाएँ
+వారం చెత్త తూచి రిపోర్ట్ కార్డు పొందండి
+
+= Stays in this browser only; we do not upload it. Download it to keep a copy or share it.
+यह सिर्फ़ इसी ब्राउज़र में रहता है; हम इसे अपलोड नहीं करते। प्रति रखने या साझा करने के लिए डाउनलोड करें।
+ఇది ఈ బ్రౌజర్‌లోనే ఉంటుంది; మేము అప్‌లోడ్ చేయం. కాపీ ఉంచుకోవడానికి లేదా పంచుకోవడానికి డౌన్‌లోడ్ చేయండి.
+
+= Nothing here yet.
+अभी यहाँ कुछ नहीं है।
+ఇక్కడ ఇంకా ఏమీ లేదు.
+
+= and save it, and it will appear here.
+और उसे सहेजें, तो वह यहाँ दिखेगा।
+దాన్ని భద్రపరిస్తే ఇక్కడ కనిపిస్తుంది.
+
+= For a complaint that stays unresolved. This is a draft for you to review and send yourself, by post, email or the municipal office. It is not legal advice.
+ऐसी शिकायत के लिए जो हल नहीं हुई। यह एक मसौदा है जिसे आप ख़ुद जाँचकर डाक, ईमेल या नगरपालिका कार्यालय से भेजें। यह क़ानूनी सलाह नहीं है।
+పరిష్కారం కాని ఫిర్యాదు కోసం. ఇది ముసాయిదా; మీరే చూసుకుని పోస్టు, ఈమెయిల్ లేదా మున్సిపల్ కార్యాలయం ద్వారా పంపాలి. ఇది న్యాయ సలహా కాదు.
+
+= Use an entry from your log
+अपने रिकॉर्ड की कोई प्रविष्टि इस्तेमाल करें
+మీ రికార్డులోని ఒక నమోదును వాడండి
+
+= Area or landmark
+इलाक़ा या पहचान की जगह
+ప్రాంతం లేదా గుర్తు
+
+= Problem
+समस्या
+సమస్య
+
+= Date you filed
+शिकायत की तारीख़
+ఫిర్యాదు చేసిన తేదీ
+
+= Problem since (optional)
+समस्या कब से (ज़रूरी नहीं)
+సమస్య ఎప్పటి నుంచి (ఐచ్ఛికం)
+
+= Complaint number
+शिकायत संख्या
+ఫిర్యాదు సంఖ్య
+
+= Ask for action within (days)
+कितने दिनों में कार्रवाई माँगें
+ఎన్ని రోజుల్లో చర్య కోరాలి
+
+= State (to cite the official figures)
+राज्य (सरकारी आँकड़े उद्धृत करने के लिए)
+రాష్ట్రం (అధికారిక సంఖ్యలను ఉదహరించడానికి)
+
+= Add my truck tally from Your ward
+"आपका वार्ड" से मेरी कचरा-गाड़ी की गिनती जोड़ें
+"మీ వార్డు" నుంచి నా చెత్త బండి లెక్కను చేర్చండి
+
+= Your name
+आपका नाम
+మీ పేరు
+
+= Write the letter
+पत्र लिखें
+లేఖ రాయండి
+
+= Since # April #, waste must be separated at source into four streams (SWM Rules, #). Source:
+# अप्रैल # से कचरे को स्रोत पर ही चार हिस्सों में अलग करना ज़रूरी है (ठोस कचरा प्रबंधन नियम, #)। स्रोत:
+# ఏప్రిల్ # నుంచి చెత్తను మూలం వద్దే నాలుగు రకాలుగా వేరు చేయాలి (ఘన వ్యర్థాల నిర్వహణ నియమాలు, #). మూలం:
+
+= Press Information Bureau, # January #
+पत्र सूचना कार्यालय (PIB), # जनवरी #
+ప్రెస్ ఇన్ఫర్మేషన్ బ్యూరో (PIB), # జనవరి #
+
+= PIB, # January #
+PIB, # जनवरी #
+PIB, # జనవరి #
+
+= Wet waste
+गीला कचरा
+తడి చెత్త
+
+= Examples:
+उदाहरण:
+ఉదాహరణలు:
+
+= kitchen waste, vegetables, fruit peels, meat, flowers.
+रसोई का कचरा, सब्ज़ियाँ, फलों के छिलके, मांस, फूल।
+వంటింటి చెత్త, కూరగాయలు, పండ్ల తొక్కలు, మాంసం, పూలు.
+
+= Composted or processed through bio-methanation at the nearest facility.
+नज़दीकी केंद्र में खाद बनाई जाती है या बायो-मीथेनेशन से प्रोसेस किया जाता है।
+దగ్గరి కేంద్రంలో కంపోస్ట్ చేస్తారు లేదా బయో-మీథనేషన్ ద్వారా ప్రాసెస్ చేస్తారు.
+
+= Dry waste
+सूखा कचरा
+పొడి చెత్త
+
+= plastic, paper, metal, glass, wood, rubber.
+प्लास्टिक, काग़ज़, धातु, काँच, लकड़ी, रबर।
+ప్లాస్టిక్, కాగితం, లోహం, గాజు, కలప, రబ్బరు.
+
+= Taken to a Material Recovery Facility (MRF) for sorting and recycling.
+छँटाई और रीसाइक्लिंग के लिए मटीरियल रिकवरी फ़ैसिलिटी (MRF) ले जाया जाता है।
+వేరు చేయడం, రీసైక్లింగ్ కోసం మెటీరియల్ రికవరీ ఫెసిలిటీకి (MRF) తీసుకెళ్తారు.
+
+= Sanitary waste
+सैनिटरी कचरा
+శానిటరీ చెత్త
+
+= used diapers, sanitary towels, tampons, condoms.
+इस्तेमाल किए डायपर, सैनिटरी पैड, टैम्पोन, कंडोम।
+వాడిన డైపర్లు, శానిటరీ ప్యాడ్లు, టాంపాన్లు, కండోమ్‌లు.
+
+= Securely wrapped and stored separately.
+अच्छी तरह लपेटकर अलग रखा जाता है।
+బాగా చుట్టి వేరుగా ఉంచాలి.
+
+= Special care waste
+विशेष देखभाल वाला कचरा
+ప్రత్యేక జాగ్రత్త అవసరమైన చెత్త
+
+= paint cans, bulbs, mercury thermometers, medicines.
+पेंट के डिब्बे, बल्ब, पारे वाले थर्मामीटर, दवाइयाँ।
+పెయింట్ డబ్బాలు, బల్బులు, పాదరసం థర్మామీటర్లు, మందులు.
+
+= Collected by authorised agencies or deposited at designated collection centres.
+अधिकृत एजेंसियाँ ले जाती हैं या तय संग्रह केंद्रों पर जमा किया जाता है।
+అధీకృత సంస్థలు సేకరిస్తాయి లేదా నిర్దేశిత సేకరణ కేంద్రాల్లో ఇవ్వాలి.
+
+= Hindi, Tamil and Telugu names are provisional and need checking by a native speaker before wide use.
+हिन्दी, तमिल और तेलुगु नाम अस्थायी हैं; व्यापक इस्तेमाल से पहले किसी मातृभाषी से जँचवाना ज़रूरी है।
+హిందీ, తమిళం, తెలుగు పేర్లు తాత్కాలికం; విస్తృతంగా వాడే ముందు మాతృభాష వ్యక్తితో సరిచూడాలి.
+
+= Which bin does this go in?
+यह किस डिब्बे में जाएगा?
+ఇది ఏ డబ్బాలో వేయాలి?
+
+= Under the SWM Rules, #, a bulk waste generator has extra duties. Check the definition for your building, institution or business. Source:
+ठोस कचरा प्रबंधन नियम, # के तहत थोक कचरा उत्पादक की अतिरिक्त ज़िम्मेदारियाँ हैं। अपनी इमारत, संस्था या कारोबार के लिए परिभाषा जाँचें। स्रोत:
+ఘన వ్యర్థాల నిర్వహణ నియమాలు, # ప్రకారం భారీ చెత్త ఉత్పత్తిదారులకు అదనపు బాధ్యతలు ఉంటాయి. మీ భవనం, సంస్థ లేదా వ్యాపారానికి నిర్వచనం వర్తిస్తుందో చూడండి. మూలం:
+
+= Floor area (square metres)
+फ़र्श का क्षेत्रफल (वर्ग मीटर)
+నేల విస్తీర్ణం (చదరపు మీటర్లు)
+
+= Water use (litres per day)
+पानी की खपत (लीटर प्रतिदिन)
+నీటి వినియోగం (రోజుకు లీటర్లు)
+
+= Solid waste (kg per day)
+ठोस कचरा (किलो प्रतिदिन)
+ఘన వ్యర్థాలు (రోజుకు కిలోలు)
+
+= Leave a box empty if you do not know it. We do not estimate it for you.
+जो न पता हो, वह ख़ाना खाली छोड़ दें। हम आपके लिए अंदाज़ा नहीं लगाते।
+తెలియని గడిని ఖాళీగా వదిలేయండి. మీ తరఫున మేము అంచనా వేయం.
+
+= Reports here are unverified.
+यहाँ की रिपोर्टें सत्यापित नहीं हैं।
+ఇక్కడి నివేదికలు ధృవీకరించనివి.
+
+= They are one resident's taps, kept only in this browser. We have no shared server yet, so you see the taps made on this device, not your neighbours'. A ward total needs a shared store and a way to handle duplicate taps;
+ये एक निवासी के टैप हैं, जो सिर्फ़ इसी ब्राउज़र में रखे हैं। अभी हमारा कोई साझा सर्वर नहीं है, इसलिए आपको इसी डिवाइस के टैप दिखते हैं, पड़ोसियों के नहीं। वार्ड के कुल आँकड़े के लिए साझा भंडार और दोहरे टैप सँभालने का तरीक़ा चाहिए;
+ఇవి ఒక నివాసి చేసిన ట్యాప్‌లు; ఈ బ్రౌజర్‌లోనే ఉంటాయి. మాకు ఇంకా ఉమ్మడి సర్వర్ లేదు; అందుకే మీకు ఈ పరికరంలో చేసిన ట్యాప్‌లే కనిపిస్తాయి, పొరుగువారివి కాదు. వార్డు మొత్తం లెక్కకు ఉమ్మడి నిల్వ, పునరావృత ట్యాప్‌లను సరిచేసే విధానం కావాలి;
+
+= the plan is written down
+इसकी योजना लिखी हुई है
+దాని ప్రణాళిక రాసి ఉంది
+
+= . Nothing is sent anywhere.
+। कुछ भी कहीं नहीं भेजा जाता।
+. ఏదీ ఎక్కడికీ పంపబడదు.
+
+= Open or create a ward page
+वार्ड का पन्ना खोलें या बनाएँ
+వార్డు పేజీ తెరవండి లేదా సృష్టించండి
+
+= State or UT
+राज्य या केंद्रशासित प्रदेश
+రాష్ట్రం లేదా కేంద్రపాలిత ప్రాంతం
+
+= Ward name or number
+वार्ड का नाम या संख्या
+వార్డు పేరు లేదా సంఖ్య
+
+= Open ward page
+वार्ड का पन्ना खोलें
+వార్డు పేజీ తెరవండి
+
+= Wards with reports on this device
+इस डिवाइस पर रिपोर्ट वाले वार्ड
+ఈ పరికరంలో నివేదికలున్న వార్డులు
+
+= # reported day
+# दिन दर्ज
+# రోజు నమోదైంది
+
+= # reported days
+# दिन दर्ज
+# రోజులు నమోదయ్యాయి

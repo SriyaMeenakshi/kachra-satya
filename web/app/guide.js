@@ -21,7 +21,7 @@
     official: { title: "Prepare a briefing", goal: "I'm preparing a briefing", sub: "State card, one-page briefing, the gaps, and your city's data.", steps: [
       { route: "#/brief/card", title: "Pick a state, read its card", why: "The two official numbers for a state in plain words, with source pages." },
       { route: "#/brief/briefing", title: "Get the briefing", why: "A one-page text with questions that could be put, generated only from what the data shows. Check your House's rules on form and timing." },
-      { route: "#/gaps", title: "See where money and tonnes go missing", why: "Phantom tonnes, unused funds and collection gaps, state by state, each with its source." },
+      { route: "#/gaps", title: "See where money and tonnes go missing", why: "Figures that cannot all be true, unused funds and collection gaps, state by state, each with its source." },
       { route: "#/city", title: "Check your city's own data", why: "Upload ward figures and see which cannot all be true. The file is read in your browser only." } ] },
     school: { title: "Run a school waste challenge", goal: "Our school", sub: "Learn the bins, weigh a week of waste, get a report card.", steps: [
       { route: "#/help/bins", title: "Learn the four streams", why: "Wet, dry, sanitary and special care. Students should know them before weighing." },
@@ -96,10 +96,11 @@
     } finally { busy = false; if (obs && $("view")) obs.observe($("view"), { childList: true }); }
   }
 
+  function T(k, fb, v) { if (window.KSi18n) return window.KSi18n.t(k, fb, v); var s = fb; if (v) Object.keys(v).forEach(function (x) { s = s.split("{" + x + "}").join(v[x]); }); return s; }
   function chooser() {
     return '<div class="gd-goals" role="list">' + ORDER.map(function (id) { var P = PATHS[id];
-      return '<button type="button" class="gd-goal" role="listitem" data-path="' + id + '"><b>' + esc(P.goal) + '</b><span>' + esc(P.sub) + '</span><i aria-hidden="true">' + P.steps.length + " steps &rarr;</i></button>"; }).join("") +
-      '</div><p class="gd-look-link"><a href="#/map">Or just look around the map &rarr;</a></p>';
+      return '<button type="button" class="gd-goal" role="listitem" data-path="' + id + '"><b>' + esc(T("door_" + id, P.goal)) + '</b><span>' + esc(T("door_" + id + "_s", P.sub)) + '</span><i aria-hidden="true">' + esc(T("door_steps", "{n} steps", { n: P.steps.length })) + " &rarr;</i></button>"; }).join("") +
+      '</div><p class="gd-look-link"><a href="#/map">' + esc(T("door_look", "Or just look around the map")) + ' &rarr;</a></p>';
   }
   function wireGoals(scope) { [].slice.call((scope || document).querySelectorAll("[data-path]")).forEach(function (b) { b.onclick = function () { start(b.dataset.path); }; }); }
 

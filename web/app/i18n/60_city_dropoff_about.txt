@@ -1,0 +1,493 @@
+; Your city, Nearest drop-off and About. Place names, shop names and file column names are left as they are.
+
+= What goes in the file
+फ़ाइल में क्या होना चाहिए
+ఫైల్‌లో ఏం ఉండాలి
+
+= One row per ward per month, in tonnes per day. Leave a cell blank if it was not reported: blanks are never filled in. Ask your municipal office for these figures, or start with the empty template.
+हर वार्ड के हर महीने की एक पंक्ति, टन प्रतिदिन में। जो दर्ज नहीं हुआ, वह ख़ाना खाली छोड़ें: खाली ख़ाने कभी नहीं भरे जाते। ये आँकड़े अपने नगरपालिका कार्यालय से माँगें, या खाली टेम्पलेट से शुरू करें।
+ప్రతి వార్డుకు ప్రతి నెలకు ఒక వరుస, రోజుకు టన్నుల్లో. నివేదించని గడిని ఖాళీగా వదిలేయండి: ఖాళీలను ఎప్పుడూ నింపం. ఈ సంఖ్యలను మీ మున్సిపల్ కార్యాలయాన్ని అడగండి, లేదా ఖాళీ టెంప్లేట్‌తో మొదలుపెట్టండి.
+
+= Column
+कॉलम
+నిలువు వరుస
+
+= Meaning
+मतलब
+అర్థం
+
+= Example
+उदाहरण
+ఉదాహరణ
+
+= City or town, and the ward
+शहर या कस्बा, और वार्ड
+నగరం లేదా పట్టణం, వార్డు
+
+= Year and month
+वर्ष और महीना
+సంవత్సరం, నెల
+
+= Waste produced
+पैदा हुआ कचरा
+ఉత్పత్తి అయిన చెత్త
+
+= Waste picked up
+उठाया गया कचरा
+తీసుకెళ్లిన చెత్త
+
+= Waste separated at source
+स्रोत पर अलग किया गया कचरा
+మూలం వద్ద వేరు చేసిన చెత్త
+
+= Waste treated, waste landfilled
+उपचारित कचरा, लैंडफ़िल में गया कचरा
+శుద్ధి అయిన చెత్త, ల్యాండ్‌ఫిల్‌కు చేరిన చెత్త
+
+= Get the empty template
+खाली टेम्पलेट लें
+ఖాళీ టెంప్లేట్ తీసుకోండి
+
+= Show the fictional example again
+काल्पनिक उदाहरण फिर दिखाएँ
+కల్పిత ఉదాహరణను మళ్లీ చూపు
+
+= Your file is read in this browser. Nothing is uploaded or stored.
+आपकी फ़ाइल इसी ब्राउज़र में पढ़ी जाती है। कुछ भी अपलोड या संग्रहीत नहीं होता।
+మీ ఫైల్ ఈ బ్రౌజర్‌లోనే చదవబడుతుంది. ఏదీ అప్‌లోడ్ కాదు, నిల్వ కాదు.
+
+= You are looking at a fictional example
+आप एक काल्पनिक उदाहरण देख रहे हैं
+మీరు చూస్తున్నది కల్పిత ఉదాహరణ
+
+= , not real data. It shows the kind of result you get.
+, असली डेटा नहीं। यह दिखाता है कि आपको कैसा नतीजा मिलेगा।
+, నిజమైన డేటా కాదు. మీకు ఎలాంటి ఫలితం వస్తుందో ఇది చూపుతుంది.
+
+= Fictional example (not real data)
+काल्पनिक उदाहरण (असली डेटा नहीं)
+కల్పిత ఉదాహరణ (నిజమైన డేటా కాదు)
+
+= flags
+फ़्लैग
+ఫ్లాగ్‌లు
+
+= wards ranked
+वार्ड क्रम में
+క్రమంలో ఉన్న వార్డులు
+
+= Flags
+फ़्लैग
+ఫ్లాగ్‌లు
+
+= Figures that cannot all be true as reported. They do not say which figure is wrong.
+वे आँकड़े जो जैसे दर्ज हैं, सब एक साथ सही नहीं हो सकते। ये नहीं बताते कि कौन-सा आँकड़ा ग़लत है।
+నివేదించినట్టుగా అన్నీ ఒకేసారి నిజం కాలేని సంఖ్యలు. ఏ సంఖ్య తప్పో ఇవి చెప్పవు.
+
+= All
+सभी
+అన్నీ
+
+= Collected > generated (#)
+एकत्र > उत्पन्न (#)
+సేకరణ > ఉత్పత్తి (#)
+
+= Segregated > collected (#)
+अलग किया गया > एकत्र (#)
+వేరు చేసినది > సేకరణ (#)
+
+= Treated > collected (#)
+उपचारित > एकत्र (#)
+శుద్ధి > సేకరణ (#)
+
+= Treated + landfilled > generated (#)
+उपचारित + लैंडफ़िल > उत्पन्न (#)
+శుద్ధి + ల్యాండ్‌ఫిల్ > ఉత్పత్తి (#)
+
+= Not reported (#)
+रिपोर्ट नहीं (#)
+నివేదించలేదు (#)
+
+= Collected > generated
+एकत्र > उत्पन्न
+సేకరణ > ఉత్పత్తి
+
+= Segregated > collected
+अलग किया गया > एकत्र
+వేరు చేసినది > సేకరణ
+
+= Treated > collected
+उपचारित > एकत्र
+శుద్ధి > సేకరణ
+
+= Treated + landfilled > generated
+उपचारित + लैंडफ़िल > उत्पन्न
+శుద్ధి + ల్యాండ్‌ఫిల్ > ఉత్పత్తి
+
+= Ward
+वार्ड
+వార్డు
+
+= Period
+अवधि
+కాలం
+
+= Values
+मान
+విలువలు
+
+= Uncollected waste, ranked
+एकत्र न हुआ कचरा, क्रम में
+సేకరించని చెత్త, క్రమంలో
+
+= Where uncollected waste is largest in the data you supplied. This is prioritisation, not route optimisation.
+आपके दिए डेटा में एकत्र न हुआ कचरा सबसे ज़्यादा कहाँ है। यह प्राथमिकता तय करना है, रूट की योजना नहीं।
+మీరు ఇచ్చిన డేటాలో సేకరించని చెత్త ఎక్కడ ఎక్కువగా ఉందో. ఇది ప్రాధాన్యతల క్రమం, రూట్ ప్రణాళిక కాదు.
+
+= Uncollected (avg tpd)
+एकत्र नहीं (औसत टन प्रतिदिन)
+సేకరించనిది (సగటున రోజుకు టన్నులు)
+
+= Worst period
+सबसे ख़राब अवधि
+అతి చెడ్డ కాలం
+
+= Download flags (CSV)
+फ़्लैग डाउनलोड करें (CSV)
+ఫ్లాగ్‌లను డౌన్‌లోడ్ చేయండి (CSV)
+
+= Download ranking (CSV)
+क्रम डाउनलोड करें (CSV)
+క్రమాన్ని డౌన్‌లోడ్ చేయండి (CSV)
+
+= Now try your own file
+अब अपनी फ़ाइल आज़माएँ
+ఇప్పుడు మీ సొంత ఫైల్‌తో ప్రయత్నించండి
+
+= Drop a CSV here
+CSV यहाँ छोड़ें
+CSV ఫైల్‌ను ఇక్కడ వదలండి
+
+= or click to choose
+या चुनने के लिए क्लिक करें
+లేదా ఎంచుకోవడానికి క్లిక్ చేయండి
+
+= Up to # MB. Blank cells mean "not reported".
+# MB तक। खाली ख़ानों का मतलब है "रिपोर्ट नहीं"।
+# MB వరకు. ఖాళీ గడులు అంటే "నివేదించలేదు".
+
+= Treat this as a starting point, not a directory.
+इसे शुरुआत समझें, पूरी सूची नहीं।
+దీన్ని ప్రారంభ సూచనగా తీసుకోండి, పూర్తి జాబితాగా కాదు.
+
+= OpenStreetMap is edited by volunteers. A place missing here may exist, and a place listed here may have closed or changed. We have not visited or checked any of them. Check before you travel, and add or fix places on OpenStreetMap so the next person finds them.
+OpenStreetMap को स्वयंसेवक संपादित करते हैं। जो जगह यहाँ नहीं है, वह मौजूद हो सकती है, और जो यहाँ है, वह बंद या बदल चुकी हो सकती है। हमने इनमें से किसी को जाकर नहीं देखा या जाँचा। जाने से पहले पुष्टि करें, और OpenStreetMap पर जगहें जोड़ें या ठीक करें ताकि अगले व्यक्ति को मिलें।
+OpenStreetMapను స్వచ్ఛంద సేవకులు సవరిస్తారు. ఇక్కడ లేని చోటు నిజంగా ఉండవచ్చు; ఇక్కడ ఉన్న చోటు మూతపడి లేదా మారి ఉండవచ్చు. వీటిలో దేన్నీ మేము వెళ్లి చూడలేదు, తనిఖీ చేయలేదు. బయలుదేరే ముందు నిర్ధారించుకోండి; తర్వాతి వారికి దొరికేలా OpenStreetMapలో చోట్లను చేర్చండి లేదా సరిచేయండి.
+
+= How complete is it? Same rectangle around each city centre
+यह कितनी पूरी है? हर शहर के केंद्र के चारों ओर एक जैसा आयत
+ఇది ఎంత సంపూర్ణం? ప్రతి నగర కేంద్రం చుట్టూ ఒకే పరిమాణ దీర్ఘచతురస్రం
+
+= Recycling points listed on OpenStreetMap, by city
+OpenStreetMap पर दर्ज रीसाइक्लिंग केंद्र, शहरवार
+OpenStreetMapలో ఉన్న రీసైక్లింగ్ కేంద్రాలు, నగరాల వారీగా
+
+= City
+शहर
+నగరం
+
+= Points
+केंद्र
+కేంద్రాలు
+
+= With a name
+नाम सहित
+పేరు ఉన్నవి
+
+= Say what they take
+बताते हैं कि क्या लेते हैं
+ఏం తీసుకుంటాయో చెప్పేవి
+
+= Take batteries or electronics
+बैटरी या इलेक्ट्रॉनिक्स लेते हैं
+బ్యాటరీలు లేదా ఎలక్ట్రానిక్స్ తీసుకునేవి
+
+= List opening hours
+खुलने का समय बताते हैं
+తెరిచే వేళలు ఉన్నవి
+
+= Counted from OpenStreetMap on #-#-#. A very low count for a big city means OpenStreetMap is sparse there, not that the city has few drop-off points.
+OpenStreetMap से #-#-# को गिना गया। बड़े शहर की बहुत कम गिनती का मतलब है कि वहाँ OpenStreetMap में कम जानकारी है, यह नहीं कि शहर में केंद्र कम हैं।
+OpenStreetMap నుంచి #-#-#న లెక్కించాం. పెద్ద నగరానికి చాలా తక్కువ సంఖ్య ఉంటే అక్కడ OpenStreetMap సమాచారం తక్కువ అని అర్థం; నగరంలో కేంద్రాలు తక్కువ అని కాదు.
+
+= Look in one city
+एक शहर में देखें
+ఒక నగరంలో చూడండి
+
+= Search name, operator or material
+नाम, संचालक या सामग्री खोजें
+పేరు, నిర్వాహకుడు లేదా పదార్థం వెతకండి
+
+= All (#)
+सभी (#)
+అన్నీ (#)
+
+= Batteries and electronics (#)
+बैटरी और इलेक्ट्रॉनिक्स (#)
+బ్యాటరీలు, ఎలక్ట్రానిక్స్ (#)
+
+= Paper (#)
+काग़ज़ (#)
+కాగితం (#)
+
+= Scrap metal (#)
+कबाड़ धातु (#)
+పాత ఇనుము (#)
+
+= Cans (#)
+डिब्बे (#)
+డబ్బాలు (#)
+
+= Plastic (#)
+प्लास्टिक (#)
+ప్లాస్టిక్ (#)
+
+= Plastic bottles (#)
+प्लास्टिक की बोतलें (#)
+ప్లాస్టిక్ సీసాలు (#)
+
+= Glass bottles (#)
+काँच की बोतलें (#)
+గాజు సీసాలు (#)
+
+= Small appliances (#)
+छोटे उपकरण (#)
+చిన్న ఉపకరణాలు (#)
+
+= # points do not say what they take.
+# केंद्र नहीं बताते कि वे क्या लेते हैं।
+# కేంద్రాలు ఏం తీసుకుంటాయో చెప్పలేదు.
+
+= Sort by distance from me
+मुझसे दूरी के अनुसार क्रम
+నా నుంచి దూరం ప్రకారం క్రమం
+
+= Your position is used only in this page to sort the list. It is not sent or stored anywhere.
+आपकी जगह सिर्फ़ इसी पन्ने में सूची को क्रम देने के लिए इस्तेमाल होती है। यह कहीं भेजी या संग्रहीत नहीं होती।
+మీ స్థానాన్ని ఈ పేజీలో జాబితాను క్రమపరచడానికి మాత్రమే వాడతాం. అది ఎక్కడికీ పంపబడదు, నిల్వ కాదు.
+
+= # of # points.
+#2 में से #1 केंद्र।
+#2లో #1 కేంద్రాలు.
+
+= materials not listed
+सामग्री दर्ज नहीं
+పదార్థాలు పేర్కొనలేదు
+
+= Opening hours not listed.
+खुलने का समय दर्ज नहीं।
+తెరిచే వేళలు పేర్కొనలేదు.
+
+= On OpenStreetMap
+OpenStreetMap पर
+OpenStreetMapలో
+
+= Garbage not collected? →
+कचरा नहीं उठा? →
+చెత్త తీసుకెళ్లలేదా? →
+
+= The idea: a receipt for every waste promise
+विचार: कचरे के हर वादे की एक रसीद
+ఆలోచన: చెత్తపై ప్రతి హామీకి ఒక రసీదు
+
+= Every number about India’s waste is a promise. Each page on this site is one stop on a loop.
+भारत के कचरे का हर आँकड़ा एक वादा है। इस साइट का हर पन्ना एक चक्र का एक पड़ाव है।
+భారత చెత్తపై ప్రతి సంఖ్యా ఒక హామీనే. ఈ సైట్‌లోని ప్రతి పేజీ ఒక వలయంలో ఒక మజిలీ.
+
+= Promise
+वादा
+హామీ
+
+= : what was said.
+: क्या कहा गया।
+: ఏం చెప్పారు.
+
+= Check a claim, Ask.
+दावा जाँचें, पूछें।
+సంఖ్య తనిఖీ, అడగండి.
+
+= Proof
+सबूत
+ఆధారం
+
+= : the source page and whether the sources agree.
+: स्रोत पृष्ठ, और स्रोत सहमत हैं या नहीं।
+: మూల పేజీ, మూలాలు ఏకీభవిస్తున్నాయా లేదా.
+
+= Map, Insights, About.
+नक्शा, विश्लेषण, हमारे बारे में।
+మ్యాప్, విశ్లేషణ, మా గురించి.
+
+= Reality
+हक़ीक़त
+వాస్తవం
+
+= : is it true on my street.
+: क्या यह मेरी गली में सही है।
+: మా వీధిలో ఇది నిజమేనా.
+
+= Your ward, Your city.
+आपका वार्ड, आपका शहर।
+మీ వార్డు, మీ నగరం.
+
+= Action
+कार्रवाई
+చర్య
+
+= : what I can do.
+: मैं क्या कर सकता हूँ।
+: నేను ఏం చేయగలను.
+
+= Get help, Briefing, Schools, Nearest drop-off.
+मदद, ब्रीफ़िंग, स्कूल, नज़दीकी संग्रह केंद्र।
+సహాయం, సారాంశ పత్రం, పాఠశాలలు, దగ్గరి సేకరణ కేంద్రం.
+
+= Every figure is copied from a published document
+हर आँकड़ा किसी प्रकाशित दस्तावेज़ से लिया गया है
+ప్రతి సంఖ్యా ప్రచురిత పత్రం నుంచి తీసుకున్నదే
+
+= and opens on the page it came from, with its number boxed where we could place it.
+और उसी पृष्ठ पर खुलता है जहाँ से वह आया, और जहाँ हम ढूँढ पाए, वहाँ संख्या बॉक्स में दिखती है।
+అది వచ్చిన పేజీలోనే తెరుచుకుంటుంది; మేము గుర్తించగలిగిన చోట సంఖ్య పెట్టెలో కనిపిస్తుంది.
+
+= Where sources disagree, we say so.
+जहाँ स्रोत सहमत नहीं, हम वही कहते हैं।
+మూలాలు ఏకీభవించని చోట అదే చెబుతాం.
+
+= We compare, we do not pick a winner, and we never accuse a source.
+हम तुलना करते हैं, किसी को सही नहीं ठहराते, और किसी स्रोत पर कभी आरोप नहीं लगाते।
+మేము పోలుస్తాం; ఏది సరైనదో తేల్చం; ఏ మూలాన్నీ నిందించం.
+
+= Blank means “not reported”.
+खाली का मतलब है “रिपोर्ट नहीं”।
+ఖాళీ అంటే “నివేదించలేదు”.
+
+= We never fill gaps in or estimate a missing figure.
+हम कभी खाली जगह नहीं भरते और ग़ायब आँकड़े का अंदाज़ा नहीं लगाते।
+మేము ఖాళీలను ఎప్పుడూ నింపం; లేని సంఖ్యను అంచనా వేయం.
+
+= Reported and computed are kept apart.
+दर्ज और गणना किए गए आँकड़े अलग रखे जाते हैं।
+నివేదించినవి, లెక్కించినవి వేరుగా ఉంచుతాం.
+
+= A computed share is one we worked out from two printed figures, and it is labelled.
+गणना किया हुआ हिस्सा वह है जो हमने दो छपे आँकड़ों से निकाला, और उस पर यह लिखा होता है।
+లెక్కించిన వాటా అంటే రెండు ముద్రిత సంఖ్యల నుంచి మేము లెక్కించినది; దానిపై అలాగే రాసి ఉంటుంది.
+
+= All figures are self-reported
+सभी आँकड़े ख़ुद दर्ज किए गए हैं
+అన్ని సంఖ్యలూ స్వయంగా నివేదించినవే
+
+= by states, cities and boards. We check consistency, not what is on your street.
+राज्यों, शहरों और बोर्डों द्वारा। हम आँकड़ों का आपसी मेल जाँचते हैं, यह नहीं कि आपकी गली में क्या है।
+రాష్ట్రాలు, నగరాలు, బోర్డులు ఇచ్చినవి. సంఖ్యలు ఒకదానితో ఒకటి సరిపోతున్నాయో చూస్తాం; మీ వీధిలో ఏముందో కాదు.
+
+= By the numbers
+संख्याओं में
+సంఖ్యల్లో
+
+= states and UTs
+राज्य और केंद्रशासित प्रदेश
+రాష్ట్రాలు, కేంద్రపాలిత ప్రాంతాలు
+
+= reported figures
+दर्ज आँकड़े
+నివేదించిన సంఖ్యలు
+
+= open on a source page
+स्रोत पृष्ठ पर खुलते हैं
+మూల పేజీలో తెరుచుకుంటాయి
+
+= with the number boxed
+संख्या बॉक्स में दिखती है
+సంఖ్య పెట్టెలో కనిపించేవి
+
+= flags: figures that cannot all be true
+फ़्लैग: जो आँकड़े सब सही नहीं हो सकते
+ఫ్లాగ్‌లు: ఒకేసారి నిజం కాలేని సంఖ్యలు
+
+= Data built #-#-#. A flag means two reported figures cannot both be true; it does not say which to trust.
+डेटा तैयार: #-#-#। फ़्लैग का मतलब है कि दो दर्ज आँकड़े दोनों सही नहीं हो सकते; यह नहीं बताता कि किस पर भरोसा करें।
+డేటా తయారైన తేదీ: #-#-#. ఫ్లాగ్ అంటే నివేదించిన రెండు సంఖ్యలూ ఒకేసారి నిజం కాలేవు; దేన్ని నమ్మాలో అది చెప్పదు.
+
+= What we won’t do
+जो हम नहीं करेंगे
+మేము చేయనివి
+
+= We draft complaints and letters. We never send them.
+हम शिकायतें और पत्र तैयार करते हैं। हम उन्हें कभी नहीं भेजते।
+మేము ఫిర్యాదులు, లేఖలు సిద్ధం చేస్తాం. వాటిని ఎప్పుడూ పంపం.
+
+= Reports from your own street (Your ward) stay in your browser and are unverified; the site has no shared server.
+आपकी अपनी गली की रिपोर्टें ("आपका वार्ड") आपके ब्राउज़र में रहती हैं और सत्यापित नहीं हैं; साइट का कोई साझा सर्वर नहीं है।
+మీ వీధి నివేదికలు ("మీ వార్డు") మీ బ్రౌజర్‌లోనే ఉంటాయి, అవి ధృవీకరించనివి; సైట్‌కు ఉమ్మడి సర్వర్ లేదు.
+
+= We do not say which official figure is right, and the difference between two reports is not an amount of missing waste.
+हम नहीं कहते कि कौन-सा सरकारी आँकड़ा सही है, और दो रिपोर्टों का अंतर ग़ायब कचरे की मात्रा नहीं है।
+ఏ అధికారిక సంఖ్య సరైనదో మేము చెప్పం; రెండు నివేదికల మధ్య తేడా మాయమైన చెత్త పరిమాణం కాదు.
+
+= We do not cover route optimisation, recycling prices or plastic tracking.
+हम रूट की योजना, रीसाइक्लिंग के दाम या प्लास्टिक की निगरानी शामिल नहीं करते।
+రూట్ ప్రణాళిక, రీసైక్లింగ్ ధరలు, ప్లాస్టిక్ ట్రాకింగ్ మా పరిధిలో లేవు.
+
+= Where the numbers come from
+आँकड़े कहाँ से आते हैं
+సంఖ్యలు ఎక్కడి నుంచి వచ్చాయి
+
+= Lok Sabha and Rajya Sabha answers, CPCB annual reports, MoHUA documents and the Swachh Bharat Mission dashboard. Each row of the data names its document, page and the date we retrieved it. The list is in
+लोकसभा और राज्यसभा के उत्तर, CPCB की वार्षिक रिपोर्टें, MoHUA के दस्तावेज़ और स्वच्छ भारत मिशन का डैशबोर्ड। डेटा की हर पंक्ति में उसका दस्तावेज़, पृष्ठ और लेने की तारीख़ लिखी है। सूची यहाँ है:
+లోక్‌సభ, రాజ్యసభ సమాధానాలు, CPCB వార్షిక నివేదికలు, MoHUA పత్రాలు, స్వచ్ఛ భారత్ మిషన్ డ్యాష్‌బోర్డ్. డేటాలోని ప్రతి వరుసలో దాని పత్రం, పేజీ, తీసుకున్న తేదీ ఉంటాయి. జాబితా ఇక్కడ ఉంది:
+
+= , and the words each source uses are on the
+, और हर स्रोत के शब्द यहाँ हैं:
+; ప్రతి మూలం వాడే పదాలు ఇక్కడ ఉన్నాయి:
+
+= tab.
+टैब।
+ట్యాబ్.
+
+= The source documents are public government records, reproduced unchanged with the source named. Rights stay with each publisher, and we will remove any document on its publisher’s request. We are not affiliated with or endorsed by any ministry, board or secretariat.
+स्रोत दस्तावेज़ सार्वजनिक सरकारी रिकॉर्ड हैं, जिन्हें बिना बदलाव के, स्रोत के नाम के साथ दिखाया गया है। अधिकार हर प्रकाशक के पास हैं, और प्रकाशक के कहने पर हम कोई भी दस्तावेज़ हटा देंगे। हमारा किसी मंत्रालय, बोर्ड या सचिवालय से कोई संबंध नहीं है और न ही उनका समर्थन प्राप्त है।
+మూల పత్రాలు బహిరంగ ప్రభుత్వ రికార్డులు; మార్పు లేకుండా, మూలం పేరుతో చూపించాం. హక్కులు ఆయా ప్రచురణకర్తలవే; ప్రచురణకర్త కోరితే ఏ పత్రాన్నైనా తొలగిస్తాం. ఏ మంత్రిత్వ శాఖ, బోర్డు, సచివాలయంతోనూ మాకు సంబంధం లేదు; వాటి ఆమోదం కూడా లేదు.
+
+= Reply or report an error
+जवाब दें या ग़लती बताएँ
+స్పందించండి లేదా తప్పును తెలియజేయండి
+
+= If you speak for a state, city or department, you can reply to a figure and we will show your reply beside it. Anyone can report a number that does not match its source page. We never delete a published figure; we fix our own mistakes and say so.
+अगर आप किसी राज्य, शहर या विभाग की ओर से बोलते हैं, तो आप किसी आँकड़े पर जवाब दे सकते हैं और हम आपका जवाब उसके साथ दिखाएँगे। कोई भी ऐसी संख्या बता सकता है जो अपने स्रोत पृष्ठ से मेल नहीं खाती। हम प्रकाशित आँकड़ा कभी नहीं हटाते; अपनी ग़लतियाँ सुधारते हैं और बताते हैं।
+మీరు ఒక రాష్ట్రం, నగరం లేదా శాఖ తరఫున మాట్లాడేవారైతే, ఏ సంఖ్యపైనైనా స్పందించవచ్చు; మీ స్పందనను దాని పక్కనే చూపిస్తాం. మూల పేజీతో సరిపోని సంఖ్యను ఎవరైనా తెలియజేయవచ్చు. ప్రచురిత సంఖ్యను మేము ఎప్పుడూ తొలగించం; మా తప్పులను సరిచేసి, ఆ విషయం చెబుతాం.
+
+= Licence and code
+लाइसेंस और कोड
+లైసెన్స్, కోడ్
+
+= Our code and our compiled data are released under the MIT licence. The full method, the checks and the tests are open:
+हमारा कोड और संकलित डेटा MIT लाइसेंस के तहत जारी है। पूरा तरीक़ा, जाँचें और परीक्षण खुले हैं:
+మా కోడ్, మేము సంకలనం చేసిన డేటా MIT లైసెన్స్ కింద విడుదలయ్యాయి. పూర్తి పద్ధతి, తనిఖీలు, పరీక్షలు బహిరంగం:
+
+= , with the method in
+, और तरीक़ा यहाँ है:
+; పద్ధతి ఇక్కడ ఉంది:
+
+= Who built it
+इसे किसने बनाया
+దీన్ని ఎవరు రూపొందించారు
+
+= Yasaswini, Sriya Meenakshi Chalamalasetty and Likhitha, for the Code for a Billion hackathon, Waste Management track.
+यशस्विनी, श्रिया मीनाक्षी चलमलसेट्टी और लिखिता, Code for a Billion हैकाथॉन के वेस्ट मैनेजमेंट ट्रैक के लिए।
+యశస్విని, శ్రియ మీనాక్షి చలమలశెట్టి, లిఖిత; Code for a Billion హ్యాకథాన్, వేస్ట్ మేనేజ్‌మెంట్ ట్రాక్ కోసం.
+
+= Back to the start
+शुरुआत पर वापस
+మొదటికి తిరిగి వెళ్లండి

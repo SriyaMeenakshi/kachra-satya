@@ -42,11 +42,13 @@ def test_brand_palette_is_the_approved_one():
 def test_theme_is_safe():
     assert "prefers-reduced-motion" in CSS and "@media print" in CSS
     assert "@keyframes" not in CSS and "100vw" not in CSS and "50vw" not in CSS
-    assert 'font-display:swap' in CSS and "fonts/outfit-latin-wght-normal.woff2" in CSS
+    assert 'font-display:swap' in CSS and "fonts/anek-latin-wght-normal.woff2" in CSS and "fonts/anek-telugu-wght-normal.woff2" in CSS and "fonts/anek-devanagari-wght-normal.woff2" in CSS
 
 
 def test_font_is_self_hosted_with_its_licence():
-    f = open("web/app/fonts/outfit-latin-wght-normal.woff2", "rb").read()
+    f = open("web/app/fonts/anek-latin-wght-normal.woff2", "rb").read()
+    for name in ("anek-devanagari", "anek-telugu", "teko-latin", "martian-mono-latin"):      # every face the CSS names is in the repo
+        assert open("web/app/fonts/%s-wght-normal.woff2" % name, "rb").read()[:4] == b"wOF2", name
     assert f[:4] == b"wOF2" and 10_000 < len(f) < 120_000
     assert "SIL Open Font License" in open("web/app/fonts/OFL.txt", encoding="utf-8").read()
     assert "fonts.googleapis" not in CSS and "fonts.gstatic" not in CSS     # no third-party font requests

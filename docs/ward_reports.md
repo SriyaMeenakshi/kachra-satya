@@ -13,6 +13,9 @@ Covers items O1 (garbage uptime page), M1 (QR one-tap flow) and M2 (green ward b
   - **QR code:** an SVG QR code for the ward page, with a caption and a print button. The address defaults to the current page; it warns if that is a local address, because a printed code pointing at localhost works only on this computer.
   - **Download** the reports as CSV, or **delete** them from this device.
 
+## Shared total (new)
+A resident can now sign in with Google and add their taps to a total for the ward that everyone sees. It is off until the server is given a Google client ID and a database, it stores no name or email, and it is described in docs/sign_in.md. The sections below describe the device-only behaviour, which is still what happens for anyone who does not sign in.
+
 ## What is real and what is not
 - Reports live in this browser (localStorage). **There is no shared server**, so a ward page shows only the taps made on this device. A neighbour who scans the QR code sees their own calendar, not yours. We say this on every ward page.
 - No tap is ever created by the code. The tests check that an empty ward shows zero reports and "not enough reports", never a failure.

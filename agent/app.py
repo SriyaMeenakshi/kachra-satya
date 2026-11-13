@@ -693,6 +693,10 @@ def health():
     }), 200
 
 
+# ---- Sign-in with Google and the shared ward store (off unless GOOGLE_CLIENT_ID and KS_SECRET are set): accounts.py ----
+import accounts
+app.register_blueprint(accounts.bp)
+
 # ---- Optional: serve the built website from this same server (one-service hosting, e.g. on Render) ----
 # Build the site first with `python scripts/build_site.py`; it writes dist/ (web/ and receipts/ only: no source documents, no CSVs).
 # If dist/ exists, this server also serves it, and the Ask page talks to /ask on the same address, so no CORS setting is needed.

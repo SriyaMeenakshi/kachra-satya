@@ -18,6 +18,12 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 
 - **See it working:** a short film of four demo screens, one per door, that plays by itself when it scrolls into view: about 5 seconds a step, a timeline bar and a "playing" light, one part after another, then it loops. Pause, Play, Back, Next and the numbered tabs are always there, and people who prefer reduced motion get still screens with the same buttons. The inputs are made up and marked "example"; the figures, verdicts, document names and letter sentences are the real ones from the data and the real functions. They cover: a resident (ward taps, complaint, log, letter with the tally), a quoted number (typed sentence, verdict, evidence), a briefing (pick any state, its card and questions), and a school (bins, weighing grid, report card with made-up numbers).
 
+**The lead case.** Under the hero, Home shows one place with two receipts: the state where the newest MoHUA "processed" share and the newest CPCB "treated" share are furthest apart (today Chandigarh: 100% and 22.5%). It is picked by that rule in `web/app/lead.js`, not by hand, and a test works the rule out again from the CSV. Both figures open on their source page. The text says the documents do not explain the difference, and does not say which is right.
+
+**The hero.** The top of Home is the headline and the four doors beside a map of India coloured by the gap between the two official figures, with the two national numbers on cards next to it. Tapping a state opens it.
+
+**Fonts.** Anek for text in Latin, Devanagari and Telugu (one family, so the three languages match), Teko for big figures, Martian Mono for small data labels. All are self-hosted under the SIL Open Font License (`web/app/fonts/`).
+
 ## 2. Map (`#/map`)
 **For:** seeing where the two official sources differ.
 - A geographic map of 36 states and UTs coloured by the MoHUA figure, the CPCB figure, or the gap between them. A Tiles switch gives an equal-size tile map.
@@ -29,17 +35,20 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 - Type a sentence such as "81% of India's urban waste is processed".
 - The checker compares it with every source we hold and shows who agrees and who does not. The verdict can be "the sources disagree".
 - The browser checker gives the same verdicts as the Python one (a test enforces it).
+- **Take the receipt with you.** Every result has Share, Copy as text, Copy link and WhatsApp. The link carries only the sentence (`#/claim/<sentence>`); the page checks it again when opened, so a link cannot carry a made-up verdict. The text names each document and page. Nothing is sent until the person chooses to share (`web/app/receipt.js`).
 - If no source gives your figure but the sources themselves disagree (for example 70% when the sources range from 47% to 81%), it says the sources disagree instead of calling you wrong. Outside every figure we hold, it says nothing supports it.
 - It refuses what it cannot check and says why: a place we hold no figures for, or a collection or segregation percentage (we hold no such percentage in that form).
 - It does not say which source is correct.
 
-## 4. Insights, the Gaps half (`#/gaps`)
+## 4. Insights, six questions (`#/gaps`)
 **For:** where the money and the tonnes go missing.
-- **Phantom tonnes:** waste reported generated but not accounted as treated or landfilled.
-- **Money vs mess:** share of solid-waste funds used against percent treated, per state.
-- **Collection and trucks:** the collection gap and a truck priority list with landfill share.
-- **Segregation gap:** door-to-door collection against source segregation.
-- **Completeness:** how much of each state's data is reported.
+
+`#/gaps` opens on an overview for a first-time reader: six plain questions, each with one number and one sentence, then four ways to check the sources. Every tab is named as its question and has the same order: the short answer, one simple chart, then every row and source page folded closed under "Every row behind this". The numbers and charts are worked out from the data in `web/app/insights.js`; nothing is typed in, and a test checks them against the CSVs. The charts are plain HTML and carry their figures as text.
+- **Do the numbers agree?** (`#/gaps/phantom`): two dots per state, CPCB treated and MoHUA processed, for the 12 widest differences. The counters of figures that cannot all be true are below it.
+- **Is the money used?** (`#/gaps/money`): the share of solid-waste funds used, and the states that have used the smallest share. The scatter of spending against percent treated is folded below.
+- **What goes uncollected?** (`#/gaps/trucks`): generated minus collected, and where the most is left.
+- **Is waste kept separate?** (`#/gaps/segregation`): door-to-door collection against source segregation.
+- **What goes unreported?** (`#/gaps/complete`): one square per core figure for the states with a blank.
 - Limit: the funds table prints no unit, so only ratios are used.
 
 ## 4b. Insights, the Landfill tab (`#/gaps/landfill`)
@@ -63,9 +72,9 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 
 ## 7. Insights, the Explore half (`#/explore`)
 **For:** checking our work and finding what to audit.
-- **Audit first:** a transparent ranking of states where an audit would learn most.
+- **Where to look first** (was Audit first)**:** a transparent ranking of states where an audit would learn most.
 - **Receipts:** open the source page for a figure with the number boxed. 605 of 706 figures are located; the rest show the page or say there is no page image.
-- **Swings:** how much a state's own reported figure changes between reports (Nagaland: 664 tpd in one CPCB report, 29 tpd in a MoHUA answer).
+- **Figures that jump** (was Swings)**:** how much a state's own reported figure changes between reports (Nagaland: 664 tpd in one CPCB report, 29 tpd in a MoHUA answer).
 - **Definitions:** "processed" and "treated" may not mean the same thing; the crosswalk shows why we do not say who is right.
 
 ## 8. Get help (`#/help`)
@@ -107,3 +116,16 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 - **Design:** the "Eco-Intelligence Observatory" system, light and dark ([ui_theme.md](ui_theme.md)).
 - **Privacy:** logs, ward reports and uploads stay in your browser.
 - **Honesty:** every figure keeps its source document and page; see [methodology.md](methodology.md) and [track_coverage.md](track_coverage.md) for limits.
+
+## Languages (English, Hindi, Telugu)
+The language switch in the header changes the whole site. Two layers do it:
+- **Named strings** (`web/app/i18n.js`, `web/app/i18n_pages.js`): the menu, Home, the loop, the four doors, the Insights overview and each page's heading.
+- **Whole-page layer** (`web/app/i18n_dom.js`): after every render it swaps the English text on the page for its Hindi or Telugu, looked up by the English wording with the numbers taken out and put back. The translations are plain text files in `web/app/i18n/*.txt` (three lines per entry: English, Hindi, Telugu); `python scripts/build_i18n.py` builds `web/app/i18n_dict.js`, and a test fails if that file is stale.
+
+Never translated: figures, state names, document names, anything a person types, and the text of a drafted complaint or letter. Text that comes straight from the data files (flag explanations, the definitions crosswalk) and sentences with a state's name inside them stay in English. Anything without a translation shows in English, so a page is never blank. Measured in the browser, pages are 71% to 100% translated. The translations are a first draft and need a native speaker's review.
+
+## Menu order
+The menu follows the loop: Home, Check a claim (Promise), Map and Insights (Proof), Your ward (Reality), Get help (Action). Ask, Your city, Briefing, Schools, Nearest drop-off and About are under More. On a phone the bottom bar keeps five items and Insights and Your ward move into More.
+
+## Sign-in and the shared ward total
+On a ward page a resident can sign in with Google and add their truck taps to a total for the ward: how many people reported in the last 30 days, and how many reports said the truck came or did not. One report per person per day; a day people disagree on shows both counts. The server stores an anonymous code, the ward, the day and the answer, and no name or email. Nothing is sent, and the Google script is not loaded, until the person presses Turn on sharing. It is off unless the server has a Google client ID and a database. Details: docs/sign_in.md.

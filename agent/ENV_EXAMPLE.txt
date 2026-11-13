@@ -29,3 +29,9 @@ FLASK_ENV=development
 # RATE_LIMIT_PER_MIN=20
 
 # To use xAI Grok instead of Gemini: MODEL_PROVIDER=grok, MODEL_API_KEY=<your xAI key>, and optionally GROK_MODEL=<model your key can use>
+
+# Sign-in with Google and shared ward totals (agent/accounts.py, docs/sign_in.md). Leave GOOGLE_CLIENT_ID empty to keep them off.
+GOOGLE_CLIENT_ID=
+KS_SECRET=
+# PostgreSQL connection string. If empty, a SQLite file is used (KS_DB_PATH, default agent/ward_reports.sqlite): fine locally, lost on every deploy on a free host.
+DATABASE_URL=

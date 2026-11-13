@@ -1,13 +1,19 @@
 /* Kachra Satya design system: "Eco-Intelligence Observatory". Loaded last, so it sets the tokens and re-skins the shared components in app.css.
-   Palette: deep forest, fresh lime, warm ivory, muted coral. Type: Outfit (variable, self-hosted, SIL OFL, see fonts/OFL.txt), system fonts for Hindi and Telugu.
+   Palette: deep forest, fresh lime, warm ivory, muted coral. Type: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for receipt-style data (all variable, self-hosted, SIL OFL, see fonts/OFL.txt), system fonts for Hindi and Telugu.
    Rules: one primary action per view; coral is for "the sources disagree" and flags, never for body text on ivory (use --crit); status colours stay reserved for status.
    Motion is short and optional (prefers-reduced-motion switches it off). See docs/ui_theme.md. */
-@font-face{font-family:"Outfit";src:url("fonts/outfit-latin-wght-normal.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Anek";src:url("fonts/anek-latin-wght-normal.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+20AC,U+2122,U+2190-2193,U+2212,U+2215,U+2260,U+FEFF,U+FFFD}
+@font-face{font-family:"Anek";src:url("fonts/anek-devanagari-wght-normal.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap;unicode-range:U+0900-097F,U+1CD0-1CFF,U+20B9,U+25CC,U+A830-A839,U+A8E0-A8FF}
+@font-face{font-family:"Anek";src:url("fonts/anek-telugu-wght-normal.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap;unicode-range:U+0C00-0C7F}
+@font-face{font-family:"Teko";src:url("fonts/teko-latin-wght-normal.woff2") format("woff2");font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:"Martian Mono";src:url("fonts/martian-mono-latin-wght-normal.woff2") format("woff2");font-weight:100 800;font-style:normal;font-display:swap}
 
 /* ---------- tokens (light) ---------- */
 :root{
   color-scheme:light;
-  --font:"Outfit","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Nirmala UI","Noto Sans Devanagari","Noto Sans Telugu",sans-serif;
+  --font:"Anek","Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Nirmala UI","Noto Sans Devanagari","Noto Sans Telugu",sans-serif;
+  --font-num:"Teko","Anek","Segoe UI",system-ui,sans-serif;      /* big figures: condensed, like signage */
+  --font-mono:"Martian Mono",ui-monospace,"Cascadia Mono",Consolas,monospace;      /* receipt-style data */
   /* spacing scale (4-point) */
   --sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:72px;--sp-9:112px;
   /* radii */
@@ -89,6 +95,7 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 .tg{font-family:var(--font);background:transparent;border:1px solid var(--hair);color:var(--ink2);border-radius:var(--r-pill);padding:8px 14px;font-size:var(--t-xs);font-weight:600;min-height:40px;cursor:pointer}
 .tg:hover{border-color:var(--ink2);color:var(--ink)}
 select.tg{appearance:none;padding-right:14px;width:auto}
+select.tg option{background:var(--card);color:var(--ink)}   /* the open list is drawn by the browser on its own background, so give it theme colours */
 @media (max-width:860px){
   .bar{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--page)}   /* a backdrop-filter would make the header the containing block of the fixed tab bar */
   .bar .wrap{min-height:56px}
@@ -219,3 +226,45 @@ details.more>summary{color:var(--accent);font-weight:600}
 .rec{grid-template-columns:auto minmax(0,1fr) auto}
 .rec>div{min-width:0;overflow-wrap:anywhere}
 @media (max-width:420px){.rec{grid-template-columns:auto minmax(0,1fr)}.rec>div:last-child{grid-column:2}}
+
+/* Light theme: the hero follows the page (a soft green panel) instead of staying dark. The map on it then uses the light ramps (darker = more). */
+:root[data-theme="light"]{--d1:var(--s1);--d2:var(--s2);--d3:var(--s3);--d4:var(--s4);--d5:var(--s5);--d6:var(--s6);--d7:var(--s7);--dg1:var(--g1);--dg2:var(--g2);--dg3:var(--g3);--dg4:var(--g4);--dg5:var(--g5);--dg6:var(--g6);--dg7:var(--g7)}
+:root[data-theme="light"] .stage{--page:#EEF3DC;--card:#FFFEFB;--soft:#E1EAC6;--ink:#14201A;--ink2:#46564C;--muted:#55615A;--hair:#D3DABD;--axis:#B4BE9C;--accent:#17503A;--accent-ink:#FAF7EF;--focus:#17503A;--link:#17503A;--crit:#B4472B;--none:#E4E0D0;background:#EEF3DC;color:var(--ink);border:1px solid var(--hair)}
+:root[data-theme="light"] .stage .op-kicker{color:var(--forest-700)}
+:root[data-theme="light"] .stage .seg{background:rgba(20,32,26,.07)}
+:root[data-theme="light"] .stage .seg button[aria-pressed="true"]{background:var(--forest-700);color:var(--ivory)}
+:root[data-theme="light"] .stage .op-float{background:rgba(255,254,251,.94)}
+:root[data-theme="light"] .stage .op-float.m .big{color:var(--forest-700)}
+:root[data-theme="light"] .stage .op-float.c .big{color:var(--crit)}
+:root[data-theme="light"] .stage .srcbtn:hover{color:var(--forest-700)}
+:root[data-theme="light"] .stage .ticker{background:rgba(20,32,26,.05)}
+:root[data-theme="light"] .stage .ticker span::before{background:var(--forest-500)}
+:root[data-theme="light"] .stage :focus-visible{outline-color:var(--forest-700)}
+:root[data-theme="light"] .stage .geo-s{stroke:var(--card)}
+:root[data-theme="light"] .stage .geo-s:hover{stroke:var(--forest-900)}
+:root[data-theme="light"] .stage .geo-s[aria-pressed="true"]{stroke:var(--forest-900)}
+:root[data-theme="light"] .stage .term{border-bottom-color:var(--forest-700)}
+@media (prefers-color-scheme:light){
+  :root:where(:not([data-theme="dark"])){--d1:var(--s1);--d2:var(--s2);--d3:var(--s3);--d4:var(--s4);--d5:var(--s5);--d6:var(--s6);--d7:var(--s7);--dg1:var(--g1);--dg2:var(--g2);--dg3:var(--g3);--dg4:var(--g4);--dg5:var(--g5);--dg6:var(--g6);--dg7:var(--g7)}
+  :root:where(:not([data-theme="dark"])) .stage{--page:#EEF3DC;--card:#FFFEFB;--soft:#E1EAC6;--ink:#14201A;--ink2:#46564C;--muted:#55615A;--hair:#D3DABD;--axis:#B4BE9C;--accent:#17503A;--accent-ink:#FAF7EF;--focus:#17503A;--link:#17503A;--crit:#B4472B;--none:#E4E0D0;background:#EEF3DC;color:var(--ink);border:1px solid var(--hair)}
+  :root:where(:not([data-theme="dark"])) .stage .op-kicker{color:var(--forest-700)}
+  :root:where(:not([data-theme="dark"])) .stage .seg{background:rgba(20,32,26,.07)}
+  :root:where(:not([data-theme="dark"])) .stage .seg button[aria-pressed="true"]{background:var(--forest-700);color:var(--ivory)}
+  :root:where(:not([data-theme="dark"])) .stage .op-float{background:rgba(255,254,251,.94)}
+  :root:where(:not([data-theme="dark"])) .stage .op-float.m .big{color:var(--forest-700)}
+  :root:where(:not([data-theme="dark"])) .stage .op-float.c .big{color:var(--crit)}
+  :root:where(:not([data-theme="dark"])) .stage .srcbtn:hover{color:var(--forest-700)}
+  :root:where(:not([data-theme="dark"])) .stage .ticker{background:rgba(20,32,26,.05)}
+  :root:where(:not([data-theme="dark"])) .stage .ticker span::before{background:var(--forest-500)}
+  :root:where(:not([data-theme="dark"])) .stage :focus-visible{outline-color:var(--forest-700)}
+  :root:where(:not([data-theme="dark"])) .stage .geo-s{stroke:var(--card)}
+  :root:where(:not([data-theme="dark"])) .stage .geo-s:hover{stroke:var(--forest-900)}
+  :root:where(:not([data-theme="dark"])) .stage .geo-s[aria-pressed="true"]{stroke:var(--forest-900)}
+  :root:where(:not([data-theme="dark"])) .stage .term{border-bottom-color:var(--forest-700)}
+}
+/* Big figures in Teko. It is condensed and sits low, so the size goes up a little and the tracking is reset. Words inside a figure fall back to Anek. */
+.op-float .big,.op-lead-c .big,.cc-n,.ins-cb,.kpi .v,.op-find .n,.dots .num,.loop-n,.op-apart b{font-family:var(--font-num);font-weight:600;letter-spacing:0}
+.op-find .n{font-size:clamp(3rem,7.5vw,5rem);line-height:.95}
+.op-lead-c .big{font-size:clamp(3.4rem,9.5vw,5.6rem)}.ins-cb{font-size:clamp(2.7rem,7vw,3.9rem)}.cc-n{font-size:2.7rem}.kpi .v{font-size:2.3rem}.op-float .big{font-size:3rem}
+.srcbtn,.ticker span,.vv,.viz-leg,.cc-s{font-family:var(--font-mono);font-size:.78em;letter-spacing:0}
+:lang(hi) :is(.srcbtn,.vv,.viz-leg,.cc-s),:lang(te) :is(.srcbtn,.vv,.viz-leg,.cc-s){font-family:var(--font);font-size:var(--t-sm)}

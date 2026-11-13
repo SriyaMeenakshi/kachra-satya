@@ -1,9 +1,11 @@
-Copyright 2021 The Outfit Project Authors (https://github.com/Outfitio/Outfit-Fonts)
+Fonts in this folder, each self-hosted and each licensed by its authors under the SIL Open Font License, Version 1.1 (the licence text is below):
 
-This Font Software is licensed under the SIL Open Font License, Version 1.1.
-This license is copied below, and is also available with a FAQ at:
-http://scripts.sil.org/OFL
+- Anek Latin, Anek Devanagari, Anek Telugu (The Anek Project Authors, https://github.com/EkType/Anek)
+- Teko (https://fonts.google.com/specimen/Teko)
+- Martian Mono (The Martian Mono Project Authors, https://github.com/evilmartians/mono)
 
+The files are the variable "wght" builds distributed by Fontsource (https://fontsource.org). The licence is also available with a FAQ at:
+https://openfontlicense.org
 
 -----------------------------------------------------------
 SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007

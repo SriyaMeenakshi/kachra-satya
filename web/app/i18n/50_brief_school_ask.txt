@@ -1,0 +1,289 @@
+; Briefing (state card and briefing), Schools and Ask. Sentences that carry a state's name inside them are left in English.
+
+= State or union territory
+राज्य या केंद्रशासित प्रदेश
+రాష్ట్రం లేదా కేంద్రపాలిత ప్రాంతం
+
+= Choose one
+एक चुनें
+ఒకటి ఎంచుకోండి
+
+= Choose
+चुनें
+ఎంచుకోండి
+
+= Briefing
+ब्रीफ़िंग
+సారాంశ పత్రం
+
+= Choose a state to see its card.
+कार्ड देखने के लिए कोई राज्य चुनें।
+కార్డు చూడటానికి ఒక రాష్ట్రాన్ని ఎంచుకోండి.
+
+= Check a figure before you quote it →
+आँकड़ा बताने से पहले उसे जाँचें →
+సంఖ్యను చెప్పే ముందు తనిఖీ చేయండి →
+
+= Out of every
+हर
+ప్రతి
+
+= # kg
+# किलो
+# కిలోలు
+
+= processed, says the Housing Ministry
+प्रसंस्कृत, आवास मंत्रालय के अनुसार
+ప్రాసెస్ అయింది, గృహ నిర్మాణ మంత్రిత్వ శాఖ ప్రకారం
+
+= treated, in the pollution board's records
+उपचारित, प्रदूषण बोर्ड के रिकॉर्ड में
+శుద్ధి అయింది, కాలుష్య నియంత్రణ మండలి రికార్డుల ప్రకారం
+
+= Different years, and the two may not define the word the same way. The sources disagree; we do not say which is right.
+वर्ष अलग हैं, और हो सकता है दोनों इस शब्द की परिभाषा एक जैसी न रखते हों। स्रोत सहमत नहीं हैं; हम नहीं कहते कि कौन सही है।
+సంవత్సరాలు వేరు; ఇద్దరూ ఆ పదాన్ని ఒకేలా నిర్వచించకపోవచ్చు. మూలాలు ఏకీభవించలేదు; ఏది సరైనదో మేము చెప్పం.
+
+= of every # kg is collected (CPCB #-#).
+हर # किलो में से इतना एकत्र होता है (CPCB #-#)।
+ప్రతి # కిలోల్లో ఇంత సేకరిస్తున్నారు (CPCB #-#).
+
+= Money: about
+पैसा: लगभग
+నిధులు: సుమారు
+
+= of its solid-waste allocation (#-#) was used by # Nov #.
+ठोस-कचरा आवंटन (#-#) का इतना हिस्सा # नवंबर # तक खर्च हुआ।
+ఘన వ్యర్థాల కేటాయింపులో (#-#) # నవంబర్ # నాటికి ఖర్చయిన వాటా.
+
+= The table prints no unit; we use only the share.
+तालिका में इकाई नहीं छपी; हम सिर्फ़ हिस्सा इस्तेमाल करते हैं।
+పట్టికలో యూనిట్ ముద్రించలేదు; మేము వాటాను మాత్రమే వాడతాం.
+
+= For scale: India's average is about # grams of waste per person per day (CPCB #-#, page #), so a family of four throws away roughly # kg a day (our arithmetic).
+अंदाज़े के लिए: भारत का औसत लगभग # ग्राम कचरा प्रति व्यक्ति प्रतिदिन है (CPCB #-#, पृष्ठ #), यानी चार लोगों का परिवार रोज़ लगभग # किलो कचरा फेंकता है (हमारा हिसाब)।
+అంచనా కోసం: భారతదేశ సగటు ఒక్కొక్కరికి రోజుకు సుమారు # గ్రాముల చెత్త (CPCB #-#, పేజీ #); అంటే నలుగురున్న కుటుంబం రోజుకు దాదాపు # కిలోలు పారేస్తుంది (మా లెక్క).
+
+= Copy as a message
+संदेश के रूप में कॉपी करें
+సందేశంగా కాపీ చేయండి
+
+= Download as text
+पाठ के रूप में डाउनलोड करें
+పాఠంగా డౌన్‌లోడ్ చేయండి
+
+= Print or save as PDF
+प्रिंट करें या PDF सहेजें
+ప్రింట్ చేయండి లేదా PDFగా భద్రపరచండి
+
+= The message is plain text for WhatsApp or email. We never send anything for you.
+यह संदेश WhatsApp या ईमेल के लिए सादा पाठ है। हम आपकी ओर से कभी कुछ नहीं भेजते।
+ఈ సందేశం WhatsApp లేదా ఈమెయిల్ కోసం సాదా పాఠం. మీ తరఫున మేము ఎప్పుడూ ఏదీ పంపం.
+
+= Prepared for
+किसके लिए तैयार
+ఎవరి కోసం
+
+= Member of Parliament
+सांसद
+పార్లమెంటు సభ్యుడు (ఎంపీ)
+
+= Member of the Legislative Assembly
+विधायक
+శాసనసభ సభ్యుడు (ఎమ్మెల్యే)
+
+= Councillor
+पार्षद
+కౌన్సిలర్
+
+= Reporter or other reader
+पत्रकार या अन्य पाठक
+విలేకరి లేదా ఇతర పాఠకుడు
+
+= Your briefing (edit before using)
+आपकी ब्रीफ़िंग (इस्तेमाल से पहले संपादित करें)
+మీ సారాంశ పత్రం (వాడే ముందు సవరించండి)
+
+= Copy text
+पाठ कॉपी करें
+పాఠం కాపీ చేయండి
+
+= Download as .txt
+.txt के रूप में डाउनलोड करें
+.txtగా డౌన్‌లోడ్ చేయండి
+
+= Print
+प्रिंट करें
+ప్రింట్ చేయండి
+
+= A draft for you to review. Source pages:
+आपके जाँचने के लिए मसौदा। स्रोत पृष्ठ:
+మీరు పరిశీలించాల్సిన ముసాయిదా. మూల పేజీలు:
+
+= How to weigh
+कैसे तौलें
+ఎలా తూచాలి
+
+= Pick one school week. Weigh each block, class or the canteen every day, using a kitchen or luggage scale.
+स्कूल का एक हफ़्ता चुनें। हर ब्लॉक, कक्षा या कैंटीन का कचरा रोज़ रसोई या सामान तौलने वाले तराज़ू से तौलें।
+ఒక పాఠశాల వారాన్ని ఎంచుకోండి. ప్రతి బ్లాక్, తరగతి లేదా క్యాంటీన్ చెత్తను రోజూ వంటింటి లేదా లగేజీ త్రాసుతో తూచండి.
+
+= Keep the four streams apart: wet (food, peels), dry (paper, plastic, metal, glass), sanitary and special care (see
+चारों हिस्से अलग रखें: गीला (खाना, छिलके), सूखा (काग़ज़, प्लास्टिक, धातु, काँच), सैनिटरी और विशेष देखभाल वाला (देखें
+నాలుగు రకాలనూ వేరుగా ఉంచండి: తడి (ఆహారం, తొక్కలు), పొడి (కాగితం, ప్లాస్టిక్, లోహం, గాజు), శానిటరీ, ప్రత్యేక జాగ్రత్త అవసరమైనది (చూడండి:
+
+= Safety:
+सुरक्षा:
+భద్రత:
+
+= wear gloves, wash hands, and let a teacher handle weighing of sanitary waste in sealed bags. Do not open or weigh special care waste such as bulbs, medicines or thermometers; note the count instead and leave that column blank.
+दस्ताने पहनें, हाथ धोएँ, और बंद थैलियों में सैनिटरी कचरे की तौल शिक्षक को करने दें। बल्ब, दवाइयाँ या थर्मामीटर जैसे विशेष देखभाल वाले कचरे को न खोलें, न तौलें; उसकी गिनती लिख लें और वह कॉलम खाली छोड़ दें।
+చేతి తొడుగులు వేసుకోండి, చేతులు కడుక్కోండి; మూసిన సంచుల్లోని శానిటరీ చెత్తను ఉపాధ్యాయులే తూచాలి. బల్బులు, మందులు, థర్మామీటర్ల వంటి ప్రత్యేక జాగ్రత్త చెత్తను తెరవకండి, తూచకండి; వాటి సంఖ్య రాసుకుని ఆ నిలువు వరుసను ఖాళీగా వదిలేయండి.
+
+= Enter what you weighed below. Leave a box empty if you do not know it; we never fill it in.
+जो तौला, वह नीचे लिखें। जो न पता हो, वह ख़ाना खाली छोड़ दें; हम उसे कभी नहीं भरते।
+మీరు తూచినదాన్ని కింద నమోదు చేయండి. తెలియని గడిని ఖాళీగా వదిలేయండి; మేము దాన్ని ఎప్పుడూ నింపం.
+
+= Block or class
+ब्लॉक या कक्षा
+బ్లాక్ లేదా తరగతి
+
+= Waste weighed (kg)
+तौला गया कचरा (किलो)
+తూచిన చెత్త (కిలోలు)
+
+= Picked up by the municipal vehicle (kg)
+नगरपालिका की गाड़ी ने उठाया (किलो)
+మున్సిపల్ బండి తీసుకెళ్లినది (కిలోలు)
+
+= Sorted correctly before pick-up or processing (kg)
+उठाने या प्रोसेस करने से पहले सही छाँटा गया (किलो)
+తీసుకెళ్లే ముందు లేదా ప్రాసెస్ చేసే ముందు సరిగ్గా వేరు చేసినది (కిలోలు)
+
+= Processed on site, e.g. composted (kg)
+वहीं प्रोसेस किया गया, जैसे खाद (किलो)
+అక్కడే ప్రాసెస్ చేసినది, ఉదా. కంపోస్ట్ (కిలోలు)
+
+= Remove
+हटाएँ
+తీసివేయండి
+
+= Add a row
+पंक्ति जोड़ें
+వరుస చేర్చండి
+
+= Try a fictional example (not real data)
+काल्पनिक उदाहरण आज़माएँ (असली डेटा नहीं)
+కల్పిత ఉదాహరణ ప్రయత్నించండి (నిజమైన డేటా కాదు)
+
+= Make my report card
+मेरा रिपोर्ट कार्ड बनाएँ
+నా రిపోర్ట్ కార్డు తయారు చేయండి
+
+= Learn the four streams →
+चारों हिस्से सीखें →
+నాలుగు రకాల గురించి తెలుసుకోండి →
+
+= Report card
+रिपोर्ट कार्ड
+రిపోర్ట్ కార్డు
+
+= rows read
+पंक्तियाँ पढ़ी गईं
+చదివిన వరుసలు
+
+= kg weighed in total
+किलो, कुल तौला गया
+కిలోలు, మొత్తం తూచినది
+
+= figures to recheck
+आँकड़े दोबारा जाँचने हैं
+మళ్లీ చూడాల్సిన సంఖ్యలు
+
+= By block
+ब्लॉक के अनुसार
+బ్లాక్ వారీగా
+
+= Block
+ब्लॉक
+బ్లాక్
+
+= Days weighed
+तौले गए दिन
+తూచిన రోజులు
+
+= Average kg a day
+औसत किलो प्रतिदिन
+రోజుకు సగటు కిలోలు
+
+= Sorted correctly (% of weighed)
+सही छाँटा गया (तौले गए का %)
+సరిగ్గా వేరు చేసినది (తూచినదానిలో %)
+
+= Processed on site (% of weighed)
+वहीं प्रोसेस किया गया (तौले गए का %)
+అక్కడే ప్రాసెస్ చేసినది (తూచినదానిలో %)
+
+= Figures to recheck
+दोबारा जाँचने लायक़ आँकड़े
+మళ్లీ చూడాల్సిన సంఖ్యలు
+
+= These are figures that cannot all be true as entered. They do not say which figure is wrong.
+ये वे आँकड़े हैं जो जैसे लिखे गए, सब एक साथ सही नहीं हो सकते। ये नहीं बताते कि कौन-सा आँकड़ा ग़लत है।
+నమోదు చేసినట్టుగా ఈ సంఖ్యలన్నీ ఒకేసారి నిజం కాలేవు. ఏ సంఖ్య తప్పో ఇవి చెప్పవు.
+
+= More waste is accounted for (picked up # kg plus processed on site # kg) than was weighed (# kg). Re-weigh, or check the same waste was not counted twice.
+जितना तौला गया (# किलो), उससे ज़्यादा कचरे का हिसाब दर्ज है (उठाया गया # किलो और वहीं प्रोसेस # किलो)। दोबारा तौलें, या देखें कि एक ही कचरा दो बार तो नहीं गिना गया।
+తూచిన దానికంటే (#3 కిలోలు) ఎక్కువ చెత్తకు లెక్క ఉంది (తీసుకెళ్లినది #1 కిలోలు, అక్కడే ప్రాసెస్ చేసినది #2 కిలోలు). మళ్లీ తూచండి, లేదా ఒకే చెత్తను రెండుసార్లు లెక్కించారేమో చూడండి.
+
+= The collected figure is blank on this day, although this block reports it on other days.
+इस दिन एकत्र का आँकड़ा खाली है, जबकि यह ब्लॉक दूसरे दिनों में इसे दर्ज करता है।
+ఈ రోజు సేకరణ సంఖ్య ఖాళీగా ఉంది; ఇతర రోజుల్లో ఈ బ్లాక్ దాన్ని నమోదు చేసింది.
+
+= Percentages use only the days where both figures were entered. Blank cells are not guessed. A report card describes the week you weighed, not the whole year.
+प्रतिशत सिर्फ़ उन दिनों से निकले हैं जब दोनों आँकड़े लिखे गए थे। खाली ख़ानों का अंदाज़ा नहीं लगाया जाता। रिपोर्ट कार्ड उसी हफ़्ते के बारे में है जो आपने तौला, पूरे साल के बारे में नहीं।
+రెండు సంఖ్యలూ నమోదు చేసిన రోజుల ఆధారంగానే శాతాలు లెక్కించాం. ఖాళీ గడులను ఊహించం. రిపోర్ట్ కార్డు మీరు తూచిన వారానికే వర్తిస్తుంది, మొత్తం సంవత్సరానికి కాదు.
+
+= Download your entries (CSV)
+अपनी प्रविष्टियाँ डाउनलोड करें (CSV)
+మీ నమోదులను డౌన్‌లోడ్ చేయండి (CSV)
+
+= Print the report card
+रिपोर्ट कार्ड प्रिंट करें
+రిపోర్ట్ కార్డు ప్రింట్ చేయండి
+
+= Ask
+पूछें
+అడగండి
+
+= 🎤 Speak
+🎤 बोलें
+🎤 మాట్లాడండి
+
+= Read answers aloud
+जवाब पढ़कर सुनाएँ
+జవాబులను చదివి వినిపించు
+
+= Privacy:
+निजता:
+గోప్యత:
+
+= your question is sent to our server, and may be sent to an AI service (Google Gemini) to write the answer. Do not type names, addresses or other personal details. Everything else on this site stays in your browser.
+आपका सवाल हमारे सर्वर को भेजा जाता है, और जवाब लिखने के लिए किसी AI सेवा (Google Gemini) को भी भेजा जा सकता है। नाम, पते या दूसरी निजी जानकारी न लिखें। इस साइट पर बाक़ी सब कुछ आपके ब्राउज़र में ही रहता है।
+మీ ప్రశ్న మా సర్వర్‌కు వెళ్తుంది; జవాబు రాయడానికి AI సేవకు (Google Gemini) కూడా పంపవచ్చు. పేర్లు, చిరునామాలు, ఇతర వ్యక్తిగత వివరాలు టైప్ చేయకండి. ఈ సైట్‌లో మిగతాదంతా మీ బ్రౌజర్‌లోనే ఉంటుంది.
+
+= Voice uses your browser's own speech tools. How well it handles Hindi, Tamil and Telugu depends on your browser and device. Typing always works.
+आवाज़ आपके ब्राउज़र के अपने स्पीच टूल इस्तेमाल करती है। हिन्दी, तमिल और तेलुगु कितनी अच्छी चलेगी, यह आपके ब्राउज़र और डिवाइस पर निर्भर है। टाइप करना हमेशा काम करता है।
+వాయిస్ మీ బ్రౌజర్ సొంత స్పీచ్ సాధనాలను వాడుతుంది. హిందీ, తమిళం, తెలుగు ఎంత బాగా పనిచేస్తాయో మీ బ్రౌజర్, పరికరంపై ఆధారపడి ఉంటుంది. టైప్ చేయడం ఎప్పుడూ పనిచేస్తుంది.
+
+= Check a number yourself →
+आँकड़ा ख़ुद जाँचें →
+సంఖ్యను మీరే తనిఖీ చేయండి →
+
+= The assistant isn't connected yet.
+सहायक अभी जुड़ा नहीं है।
+సహాయకుడు ఇంకా అనుసంధానం కాలేదు.
+
+= Sources
+स्रोत
+మూలాలు

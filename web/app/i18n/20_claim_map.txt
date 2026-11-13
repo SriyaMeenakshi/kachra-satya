@@ -1,0 +1,325 @@
+; Check a claim and the Map. Three lines per entry: = English, Hindi, Telugu.
+
+= Claim
+दावा
+చెప్పిన మాట
+
+= #-# reported figure
+#-# दर्ज आँकड़ा
+#-# నివేదించిన సంఖ్య
+
+= #-# computed by us
+#-# हमारी गणना
+#-# మేము లెక్కించినది
+
+= What does this mean?
+इसका क्या मतलब है?
+దీని అర్థం ఏమిటి?
+
+= # of # source figures match the claim. The reports cover different years (#-# to #-#) and may use different words (“processed”, “treated”), so these figures should not be read as a like-for-like comparison of the same period. We do not say which source is right.
+#2 में से #1 स्रोत आँकड़े दावे से मेल खाते हैं। रिपोर्टें अलग-अलग वर्षों (#3-#4 से #5-#6) की हैं और अलग शब्द इस्तेमाल कर सकती हैं (“processed”, “treated”), इसलिए इन आँकड़ों को एक ही अवधि की सीधी तुलना न समझें। हम नहीं कहते कि कौन-सा स्रोत सही है।
+#2 మూల సంఖ్యల్లో #1 ఈ మాటతో సరిపోతున్నాయి. నివేదికలు వేర్వేరు సంవత్సరాలవి (#3-#4 నుంచి #5-#6), వేర్వేరు పదాలు వాడి ఉండవచ్చు (“processed”, “treated”); కాబట్టి ఈ సంఖ్యలను ఒకే కాలానికి చెందిన నేరు పోలికగా చదవకూడదు. ఏ మూలం సరైనదో మేము చెప్పం.
+
+= Evidence
+सबूत
+ఆధారాలు
+
+= open the page
+पृष्ठ खोलें
+పేజీ తెరవండి
+
+= source page
+स्रोत पृष्ठ
+మూల పేజీ
+
+= source pages
+स्रोत पृष्ठ
+మూల పేజీలు
+
+= open page
+पृष्ठ खोलें
+పేజీ తెరవండి
+
+= page
+पृष्ठ
+పేజీ
+
+= See all source records (#)
+सभी स्रोत रिकॉर्ड देखें (#)
+అన్ని మూల రికార్డులు చూడండి (#)
+
+= about # in every # tonnes
+हर #2 टन में लगभग #1
+ప్రతి #2 టన్నుల్లో సుమారు #1
+
+= How we read this
+हमने इसे कैसे पढ़ा
+దీన్ని మేము ఎలా చదివాం
+
+= Take this receipt with you
+यह रसीद साथ ले जाएँ
+ఈ రసీదును వెంట తీసుకెళ్లండి
+
+= The link reopens this check with its source pages. Nothing leaves this page until you choose to share it.
+यह लिंक इस जाँच को उसके स्रोत पृष्ठों के साथ दोबारा खोलता है। जब तक आप साझा न करें, इस पन्ने से कुछ बाहर नहीं जाता।
+ఈ లింక్ ఈ తనిఖీని దాని మూల పేజీలతో సహా మళ్లీ తెరుస్తుంది. మీరు పంచుకునే వరకు ఈ పేజీ నుంచి ఏదీ బయటకు పోదు.
+
+= Share
+साझा करें
+పంచుకోండి
+
+= Copy as text
+पाठ के रूप में कॉपी करें
+పాఠంగా కాపీ చేయండి
+
+= Copy link
+लिंक कॉपी करें
+లింక్ కాపీ చేయండి
+
+= Receipt copied.
+रसीद कॉपी हो गई।
+రసీదు కాపీ అయింది.
+
+= Link copied.
+लिंक कॉपी हो गया।
+లింక్ కాపీ అయింది.
+
+= Adjust what we read
+हमने जो पढ़ा, उसे ठीक करें
+మేము చదివినదాన్ని సరిచేయండి
+
+= Value
+मान
+విలువ
+
+= Place
+जगह
+ప్రాంతం
+
+= Year
+वर्ष
+సంవత్సరం
+
+= Check these values
+ये मान जाँचें
+ఈ విలువలను తనిఖీ చేయండి
+
+= Prefer your own words, or Hindi, Tamil or Telugu?
+अपने शब्दों में, या हिन्दी, तमिल या तेलुगु में पूछना चाहते हैं?
+మీ సొంత మాటల్లో, లేదా హిందీ, తమిళం, తెలుగులో అడగాలనుకుంటున్నారా?
+
+= Ask a question instead
+इसकी जगह सवाल पूछें
+బదులుగా ప్రశ్న అడగండి
+
+= Open the source pages →
+स्रोत पृष्ठ खोलें →
+మూల పేజీలు తెరవండి →
+
+= See your state on the map →
+नक्शे पर अपना राज्य देखें →
+మ్యాప్‌లో మీ రాష్ట్రాన్ని చూడండి →
+
+= My garbage isn't being collected →
+मेरा कचरा नहीं उठ रहा →
+మా చెత్త తీసుకెళ్లడం లేదు →
+
+= We could not find a number in that sentence. Try a figure with % or "tonnes per day", or open "Adjust what we read".
+उस वाक्य में हमें कोई संख्या नहीं मिली। % या "tonnes per day" वाला आँकड़ा लिखकर देखें, या "हमने जो पढ़ा, उसे ठीक करें" खोलें।
+ఆ వాక్యంలో మాకు సంఖ్య కనిపించలేదు. % లేదా "tonnes per day" ఉన్న సంఖ్యతో ప్రయత్నించండి, లేదా "మేము చదివినదాన్ని సరిచేయండి" తెరవండి.
+
+= says
+के अनुसार
+ప్రకారం
+
+= figures give
+के आँकड़ों के अनुसार
+సంఖ్యల ప్రకారం
+
+= tonnes a day between the two reports: a difference between reports, not missing waste. The years differ, and we compare MoHUA's "processed" with CPCB's "treated" as our assumption, not a stated equivalence.
+टन प्रतिदिन का अंतर दो रिपोर्टों के बीच: यह रिपोर्टों का अंतर है, ग़ायब कचरा नहीं। वर्ष अलग हैं, और MoHUA के "processed" की CPCB के "treated" से तुलना हमारी धारणा है, कोई घोषित समानता नहीं।
+రెండు నివేదికల మధ్య రోజుకు ఇన్ని టన్నుల తేడా: ఇది నివేదికల మధ్య తేడా, మాయమైన చెత్త కాదు. సంవత్సరాలు వేరు; MoHUA "processed"ను CPCB "treated"తో పోల్చడం మా ఊహ మాత్రమే, ఎవరూ ప్రకటించిన సమానత్వం కాదు.
+
+= Definitions
+परिभाषाएँ
+నిర్వచనాలు
+
+= CPCB % treated
+CPCB % उपचारित
+CPCB % శుద్ధి
+
+= MoHUA % processed
+MoHUA % प्रसंस्कृत
+MoHUA % ప్రాసెస్
+
+= Gap
+अंतर
+తేడా
+
+= Priority dumpsites
+प्राथमिक डंपसाइट
+ప్రాధాన్య డంప్‌సైట్‌లు
+
+= Map
+नक्शा
+మ్యాప్
+
+= Tiles
+टाइल
+టైల్స్
+
+= Find a state
+राज्य खोजें
+రాష్ట్రాన్ని వెతకండి
+
+= · red dot = flagged
+· लाल बिंदु = फ़्लैग
+· ఎర్ర చుక్క = ఫ్లాగ్
+
+= · hatched = not reported
+· धारीदार = रिपोर्ट नहीं
+· గీతలు = నివేదించలేదు
+
+= · outlines simplified, not an authoritative boundary
+· सीमाएँ सरल की गई हैं, आधिकारिक नहीं
+· సరిహద్దులు సరళీకరించినవి, అధికారికం కాదు
+
+= How to read this map
+यह नक्शा कैसे पढ़ें
+ఈ మ్యాప్‌ను ఎలా చదవాలి
+
+= How to read the map
+नक्शा कैसे पढ़ें
+మ్యాప్‌ను ఎలా చదవాలి
+
+= Colour.
+रंग।
+రంగు.
+
+= Each state is coloured by the share of the waste it reports generating that it also reports treated (CPCB, #-#) or processed (MoHUA, #-#). Lighter is less, darker is more. The "Gap" layer is the difference between the two, in coral. The "Priority dumpsites" layer is different: it colours states by the legacy waste at the dumpsites on the MoHUA list of the # highest-impact sites (blank means none listed; Maharashtra and Bihar are printed as Reserved, with no figures). It shows where the list says legacy waste is, not how dangerous a site is or how far it has been cleared.
+हर राज्य का रंग बताता है कि उसने जितना कचरा उत्पन्न होना दर्ज किया, उसका कितना हिस्सा उपचारित (CPCB, #-#) या प्रसंस्कृत (MoHUA, #-#) दर्ज किया। हल्का मतलब कम, गहरा मतलब ज़्यादा। "अंतर" परत दोनों का फ़र्क़ कोरल रंग में दिखाती है। "प्राथमिक डंपसाइट" परत अलग है: यह राज्यों को MoHUA की # सबसे असरदार साइटों की सूची के डंपसाइटों में पड़े पुराने कचरे के हिसाब से रंगती है (खाली मतलब सूची में कोई नहीं; महाराष्ट्र और बिहार "Reserved" छपे हैं, बिना आँकड़ों के)। यह दिखाती है कि सूची के अनुसार पुराना कचरा कहाँ है, यह नहीं कि कोई साइट कितनी ख़तरनाक है या कितनी साफ़ हुई।
+ప్రతి రాష్ట్రం రంగు, అది ఉత్పత్తి అయినట్టు నివేదించిన చెత్తలో ఎంత వాటా శుద్ధి అయినట్టు (CPCB, #-#) లేదా ప్రాసెస్ అయినట్టు (MoHUA, #-#) నివేదించిందో చూపుతుంది. లేత రంగు అంటే తక్కువ, ముదురు రంగు అంటే ఎక్కువ. "తేడా" పొర ఆ రెండింటి మధ్య తేడాను కోరల్ రంగులో చూపుతుంది. "ప్రాధాన్య డంప్‌సైట్‌లు" పొర వేరు: MoHUA జాబితాలోని # అత్యధిక ప్రభావం గల సైట్‌లలోని పాత చెత్త ఆధారంగా రాష్ట్రాలకు రంగు వేస్తుంది (ఖాళీ అంటే జాబితాలో ఏదీ లేదు; మహారాష్ట్ర, బిహార్ "Reserved"గా ముద్రించారు, సంఖ్యలు లేవు). జాబితా ప్రకారం పాత చెత్త ఎక్కడ ఉందో ఇది చూపుతుంది; సైట్ ఎంత ప్రమాదకరమో, ఎంత శుభ్రమైందో కాదు.
+
+= Red dot or corner.
+लाल बिंदु या कोना।
+ఎర్ర చుక్క లేదా మూల.
+
+= flag
+फ़्लैग
+ఫ్లాగ్
+
+= : figures in that state's own reports cannot all be true, for example more waste treated than collected. It does not say which figure to trust.
+: उस राज्य की अपनी रिपोर्टों के आँकड़े सब एक साथ सही नहीं हो सकते, जैसे एकत्र से ज़्यादा कचरा उपचारित। यह नहीं बताता कि किस आँकड़े पर भरोसा करें।
+: ఆ రాష్ట్ర సొంత నివేదికల్లోని సంఖ్యలు అన్నీ ఒకేసారి నిజం కాలేవు; ఉదా. సేకరించిన దానికంటే ఎక్కువ శుద్ధి. ఏ సంఖ్యను నమ్మాలో ఇది చెప్పదు.
+
+= Hatched.
+धारीदार।
+గీతలు.
+
+= Not reported
+रिपोर्ट नहीं
+నివేదించలేదు
+
+= not reported
+रिपोर्ट नहीं
+నివేదించలేదు
+
+= : the source left the figure blank, or reports generated waste as # so no percentage can be worked out. We never fill gaps in.
+: स्रोत ने आँकड़ा खाली छोड़ा है, या उत्पन्न कचरा # दर्ज किया है, इसलिए प्रतिशत नहीं निकल सकता। हम कभी खाली जगह नहीं भरते।
+: మూలం ఆ సంఖ్యను ఖాళీగా వదిలింది, లేదా ఉత్పత్తి అయిన చెత్తను #గా నివేదించింది; అందుకే శాతం లెక్కించలేం. మేము ఖాళీలను ఎప్పుడూ నింపం.
+
+= The two layers are different years and the two bodies may define their words differently, so a gap is a reason to look at the source pages, not a verdict.
+दोनों परतें अलग-अलग वर्षों की हैं और दोनों संस्थाएँ अपने शब्दों की परिभाषा अलग रख सकती हैं, इसलिए अंतर स्रोत पृष्ठ देखने की वजह है, कोई फ़ैसला नहीं।
+రెండు పొరలూ వేర్వేరు సంవత్సరాలవి; రెండు సంస్థలు తమ పదాలను వేర్వేరుగా నిర్వచించి ఉండవచ్చు. కాబట్టి తేడా కనిపిస్తే మూల పేజీలు చూడాలి; అది తీర్పు కాదు.
+
+= India, nationally
+भारत, राष्ट्रीय स्तर पर
+భారతదేశం, జాతీయ స్థాయిలో
+
+= Pick a state on the map, or type its name, to replace this with the figures and source pages of that state.
+नक्शे पर कोई राज्य चुनें या उसका नाम लिखें; तब यहाँ उस राज्य के आँकड़े और स्रोत पृष्ठ दिखेंगे।
+మ్యాప్‌లో ఒక రాష్ట్రాన్ని ఎంచుకోండి లేదా దాని పేరు టైప్ చేయండి; అప్పుడు ఇక్కడ ఆ రాష్ట్ర సంఖ్యలు, మూల పేజీలు కనిపిస్తాయి.
+
+= Different years, and the two bodies may not mean the same thing by their words. We do not say which is right.
+वर्ष अलग हैं, और हो सकता है दोनों संस्थाएँ अपने शब्दों का एक ही मतलब न लेती हों। हम नहीं कहते कि कौन सही है।
+సంవత్సరాలు వేరు; రెండు సంస్థలు తమ పదాలకు ఒకే అర్థం ఇవ్వకపోవచ్చు. ఏది సరైనదో మేము చెప్పం.
+
+= Colour shows the chosen figure, or in Difference mode how far MoHUA sits above CPCB. Darker means a bigger difference between the two reports.
+रंग चुना हुआ आँकड़ा दिखाता है, या "अंतर" में यह कि MoHUA का आँकड़ा CPCB से कितना ऊपर है। गहरा रंग मतलब दोनों रिपोर्टों में बड़ा अंतर।
+రంగు ఎంచుకున్న సంఖ్యను చూపుతుంది; "తేడా"లో MoHUA సంఖ్య CPCB కంటే ఎంత ఎక్కువో చూపుతుంది. ముదురు రంగు అంటే రెండు నివేదికల మధ్య పెద్ద తేడా.
+
+= Grey means not enough is reported to compare: # of # states and UTs.
+धूसर मतलब तुलना के लिए पर्याप्त आँकड़े दर्ज नहीं: #2 में से #1 राज्य और केंद्रशासित प्रदेश।
+బూడిద రంగు అంటే పోల్చడానికి తగినంత నివేదించలేదు: #2 రాష్ట్రాలు, కేంద్రపాలిత ప్రాంతాల్లో #1.
+
+= Largest differences between the reports
+रिपोर्टों के बीच सबसे बड़े अंतर
+నివేదికల మధ్య అతి పెద్ద తేడాలు
+
+= (# points)
+(# अंक)
+(# పాయింట్లు)
+
+= Explain a state in plain words →
+किसी राज्य को सरल शब्दों में समझें →
+ఒక రాష్ట్రాన్ని సులభమైన మాటల్లో తెలుసుకోండి →
+
+= Check a number you heard →
+सुना हुआ आँकड़ा जाँचें →
+మీరు విన్న సంఖ్యను తనిఖీ చేయండి →
+
+= Where is the money not moving? →
+पैसा कहाँ खर्च नहीं हो रहा? →
+నిధులు ఎక్కడ ఖర్చు కావడం లేదు? →
+
+= Audit priority ## of #
+ऑडिट प्राथमिकता: #2 में से क्रम #1
+ఆడిట్ ప్రాధాన్యం: #2లో #1వ స్థానం
+
+= almost all of it
+लगभग पूरा
+దాదాపు మొత్తం
+
+= MoHUA is # points higher than CPCB. Different years.
+MoHUA का आँकड़ा CPCB से # अंक ऊपर है। वर्ष अलग हैं।
+MoHUA సంఖ్య CPCB కంటే # పాయింట్లు ఎక్కువ. సంవత్సరాలు వేరు.
+
+= MoHUA is # points lower than CPCB. Different years.
+MoHUA का आँकड़ा CPCB से # अंक नीचे है। वर्ष अलग हैं।
+MoHUA సంఖ్య CPCB కంటే # పాయింట్లు తక్కువ. సంవత్సరాలు వేరు.
+
+= (a picture, not a fleet count)
+(समझने के लिए चित्र, गाड़ियों की गिनती नहीं)
+(ఊహించుకోవడానికి మాత్రమే, బండ్ల లెక్క కాదు)
+
+= # flags in this state's own reports
+इस राज्य की अपनी रिपोर्टों में # फ़्लैग
+ఈ రాష్ట్ర సొంత నివేదికల్లో # ఫ్లాగ్‌లు
+
+= means two reported figures cannot both be true. It does not say which one to trust.
+का मतलब है कि दो दर्ज आँकड़े दोनों सही नहीं हो सकते। यह नहीं बताता कि किस पर भरोसा करें।
+అంటే నివేదించిన రెండు సంఖ్యలూ ఒకేసారి నిజం కాలేవు. దేన్ని నమ్మాలో ఇది చెప్పదు.
+
+= Landfilled is not reported for this year although the same source reports it in other years.
+इस वर्ष के लिए लैंडफ़िल का आँकड़ा दर्ज नहीं है, जबकि वही स्रोत दूसरे वर्षों में इसे दर्ज करता है।
+ఈ సంవత్సరానికి ల్యాండ్‌ఫిల్ సంఖ్య నివేదించలేదు; అదే మూలం ఇతర సంవత్సరాల్లో నివేదించింది.
+
+= More waste is reported treated than collected. Either collection is under-reported or treatment is over-reported.
+एकत्र से ज़्यादा कचरा उपचारित दर्ज है। या तो संग्रह कम दर्ज हुआ है या उपचार ज़्यादा।
+సేకరించిన దానికంటే ఎక్కువ చెత్త శుద్ధి అయినట్టు నివేదించారు. సేకరణ తక్కువగా గానీ, శుద్ధి ఎక్కువగా గానీ నివేదించి ఉండాలి.
+
+= # dumpsites in # urban local bodies, from the MoHUA DRAP annexure (MoHUA DRAP concept note (Nov #), pages # to #). Legacy waste in tonnes, as printed.
+#2 शहरी स्थानीय निकायों में #1 डंपसाइट, MoHUA DRAP के अनुलग्नक से (MoHUA DRAP कॉन्सेप्ट नोट (नवंबर #3), पृष्ठ #4 से #5)। पुराना कचरा टन में, जैसा छपा है।
+#2 పట్టణ స్థానిక సంస్థల్లో #1 డంప్‌సైట్‌లు, MoHUA DRAP అనుబంధం నుంచి (MoHUA DRAP కాన్సెప్ట్ నోట్ (నవంబర్ #3), పేజీలు #4 నుంచి #5). పాత చెత్త టన్నుల్లో, ముద్రించినట్టుగా.
+
+= Landfill and dumpsites
+लैंडफ़िल और डंपसाइट
+ల్యాండ్‌ఫిల్, డంప్‌సైట్‌లు
+
+= All years and source pages
+सभी वर्ष और स्रोत पृष्ठ
+అన్ని సంవత్సరాలు, మూల పేజీలు
+
+= Choose a ward
+वार्ड चुनें
+వార్డును ఎంచుకోండి

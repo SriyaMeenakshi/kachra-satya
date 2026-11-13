@@ -1,0 +1,173 @@
+; Your ward: the shared total and sign-in.
+
+= Your ward’s shared total
+आपके वार्ड का साझा जोड़
+మీ వార్డు ఉమ్మడి లెక్క
+
+= Checking for a shared total…
+साझा जोड़ देखा जा रहा है…
+ఉమ్మడి లెక్క కోసం చూస్తున్నాం…
+
+= Shared ward totals are not switched on for this site yet. Your taps stay on this device.
+इस साइट पर वार्ड का साझा जोड़ अभी चालू नहीं है। आपके टैप इसी डिवाइस में रहते हैं।
+ఈ సైట్‌లో వార్డు ఉమ్మడి లెక్క ఇంకా ప్రారంభం కాలేదు. మీ ట్యాప్‌లు ఈ పరికరంలోనే ఉంటాయి.
+
+= Shared ward totals need the site’s server, and this copy has none. Your taps stay on this device.
+वार्ड के साझा जोड़ के लिए साइट का सर्वर चाहिए, और इस प्रति में सर्वर नहीं है। आपके टैप इसी डिवाइस में रहते हैं।
+వార్డు ఉమ్మడి లెక్కకు సైట్ సర్వర్ కావాలి; ఈ కాపీలో సర్వర్ లేదు. మీ ట్యాప్‌లు ఈ పరికరంలోనే ఉంటాయి.
+
+= No one has shared a report for this ward yet.
+इस वार्ड के लिए अभी किसी ने रिपोर्ट साझा नहीं की।
+ఈ వార్డుకు ఇంకా ఎవరూ నివేదిక పంచుకోలేదు.
+
+= Be the first.
+पहले आप बनें।
+మొదటివారు మీరే అవ్వండి.
+
+= people have reported in the last # days
+लोगों ने पिछले # दिनों में रिपोर्ट दी
+మంది గత # రోజుల్లో నివేదించారు
+
+= person has reported in the last # days
+व्यक्ति ने पिछले # दिनों में रिपोर्ट दी
+ఒకరు గత # రోజుల్లో నివేదించారు
+
+= reports that the truck came
+रिपोर्टें कि गाड़ी आई
+బండి వచ్చిందన్న నివేదికలు
+
+= reports that it did not come
+रिपोर्टें कि गाड़ी नहीं आई
+బండి రాలేదన్న నివేదికలు
+
+= Unverified: one report per signed-in person per day. These are counts of reports, not a measurement of the service.
+सत्यापित नहीं: साइन-इन किए हर व्यक्ति की रोज़ एक रिपोर्ट। ये रिपोर्टों की गिनती हैं, सेवा का माप नहीं।
+ధృవీకరించనివి: సైన్ ఇన్ చేసిన ప్రతి వ్యక్తికి రోజుకు ఒక నివేదిక. ఇవి నివేదికల లెక్క మాత్రమే, సేవకు కొలమానం కాదు.
+
+= Add your taps to your ward’s total.
+अपने टैप अपने वार्ड के जोड़ में जोड़ें।
+మీ ట్యాప్‌లను మీ వార్డు లెక్కలో చేర్చండి.
+
+= Sign in with Google so each person counts once.
+Google से साइन इन करें ताकि हर व्यक्ति एक ही बार गिना जाए।
+ప్రతి వ్యక్తి ఒక్కసారే లెక్కలోకి వచ్చేలా Googleతో సైన్ ఇన్ చేయండి.
+
+= What is stored if I sign in
+साइन इन करने पर क्या संग्रहीत होता है
+సైన్ ఇన్ చేస్తే ఏం నిల్వ అవుతుంది
+
+= Stored:
+संग्रहीत:
+నిల్వ అయ్యేవి:
+
+= an anonymous code made from your Google account, this ward, the day, and whether the truck came.
+आपके Google खाते से बना एक गुमनाम कोड, यह वार्ड, दिन, और गाड़ी आई या नहीं।
+మీ Google ఖాతా నుంచి తయారైన అనామక కోడ్, ఈ వార్డు, రోజు, బండి వచ్చిందా లేదా.
+
+= Not stored:
+संग्रहीत नहीं:
+నిల్వ కానివి:
+
+= your name, your email address, your picture or your location.
+आपका नाम, ईमेल पता, तस्वीर या जगह।
+మీ పేరు, ఈమెయిల్ చిరునామా, ఫోటో, మీ స్థానం.
+
+= You can delete everything you shared at any time.
+आप जो कुछ साझा करें, उसे कभी भी हटा सकते हैं।
+మీరు పంచుకున్నదంతా ఎప్పుడైనా తొలగించవచ్చు.
+
+= Google’s sign-in script is loaded only after you press the button below.
+Google की साइन-इन स्क्रिप्ट तभी लोड होती है जब आप नीचे का बटन दबाते हैं।
+మీరు కింది బటన్ నొక్కిన తర్వాతే Google సైన్-ఇన్ స్క్రిప్ట్ లోడ్ అవుతుంది.
+
+= Turn on sharing
+साझा करना चालू करें
+పంచుకోవడం ప్రారంభించండి
+
+= Share my earlier taps for this ward
+इस वार्ड के मेरे पुराने टैप साझा करें
+ఈ వార్డుకు నా పాత ట్యాప్‌లను పంచుకోండి
+
+= Sign out
+साइन आउट
+సైన్ అవుట్
+
+= Delete everything I shared
+मेरा साझा किया सब कुछ हटाएँ
+నేను పంచుకున్నదంతా తొలగించండి
+
+= Your taps for this ward are added to the total above.
+इस वार्ड के आपके टैप ऊपर के जोड़ में जुड़ते हैं।
+ఈ వార్డుకు మీ ట్యాప్‌లు పై లెక్కలో చేరుతాయి.
+
+= Sharing is on.
+साझा करना चालू है।
+పంచుకోవడం ప్రారంభమైంది.
+
+= Press the Google button to sign in.
+साइन इन के लिए Google बटन दबाएँ।
+సైన్ ఇన్ చేయడానికి Google బటన్ నొక్కండి.
+
+= Signed out. Your taps stay on this device.
+साइन आउट हो गया। आपके टैप इसी डिवाइस में रहते हैं।
+సైన్ అవుట్ అయ్యారు. మీ ట్యాప్‌లు ఈ పరికరంలోనే ఉంటాయి.
+
+= Did the truck come?
+क्या गाड़ी आई?
+బండి వచ్చిందా?
+
+= ✓ The truck came
+✓ गाड़ी आई
+✓ బండి వచ్చింది
+
+= ✗ The truck did not come
+✗ गाड़ी नहीं आई
+✗ బండి రాలేదు
+
+= Day
+दिन
+రోజు
+
+= Last # days
+पिछले # दिन
+గత # రోజులు
+
+= Official figures, for context
+संदर्भ के लिए सरकारी आँकड़े
+సందర్భం కోసం అధికారిక సంఖ్యలు
+
+= Green ward badge
+हरित वार्ड बैज
+గ్రీన్ వార్డు బ్యాడ్జ్
+
+= QR code for this ward
+इस वार्ड का QR कोड
+ఈ వార్డు QR కోడ్
+
+= All wards
+सभी वार्ड
+అన్ని వార్డులు
+
+= Print this QR code
+यह QR कोड प्रिंट करें
+ఈ QR కోడ్ ప్రింట్ చేయండి
+
+= Public address of the site
+साइट का सार्वजनिक पता
+సైట్ బహిరంగ చిరునామా
+
+= You are on a test copy of the site, so the QR code points to the live site instead of this computer.
+आप साइट की परीक्षण प्रति पर हैं, इसलिए QR कोड इस कंप्यूटर की जगह असली साइट की ओर ले जाता है।
+మీరు సైట్ పరీక్ష కాపీలో ఉన్నారు; అందుకే QR కోడ్ ఈ కంప్యూటర్‌కు కాకుండా అసలు సైట్‌కు తీసుకెళ్తుంది.
+
+= Download these reports (CSV)
+ये रिपोर्टें डाउनलोड करें (CSV)
+ఈ నివేదికలను డౌన్‌లోడ్ చేయండి (CSV)
+
+= Delete this ward's reports from this device
+इस डिवाइस से इस वार्ड की रिपोर्टें हटाएँ
+ఈ పరికరం నుంచి ఈ వార్డు నివేదికలను తొలగించండి
+
+= What the official figures say
+सरकारी आँकड़े क्या कहते हैं
+అధికారిక సంఖ్యలు ఏం చెబుతున్నాయి

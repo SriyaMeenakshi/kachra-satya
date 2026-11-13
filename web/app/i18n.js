@@ -30,7 +30,7 @@
     },
     hi: {
       nav_home: "होम", nav_map: "नक्शा", nav_claim: "दावा जाँचें", nav_claim_m: "दावा", nav_gaps: "अंतर", nav_city: "आपका शहर", nav_city_m: "शहर", nav_ask: "पूछें", nav_explore: "खोजें", nav_more: "और", nav_ward: "आपका वार्ड", nav_help: "मदद", nav_dropoff: "नज़दीकी ड्रॉप-ऑफ़", theme: "थीम", language: "भाषा",
-      kicker: "कचरा डेटा वेधशाला · भारत", h1: "भारत की कचरा कहानी हमेशा मेल नहीं खाती।", lede: "आँकड़ों का पीछा करें, सरकारी दावों की तुलना करें और जानें कि भारत का कचरा-डेटा असल में क्या कहता है।",
+      kicker: "कचरे के आँकड़ों की पड़ताल · भारत", h1: "कचरे पर किए गए हर वादे की एक रसीद होनी चाहिए।", lede: "भारत कितना कचरा प्रोसेस करता है, इस पर दो सरकारी आँकड़े आपस में मेल नहीं खाते। वादा जाँचें, सबूत खोलें, अपनी गली में परखें, फिर कुछ करें।",
       cta_explore: "डेटा देखें", cta_claim: "दावा जाँचें",
       what: "कचरा सत्य भारत के कचरे के दो सरकारी आँकड़े साथ-साथ रखता है, हर आँकड़े के पीछे का स्रोत पृष्ठ दिखाता है, और उन आँकड़ों को चिह्नित करता है जो सब एक साथ सही नहीं हो सकते।",
       layer_label: "नक्शे का रंग", layer_mohua: "MoHUA प्रसंस्कृत", layer_cpcb: "CPCB उपचारित", layer_gap: "अंतर", map_hint: "आँकड़े देखने के लिए राज्य चुनें",
@@ -48,9 +48,9 @@
       v_mix_s: "कुछ सरकारी स्रोत इस दावे से मेल खाते हैं और कुछ नहीं। स्रोत आपस में सहमत नहीं हैं।", v_cant_s: "तुलना के लिए हमारे पास कोई आँकड़ा नहीं है, और हम अंदाज़ा नहीं लगाते।"
     },
     te: {
-      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "క్లెయిమ్ తనిఖీ", nav_claim_m: "క్లెయిమ్", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", nav_dropoff: "దగ్గరి డ్రాప్-ఆఫ్", theme: "థీమ్", language: "భాష",
-      kicker: "చెత్త డేటా పరిశీలనశాల · భారతదేశం", h1: "భారత చెత్త కథ ఎప్పుడూ సరిపోలదు.", lede: "సంఖ్యలను అనుసరించండి, అధికారిక వాదనలను పోల్చండి, భారత చెత్త డేటా నిజంగా ఏమి చెబుతోందో తెలుసుకోండి.",
-      cta_explore: "డేటా చూడండి", cta_claim: "క్లెయిమ్ తనిఖీ",
+      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "సంఖ్య తనిఖీ", nav_claim_m: "తనిఖీ", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", nav_dropoff: "దగ్గరి డ్రాప్-ఆఫ్", theme: "థీమ్", language: "భాష",
+      kicker: "చెత్త లెక్కల పరిశీలన · భారతదేశం", h1: "చెత్తపై ఇచ్చిన ప్రతి హామీకి ఒక రసీదు ఉండాలి.", lede: "భారతదేశం ఎంత చెత్తను ప్రాసెస్ చేస్తోందనే దానిపై రెండు అధికారిక సంఖ్యలు ఒకదానితో ఒకటి సరిపోవడం లేదు. హామీని తనిఖీ చేయండి, ఆధారాన్ని తెరిచి చూడండి, మీ వీధిలో నిజమో కాదో చూడండి, ఆపై ఏదైనా చేయండి.",
+      cta_explore: "డేటా చూడండి", cta_claim: "సంఖ్య తనిఖీ",
       what: "కచ్రా సత్య భారత చెత్తపై రెండు అధికారిక సంఖ్యలను పక్కపక్కన ఉంచి, ప్రతి సంఖ్య వెనుక ఉన్న మూల పేజీని చూపి, అన్నీ ఒకేసారి నిజం కాలేని సంఖ్యలను గుర్తిస్తుంది.",
       layer_label: "మ్యాప్ రంగు", layer_mohua: "MoHUA ప్రాసెస్", layer_cpcb: "CPCB శుద్ధి", layer_gap: "తేడా", map_hint: "సంఖ్యలు చూడటానికి రాష్ట్రాన్ని ఎంచుకోండి",
       stat_mohua_who: "MoHUA ప్రకారం", stat_cpcb_who: "CPCB సంఖ్యలు",
@@ -124,5 +124,8 @@
     sel.onchange = function () { L = this.value; try { localStorage.setItem("ks-lang", L); } catch (e) {} chrome(); closePop(); window.dispatchEvent(new Event("ks-lang")); };
   }
   chrome();
-  root.KSi18n = { t: t, th: th, term: term, gl: gl, lang: function () { return L; }, langs: LANGS, glossary: GL, chrome: chrome };
+  /* more strings from another file (i18n_pages.js): { lang: { key: text } } */
+  function extend(o) { Object.keys(o).forEach(function (l) { UI[l] = UI[l] || {}; Object.keys(o[l]).forEach(function (k) { UI[l][k] = o[l][k]; }); }); chrome(); }
+  function has(k) { return !!(UI[L] && UI[L][k]); }
+  root.KSi18n = { extend: extend, has: has, t: t, th: th, term: term, gl: gl, lang: function () { return L; }, langs: LANGS, glossary: GL, chrome: chrome };
 })(window);

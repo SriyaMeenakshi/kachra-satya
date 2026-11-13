@@ -61,17 +61,29 @@
     function doors() {      /* "What brings you here?": four doors, one per kind of visitor. Each starts a guided path (guide.js). */
       return '<div class="op-doors" role="group" aria-labelledby="op-go-h"><h2 id="op-go-h" class="op-doors-h">' + esc(T("goal_h", "What brings you here?")) + '</h2>' + (root.KSGuide ? root.KSGuide.chooser() : "") + '<p class="op-explore"><a href="#/map">' + esc(T("cta_explore", "Explore the data")) + ' &rarr;</a></p></div>';
     }
+    function lead() {      /* one concrete case, chosen by rule (lead.js): the state where the two newest figures are furthest apart */
+      var L = root.KSLead ? root.KSLead.pick(KS) : null; if (!L) return "";
+      var P = root.KSLead.pct, m = L.mohua, c = L.cpcb, up = m.treated > c.treated, times = c.treated > 0 ? Math.round(m.treated / c.treated * 10) / 10 : null;
+      function card(x, cls, who, word) { return '<div class="op-lead-c ' + cls + '"><span class="who">' + esc(who) + '</span><span class="big">' + P(x.pct) + '</span><span class="sm">' + esc(T("lead_card_" + cls, "{t} of {g} tonnes a day reported " + word + ", {y}.", { t: n0(x.treated), g: n0(x.generated), y: x.year })) + "<br>" + esc(nm(x.doc)) + ", p." + esc(x.page) + rbtn(x.key) + "</span></div>"; }
+      return '<section class="op-sec op-lead" aria-labelledby="op-lead-h"><p class="op-eyebrow">' + esc(T("lead_k", "One place, two receipts")) + '</p>' +
+        '<h2 class="op-h2" id="op-lead-h">' + esc(T("lead_h", "{state}: is {m} of its waste processed, or {c}?", { state: L.state, m: P(m.pct), c: P(c.pct) })) + "</h2>" +
+        '<div class="op-lead-g">' + card(m, "m", T("stat_mohua_who", "MoHUA says"), "processed") + '<span class="op-lead-vs" aria-hidden="true">&ne;</span>' + card(c, "c", T("stat_cpcb_who", "CPCB figures give"), "treated") + "</div>" +
+        '<p class="op-p">' + esc(up && times ? T("lead_either", "Both are government figures for the same place. Either the waste handled rose from {a} to {b} tonnes a day ({x} times) between {y1} and {y2}, or the two bodies are not counting the same thing.", { a: n0(c.treated), b: n0(m.treated), x: times, y1: c.year, y2: m.year }) : T("lead_years", "Both are government figures for the same place. The years differ ({y1} and {y2}) and the two bodies may not be counting the same thing.", { y1: c.year, y2: m.year })) + " <strong>" + esc(T("lead_neither", "The documents do not say which, and neither do we.")) + "</strong></p>" +
+        '<p class="op-lead-note">' + esc(T("lead_how", "How we chose this: it is the widest difference of any state in our data, picked by that rule and not by hand. The CPCB share is computed by us from two printed figures.")) + '</p>' +
+        '<div class="op-why3-cta"><a class="op-btn primary" href="#/map/' + encodeURIComponent(L.state) + '">' + esc(T("lead_map", "Open {state} on the map", { state: L.state })) + '</a><a class="op-btn ghost" href="#/ward">' + esc(T("lead_street", "Is it true on your street?")) + '</a></div></section>';
+    }
     view.innerHTML = '<div class="op">' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
       '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'Every waste promise <span class="mark">deserves a receipt.</span>') + '</h1><p class="op-lede">' + esc(T("lede", "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.")) + '</p>' +
       doors() +
       '<p class="op-what">' + esc(T("what", "Kachra Satya puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
-      '<div class="op-mapwrap"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
+      '<div class="op-mapwrap"><div id="op-mapbox"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
       [["gap", T("layer_gap", "Difference")], ["mohua", T("layer_mohua", "MoHUA processed")], ["cpcb", T("layer_cpcb", "CPCB treated")]].map(function (m) { return '<button type="button" data-l="' + m[0] + '" aria-pressed="' + (LAYER === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div>" +
       '<div class="geo op-map" id="op-map"></div><div class="op-legend" id="op-legend"></div><p class="op-maphint">' + esc(T("map_hint", "Select a state to open its figures")) + "</p>" +
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(nm(mp.source_doc)) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
-      '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(nm(ct.source_doc)) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div>" + ticker() + "</section>" +
+      '<div class="op-float c op-f2"><span class="who">' + esc(T("stat_cpcb_who", "CPCB figures give")) + '</span><span class="big">' + (cpct == null ? "&ndash;" : cpct + "%") + '</span><span class="sm">' + term("treated") + " · 2023-24 · " + (ct ? esc(nm(ct.source_doc)) + ", p." + esc(ct.source_page) + rbtn(cKey) : "") + "</span></div></div></div></div></div>" + ticker() + "</section>" +
 
+      lead() +
       (root.KSLoop ? root.KSLoop.strip() : "") +
       '<section class="op-sec op-two" aria-labelledby="op-two-h"><div><p class="op-eyebrow">' + esc(T("kicker2", "The two official figures")) + '</p><h2 class="op-h2" id="op-two-h">' + esc(T("two_h", "Two official numbers. One country.")) + '</h2>' +
       '<p class="op-p">' + esc(T("two_p", "Both come from government documents and answer a similar question, for different years, and the two bodies may not mean the same thing by their words.")) + '</p>' +
@@ -105,7 +117,6 @@
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
     if (root.KSGuide) root.KSGuide.wireGoals(view);
     if (root.KSDemo) root.KSDemo.wire(view);
-
     /* reveal: content is visible by default; .pre hides it only while it is about to be revealed, and everything is forced visible after 4 s so a throttled tab never stays blank */
     var targets = [].slice.call(view.querySelectorAll(".dots .g, .op-find, .stamp"));
     if (!(root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches) && "IntersectionObserver" in root) {

@@ -12,16 +12,18 @@
   var ROUTE = { claim: "promise", ask: "promise", map: "proof", gaps: "proof", explore: "proof", about: "proof", ward: "reality", city: "reality", help: "action", brief: "action", school: "action", dropoff: "action" };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function T(k, fb, v) { if (root.KSi18n) return root.KSi18n.t(k, fb, v); var s = fb; if (v) Object.keys(v).forEach(function (x) { s = s.split("{" + x + "}").join(v[x]); }); return s; }
+  function nm(s) { return T("lp_" + s.id, s.name); }      /* the stage's name in the reader's language */
   function stage(id) { for (var i = 0; i < STAGES.length; i++) if (STAGES[i].id === id) return STAGES[i]; return null; }
   function stageOfRoute(name) { return stage(ROUTE[name]); }
 
   /* the strip on Home: all four stops, each a way in */
   function strip() {
-    return '<section class="op-sec loop-strip" aria-labelledby="loop-h"><p class="op-eyebrow">The idea</p><h2 class="op-h2" id="loop-h">A receipt for every waste promise.</h2>' +
-      '<p class="op-p">Every number about India\'s waste is a promise. We turn each one into a receipt you can follow: what was said, the proof, whether it is true where you live, and what you can do.</p>' +
+    return '<section class="op-sec loop-strip" aria-labelledby="loop-h"><p class="op-eyebrow">' + esc(T("lp_k", "The idea")) + '</p><h2 class="op-h2" id="loop-h">' + esc(T("lp_h", "A receipt for every waste promise.")) + '</h2>' +
+      '<p class="op-p">' + esc(T("lp_p", "Every number about India's waste is a promise. We turn each one into a receipt you can follow: what was said, the proof, whether it is true where you live, and what you can do.")) + '</p>' +
       '<ol class="loop-steps">' + STAGES.map(function (s, i) {
-        return '<li class="loop-step"><a href="' + s.home + '"><span class="loop-n" aria-hidden="true">' + s.n + '</span><span class="loop-t"><b>' + esc(s.name) + '</b><span class="loop-q">' + esc(s.q) + '</span><span class="loop-l">' + esc(s.line) + '</span></span><span class="loop-go">' + esc(s.cta) + ' &rarr;</span></a></li>';
-      }).join("") + '</ol><p class="loop-back">&#8635; Then it loops: you check the next promise, or see whether the last one changed.</p></section>';
+        return '<li class="loop-step"><a href="' + s.home + '"><span class="loop-n" aria-hidden="true">' + s.n + '</span><span class="loop-t"><b>' + esc(nm(s)) + '</b><span class="loop-q">' + esc(T("lp_" + s.id + "_q", s.q)) + '</span><span class="loop-l">' + esc(T("lp_" + s.id + "_l", s.line)) + '</span></span><span class="loop-go">' + esc(T("lp_" + s.id + "_c", s.cta)) + ' &rarr;</span></a></li>';
+      }).join("") + '</ol><p class="loop-back">&#8635; ' + esc(T("lp_back", "Then it loops: you check the next promise, or see whether the last one changed.")) + '</p></section>';
   }
 
   /* the bar on every other page: where this page sits, and the next stop */
@@ -29,12 +31,12 @@
     var cur = stageOfRoute(routeName); if (!cur) return "";
     var next = STAGES[cur.n % STAGES.length];
     return '<nav class="loop-bar" data-lp="1" aria-label="Where this page sits in the loop: a receipt for every waste promise"><ol>' + STAGES.map(function (s) {
-      return '<li' + (s.id === cur.id ? ' class="on" aria-current="step"' : "") + '><a href="' + s.home + '"><span class="loop-n" aria-hidden="true">' + s.n + "</span>" + esc(s.name) + "</a></li>"; }).join("") + '</ol>' +
-      '<p class="loop-here"><b>Step ' + cur.n + " of 4, " + esc(cur.name) + ".</b> " + esc(cur.q) + ' <a href="' + next.home + '">Next: ' + esc(next.name) + " &rarr;</a></p></nav>";
+      return '<li' + (s.id === cur.id ? ' class="on" aria-current="step"' : "") + '><a href="' + s.home + '"><span class="loop-n" aria-hidden="true">' + s.n + "</span>" + esc(nm(s)) + "</a></li>"; }).join("") + '</ol>' +
+      '<p class="loop-here"><b>' + esc(T("lp_step", "Step {n} of 4, {name}.", { n: cur.n, name: nm(cur) })) + "</b> " + esc(T("lp_" + cur.id + "_q", cur.q)) + ' <a href="' + next.home + '">' + esc(T("lp_next", "Next: {name}", { name: nm(next) })) + " &rarr;</a></p></nav>";
   }
 
   /* a small chip for the demo film and other places that name a stage */
-  function chip(id) { var s = stage(id); return s ? '<span class="loop-chip loop-' + s.id + '">' + s.n + " &middot; " + esc(s.name) + "</span>" : ""; }
+  function chip(id) { var s = stage(id); return s ? '<span class="loop-chip loop-' + s.id + '">' + s.n + " &middot; " + esc(nm(s)) + "</span>" : ""; }
 
   var api = { STAGES: STAGES, ROUTE: ROUTE, stage: stage, stageOfRoute: stageOfRoute, strip: strip, bar: bar, chip: chip };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSLoop = api;

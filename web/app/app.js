@@ -42,7 +42,8 @@
   /* ---------- routing ---------- */
   var TITLES = { start: "Start", help: "Get help", brief: "Briefing", school: "Schools", dropoff: "Nearest drop-off", ward: "Your ward", map: "Map", claim: "Check a claim", gaps: "Insights", city: "Your city", ask: "Ask", explore: "Insights", about: "About" };
   function route() {
-    var h = decodeURIComponent((location.hash || "#/start").replace(/^#\/?/, "")).split("/"), n = h[0], a = h.slice(1);
+    var raw = (location.hash || "#/start").replace(/^#\/?/, ""), h; try { h = decodeURIComponent(raw).split("/"); } catch (e) { h = raw.split("/"); }      /* a hand-typed "%" must not break the page */
+    var n = h[0], a = h.slice(1);
     if (n === "insights") { n = "gaps"; } else if (n === "audit") { n = "explore"; a = ["audit"]; } else if (n === "receipts") { n = "explore"; a = ["receipts"].concat(a); } else if (n === "definitions") { n = "explore"; a = ["defs"]; }
     return { name: TITLES[n] ? n : "start", args: a };
   }
@@ -54,13 +55,20 @@
     /* every page gets one level-1 heading (so a screen reader announces the page) and a matching icon (so the pages read as one product) */
     var PG = { map: "i-map", claim: "i-claim", gaps: "i-gaps", city: "i-city", ask: "i-ask", explore: "i-explore", ward: "i-ward", help: "i-help", dropoff: "i-bin" }, hh = view.querySelector("h1, h2");
     if (hh && !view.querySelector("h1")) hh.setAttribute("aria-level", "1");
+    /* Hindi and Telugu: the page heading and its first line (i18n_pages.js). The rest of a page may still be English, and says so. */
+    if (KSi18n.lang() !== "en" && r.name !== "start" && hh && hh.parentNode === view) {
+      var sub0 = hh.nextElementSibling && hh.nextElementSibling.classList.contains("sub") ? hh.nextElementSibling : null;
+      if (KSi18n.has("pg_" + r.name)) hh.textContent = KSi18n.t("pg_" + r.name);
+      if (sub0 && KSi18n.has("pg_" + r.name + "_s") && !(r.name === "gaps" && r.args[0])) sub0.textContent = KSi18n.t("pg_" + r.name + "_s");
+      (sub0 || hh).insertAdjacentHTML("afterend", '<p class="lang-note" lang="' + KSi18n.lang() + '">' + esc(KSi18n.t("partly", "")) + "</p>");
+    }
     if (hh && PG[r.name] && hh.parentNode === view && !hh.querySelector(".pg-ic")) hh.insertAdjacentHTML("afterbegin", '<svg class="pg-ic" aria-hidden="true"><use href="#' + PG[r.name] + '"/></svg>');
     /* where this page sits in the loop (Promise, Proof, Reality, Action) and the next stop: loop.js */
-    if (window.KSLoop && r.name !== "start") { var lb = KSLoop.bar(r.name), ref = hh; if (lb) { if (ref && ref.parentNode === view) { if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("sub")) ref = ref.nextElementSibling; ref.insertAdjacentHTML("afterend", lb); } else view.insertAdjacentHTML("afterbegin", lb); } }
+    if (window.KSLoop && r.name !== "start") { var lb = KSLoop.bar(r.name), ref = hh; if (lb) { if (ref && ref.parentNode === view) { if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("sub")) ref = ref.nextElementSibling; if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("lang-note")) ref = ref.nextElementSibling; ref.insertAdjacentHTML("afterend", lb); } else view.insertAdjacentHTML("afterbegin", lb); } }
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   window.addEventListener("hashchange", go);
-  window.addEventListener("ks-lang", function () { var n = route().name; if (n === "start" || n === "claim" || n === "map") go(); });   /* only pages that are translated; others keep what the person typed */
+  window.addEventListener("ks-lang", go);   /* headings, the menu, the loop and Home are translated; a page re-renders so they switch at once */
   document.addEventListener("click", function (e) { var m = document.querySelector("#nav .more"); if (m && m.open && !m.contains(e.target)) m.open = false; });
 
   /* ---------- sortable, searchable table ---------- */
@@ -89,13 +97,29 @@
   var VERD = { SUPPORTED: ["v_sup", "v_sup_s"], CONTRADICTED: ["v_con", "v_con_s"], SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: ["v_mix", "v_mix_s"], CANNOT_VERIFY: ["v_cant", "v_cant_s"] };
   var VICON = { SUPPORTED: "\u2713", CONTRADICTED: "\u2715", SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS: "\u2260", CANNOT_VERIFY: "?" };
   var EXAMPLES = ["81% of India's urban waste is processed", "62% of India's waste is treated", "Delhi treated 7,542 tonnes per day in 2023-24", "Maharashtra landfilled 2,067 tonnes per day in 2021-22"];
+  var claimQuiet = false;      /* true while the Check a claim page runs its own example, so the address bar is left alone */
   function mountClaim(el, o) {
     o = o || {};
     el.innerHTML = '<div class="ask"><input id="cin" type="text" aria-label="A claim about India\'s waste figures" placeholder="Paste a claim, e.g. 81% of India\'s urban waste is processed" autocomplete="off"><button class="go" id="cgo" type="button">Check</button></div>' +
       '<div class="chips" id="cex" aria-label="Examples">' + EXAMPLES.map(function (x, i) { return '<button class="chip" type="button" data-i="' + i + '">' + esc(x) + "</button>"; }).join("") + "</div>" +
       '<div id="cres" aria-live="polite"></div><details class="more" id="cadj"><summary>Adjust what we read</summary><div><div class="grid2"><div><label for="metric">Claim</label><select id="metric"><option value="processed_pct">Share processed (%)</option><option value="generated">Generated (tpd)</option><option value="collected">Collected (tpd)</option><option value="treated">Treated (tpd)</option><option value="landfilled">Landfilled (tpd)</option></select></div>' +
       '<div><label for="value">Value</label><input id="value" type="number" step="any"></div><div><label for="cstate">Place</label><select id="cstate">' + opts(["India (national)"].concat(states)) + '</select></div><div><label for="cyear">Year</label><select id="cyear">' + opts(years, "any") + '</select></div></div><p><button class="alt" id="cagain" type="button">Check these values</button></p></div></details>';
-    function check() {
+    function shareRow(r, sentence, heads, fig, na, verdict, said) {      /* a link that reopens this check, and the result as text (receipt.js) */
+      var R = window.KSReceipt, card = $("cres").querySelector(".claimcard"); if (!R || !card) return;
+      var url = R.link(location.href, said);
+      if (!claimQuiet && route().name === "claim") { try { history.replaceState(null, "", url); } catch (e) {} }      /* the address bar now reopens this check */
+      var txt = R.text({ claim: sentence, verdict: verdict, figures: heads.map(function (x) { return { source: x.source_name, year: x.year, figure: fig(x), computed: x.kind === "computed", doc: dn(x.source_doc), page: x.source_page }; }), matches: na, total: r.records.length, built: KS.built, url: url });
+      card.insertAdjacentHTML("beforeend", '<div class="cc-share"><h3 class="cc-h">Take this receipt with you</h3><p class="cc-p">The link reopens this check with its source pages. Nothing leaves this page until you choose to share it.</p><div class="cc-acts"><button type="button" class="go" id="ccshare">Share</button><button type="button" class="alt" id="cccopy">Copy as text</button><button type="button" class="alt" id="cclink">Copy link</button><a id="ccwa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(txt) + '">WhatsApp</a></div><p class="note" id="ccmsg" role="status"></p></div>');
+      function say(m) { $("ccmsg").textContent = m; }
+      function copy(s, ok) {
+        function fb() { var ta = document.createElement("textarea"), done = false; ta.value = s; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { done = document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); say(done ? ok : "Could not copy. Select the address in the address bar and copy it by hand."); }
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(function () { say(ok); }, fb); else fb();
+      }
+      $("cccopy").onclick = function () { copy(txt, "Receipt copied."); };
+      $("cclink").onclick = function () { copy(url, "Link copied."); };
+      var sh = $("ccshare"); if (navigator.share) sh.onclick = function () { navigator.share({ title: "Kachra Satya receipt", text: txt }).catch(function () {}); }; else sh.hidden = true;
+    }
+    function check(adjusted) {
       var st = $("cstate").value, v = parseFloat($("value").value);
       if (isNaN(v)) { $("cres").innerHTML = '<p class="note">We could not find a number in that sentence. Try a figure with % or "tonnes per day", or open "Adjust what we read".</p>'; return; }
       var r = KSClaim.checkClaim(KS, { metric: $("metric").value, value: v, state: st.indexOf("India") === 0 ? null : st, year: $("cyear").value || null }), V = VERD[r.verdict];
@@ -113,7 +137,7 @@
         var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|");
         return '<div class="rec"><span class="mk ' + (x.matches ? "y" : "n") + '" aria-label="' + (x.matches ? "matches" : "does not match") + '">' + (x.matches ? "✓" : "✗") + "</span><div><strong>" + esc(x.source_name) + " " + esc(x.year) + '</strong> <span class="note">' + esc(dn(x.source_doc)) + ", p." + esc(x.source_page) + (x.kind === "computed" ? " · computed by us: " + esc(x.note) : "") + '</span></div><div><span class="fig">' + fig(x) + "</span> " + rbtn(key, "page") + (pct ? meanPct(x.value) : mean(x.value)) + "</div></div>";
       }
-      var said = ($("cin").value || "").trim(), sentence = said || (r.claim ? $("metric").selectedOptions[0].text + " = " + r.claim.value + (pct ? "%" : " tpd") + ", " + r.claim.state : "");
+      var said = adjusted === true ? "" : ($("cin").value || "").trim(), sentence = said || (r.claim ? $("metric").selectedOptions[0].text + " = " + r.claim.value + (pct ? "%" : " tpd") + ", " + r.claim.state : "");
       var h = '<div class="claimcard"><p class="cc-claim"><span class="cc-l">Claim</span> ' + esc(sentence) + "</p>" +
         '<div class="verdict v-' + r.verdict + '"><div class="b"><span aria-hidden="true">' + VICON[r.verdict] + "</span> " + esc(T(V[0])) + '</div><div class="vsent">' + esc(T(V[1])) + "</div></div>";
       if (heads.length) h += '<div class="cc-figs">' + heads.map(function (x) {
@@ -124,7 +148,7 @@
       if (heads.length) h += '<h3 class="cc-h">Evidence</h3><ul class="cc-ev">' + heads.map(function (x) { var key = [x.scope, x.year, r.claim.metric, x.source_doc].join("|"); return "<li>" + esc(dn(x.source_doc)) + ", page " + esc(x.source_page) + " " + rbtn(key, "open the page") + "</li>"; }).join("") + "</ul>";
       if (r.records.length) h += '<details class="more cc-all"><summary>See all source records (' + r.records.length + ')</summary><div class="recs">' + r.records.map(recRow).join("") + "</div></details>";
       h += '<details class="more"><summary>How we read this</summary><div>' + (r.claim ? "<p>Read as: " + esc($("metric").selectedOptions[0].text) + " = " + esc(r.claim.value) + (pct ? "%" : " tpd") + ", " + esc(r.claim.state) + ", " + (r.claim.year ? esc(r.claim.year) : "any year") + ". Counts as matching within " + esc(r.tolerance) + ".</p>" : "") + "<p>" + esc(r.reason) + ".</p></div></details></div>";
-      $("cres").innerHTML = h; wireR($("cres"));
+      $("cres").innerHTML = h; wireR($("cres")); shareRow(r, sentence, heads, fig, na, T(V[0]), said);
     }
     function fromSentence() {
       var p = KSClaim.parseSentence(KS, $("cin").value);
@@ -133,14 +157,15 @@
       if (p.metric) $("metric").value = p.metric; if (p.value != null) $("value").value = p.value; else $("value").value = "";
       $("cstate").value = p.state || "India (national)"; $("cyear").value = p.year && years.indexOf(p.year) >= 0 ? p.year : ""; check();
     }
-    $("cgo").onclick = fromSentence; $("cagain").onclick = check;
+    $("cgo").onclick = fromSentence; $("cagain").onclick = function () { check(true); };
     $("cin").onkeydown = function (e) { if (e.key === "Enter") fromSentence(); };
     $("cex").querySelectorAll(".chip").forEach(function (b) { b.onclick = function () { $("cin").value = EXAMPLES[+b.dataset.i]; fromSentence(); }; });
     if (o.focus) $("cin").focus();
   }
-  function renderClaim() {
+  function renderClaim(tab, args) {
     view.innerHTML = '<h2>Check a claim</h2><p class="sub">Type or paste a number someone quoted. We compare it with every source we hold and show who agrees.</p><div class="card pad" id="cbox"></div><p class="note">Prefer your own words, or Hindi, Tamil or Telugu? <a href="#/ask">Ask a question instead</a>.</p>';
-    mountClaim($("cbox"), { focus: true }); $("cin").value = EXAMPLES[0]; $("cgo").click();
+    var shared = window.KSReceipt ? KSReceipt.fromArgs(args) : "";      /* a shared receipt link carries the sentence; it is checked again here, never trusted */
+    mountClaim($("cbox"), { focus: true }); $("cin").value = shared || EXAMPLES[0]; claimQuiet = !shared; $("cgo").click(); claimQuiet = false;
   }
 
   /* ---------- Map (home) ---------- */
@@ -285,19 +310,24 @@
   }
 
   /* ---------- Explore: audit first, receipts, swings, definitions ---------- */
-  var TABS = [["audit", "Audit first"], ["receipts", "Receipts"], ["swings", "Swings"], ["defs", "Definitions"]];
+  var TABS = [["audit", "Where to look first"], ["receipts", "Every source page"], ["swings", "Figures that jump"], ["defs", "What the words mean"]];
+  var I = window.KSInsights;      /* the overview, the short answers and the charts: insights.js */
   /* Insights = the old Gaps and Explore pages under one heading and one tab strip. Their routes (#/gaps/..., #/explore/...) are unchanged. */
   function insightsNav(page, tab) {
-    function strip(label, list, base, on) { return '<p class="ins-l">' + label + '</p><nav class="tabs" aria-label="' + label + '">' + list.map(function (t) { return '<a href="#/' + base + "/" + t[0] + '"' + (page === base && t[0] === tab ? ' aria-current="page"' : "") + ">" + t[1] + "</a>"; }).join("") + "</nav>"; }
-    return '<div class="ins">' + strip("Money and gaps", GTABS, "gaps") + strip("Sources and checks", TABS, "explore") + "</div>";
+    function strip(label, list, base, on) { return '<p class="ins-l">' + label + '</p><nav class="tabs" aria-label="' + label + '">' + list.map(function (t) { return '<a href="#/' + base + "/" + t[0] + '"' + (page === base && t[0] === tab ? ' aria-current="page"' : "") + ">" + esc(KSi18n.t("tab_" + t[0], t[1])) + "</a>"; }).join("") + "</nav>"; }
+    return '<div class="ins"><p class="ins-back"><a href="#/gaps">&larr; ' + esc(KSi18n.t("ins_back", "All the questions")) + '</a></p>' + strip(esc(KSi18n.t("ins_six", "Six questions")), GTABS, "gaps") + strip(esc(KSi18n.t("ins_chk", "Check the sources")), TABS, "explore") + "</div>";
   }
   function renderExplore(tab, args) {
     if (!TABS.some(function (t) { return t[0] === tab; })) tab = "audit";
-    view.innerHTML = '<h2>Insights</h2><p class="sub">Where the figures disagree, where money and results do not line up, and the source pages behind every number.</p>' + insightsNav("explore", tab) + '<div id="tab"></div>';
+    view.innerHTML = '<h2>Insights</h2>' + insightsNav("explore", tab) + '<div id="tab"></div>';
     ({ audit: tabAudit, receipts: tabReceipts, swings: tabSwings, defs: tabDefs })[tab]($("tab"), args ? args.slice(1) : []);
   }
   function tabAudit(el) {
-    el.innerHTML = '<p class="sub">Where an audit would learn most. This is a ranking, not a finding that any state\'s data is wrong. It blends the CPCB-vs-MoHUA gap, swings between reports, within-source flags, repeat flags and missing figures.</p><div class="card pad" id="at"></div><h3>Same problem in several years</h3><div class="card pad tw" id="rt"></div>';
+    var AU = KS.audit.slice().sort(function (a, b) { return a.rank - b.rank; }), a8 = AU.slice(0, 8);
+    el.innerHTML = I.lead("Where would an audit learn most?", (AU.length > 2 ? "Start with " + stateLink(AU[0].state) + ", then " + stateLink(AU[1].state) + " and " + stateLink(AU[2].state) + ". " : "") + "This ranks where to look. It is not a finding that any state&rsquo;s data is wrong.") +
+      '<div class="card pad"><h3 class="viz-h">The first ' + a8.length + ' places to look</h3>' + I.hbar(a8.map(function (r) { return { label: r.state, href: "#/map/" + encodeURIComponent(r.state), value: r.priority_score, text: r.priority_score.toFixed(2) + ": " + r.main_reasons }; }), "wide") +
+      '<p class="note" style="margin-bottom:0">The score blends the CPCB-vs-MoHUA gap, swings between reports, within-source flags, repeat flags and missing figures.</p></div>' +
+      '<h3>Every row behind this</h3>' + I.fold("The full ranking (" + AU.length + ")", '<div class="card pad" id="at"></div>') + I.fold("Same problem in several years (" + KS.recurrence.length + ")", '<div class="card pad tw" id="rt"></div>');
     mountTable($("at"), [
       { label: "#", k: "rank", num: true },
       { label: "State", k: "state", html: function (r) { return '<a href="#/map/' + encodeURIComponent(r.state) + '">' + esc(r.state) + "</a>"; } },
@@ -308,8 +338,12 @@
   }
   function genKey(state, tag) { var p = String(tag || "").split(" "), r = row(state, p[0], p[1], "generated"); return r ? [state, p[0], "generated", r.source_doc].join("|") : ""; }
   function tabSwings(el) {
-    el.innerHTML = '<p class="sub">How much a state\'s own reported generated waste differs from one report to the next.</p><div class="card pad" id="vt"></div>';
-    var rows = KS.volatility.filter(function (r) { return r.ranked === "yes"; }), mx = Math.max.apply(null, rows.map(function (r) { return r.swing_ratio; }));
+    var rows = KS.volatility.filter(function (r) { return r.ranked === "yes"; }), v8 = rows.slice().sort(function (a, b) { return a.rank - b.rank; }).slice(0, 8), v0 = v8[0];
+    el.innerHTML = I.lead("Which figures jump between reports?", v0 ? stateLink(v0.state) + " is reported as generating <strong>" + fmt(v0.min_tpd) + "</strong> tonnes a day in one report and <strong>" + fmt(v0.max_tpd) + "</strong> in another: " + v0.swing_ratio + " times apart." : "How far a state&rsquo;s own figure moves between reports.") +
+      '<div class="card pad"><h3 class="viz-h">The ' + v8.length + ' widest swings in waste generated</h3>' + I.hbar(v8.map(function (r) { return { label: r.state, href: "#/map/" + encodeURIComponent(r.state), value: r.swing_ratio, text: fmt(r.min_tpd) + " to " + fmt(r.max_tpd) + " t/day (" + r.swing_ratio + "x)" }; })) +
+      '<p class="note" style="margin-bottom:0">The lowest and highest figure a state reports for its own waste generated, across every report we hold. The reports cover different years, so some of a swing can be real change.</p></div>' +
+      '<h3>Every row behind this</h3>' + I.fold("All ranked states (" + rows.length + "), with source pages", '<div class="card pad" id="vt"></div>');
+    var mx = Math.max.apply(null, rows.map(function (r) { return r.swing_ratio; }));
     mountTable($("vt"), [
       { label: "#", k: "rank", num: true }, { label: "State", k: "state" },
       { label: "Swing", k: "swing_ratio", html: function (r) { return '<div class="bar10" style="width:' + Math.max(2, r.swing_ratio / mx * 100) + '%;max-width:160px"></div>' + r.swing_ratio + "x"; } },
@@ -352,10 +386,13 @@
   }
 
   /* ---------- Gaps: phantom tonnes, money vs mess, collection and trucks, segregation, completeness ---------- */
-  var GTABS = [["phantom", "Phantom tonnes"], ["money", "Money vs mess"], ["trucks", "Collection and trucks"], ["landfill", "Landfill"], ["segregation", "Segregation"], ["complete", "Completeness"]];
+  var GTABS = [["phantom", "Do the numbers agree?"], ["money", "Is the money used?"], ["trucks", "What goes uncollected?"], ["landfill", "What ends up dumped?"], ["segregation", "Is waste kept separate?"], ["complete", "What goes unreported?"]];
   function renderGaps(tab) {
+    if (!tab) {      /* the way in for a first-time reader: six plain questions, each with its one number */
+      view.innerHTML = '<h2>Insights</h2><p class="sub">Six questions the published figures raise. Pick one: it opens with the short answer and a chart, and keeps every row and source page one tap away. These are prompts for questions, not findings that any state is at fault.</p>' + I.overviewHTML(KS); return;
+    }
     if (!GTABS.some(function (t) { return t[0] === tab; })) tab = "phantom";
-    view.innerHTML = '<h2>Insights</h2><p class="sub">Where reported figures cannot all be true, where money and results do not line up, and what states leave unreported. These are prompts for questions, not findings that any state is at fault.</p>' + insightsNav("gaps", tab) + '<div id="gtab"></div>';
+    view.innerHTML = '<h2>Insights</h2>' + insightsNav("gaps", tab) + '<div id="gtab"></div>';
     ({ phantom: gPhantom, money: gMoney, trucks: gTrucks, landfill: gLandfill, segregation: gSeg, complete: gComplete })[tab]($("gtab"));
   }
   function stateLink(s) { return states.indexOf(s) >= 0 ? '<a href="#/map/' + encodeURIComponent(s) + '">' + esc(s) + "</a>" : esc(s); }
@@ -372,10 +409,13 @@
   function gPhantom(el) {
     var by = {}; KS.phantom.forEach(function (r) { var k = r.counter.charAt(0); (by[k] = by[k] || []).push(r); });
     var head = (by.D || []).filter(function (r) { return r.year === "MoHUA 2025-26 vs CPCB 2023-24"; })[0];
-    el.innerHTML = '<p class="sub">Reported figures that cannot all be true, in separate counters. <strong>Do not add the counters together:</strong> each measures something different, and every row names its years. The data cannot say which figure is wrong.</p>' +
+    var R = I.shares(KS), far = I.farApart(KS), top = R[0];
+    el.innerHTML = I.lead("Do the two official numbers agree?", "In <strong>" + far + " of " + R.length + "</strong> states and UTs, the newest MoHUA share and the newest CPCB share are more than " + I.FAR + " points apart." + (top ? " The widest is " + stateLink(top.state) + ": " + I.p1(top.cpcb.pct) + " and " + I.p1(top.mohua.pct) + "." : "")) +
+      '<div class="card pad"><h3 class="viz-h">The ' + Math.min(12, R.length) + ' widest differences</h3>' + I.dumbbell(R.slice(0, 12)) + '<p class="note" style="margin-bottom:0">Each line is one state: the share of its waste CPCB reports treated, and the share MoHUA reports processed. The years differ and the two words may not mean the same thing, so a long line is a question to ask, not proof of an error. We do not say which is right. CPCB shares are computed by us from two printed figures.</p></div>' +
+      '<h3>Every row behind this</h3><p class="note">Reported figures that cannot all be true, in separate counters. <strong>Do not add the counters together:</strong> each measures something different, and every row names its years. The data cannot say which figure is wrong.</p>' +
       (head ? '<div class="kpis"><div class="kpi"><div class="v">' + n0(head.tpd) + '</div><div class="l">tonnes per day, the difference between two reports for one figure (not a measure of missing waste): ' + esc(head.values) + "<br>" + esc(head.year) + "</div></div></div>" : "") +
       ["D", "E", "A", "B", "C"].filter(function (k) { return by[k]; }).map(function (k) {
-        return '<h3>' + PH[k][0] + ' <span class="note">(' + by[k].length + ")</span></h3><p class=\"note\">" + PH[k][1] + '</p><div class="card pad" id="ph' + k + '"></div>';
+        return I.fold(PH[k][0] + " (" + by[k].length + ")", '<p class="note">' + PH[k][1] + '</p><div class="card pad" id="ph' + k + '"></div>');
       }).join("");
     ["D", "E", "A", "B", "C"].forEach(function (k) {
       if (!by[k]) return;
@@ -411,10 +451,14 @@
     });
     svg += "</svg>";
     var cnt = {}; rows.forEach(function (r) { cnt[r.quadrant] = (cnt[r.quadrant] || 0) + 1; });
-    el.innerHTML = '<p class="sub">Does spending track results? Each dot is a state: how much of its solid waste management allocation (2021 to 2026) has been used, against how much of its waste CPCB reports treated. Tap a dot for the figures.</p>' +
-      '<div class="card pad"><div class="legend2">' + Object.keys(QLAB).map(function (q) { return '<span><i class="kd" style="background:var(' + QCOL[q] + ')"></i>' + QLAB[q] + " (" + (cnt[q] || 0) + ")</span>"; }).join("") + "</div>" + svg + '<div id="mdet" aria-live="polite" class="note">Tap or focus a dot to see that state.</div></div>' +
-      '<div class="notice" style="margin-top:14px"><strong>Read with care.</strong> Funds are cumulative to 25 Nov 2024 and the Lok Sabha table (Q682) prints no unit, so only the ratio is used. Treated is CPCB 2023-24. The quadrants split at the median of the ' + rows.length + ' states, so they are relative, not targets. A low share used is a prompt for a question, not proof of an execution problem; a high share is not proof of success.</div>' +
-      '<h3>All states</h3><div class="card pad" id="mt"></div>';
+    var M = I.money(KS), slow = M.rows.slice(0, 8);
+    el.innerHTML = I.lead("Is the money being used?", "<strong>" + (M.pct == null ? "" : Math.round(M.pct) + "%") + "</strong> of the solid-waste money set aside for states for 2021 to 2026 had been used by 25 Nov 2024.") +
+      '<div class="card pad">' + (M.pct == null ? "" : I.split(M.pct, 100 - M.pct, "used: " + Math.round(M.pct) + "%", "not yet used: " + (100 - Math.round(M.pct)) + "%")) +
+      '<h3 class="viz-h">The ' + slow.length + ' states that have used the smallest share</h3>' + I.hbar(slow.map(function (r) { return { label: r.state, href: "#/map/" + encodeURIComponent(r.state), value: r.swm_utilisation_pct, text: fmt(r.swm_utilisation_pct) + "% used" }; })) + "</div>" +
+      '<div class="notice" style="margin-top:14px"><strong>Read with care.</strong> Funds are cumulative to 25 Nov 2024 and the Lok Sabha table (Q682) prints no unit, so only the ratio is used. A low share used is a prompt for a question, not proof of an execution problem; a high share is not proof of success.</div>' +
+      '<h3>Every row behind this</h3>' +
+      I.fold("Does spending track results? One dot per state", '<p class="note">How much of its allocation a state has used, against how much of its waste CPCB reports treated (2023-24). The quadrants split at the median of the ' + rows.length + ' states, so they are relative, not targets. Tap a dot for the figures.</p><div class="card pad"><div class="legend2">' + Object.keys(QLAB).map(function (q) { return '<span><i class="kd" style="background:var(' + QCOL[q] + ')"></i>' + QLAB[q] + " (" + (cnt[q] || 0) + ")</span>"; }).join("") + "</div>" + svg + '<div id="mdet" aria-live="polite" class="note">Tap or focus a dot to see that state.</div></div>') +
+      I.fold("All states (" + KS.money.length + ")", '<div class="card pad" id="mt"></div>');
     function show(s) {
       var r = KS.money.filter(function (x) { return x.state === s; })[0]; if (!r) return;
       $("mdet").innerHTML = "<strong>" + esc(s) + "</strong> · " + esc(QLAB[r.quadrant] || r.quadrant) + "<br>Allocation " + fmt(r.allocation_swm) + ", funds used " + fmt(r.funds_swm) + " (unit not stated), <strong>" + fmt(r.swm_utilisation_pct) + "%</strong> used. CPCB 2023-24 treated <strong>" + fmt(r.cpcb_pct_treated) + "%</strong>; MoHUA 2025-26 processed <strong>" + fmt(r.mohua_pct_processed) + "%</strong>. <a href=\"#/map/" + encodeURIComponent(s) + "\">State page</a> · <a href=\"#/explore/receipts/" + encodeURIComponent(s) + "\">source pages</a> · funds: Lok Sabha Q682, 28 Nov 2024";
@@ -435,8 +479,12 @@
   /* Collection gap, truck priority and landfill dependence */
   function gTrucks(el) {
     var ly = Array.from(new Set(KS.indicators.filter(function (r) { return r.landfill_pct != null; }).map(function (r) { return r.year; }))).sort();
-    el.innerHTML = '<h3>Where the most waste goes uncollected</h3><p class="note">States ranked by the tonnes per day left uncollected (generated minus collected), CPCB 2023-24. This is prioritisation by tonnage, not route optimisation, which needs ward and vehicle data.</p><div class="card pad" id="tr"></div>' +
-      '<p class="note">How much waste ends up in landfill, nationally and by state, is on the <a href="#/gaps/landfill">Landfill</a> tab.</p>';
+    var U = I.uncollected(KS), worst = U.rows.slice(0, 8);
+    el.innerHTML = I.lead("What goes uncollected?", (U.tpd == null ? "" : "<strong>" + n0(U.tpd) + " tonnes a day</strong> are reported generated but not collected (CPCB " + esc(U.year) + ", about " + n0(U.tpd / 10) + " truckloads). ") + "<strong>" + U.all + " of " + U.rows.length + "</strong> states and UTs report collecting everything.") +
+      '<div class="card pad"><h3 class="viz-h">Where the most is left uncollected</h3>' + I.hbar(worst.map(function (r) { return { label: r.state, href: "#/map/" + encodeURIComponent(r.state), value: r.uncollected_tpd, text: fmt(r.uncollected_tpd) + " t/day, " + fmt(r.collection_pct) + "% collected" }; })) +
+      '<p class="note" style="margin-bottom:0">Generated minus collected, CPCB 2023-24, as states report it. This ranks by tonnage; it is not route optimisation, which needs ward and vehicle data.</p></div>' +
+      '<h3>Every row behind this</h3>' + I.fold("All states (" + KS.trucks.length + ")", '<div class="card pad" id="tr"></div>') +
+      '<p class="note">How much waste ends up in landfill, nationally and by state, is under <a href="#/gaps/landfill">What ends up dumped?</a></p>';
     var mx = Math.max.apply(null, KS.trucks.map(function (r) { return r.uncollected_tpd || 0; })) || 1;
     mountTable($("tr"), [
       { label: "#", k: "rank", num: true }, { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
@@ -454,14 +502,18 @@
       var g = KS.national.filter(function (r) { return r.state === "India" && r.year === y && r.source_name === "CPCB" && r.metric === "generated"; })[0], l = KS.national.filter(function (r) { return r.state === "India" && r.year === y && r.source_name === "CPCB" && r.metric === "landfilled"; })[0];
       return { y: y, g: g, l: l };
     }).filter(function (x) { return x.g && x.l && x.g.value && x.l.value != null; });
-    el.innerHTML = '<h3>Landfill, nationally</h3><p class="note">Tonnes of municipal waste a day that CPCB reports as landfilled, and the share of the waste generated. Three CPCB reports, three different years.</p>' +
-      '<div class="kpis">' + nat.map(function (x) { return '<div class="kpi"><div class="v">' + fmt(x.l.value) + '</div><div class="l">tonnes a day landfilled, ' + esc(x.y) + " (" + (Math.round(x.l.value / x.g.value * 1000) / 10) + "% of generated)<br>" + esc(dn(x.l.source_doc)) + ", p." + esc(x.l.source_page) + " " + rbtn(["India", x.y, "landfilled", x.l.source_doc].join("|"), "page") + "</div></div>"; }).join("") + "</div>" +
-      '<p class="note">The three years come from different reports and may not be measured the same way, so do not read the change between them as a trend.</p>' +
-      '<h3>By state</h3><p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>' +
-      '<h3>Legacy dumpsites: what MoHUA says, nationally</h3><p class="note">Two sets of national statements a year apart. They use different dates, a different count of dumpsites and different words (&ldquo;remediated&rdquo; in 2024, &ldquo;processed&rdquo; in 2025), so do not read the difference as a precise rate of progress.</p><div class="card pad" id="dsn"></div>' +
-      '<h3>The 214 priority dumpsites, by state</h3><p class="note" id="dsnote"></p><div class="card pad" id="dss"></div>' +
-      '<h3>The same list, city by city</h3><p class="note">One row per urban local body, as printed. A blank means the annexure prints nothing in that cell; we never fill it in.</p><div class="card pad" id="dsc"></div>' +
-      '<h3>What we do not have</h3><div class="card pad"><ul style="margin:0"><li><strong>Where each dumpsite is.</strong> The annexure names the city, not the site, and gives no coordinates or boundaries.</li><li><strong>The other 25 priority sites.</strong> The annexure\'s Grand Total says 214, but it itemises 189; Maharashtra and Bihar are printed as &ldquo;Reserved&rdquo; with no rows. The document does not say the gap is theirs.</li><li><strong>How much has been cleared at each site since November 2025</strong>, and anything about fires or people nearby.</li></ul><p class="note" style="margin-bottom:0">Every figure here is from a published MoHUA or Lok Sabha document, with its page. If you hold or know of a document with site-level figures, <a href="https://github.com/SriyaMeenakshi/kachra-satya/issues/new/choose" target="_blank" rel="noopener">tell us</a>.</p></div>';
+    var L = I.landfill(KS), topS = L.states.slice(0, 8), cr = function (t) { return (Math.round(t / 1e5) / 100).toFixed(2); };
+    el.innerHTML = I.lead("What ends up dumped?", (L.tpd == null ? "" : "CPCB reports <strong>" + n0(L.tpd) + " tonnes a day</strong> landfilled in " + esc(L.year) + " (" + I.p1(L.pct) + " of the waste generated). ") + (L.printed == null ? "" : "Separately, MoHUA lists <strong>" + n0(L.printed) + "</strong> priority dumpsites of old waste. Its tables itemise <strong>" + n0(L.itemised) + "</strong>.")) +
+      '<div class="card pad">' + (L.printed == null ? "" : '<h3 class="viz-h">The ' + n0(L.printed) + ' priority dumpsites</h3>' + I.split(L.itemised, L.missing, "itemised, city by city: " + n0(L.itemised), "in the printed total but not itemised: " + n0(L.missing))) +
+      '<h3 class="viz-h">Where the itemised old waste is</h3>' + I.hbar(topS.map(function (r) { return { label: r.state, href: "#/map/" + encodeURIComponent(r.state), value: r.legacy, text: cr(r.legacy) + " crore tonnes, " + r.sites + (r.sites === 1 ? " site" : " sites") }; })) +
+      '<p class="note" style="margin-bottom:0">Legacy waste as printed in the MoHUA annexure, added up by state by us. Tonnes are not a measure of danger or of progress. Maharashtra and Bihar are printed as &ldquo;Reserved&rdquo; with no rows.</p></div>' +
+      '<h3>Every row behind this</h3>' +
+      I.fold("Landfill, nationally: three CPCB reports", '<p class="note">Tonnes of municipal waste a day that CPCB reports as landfilled, and the share of the waste generated. Three CPCB reports, three different years.</p><div class="kpis">' + nat.map(function (x) { return '<div class="kpi"><div class="v">' + fmt(x.l.value) + '</div><div class="l">tonnes a day landfilled, ' + esc(x.y) + " (" + (Math.round(x.l.value / x.g.value * 1000) / 10) + "% of generated)<br>" + esc(dn(x.l.source_doc)) + ", p." + esc(x.l.source_page) + " " + rbtn(["India", x.y, "landfilled", x.l.source_doc].join("|"), "page") + "</div></div>"; }).join("") + '</div><p class="note">The three years come from different reports and may not be measured the same way, so do not read the change between them as a trend.</p>') +
+      I.fold("Landfill share, by state", '<p class="note">Landfilled as a share of generated waste. CPCB reports state-wise landfilled for ' + ly.join(" and ") + ' only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).</p><div class="grid2" style="max-width:260px;margin-bottom:10px"><div><label for="lfy">Year</label><select id="lfy">' + opts(ly.slice().reverse()) + '</select></div></div><div class="card pad" id="lf"></div>') +
+      I.fold("Legacy dumpsites: what MoHUA says, nationally", '<p class="note">Two sets of national statements a year apart. They use different dates, a different count of dumpsites and different words (&ldquo;remediated&rdquo; in 2024, &ldquo;processed&rdquo; in 2025), so do not read the difference as a precise rate of progress.</p><div class="card pad" id="dsn"></div>') +
+      I.fold("The 214 priority dumpsites, by state", '<p class="note" id="dsnote"></p><div class="card pad" id="dss"></div>') +
+      I.fold("The same list, city by city", '<p class="note">One row per urban local body, as printed. A blank means the annexure prints nothing in that cell; we never fill it in.</p><div class="card pad" id="dsc"></div>') +
+      '<h3>What we do not have</h3><div class="card pad"><ul style="margin:0"><li><strong>Where each dumpsite is.</strong> The annexure names the city, not the site, and gives no coordinates or boundaries.</li><li><strong>The other 25 priority sites.</strong> The annexure&rsquo;s Grand Total says 214, but it itemises 189; Maharashtra and Bihar are printed as &ldquo;Reserved&rdquo; with no rows. The document does not say the gap is theirs.</li><li><strong>How much has been cleared at each site since November 2025</strong>, and anything about fires or people nearby.</li></ul><p class="note" style="margin-bottom:0">Every figure here is from a published MoHUA or Lok Sabha document, with its page. If you hold or know of a document with site-level figures, <a href="https://github.com/SriyaMeenakshi/kachra-satya/issues/new/choose" target="_blank" rel="noopener">tell us</a>.</p></div>';
     function lf() {
       var y = $("lfy").value, rows = KS.indicators.filter(function (r) { return r.year === y && r.landfill_pct != null; });
       mountTable($("lf"), [
@@ -514,11 +566,12 @@
   /* Segregation gap (national only) */
   function gSeg(el) {
     var S = KS.segregation, d2d = S.filter(function (r) { return r.indicator.indexOf("D2D") >= 0; })[0], seg = S.filter(function (r) { return r.indicator.indexOf("Source Segregation") >= 0; })[0];
-    el.innerHTML = '<p class="sub">Collecting waste door to door is not the same as keeping it segregated. These are national figures for 2022 from the Swachh Bharat Mission dashboard; there is no state-wise table.</p>' +
+    el.innerHTML = I.lead("Is waste kept separate?", d2d && seg ? "Door-to-door collection is common. Keeping waste separate is not: <strong>" + d2d.share_pct_computed + "%</strong> of wards against <strong>" + seg.share_pct_computed + "%</strong> (" + esc(seg.year) + ")." : "National figures from the Swachh Bharat Mission dashboard.") +
+      '<p class="note">Collecting waste door to door is not the same as keeping it segregated. These are national figures for 2022 from the Swachh Bharat Mission dashboard; there is no state-wise table.</p>' +
       (d2d && seg ? '<div class="card pad"><div class="meter"><div class="top"><span>Wards with more than 90% door-to-door collection</span><b>' + d2d.share_pct_computed + "%</b></div><div class=\"track\"><div class=\"fill c\" style=\"width:" + d2d.share_pct_computed + '%"></div></div><div class="note">' + n0(d2d.count) + " of " + n0(d2d.base_stated) + " wards covered</div></div>" +
         '<div class="meter"><div class="top"><span>Wards with more than 90% source segregation</span><b>' + seg.share_pct_computed + "%</b></div><div class=\"track\"><div class=\"fill\" style=\"width:" + seg.share_pct_computed + '%"></div></div><div class="note">' + n0(seg.count) + " of " + n0(seg.base_stated) + " wards covered</div></div></div>" : "") +
       '<p class="note" style="margin-top:12px">Source: MoHUA, Swachh Bharat Mission (Urban) Garbage Free Cities 2022 dashboard, <a href="https://sbmurban.org/gfc-result-dashboard" target="_blank" rel="noopener">sbmurban.org/gfc-result-dashboard</a> (copied ' + esc(S[0] ? S[0].retrieved_on : "") + '). The page says the figures are "on the basis of on field validation". The shares are ours (count divided by the coverage the page states) and are indicative, because the page does not say every indicator was measured on every ward.</p>' +
-      '<h3>All indicators on that page</h3><div class="card pad" id="sg"></div>';
+      '<h3>Every row behind this</h3>' + I.fold("All indicators on that page (" + S.length + ")", '<div class="card pad" id="sg"></div>');
     mountTable($("sg"), [
       { label: "Indicator", k: "indicator" }, { label: "Count", k: "count", num: true, html: function (r) { return n0(r.count); } }, { label: "Unit", k: "unit" },
       { label: "Out of", k: "base_stated", num: true, html: function (r) { return r.base_stated == null ? '<span class="note">not stated</span>' : n0(r.base_stated); } },
@@ -529,8 +582,10 @@
   /* Reporting completeness */
   function gComplete(el) {
     var C = KS.completeness, full = C.filter(function (r) { return r.completeness_pct === 100; }).length;
-    el.innerHTML = '<p class="sub">How much of what a state could have reported did it report? A score is the share of 17 core figures given: generated, collected and treated for each CPCB year 2019-20 to 2023-24, and generated and treated for MoHUA 2025-26. A blank, or a state missing from a table, counts as not reported. Thin reporting does not mean the figures are wrong.</p>' +
-      '<div class="kpis"><div class="kpi"><div class="v">' + full + " of " + C.length + '</div><div class="l">report all 17 figures</div></div><div class="kpi"><div class="v">' + (C.length - full) + '</div><div class="l">have gaps, listed below</div></div></div><div class="card pad" id="cp"></div>';
+    el.innerHTML = I.lead("What goes unreported?", "<strong>" + full + " of " + C.length + "</strong> states and UTs report all 17 core figures. <strong>" + (C.length - full) + "</strong> leave at least one blank.") +
+      '<div class="card pad"><h3 class="viz-h">The states with a blank, figure by figure</h3>' + I.grid(I.cells(KS)) +
+      '<p class="note" style="margin-bottom:0">The 17 core figures are generated, collected and treated for each CPCB year 2019-20 to 2023-24, and generated and treated for MoHUA 2025-26. A blank, or a state missing from a table, counts as not reported. Thin reporting does not mean the figures are wrong.</p></div>' +
+      '<h3>Every row behind this</h3>' + I.fold("All states (" + C.length + ")", '<div class="card pad" id="cp"></div>');
     mountTable($("cp"), [
       { label: "State", k: "state", html: function (r) { return stateLink(r.state); } },
       { label: "Score (%)", k: "completeness_pct", html: function (r) { return '<div class="bar10" style="width:' + r.completeness_pct + '%;max-width:160px"></div>' + r.completeness_pct; } },

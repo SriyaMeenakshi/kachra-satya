@@ -1,0 +1,833 @@
+; Insights: the ten tabs. Text that comes straight from the data files (the definitions crosswalk, document notes) is left in English.
+
+= Do the two official numbers agree?
+क्या दोनों सरकारी आँकड़े मेल खाते हैं?
+రెండు అధికారిక సంఖ్యలు సరిపోతున్నాయా?
+
+= # of #
+#2 में से #1
+#2లో #1
+
+= states and UTs, the newest MoHUA share and the newest CPCB share are more than # points apart. The widest is
+राज्यों और केंद्रशासित प्रदेशों में MoHUA और CPCB के सबसे नए हिस्सों में # अंक से ज़्यादा का अंतर है। सबसे बड़ा अंतर:
+రాష్ట్రాలు, కేంద్రపాలిత ప్రాంతాల్లో MoHUA, CPCB తాజా వాటాల మధ్య # పాయింట్లకు మించిన తేడా ఉంది. అతి పెద్ద తేడా:
+
+= : #% and #%.
+: #% और #%।
+: #%, #%.
+
+= The # widest differences
+# सबसे बड़े अंतर
+అతి పెద్ద # తేడాలు
+
+= CPCB treated, #-#
+CPCB उपचारित, #-#
+CPCB శుద్ధి, #-#
+
+= MoHUA processed, #-#
+MoHUA प्रसंस्कृत, #-#
+MoHUA ప్రాసెస్, #-#
+
+= #% and #%
+#% और #%
+#%, #%
+
+= Each line is one state: the share of its waste CPCB reports treated, and the share MoHUA reports processed. The years differ and the two words may not mean the same thing, so a long line is a question to ask, not proof of an error. We do not say which is right. CPCB shares are computed by us from two printed figures.
+हर रेखा एक राज्य है: उसके कचरे का वह हिस्सा जो CPCB उपचारित दर्ज करता है, और वह जो MoHUA प्रसंस्कृत दर्ज करता है। वर्ष अलग हैं और दोनों शब्दों का मतलब एक न भी हो, इसलिए लंबी रेखा पूछने लायक़ सवाल है, ग़लती का सबूत नहीं। हम नहीं कहते कि कौन सही है। CPCB के हिस्से हमने दो छपे आँकड़ों से निकाले हैं।
+ప్రతి గీత ఒక రాష్ట్రం: దాని చెత్తలో CPCB శుద్ధి అయినట్టు నివేదించిన వాటా, MoHUA ప్రాసెస్ అయినట్టు నివేదించిన వాటా. సంవత్సరాలు వేరు, రెండు పదాల అర్థం ఒకటి కాకపోవచ్చు; కాబట్టి పొడవైన గీత అంటే అడగాల్సిన ప్రశ్న, తప్పుకు రుజువు కాదు. ఏది సరైనదో మేము చెప్పం. CPCB వాటాలను రెండు ముద్రిత సంఖ్యల నుంచి మేమే లెక్కించాం.
+
+= Reported figures that cannot all be true, in separate counters.
+वे दर्ज आँकड़े जो सब एक साथ सही नहीं हो सकते, अलग-अलग गिनतियों में।
+అన్నీ ఒకేసారి నిజం కాలేని నివేదిత సంఖ్యలు, వేర్వేరు లెక్కల్లో.
+
+= Do not add the counters together:
+इन गिनतियों को आपस में न जोड़ें:
+ఈ లెక్కలను కలిపి కూడకండి:
+
+= each measures something different, and every row names its years. The data cannot say which figure is wrong.
+हर एक कुछ अलग नापती है, और हर पंक्ति में उसके वर्ष लिखे हैं। डेटा यह नहीं बता सकता कि कौन-सा आँकड़ा ग़लत है।
+ప్రతిదీ వేరే విషయాన్ని కొలుస్తుంది; ప్రతి వరుసలో దాని సంవత్సరాలు ఉంటాయి. ఏ సంఖ్య తప్పో డేటా చెప్పలేదు.
+
+= The two national totals (#)
+दो राष्ट्रीय योग (#)
+రెండు జాతీయ మొత్తాలు (#)
+
+= Two official national figures for the waste that is treated or processed.
+उपचारित या प्रसंस्कृत कचरे के दो सरकारी राष्ट्रीय आँकड़े।
+శుద్ధి లేదా ప్రాసెస్ అయిన చెత్తకు రెండు అధికారిక జాతీయ సంఖ్యలు.
+
+= Compared
+किनकी तुलना
+పోల్చినవి
+
+= Difference (tpd)
+अंतर (टन प्रतिदिन)
+తేడా (రోజుకు టన్నులు)
+
+= Difference (tpd) ↓
+अंतर (टन प्रतिदिन) ↓
+తేడా (రోజుకు టన్నులు) ↓
+
+= Figures
+आँकड़े
+సంఖ్యలు
+
+= Different years (#-# against #-#), so part of the gap may be real progress.
+वर्ष अलग हैं (#-# बनाम #-#), इसलिए अंतर का कुछ हिस्सा असली प्रगति हो सकता है।
+సంవత్సరాలు వేరు (#-#, #-#); కాబట్టి తేడాలో కొంత నిజమైన పురోగతి కావచ్చు.
+
+= see Why
+"क्यों" देखें
+"ఎందుకు" చూడండి
+
+= The same gap, state by state (#)
+वही अंतर, राज्यवार (#)
+అదే తేడా, రాష్ట్రాల వారీగా (#)
+
+= Positive means MoHUA #-# reports more processed than CPCB #-# reports treated. Different years, and the words may not mean the same thing.
+धनात्मक का मतलब है कि MoHUA #-# में प्रसंस्कृत कचरा CPCB #-# के उपचारित से ज़्यादा दर्ज है। वर्ष अलग हैं, और शब्दों का मतलब एक न भी हो।
+ధన విలువ అంటే MoHUA #-# ప్రాసెస్ సంఖ్య CPCB #-# శుద్ధి సంఖ్య కంటే ఎక్కువ. సంవత్సరాలు వేరు; పదాల అర్థం ఒకటి కాకపోవచ్చు.
+
+= Treated is more than collected (#)
+उपचारित, एकत्र से ज़्यादा (#)
+సేకరణ కంటే శుద్ధి ఎక్కువ (#)
+
+= The tonnes column is the excess. Where a report gives a reason, it is quoted in the last column.
+टन वाला कॉलम अतिरिक्त मात्रा है। जहाँ रिपोर्ट कारण देती है, वह आख़िरी कॉलम में उद्धृत है।
+టన్నుల నిలువు వరుస అదనపు పరిమాణం. నివేదిక కారణం ఇచ్చిన చోట అది చివరి నిలువు వరుసలో ఉంది.
+
+= Excess (tpd)
+अतिरिक्त (टन प्रतिदिन)
+అదనం (రోజుకు టన్నులు)
+
+= More waste is reported treated than collected.
+एकत्र से ज़्यादा कचरा उपचारित दर्ज है।
+సేకరించిన దానికంటే ఎక్కువ చెత్త శుద్ధి అయినట్టు నివేదించారు.
+
+= Collected is more than generated (#)
+एकत्र, उत्पन्न से ज़्यादा (#)
+ఉత్పత్తి కంటే సేకరణ ఎక్కువ (#)
+
+= The tonnes column is the excess.
+टन वाला कॉलम अतिरिक्त मात्रा है।
+టన్నుల నిలువు వరుస అదనపు పరిమాణం.
+
+= More waste is reported collected than generated.
+उत्पन्न से ज़्यादा कचरा एकत्र दर्ज है।
+ఉత్పత్తి అయిన దానికంటే ఎక్కువ చెత్త సేకరించినట్టు నివేదించారు.
+
+= Treated plus landfilled is more than generated (#)
+उपचारित और लैंडफ़िल मिलाकर, उत्पन्न से ज़्यादा (#)
+శుద్ధి, ల్యాండ్‌ఫిల్ కలిపితే ఉత్పత్తి కంటే ఎక్కువ (#)
+
+= The tonnes column is the excess. Where the report footnotes a reason, it is quoted.
+टन वाला कॉलम अतिरिक्त मात्रा है। जहाँ रिपोर्ट फ़ुटनोट में कारण देती है, वह उद्धृत है।
+టన్నుల నిలువు వరుస అదనపు పరిమాణం. నివేదిక ఫుట్‌నోట్‌లో కారణం ఇచ్చిన చోట అది ఉదహరించబడింది.
+
+= Is the money being used?
+क्या पैसा खर्च हो रहा है?
+నిధులు ఖర్చవుతున్నాయా?
+
+= of the solid-waste money set aside for states for # to # had been used by # Nov #.
+राज्यों के लिए # से # तक रखे गए ठोस-कचरा धन का इतना हिस्सा # नवंबर # तक खर्च हुआ था।
+# నుంచి # వరకు రాష్ట్రాలకు కేటాయించిన ఘన వ్యర్థాల నిధుల్లో # నవంబర్ # నాటికి ఖర్చయిన వాటా ఇది.
+
+= used: #%
+खर्च हुआ: #%
+ఖర్చయింది: #%
+
+= not yet used: #%
+अभी खर्च नहीं हुआ: #%
+ఇంకా ఖర్చు కాలేదు: #%
+
+= The # states that have used the smallest share
+सबसे कम हिस्सा खर्च करने वाले # राज्य
+అతి తక్కువ వాటా ఖర్చు చేసిన # రాష్ట్రాలు
+
+= #% used
+#% खर्च
+#% ఖర్చు
+
+= Read with care.
+ध्यान से पढ़ें।
+జాగ్రత్తగా చదవండి.
+
+= Funds are cumulative to # Nov # and the Lok Sabha table (Q#) prints no unit, so only the ratio is used. A low share used is a prompt for a question, not proof of an execution problem; a high share is not proof of success.
+धन # नवंबर # तक का कुल जोड़ है और लोकसभा की तालिका (Q#) में इकाई नहीं छपी, इसलिए सिर्फ़ अनुपात इस्तेमाल किया गया है। कम खर्च सवाल पूछने का संकेत है, काम में कमी का सबूत नहीं; ज़्यादा खर्च सफलता का सबूत नहीं।
+నిధులు # నవంబర్ # వరకు మొత్తం లెక్క; లోక్‌సభ పట్టిక (Q#)లో యూనిట్ ముద్రించలేదు, అందుకే నిష్పత్తిని మాత్రమే వాడాం. తక్కువ వాటా ఖర్చు అంటే అడగాల్సిన ప్రశ్న, అమలు లోపానికి రుజువు కాదు; ఎక్కువ వాటా విజయానికి రుజువు కాదు.
+
+= Does spending track results? One dot per state
+क्या खर्च के साथ नतीजे भी आते हैं? हर राज्य एक बिंदु
+ఖర్చుకు తగ్గ ఫలితాలు ఉన్నాయా? ప్రతి రాష్ట్రం ఒక చుక్క
+
+= How much of its allocation a state has used, against how much of its waste CPCB reports treated (#-#). The quadrants split at the median of the # states, so they are relative, not targets. Tap a dot for the figures.
+राज्य ने अपने आवंटन का कितना हिस्सा खर्च किया, उसके सामने CPCB के अनुसार उसका कितना कचरा उपचारित हुआ (#-#)। चारों हिस्से # राज्यों की माध्यिका पर बँटे हैं, इसलिए ये तुलनात्मक हैं, लक्ष्य नहीं। आँकड़ों के लिए किसी बिंदु पर टैप करें।
+రాష్ట్రం తన కేటాయింపులో ఎంత ఖర్చు చేసిందో, దాని చెత్తలో ఎంత శుద్ధి అయినట్టు CPCB నివేదించిందో (#-#) పోలిక. నాలుగు భాగాలు # రాష్ట్రాల మధ్యస్థం వద్ద విభజించబడ్డాయి; ఇవి పోలిక కోసమే, లక్ష్యాలు కావు. సంఖ్యల కోసం చుక్కపై ట్యాప్ చేయండి.
+
+= Slow spending, low treatment (#)
+धीमा खर्च, कम उपचार (#)
+నెమ్మదిగా ఖర్చు, తక్కువ శుద్ధి (#)
+
+= Slow spending, high treatment (#)
+धीमा खर्च, ज़्यादा उपचार (#)
+నెమ్మదిగా ఖర్చు, ఎక్కువ శుద్ధి (#)
+
+= Fast spending, low treatment (#)
+तेज़ खर्च, कम उपचार (#)
+వేగంగా ఖర్చు, తక్కువ శుద్ధి (#)
+
+= Fast spending, high treatment (#)
+तेज़ खर्च, ज़्यादा उपचार (#)
+వేగంగా ఖర్చు, ఎక్కువ శుద్ధి (#)
+
+= Slow spending, low treatment
+धीमा खर्च, कम उपचार
+నెమ్మదిగా ఖర్చు, తక్కువ శుద్ధి
+
+= Slow spending, high treatment
+धीमा खर्च, ज़्यादा उपचार
+నెమ్మదిగా ఖర్చు, ఎక్కువ శుద్ధి
+
+= Fast spending, low treatment
+तेज़ खर्च, कम उपचार
+వేగంగా ఖర్చు, తక్కువ శుద్ధి
+
+= Fast spending, high treatment
+तेज़ खर्च, ज़्यादा उपचार
+వేగంగా ఖర్చు, ఎక్కువ శుద్ధి
+
+= Tap or focus a dot to see that state.
+किसी राज्य को देखने के लिए उसके बिंदु पर टैप करें।
+ఆ రాష్ట్రాన్ని చూడటానికి చుక్కపై ట్యాప్ చేయండి.
+
+= Funds used (%) ↑
+खर्च हुआ धन (%) ↑
+ఖర్చయిన నిధులు (%) ↑
+
+= Funds used (%)
+खर्च हुआ धन (%)
+ఖర్చయిన నిధులు (%)
+
+= CPCB treated (%)
+CPCB उपचारित (%)
+CPCB శుద్ధి (%)
+
+= MoHUA processed (%)
+MoHUA प्रसंस्कृत (%)
+MoHUA ప్రాసెస్ (%)
+
+= Quadrant
+हिस्सा
+విభాగం
+
+= What goes uncollected?
+कितना कचरा नहीं उठता?
+ఎంత చెత్త సేకరించడం లేదు?
+
+= # tonnes a day
+# टन प्रतिदिन
+రోజుకు # టన్నులు
+
+= are reported generated but not collected (CPCB #-#, about # truckloads).
+कचरा उत्पन्न तो दर्ज है पर एकत्र नहीं (CPCB #-#, लगभग # ट्रक)।
+చెత్త ఉత్పత్తి అయినట్టు నివేదించినా సేకరించలేదు (CPCB #-#, సుమారు # ట్రక్కుల లోడ్లు).
+
+= states and UTs report collecting everything.
+राज्य और केंद्रशासित प्रदेश पूरा कचरा एकत्र होना दर्ज करते हैं।
+రాష్ట్రాలు, కేంద్రపాలిత ప్రాంతాలు మొత్తం చెత్త సేకరించినట్టు నివేదించాయి.
+
+= Where the most is left uncollected
+सबसे ज़्यादा कचरा कहाँ नहीं उठता
+ఎక్కువ చెత్త ఎక్కడ సేకరించకుండా మిగిలిపోతోంది
+
+= # t/day, #% collected
+# टन/दिन, #% एकत्र
+రోజుకు # టన్నులు, #% సేకరణ
+
+= Generated minus collected, CPCB #-#, as states report it. This ranks by tonnage; it is not route optimisation, which needs ward and vehicle data.
+उत्पन्न में से एकत्र घटाकर, CPCB #-#, जैसा राज्यों ने दर्ज किया। यह क्रम टन के हिसाब से है; यह रूट की योजना नहीं है, जिसके लिए वार्ड और गाड़ियों का डेटा चाहिए।
+ఉత్పత్తి నుంచి సేకరణ తీసివేస్తే వచ్చేది, CPCB #-#, రాష్ట్రాలు నివేదించినట్టుగా. ఇది టన్నుల ఆధారంగా క్రమం; రూట్ ప్రణాళిక కాదు, దానికి వార్డు, వాహనాల డేటా కావాలి.
+
+= Uncollected (tpd)
+एकत्र नहीं (टन प्रतिदिन)
+సేకరించనిది (రోజుకు టన్నులు)
+
+= Collected (%)
+एकत्र (%)
+సేకరణ (%)
+
+= Generated (tpd)
+उत्पन्न (टन प्रतिदिन)
+ఉత్పత్తి (రోజుకు టన్నులు)
+
+= Collected (tpd)
+एकत्र (टन प्रतिदिन)
+సేకరణ (రోజుకు టన్నులు)
+
+= Treated (tpd)
+उपचारित (टन प्रतिदिन)
+శుద్ధి (రోజుకు టన్నులు)
+
+= Landfilled (tpd)
+लैंडफ़िल (टन प्रतिदिन)
+ల్యాండ్‌ఫిల్ (రోజుకు టన్నులు)
+
+= Share processed (%)
+प्रसंस्कृत हिस्सा (%)
+ప్రాసెస్ వాటా (%)
+
+= any
+कोई भी
+ఏదైనా
+
+= all
+सभी
+అన్నీ
+
+= How much waste ends up in landfill, nationally and by state, is under
+कितना कचरा लैंडफ़िल में जाता है, राष्ट्रीय और राज्यवार, यह यहाँ है:
+ఎంత చెత్త ల్యాండ్‌ఫిల్‌కు చేరుతోందో, జాతీయంగా, రాష్ట్రాల వారీగా, ఇక్కడ ఉంది:
+
+= What ends up dumped?
+ढेर में क्या जाता है?
+డంప్‌యార్డులకు ఏం చేరుతోంది?
+
+= CPCB reports
+CPCB के अनुसार
+CPCB నివేదిక ప్రకారం
+
+= landfilled in #-# (#% of the waste generated). Separately, MoHUA lists
+#-# में लैंडफ़िल में गया (उत्पन्न कचरे का #%)। इसके अलावा MoHUA की सूची में
+#-#లో ల్యాండ్‌ఫిల్‌కు చేరింది (ఉత్పత్తి అయిన చెత్తలో #%). దీనికి తోడు MoHUA జాబితాలో
+
+= priority dumpsites of old waste. Its tables itemise
+पुराने कचरे के प्राथमिक डंपसाइट हैं। उसकी तालिकाओं में ब्योरा है सिर्फ़
+పాత చెత్త ఉన్న ప్రాధాన్య డంప్‌సైట్‌లు ఉన్నాయి. పట్టికల్లో వివరాలు ఉన్నవి
+
+= The # priority dumpsites
+# प्राथमिक डंपसाइट
+# ప్రాధాన్య డంప్‌సైట్‌లు
+
+= itemised, city by city: #
+शहर-दर-शहर ब्योरा: #
+నగరాల వారీగా వివరాలు ఉన్నవి: #
+
+= in the printed total but not itemised: #
+छपे कुल योग में हैं पर ब्योरा नहीं: #
+ముద్రిత మొత్తంలో ఉన్నా వివరాలు లేనివి: #
+
+= Where the itemised old waste is
+ब्योरे वाला पुराना कचरा कहाँ है
+వివరాలున్న పాత చెత్త ఎక్కడ ఉంది
+
+= # crore tonnes, # sites
+# करोड़ टन, # साइट
+# కోట్ల టన్నులు, # సైట్‌లు
+
+= # crore tonnes, # site
+# करोड़ टन, # साइट
+# కోట్ల టన్నులు, # సైట్
+
+= # crore tonnes
+# करोड़ टन
+# కోట్ల టన్నులు
+
+= # acres
+# एकड़
+# ఎకరాలు
+
+= Legacy waste as printed in the MoHUA annexure, added up by state by us. Tonnes are not a measure of danger or of progress. Maharashtra and Bihar are printed as “Reserved” with no rows.
+पुराना कचरा, जैसा MoHUA के अनुलग्नक में छपा है; राज्यवार जोड़ हमने किया है। टन ख़तरे या प्रगति का पैमाना नहीं हैं। महाराष्ट्र और बिहार “Reserved” छपे हैं, बिना पंक्तियों के।
+పాత చెత్త, MoHUA అనుబంధంలో ముద్రించినట్టుగా; రాష్ట్రాల వారీగా కూడినది మేమే. టన్నులు ప్రమాదానికి గానీ పురోగతికి గానీ కొలమానం కాదు. మహారాష్ట్ర, బిహార్ “Reserved”గా ముద్రించారు, వరుసలు లేవు.
+
+= Landfill, nationally: three CPCB reports
+लैंडफ़िल, राष्ट्रीय स्तर पर: CPCB की तीन रिपोर्टें
+ల్యాండ్‌ఫిల్, జాతీయ స్థాయిలో: మూడు CPCB నివేదికలు
+
+= Tonnes of municipal waste a day that CPCB reports as landfilled, and the share of the waste generated. Three CPCB reports, three different years.
+नगरपालिका कचरे के वे टन प्रतिदिन जो CPCB लैंडफ़िल में गए दर्ज करता है, और उत्पन्न कचरे में उनका हिस्सा। CPCB की तीन रिपोर्टें, तीन अलग वर्ष।
+ల్యాండ్‌ఫిల్‌కు చేరినట్టు CPCB నివేదించిన పురపాలక చెత్త (రోజుకు టన్నుల్లో), ఉత్పత్తి అయిన చెత్తలో దాని వాటా. మూడు CPCB నివేదికలు, మూడు వేర్వేరు సంవత్సరాలు.
+
+= tonnes a day landfilled, #-# (#% of generated)
+टन प्रतिदिन लैंडफ़िल में, #-# (उत्पन्न का #%)
+రోజుకు ఇన్ని టన్నులు ల్యాండ్‌ఫిల్‌కు, #-# (ఉత్పత్తిలో #%)
+
+= The three years come from different reports and may not be measured the same way, so do not read the change between them as a trend.
+तीनों वर्ष अलग रिपोर्टों से हैं और हो सकता है एक ही तरह से न नापे गए हों, इसलिए इनके बीच के बदलाव को रुझान न समझें।
+మూడు సంవత్సరాలూ వేర్వేరు నివేదికల నుంచి వచ్చాయి; ఒకే విధంగా కొలిచి ఉండకపోవచ్చు. కాబట్టి వాటి మధ్య మార్పును ధోరణిగా చదవకండి.
+
+= Landfill share, by state
+लैंडफ़िल का हिस्सा, राज्यवार
+ల్యాండ్‌ఫిల్ వాటా, రాష్ట్రాల వారీగా
+
+= Landfilled as a share of generated waste. CPCB reports state-wise landfilled for #-# and #-# only. "Neither" is what is left after treated and landfilled (negative means the two add to more than was generated).
+उत्पन्न कचरे में लैंडफ़िल का हिस्सा। CPCB राज्यवार लैंडफ़िल सिर्फ़ #-# और #-# के लिए दर्ज करता है। "दोनों नहीं" वह है जो उपचारित और लैंडफ़िल के बाद बचता है (ऋणात्मक मतलब दोनों का जोड़ उत्पन्न से ज़्यादा है)।
+ఉత్పత్తి అయిన చెత్తలో ల్యాండ్‌ఫిల్ వాటా. CPCB రాష్ట్రాల వారీ ల్యాండ్‌ఫిల్ సంఖ్యలను #-#, #-#లకు మాత్రమే ఇచ్చింది. "రెండూ కానిది" అంటే శుద్ధి, ల్యాండ్‌ఫిల్ పోగా మిగిలినది (రుణ విలువ అంటే ఆ రెండూ కలిపి ఉత్పత్తి కంటే ఎక్కువ).
+
+= Landfill share (%) ↓
+लैंडफ़िल का हिस्सा (%) ↓
+ల్యాండ్‌ఫిల్ వాటా (%) ↓
+
+= Treated (%)
+उपचारित (%)
+శుద్ధి (%)
+
+= Neither (%)
+दोनों नहीं (%)
+రెండూ కానిది (%)
+
+= Legacy dumpsites: what MoHUA says, nationally
+पुराने डंपसाइट: MoHUA राष्ट्रीय स्तर पर क्या कहता है
+పాత డంప్‌సైట్‌లు: జాతీయ స్థాయిలో MoHUA ఏం చెబుతోంది
+
+= Two sets of national statements a year apart. They use different dates, a different count of dumpsites and different words (“remediated” in #, “processed” in #), so do not read the difference as a precise rate of progress.
+एक साल के अंतर पर दो राष्ट्रीय बयान। इनमें तारीख़ें अलग हैं, डंपसाइटों की गिनती अलग है और शब्द भी अलग (# में “remediated”, # में “processed”), इसलिए अंतर को प्रगति की सटीक दर न समझें।
+ఏడాది తేడాతో రెండు జాతీయ ప్రకటనలు. వీటిలో తేదీలు వేరు, డంప్‌సైట్‌ల లెక్క వేరు, పదాలూ వేరు (#లో “remediated”, #లో “processed”); కాబట్టి తేడాను ఖచ్చితమైన పురోగతి రేటుగా చదవకండి.
+
+= Statement
+बयान
+ప్రకటన
+
+= page #
+पृष्ठ #
+పేజీ #
+
+= Dumpsites identified
+पहचाने गए डंपसाइट
+గుర్తించిన డంప్‌సైట్‌లు
+
+= Legacy waste in them
+उनमें पुराना कचरा
+వాటిలోని పాత చెత్త
+
+= Remediated completely
+पूरी तरह साफ़ किए गए
+పూర్తిగా శుభ్రం చేసినవి
+
+= Under remediation
+सफ़ाई जारी
+శుభ్రం చేస్తున్నవి
+
+= Legacy waste remediated or processed
+साफ़ या प्रसंस्कृत किया गया पुराना कचरा
+శుభ్రం లేదా ప్రాసెస్ చేసిన పాత చెత్త
+
+= Land reclaimed
+वापस पाई गई ज़मीन
+తిరిగి పొందిన భూమి
+
+= The # priority dumpsites, by state
+# प्राथमिक डंपसाइट, राज्यवार
+# ప్రాధాన్య డంప్‌సైట్‌లు, రాష్ట్రాల వారీగా
+
+= Cities listed
+सूची में शहर
+జాబితాలోని నగరాలు
+
+= Dumpsites
+डंपसाइट
+డంప్‌సైట్‌లు
+
+= Legacy waste (tonnes) ↓
+पुराना कचरा (टन) ↓
+పాత చెత్త (టన్నులు) ↓
+
+= Legacy waste (tonnes)
+पुराना कचरा (टन)
+పాత చెత్త (టన్నులు)
+
+= To remediate (tonnes)
+साफ़ किया जाना है (टन)
+శుభ్రం చేయాల్సినది (టన్నులు)
+
+= Approved cost (Rs crore)
+स्वीकृत लागत (करोड़ रुपये)
+ఆమోదిత వ్యయం (కోట్ల రూపాయలు)
+
+= (# of # cities print it)
+(#2 में से #1 शहरों में छपा है)
+(#2 నగరాల్లో #1కి ముద్రించారు)
+
+= The same list, city by city
+वही सूची, शहर-दर-शहर
+అదే జాబితా, నగరాల వారీగా
+
+= One row per urban local body, as printed. A blank means the annexure prints nothing in that cell; we never fill it in.
+हर शहरी स्थानीय निकाय की एक पंक्ति, जैसी छपी है। खाली का मतलब है कि अनुलग्नक में उस ख़ाने में कुछ नहीं छपा; हम उसे कभी नहीं भरते।
+ప్రతి పట్టణ స్థానిక సంస్థకు ఒక వరుస, ముద్రించినట్టుగా. ఖాళీ అంటే అనుబంధంలో ఆ గడిలో ఏమీ ముద్రించలేదు; మేము దాన్ని ఎప్పుడూ నింపం.
+
+= City or body
+शहर या निकाय
+నగరం లేదా సంస్థ
+
+= not printed
+छपा नहीं
+ముద్రించలేదు
+
+= What we do not have
+जो हमारे पास नहीं है
+మా వద్ద లేనివి
+
+= Where each dumpsite is.
+हर डंपसाइट कहाँ है।
+ప్రతి డంప్‌సైట్ ఎక్కడ ఉంది.
+
+= The annexure names the city, not the site, and gives no coordinates or boundaries.
+अनुलग्नक शहर का नाम देता है, साइट का नहीं, और कोई निर्देशांक या सीमा नहीं देता।
+అనుబంధంలో నగరం పేరు ఉంది, సైట్ పేరు లేదు; అక్షాంశ రేఖాంశాలు, సరిహద్దులు లేవు.
+
+= The other # priority sites.
+बाक़ी # प्राथमिक साइटें।
+మిగతా # ప్రాధాన్య సైట్‌లు.
+
+= The annexure’s Grand Total says #, but it itemises #; Maharashtra and Bihar are printed as “Reserved” with no rows. The document does not say the gap is theirs.
+अनुलग्नक का कुल योग # कहता है, पर ब्योरा # का है; महाराष्ट्र और बिहार “Reserved” छपे हैं, बिना पंक्तियों के। दस्तावेज़ यह नहीं कहता कि यह अंतर उन्हीं का है।
+అనుబంధం మొత్తం # అంటోంది, కానీ వివరాలు # సైట్‌లకే ఉన్నాయి; మహారాష్ట్ర, బిహార్ “Reserved”గా ముద్రించారు, వరుసలు లేవు. ఆ తేడా వాటిదేనని పత్రం చెప్పడం లేదు.
+
+= How much has been cleared at each site since November #
+नवंबर # के बाद हर साइट पर कितना साफ़ हुआ
+నవంబర్ # తర్వాత ప్రతి సైట్‌లో ఎంత శుభ్రం చేశారు
+
+= , and anything about fires or people nearby.
+, और आग या आसपास रहने वाले लोगों के बारे में कुछ भी।
+, అలాగే మంటలు, సమీపంలో నివసించే వారి గురించి ఏ సమాచారమూ.
+
+= Every figure here is from a published MoHUA or Lok Sabha document, with its page. If you hold or know of a document with site-level figures,
+यहाँ का हर आँकड़ा MoHUA या लोकसभा के प्रकाशित दस्तावेज़ से है, पृष्ठ सहित। अगर आपके पास साइट-स्तर के आँकड़ों वाला कोई दस्तावेज़ है या आप ऐसे किसी को जानते हैं,
+ఇక్కడి ప్రతి సంఖ్యా MoHUA లేదా లోక్‌సభ ప్రచురిత పత్రం నుంచి, పేజీతో సహా. సైట్ స్థాయి సంఖ్యలున్న పత్రం మీ వద్ద ఉంటే లేదా మీకు తెలిస్తే,
+
+= tell us
+हमें बताएँ
+మాకు చెప్పండి
+
+= Is waste kept separate?
+क्या कचरा अलग-अलग रखा जाता है?
+చెత్తను వేరు చేస్తున్నారా?
+
+= Door-to-door collection is common. Keeping waste separate is not:
+घर-घर संग्रह आम है। कचरा अलग रखना नहीं:
+ఇంటింటి సేకరణ సాధారణమే. చెత్తను వేరుగా ఉంచడం మాత్రం కాదు:
+
+= of wards against
+वार्ड, इसके मुक़ाबले
+వార్డులు, దీనికి పోలికగా
+
+= Collecting waste door to door is not the same as keeping it segregated. These are national figures for # from the Swachh Bharat Mission dashboard; there is no state-wise table.
+घर-घर से कचरा उठाना और उसे अलग-अलग रखना एक ही बात नहीं है। ये # के राष्ट्रीय आँकड़े स्वच्छ भारत मिशन के डैशबोर्ड से हैं; राज्यवार तालिका नहीं है।
+ఇంటింటికీ వెళ్లి చెత్త సేకరించడం, దాన్ని వేరుగా ఉంచడం ఒకటి కాదు. ఇవి # సంవత్సరానికి స్వచ్ఛ భారత్ మిషన్ డ్యాష్‌బోర్డ్ నుంచి తీసుకున్న జాతీయ సంఖ్యలు; రాష్ట్రాల వారీ పట్టిక లేదు.
+
+= Wards with more than #% door-to-door collection
+#% से ज़्यादा घर-घर संग्रह वाले वार्ड
+#% పైగా ఇంటింటి సేకరణ ఉన్న వార్డులు
+
+= # of # wards covered
+शामिल #2 वार्डों में से #1
+పరిశీలించిన #2 వార్డుల్లో #1
+
+= Wards with more than #% source segregation
+#% से ज़्यादा स्रोत पर छँटाई वाले वार्ड
+#% పైగా మూలం వద్ద వేరు చేస్తున్న వార్డులు
+
+= Source: MoHUA, Swachh Bharat Mission (Urban) Garbage Free Cities # dashboard,
+स्रोत: MoHUA, स्वच्छ भारत मिशन (शहरी) गार्बेज फ़्री सिटीज़ # डैशबोर्ड,
+మూలం: MoHUA, స్వచ్ఛ భారత్ మిషన్ (అర్బన్) గార్బేజ్ ఫ్రీ సిటీస్ # డ్యాష్‌బోర్డ్,
+
+= All indicators on that page (#)
+उस पृष्ठ के सभी संकेतक (#)
+ఆ పేజీలోని అన్ని సూచికలు (#)
+
+= Indicator
+संकेतक
+సూచిక
+
+= Count
+गिनती
+లెక్క
+
+= Unit
+इकाई
+యూనిట్
+
+= Out of
+कुल में से
+మొత్తంలో
+
+= Share (%)
+हिस्सा (%)
+వాటా (%)
+
+= Wards
+वार्ड
+వార్డులు
+
+= Cities
+शहर
+నగరాలు
+
+= not stated
+बताया नहीं गया
+పేర్కొనలేదు
+
+= not computed
+गणना नहीं की गई
+లెక్కించలేదు
+
+= What goes unreported?
+क्या दर्ज नहीं होता?
+ఏవి నివేదించడం లేదు?
+
+= states and UTs report all # core figures.
+राज्य और केंद्रशासित प्रदेश सभी # मुख्य आँकड़े दर्ज करते हैं।
+రాష్ట్రాలు, కేంద్రపాలిత ప్రాంతాలు # ప్రధాన సంఖ్యలన్నీ నివేదించాయి.
+
+= leave at least one blank.
+कम से कम एक खाली छोड़ते हैं।
+కనీసం ఒకదాన్ని ఖాళీగా వదిలాయి.
+
+= The states with a blank, figure by figure
+खाली आँकड़ों वाले राज्य, आँकड़ा-दर-आँकड़ा
+ఖాళీలున్న రాష్ట్రాలు, సంఖ్యల వారీగా
+
+= reported
+दर्ज
+నివేదించారు
+
+= The # core figures are generated, collected and treated for each CPCB year #-# to #-#, and generated and treated for MoHUA #-#. A blank, or a state missing from a table, counts as not reported. Thin reporting does not mean the figures are wrong.
+# मुख्य आँकड़े हैं: CPCB के हर वर्ष #-# से #-# के लिए उत्पन्न, एकत्र और उपचारित, और MoHUA #-# के लिए उत्पन्न और उपचारित। खाली ख़ाना, या तालिका में राज्य का न होना, "रिपोर्ट नहीं" गिना जाता है। कम रिपोर्टिंग का मतलब यह नहीं कि आँकड़े ग़लत हैं।
+# ప్రధాన సంఖ్యలు ఇవి: CPCB ప్రతి సంవత్సరానికి (#-# నుంచి #-#) ఉత్పత్తి, సేకరణ, శుద్ధి; MoHUA #-#కు ఉత్పత్తి, శుద్ధి. ఖాళీ గడి, లేదా పట్టికలో రాష్ట్రం లేకపోవడం "నివేదించలేదు"గా లెక్క. తక్కువ నివేదించడం అంటే సంఖ్యలు తప్పు అని కాదు.
+
+= Score (%) ↑
+अंक (%) ↑
+స్కోరు (%) ↑
+
+= Figures given
+दिए गए आँकड़े
+ఇచ్చిన సంఖ్యలు
+
+= CPCB years with all three
+CPCB के वर्ष, जिनमें तीनों हैं
+మూడూ ఉన్న CPCB సంవత్సరాలు
+
+= Landfilled years
+लैंडफ़िल वाले वर्ष
+ల్యాండ్‌ఫిల్ సంఖ్యలున్న సంవత్సరాలు
+
+= Reported as #
+# दर्ज किए गए
+#గా నివేదించినవి
+
+= none
+कोई नहीं
+ఏదీ లేదు
+
+= Where would an audit learn most?
+ऑडिट से सबसे ज़्यादा कहाँ पता चलेगा?
+ఆడిట్ చేస్తే ఎక్కడ ఎక్కువ తెలుస్తుంది?
+
+= Start with
+शुरुआत करें:
+ముందుగా చూడాల్సినవి:
+
+= , then
+, फिर
+, తర్వాత
+
+= and
+और
+మరియు
+
+= . This ranks where to look. It is not a finding that any state’s data is wrong.
+। यह क्रम बताता है कि कहाँ देखना है। यह किसी राज्य के डेटा के ग़लत होने का निष्कर्ष नहीं है।
+. ఇది ఎక్కడ చూడాలో చెప్పే క్రమం మాత్రమే. ఏ రాష్ట్ర డేటా అయినా తప్పు అని తేల్చడం కాదు.
+
+= The first # places to look
+देखने की पहली # जगहें
+ముందుగా చూడాల్సిన # చోట్లు
+
+= The score blends the CPCB-vs-MoHUA gap, swings between reports, within-source flags, repeat flags and missing figures.
+इस अंक में CPCB और MoHUA का अंतर, रिपोर्टों के बीच उतार-चढ़ाव, स्रोत के भीतर के फ़्लैग, दोहराए गए फ़्लैग और ग़ायब आँकड़े शामिल हैं।
+ఈ స్కోరులో CPCB-MoHUA తేడా, నివేదికల మధ్య హెచ్చుతగ్గులు, మూలంలోని ఫ్లాగ్‌లు, పునరావృత ఫ్లాగ్‌లు, లేని సంఖ్యలు కలిసి ఉంటాయి.
+
+= The full ranking (#)
+पूरा क्रम (#)
+పూర్తి క్రమం (#)
+
+= Score
+अंक
+స్కోరు
+
+= same rule tripped in # years
+एक ही नियम # वर्षों में टूटा
+ఒకే నియమం # సంవత్సరాల్లో తప్పింది
+
+= # within-source flags
+स्रोत के भीतर # फ़्लैग
+మూలంలోనే # ఫ్లాగ్‌లు
+
+= # figures not reported
+# आँकड़े दर्ज नहीं
+# సంఖ్యలు నివేదించలేదు
+
+= generated swings #x between reports
+रिपोर्टों के बीच उत्पन्न कचरा # गुना बदलता है
+నివేదికల మధ్య ఉత్పత్తి సంఖ్య # రెట్లు మారింది
+
+= CPCB-MoHUA gap # points
+CPCB-MoHUA अंतर # अंक
+CPCB-MoHUA తేడా # పాయింట్లు
+
+= Same problem in several years (#)
+कई वर्षों में वही समस्या (#)
+అనేక సంవత్సరాల్లో అదే సమస్య (#)
+
+= Rule
+नियम
+నియమం
+
+= Years
+वर्ष
+సంవత్సరాలు
+
+= Which
+कौन-से
+ఏవి
+
+= Check a number →
+आँकड़ा जाँचें →
+సంఖ్యను తనిఖీ చేయండి →
+
+= Get help with garbage →
+कचरे के लिए मदद लें →
+చెత్త విషయంలో సహాయం పొందండి →
+
+= Every figure with the page it came from. Open a page to see the number boxed in red.
+हर आँकड़ा, उस पृष्ठ के साथ जहाँ से वह लिया गया। पृष्ठ खोलें और संख्या को लाल बॉक्स में देखें।
+ప్రతి సంఖ్యా, అది వచ్చిన పేజీతో సహా. పేజీ తెరిస్తే సంఖ్య ఎర్ర పెట్టెలో కనిపిస్తుంది.
+
+= Figure
+आँकड़ा
+సంఖ్య
+
+= Source
+स्रोत
+మూలం
+
+= Search this list
+इस सूची में खोजें
+ఈ జాబితాలో వెతకండి
+
+= Search states
+राज्य खोजें
+రాష్ట్రాలను వెతకండి
+
+= Search cities
+शहर खोजें
+నగరాలను వెతకండి
+
+= Search states or reasons
+राज्य या कारण खोजें
+రాష్ట్రాలు లేదా కారణాలు వెతకండి
+
+= generated
+उत्पन्न
+ఉత్పత్తి
+
+= collected
+एकत्र
+సేకరణ
+
+= treated
+उपचारित
+శుద్ధి
+
+= landfilled
+लैंडफ़िल
+ల్యాండ్‌ఫిల్
+
+= unaccounted
+बेहिसाब
+లెక్కలో లేనిది
+
+= Which figures jump between reports?
+कौन-से आँकड़े रिपोर्टों के बीच उछलते हैं?
+ఏ సంఖ్యలు నివేదికల మధ్య మారిపోతున్నాయి?
+
+= is reported as generating
+के लिए एक रिपोर्ट में
+ఒక నివేదికలో రోజుకు
+
+= tonnes a day in one report and
+टन प्रतिदिन उत्पन्न दर्ज है और दूसरी में
+టన్నుల చెత్త ఉత్పత్తి అయినట్టు ఉంది; మరో నివేదికలో
+
+= in another: # times apart.
+: # गुना का फ़र्क़।
+టన్నులు: # రెట్ల తేడా.
+
+= The # widest swings in waste generated
+उत्पन्न कचरे में # सबसे बड़े उतार-चढ़ाव
+ఉత్పత్తి అయిన చెత్తలో అతి పెద్ద # హెచ్చుతగ్గులు
+
+= # to # t/day (#x)
+# से # टन/दिन (# गुना)
+రోజుకు # నుంచి # టన్నులు (# రెట్లు)
+
+= The lowest and highest figure a state reports for its own waste generated, across every report we hold. The reports cover different years, so some of a swing can be real change.
+हमारे पास की सभी रिपोर्टों में, किसी राज्य का अपने उत्पन्न कचरे का सबसे कम और सबसे ज़्यादा आँकड़ा। रिपोर्टें अलग वर्षों की हैं, इसलिए कुछ उतार-चढ़ाव असली बदलाव हो सकता है।
+మా వద్ద ఉన్న అన్ని నివేదికల్లో, ఒక రాష్ట్రం తన చెత్త ఉత్పత్తికి ఇచ్చిన అతి తక్కువ, అతి ఎక్కువ సంఖ్యలు. నివేదికలు వేర్వేరు సంవత్సరాలవి; కాబట్టి కొంత మార్పు నిజమైనదే కావచ్చు.
+
+= All ranked states (#), with source pages
+क्रम में सभी राज्य (#), स्रोत पृष्ठों के साथ
+క్రమంలోని అన్ని రాష్ట్రాలు (#), మూల పేజీలతో
+
+= Swing
+उतार-चढ़ाव
+హెచ్చుతగ్గు
+
+= Lowest
+सबसे कम
+అతి తక్కువ
+
+= Highest
+सबसे ज़्यादा
+అతి ఎక్కువ
+
+= less than one
+एक से कम
+ఒకటి కంటే తక్కువ
+
+= Glossary
+शब्दावली
+పదకోశం
+
+= Plain-English meanings. You can also tap any dotted-underlined word on the site.
+सरल भाषा में मतलब। आप साइट पर किसी भी बिंदीदार रेखांकित शब्द पर टैप भी कर सकते हैं।
+సులభమైన మాటల్లో అర్థాలు. సైట్‌లో చుక్కల గీత ఉన్న ఏ పదంపైనైనా ట్యాప్ చేయవచ్చు.
+
+= Search terms
+शब्द खोजें
+పదాలను వెతకండి
+
+= How the two sources define their words
+दोनों स्रोत अपने शब्दों को कैसे परिभाषित करते हैं
+రెండు మూలాలు తమ పదాలను ఎలా నిర్వచిస్తాయి
+
+= The two sources may not mean the same thing by the same word. We store MoHUA "processed" as "treated" to compare them; that is our assumption.
+हो सकता है दोनों स्रोत एक ही शब्द का एक ही मतलब न लेते हों। तुलना के लिए हम MoHUA के "processed" को "treated" के रूप में रखते हैं; यह हमारी धारणा है।
+రెండు మూలాలు ఒకే పదానికి ఒకే అర్థం ఇవ్వకపోవచ్చు. పోల్చడానికి MoHUA "processed"ను "treated"గా నిల్వ చేస్తున్నాం; ఇది మా ఊహ.
+
+= Why it matters:
+यह क्यों मायने रखता है:
+ఇది ఎందుకు ముఖ్యం:
+
+= What MoHUA has said over time
+समय के साथ MoHUA ने क्या कहा
+కాలక్రమంలో MoHUA ఏం చెప్పింది
+
+= Date
+तारीख़
+తేదీ
+
+= Processed
+प्रसंस्कृत
+ప్రాసెస్

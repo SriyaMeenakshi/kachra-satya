@@ -6,7 +6,7 @@
 <title>Kachra Satya</title>
 <meta name="description" content="India's waste story doesn't always add up. Follow the numbers, compare official claims and see what India's waste data actually says.">
 <meta name="theme-color" content="#0E2A20">
-<link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/anek-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="saathi.css">
 <link rel="stylesheet" href="geomap.css">
@@ -45,20 +45,21 @@
   </a>
   <nav aria-label="Main" id="nav">
     <a href="#/start" data-r="start"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span data-i="nav_home">Home</span></a>
-    <a href="#/map" data-r="map"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg><span data-i="nav_map">Map</span></a>
     <a href="#/claim" data-r="claim"><svg class="ic" aria-hidden="true"><use href="#i-claim"/></svg><span class="l-d" data-i="nav_claim">Check a claim</span><span class="l-m" data-i="nav_claim_m">Claim</span></a>
-    <a class="d-only" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span>Insights</span></a>
+    <a href="#/map" data-r="map"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg><span data-i="nav_map">Map</span></a>
+    <a class="d-only" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_insights">Insights</span></a>
+    <a class="d-only" href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
     <a href="#/help" data-r="help"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg><span data-i="nav_help">Get help</span></a>
     <details class="more"><summary><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span data-i="nav_more">More</span></summary>
       <div class="menu">
-        <a class="m-only" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span>Insights</span></a>
-        <a href="#/city" data-r="city"><svg class="ic" aria-hidden="true"><use href="#i-city"/></svg><span data-i="nav_city">Your city</span></a>
+        <a class="m-only" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_insights">Insights</span></a>
+        <a class="m-only" href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
         <a href="#/ask" data-r="ask"><svg class="ic" aria-hidden="true"><use href="#i-ask"/></svg><span data-i="nav_ask">Ask</span></a>
-        <a href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
-        <a href="#/brief/card" data-r="brief"><svg class="ic" aria-hidden="true"><use href="#i-brief"/></svg><span>Briefing</span></a>
-        <a href="#/school" data-r="school"><svg class="ic" aria-hidden="true"><use href="#i-school"/></svg><span>Schools</span></a>
+        <a href="#/city" data-r="city"><svg class="ic" aria-hidden="true"><use href="#i-city"/></svg><span data-i="nav_city">Your city</span></a>
+        <a href="#/brief/card" data-r="brief"><svg class="ic" aria-hidden="true"><use href="#i-brief"/></svg><span data-i="nav_brief">Briefing</span></a>
+        <a href="#/school" data-r="school"><svg class="ic" aria-hidden="true"><use href="#i-school"/></svg><span data-i="nav_school">Schools</span></a>
         <a href="#/dropoff" data-r="dropoff"><svg class="ic" aria-hidden="true"><use href="#i-bin"/></svg><span data-i="nav_dropoff">Nearest drop-off</span></a>
-        <a href="#/about" data-r="about"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span>About</span></a>
+        <a href="#/about" data-r="about"><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span data-i="nav_about">About</span></a>
       </div>
     </details>
   </nav>
@@ -77,6 +78,9 @@
 <script src="city.js" defer></script>
 <script src="config.js" defer></script>
 <script src="i18n.js" defer></script>
+<script src="i18n_pages.js" defer></script>
+<script src="i18n_dom.js" defer></script>
+<script src="i18n_dict.js" defer></script>
 <script src="india.js" defer></script>
 <script src="geomap.js" defer></script>
 <script src="saathi.js" defer></script>
@@ -84,14 +88,18 @@
 <script src="answer.js" defer></script>
 <script src="loop.js" defer></script>
 <script src="demo.js" defer></script>
+<script src="lead.js" defer></script>
 <script src="opening.js" defer></script>
 <script src="leaders.js" defer></script>
 <script src="school.js" defer></script>
 <script src="vendor/qrcode.js" defer></script>
+<script src="account.js" defer></script>
 <script src="ward.js" defer></script>
 <script src="dropoff_data.js" defer></script>
 <script src="dropoff.js" defer></script>
 <script src="about.js" defer></script>
+<script src="insights.js" defer></script>
+<script src="receipt.js" defer></script>
 <script src="app.js" defer></script>
 <script src="countup.js" defer></script>
 <script src="splash.js" defer></script>

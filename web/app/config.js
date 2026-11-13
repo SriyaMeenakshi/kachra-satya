@@ -5,5 +5,6 @@
    run:  ALLOWED_ORIGINS=http://127.0.0.1:8777 python agent/app.py   (set it as an environment variable first on Windows). Any deployed site keeps the empty default. */
 (function () {
   var h = location.hostname, local = h === "127.0.0.1" || h === "localhost" || h === "[::1]";
-  window.KS_CONFIG = { agentEndpoint: local && location.port !== "5000" ? "http://127.0.0.1:5000/ask" : "" };
+  window.KS_CONFIG = { publicBase: "https://kachra-satya.onrender.com/web/app/index.html",      /* the live site: a QR code made on a test copy points here */
+    agentEndpoint: local && location.port !== "5000" ? "http://127.0.0.1:5000/ask" : "" };
 })();
