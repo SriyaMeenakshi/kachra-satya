@@ -1,4 +1,4 @@
-"""Kachra Satya Q&A agent (Claude API, tool use over the CSVs).
+"""TrashTally Q&A agent (Claude API, tool use over the CSVs).
 
 The model has no waste data of its own: every number must come from a tool call that reads
 data/waste_clean.csv, data/national_stated.csv, data/flags.csv or data/gap_ranking.csv.
@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 MODEL = os.environ.get("KACHRA_MODEL", "claude-sonnet-5-5")
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
 
-SYSTEM = """You are the Kachra Satya assistant. You answer questions about India's municipal solid waste \
+SYSTEM = """You are the TrashTally assistant. You answer questions about India's municipal solid waste \
 figures using ONLY what the lookup tools return. You have no other knowledge of these numbers.
 
 Rules:
@@ -140,7 +140,7 @@ def main():
         print(answer(" ".join(sys.argv[1:]))[0])
         return
     hist = []
-    print("Kachra Satya Q&A (blank line to quit)")
+    print("TrashTally Q&A (blank line to quit)")
     while True:
         q = input("> ").strip()
         if not q:

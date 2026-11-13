@@ -23,10 +23,13 @@ What this does and does not mean: these figures are self-reported by states, cit
 ## 2. Evidence of impact: how we will get it, honestly
 Do not invent or estimate any of this. Report the real count, even if it is small, and say plainly that it is a usability check, not a pilot.
 
-1. **Run sessions.** Use the five tasks and the consent wording in [user_tests.md](user_tests.md). Record one row per person in `data/user_tests.csv` (copy `data/user_tests_template.csv`). Then `python scripts/user_tests_summary.py` prints the real counts.
+1. **Run sessions.** Use the six tasks and the consent wording in [user_tests.md](user_tests.md). Record one row per person in `data/user_tests.csv` (copy `data/user_tests_template.csv`). Then `python scripts/user_tests_summary.py` prints the real counts.
 2. **Anonymous usage summary.** Get help, Log tab, has a button "Copy my anonymous summary". It copies counts only (complaints logged, open and resolved, ward days tapped, days the truck did not come), with no names, places or text. A tester can paste it into a shared form. It is a convenience, not tracking: nothing is sent anywhere.
 3. **Server counts, if wanted.** The live host's own request log can give the number of page loads and Ask questions for a date range. Report them as page loads, not as people.
 4. **Say what it is.** In the README and the video: "N people tried it; this shows usability, not impact on garbage collection."
+
+## A quicker route to one real case (added 2026-11-14)
+The ward case file makes one real example cheap to get. Ask one person (a family member, a neighbour) to open their ward page, tap whether the truck came for three or more days, and press "Copy as text" on the case file. With their consent, that text is a real resident's record set beside their state's official figure. Report it as one person's unverified record, not as a finding. If sign-in is switched on, the ward's shared total gives a second real number: how many people reported.
 
 ## What goes in the submission
 - The problem evidence above, with the source pages.

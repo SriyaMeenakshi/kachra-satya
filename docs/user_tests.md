@@ -9,11 +9,11 @@ Aim for 20 to 30 people, mixed: residents of different ages, students, and a few
 
 ## How (about 10 minutes each, in person or on a call)
 1. Say: "We are testing the site, not you. If something confuses you, that is our fault. You can stop any time." Get a yes before you start. Do not record audio or video unless the person agrees; we keep only the notes below.
-2. Give the five tasks one at a time. Do not explain the page. Wait, then note whether they finished alone, needed a hint, or got stuck.
+2. Give the six tasks one at a time. Do not explain the page. Wait, then note whether they finished alone, needed a hint, or got stuck.
 3. Write down what confused them, in their own words.
 4. Ask the closing question: "Would you use this again?"
 
-## The five tasks (along the loop)
+## The six tasks (along the loop)
 | # | Task | What "done alone" means |
 |---|---|---|
 | 1 | "What two numbers does India have for how much waste is processed, and can we say which is right?" (Start or Map page) | Names both figures and says the sources disagree and we cannot say which is right |
@@ -21,8 +21,10 @@ Aim for 20 to 30 people, mixed: residents of different ages, students, and a few
 | 3 | "Find your state. How different are the two figures there?" (Map) | Opens their state and reads the gap |
 | 4 | "Your street's garbage was not collected for three days. Write a complaint." (Get help) | Reaches the complaint text and knows it is a draft they must file themselves |
 | 5 | "Say the truck came today, then tell me what the badge on that page means." (Your ward) | Records a day and explains that the badge needs enough reports and is not an award |
+| 6 | "The truck missed your street twice this week. Make something you could send to your councillor." (Your ward, case file) | Records the days, finds the case file, and can say who would send it (they would, not the site) |
 
 ## What to record (`data/user_tests_template.csv`)
+The template has columns for tasks 1 to 5. Until it gains a sixth, write the result of task 6 (done alone, needed a hint, or stuck) at the start of `confusion_notes`.
 One row per person: `session_id` (S01, S02, ...), `date`, `group` (resident, student, civic worker, other), `device` (phone, laptop), `language` (the language the person used), `task1` to `task5` (`alone`, `hint` or `stuck`), `confusion_notes` (their words, no names), `would_use_again` (`yes`, `maybe`, `no`), `logged_by`.
 Copy the template to `data/user_tests.csv` and add rows. Leave a cell blank if a task was not attempted.
 

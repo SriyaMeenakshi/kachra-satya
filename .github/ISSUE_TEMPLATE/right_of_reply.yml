@@ -1,5 +1,5 @@
 name: Right of reply (state, city or department)
-description: Respond to a figure or comparison on Kachra Satya that concerns your state, city or department.
+description: Respond to a figure or comparison on TrashTally that concerns your state, city or department.
 title: "Reply: "
 labels: ["right-of-reply"]
 body:

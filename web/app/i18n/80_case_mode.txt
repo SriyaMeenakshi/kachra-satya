@@ -1,0 +1,73 @@
+; The ward case file. The switch between "My street" and "The numbers" is in i18n_pages.js.
+
+= Case file for this ward
+इस वार्ड की केस फ़ाइल
+ఈ వార్డు కేసు ఫైల్
+
+= One page that puts your record, your neighbours’ reports, your complaint and the official figure together, to hand to a councillor, a ward officer or a reporter. We write it; you send it.
+एक पन्ना, जिसमें आपका रिकॉर्ड, पड़ोसियों की रिपोर्टें, आपकी शिकायत और सरकारी आँकड़ा एक साथ हैं; पार्षद, वार्ड अधिकारी या पत्रकार को देने के लिए। हम लिखते हैं; भेजते आप हैं।
+మీ రికార్డు, పొరుగువారి నివేదికలు, మీ ఫిర్యాదు, అధికారిక సంఖ్య అన్నీ ఒకే పేజీలో; కౌన్సిలర్, వార్డు అధికారి లేదా విలేకరికి ఇవ్వడానికి. మేము రాస్తాం; పంపేది మీరే.
+
+= Record a few days first. The case file is written from your own taps, and there are none for this ward yet.
+पहले कुछ दिन दर्ज करें। केस फ़ाइल आपके अपने टैप से लिखी जाती है, और इस वार्ड के लिए अभी कोई टैप नहीं है।
+ముందు కొన్ని రోజులు నమోదు చేయండి. కేసు ఫైల్ మీ సొంత ట్యాప్‌ల ఆధారంగా రాయబడుతుంది; ఈ వార్డుకు ఇంకా ట్యాప్‌లు లేవు.
+
+= Ward case file
+वार्ड केस फ़ाइल
+వార్డు కేసు ఫైల్
+
+= What happened
+क्या हुआ
+ఏం జరిగింది
+
+= Who else says so
+और कौन यही कहता है
+ఇంకా ఎవరు ఇదే చెబుతున్నారు
+
+= What was done
+क्या किया गया
+ఏం చేశారు
+
+= What the official figures say
+सरकारी आँकड़े क्या कहते हैं
+అధికారిక సంఖ్యలు ఏం చెబుతున్నాయి
+
+= What is asked
+क्या माँगा जा रहा है
+ఏం కోరుతున్నాం
+
+= Days with no record are unknown. They are not counted as missed.
+जिन दिनों का रिकॉर्ड नहीं है, वे अज्ञात हैं। उन्हें "नहीं आई" नहीं गिना जाता।
+రికార్డు లేని రోజుల సంగతి తెలియదు. వాటిని "రాలేదు"గా లెక్కించం.
+
+= No days are recorded for this ward on this device yet. Tap whether the truck came for a few days first.
+इस डिवाइस पर इस वार्ड के लिए अभी कोई दिन दर्ज नहीं है। पहले कुछ दिन टैप करें कि गाड़ी आई या नहीं।
+ఈ పరికరంలో ఈ వార్డుకు ఇంకా ఏ రోజూ నమోదు కాలేదు. ముందు కొన్ని రోజులు బండి వచ్చిందో లేదో ట్యాప్ చేయండి.
+
+= No one else has shared a report for this ward yet, so this is one resident's record.
+इस वार्ड के लिए अभी किसी और ने रिपोर्ट साझा नहीं की, इसलिए यह एक निवासी का रिकॉर्ड है।
+ఈ వార్డుకు ఇంకెవరూ నివేదిక పంచుకోలేదు; కాబట్టి ఇది ఒక నివాసి రికార్డు.
+
+= No one has shared a report for this ward yet.
+इस वार्ड के लिए अभी किसी ने रिपोर्ट साझा नहीं की।
+ఈ వార్డుకు ఇంకా ఎవరూ నివేదిక పంచుకోలేదు.
+
+= One report per person per day. These are counts of reports, not a measurement.
+हर व्यक्ति की रोज़ एक रिपोर्ट। ये रिपोर्टों की गिनती हैं, माप नहीं।
+ప్రతి వ్యక్తికి రోజుకు ఒక నివేదిక. ఇవి నివేదికల లెక్క మాత్రమే, కొలత కాదు.
+
+= That figure describes the whole state, not this ward. It is here to show what is officially reported, not to score the ward against it.
+यह आँकड़ा पूरे राज्य का है, इस वार्ड का नहीं। यह दिखाने के लिए है कि आधिकारिक तौर पर क्या दर्ज है, वार्ड को इससे परखने के लिए नहीं।
+ఈ సంఖ్య మొత్తం రాష్ట్రానిది, ఈ వార్డుది కాదు. అధికారికంగా ఏం నివేదించారో చూపడానికే ఇది; వార్డును దీనితో కొలవడానికి కాదు.
+
+= A written reply on why collection was missed on the days listed, and the date from which daily collection will be regular.
+ऊपर बताए दिनों में कचरा क्यों नहीं उठा, इसका लिखित जवाब; और वह तारीख़ जिससे रोज़ाना संग्रह नियमित होगा।
+పైన పేర్కొన్న రోజుల్లో చెత్త ఎందుకు సేకరించలేదో లిఖిత సమాధానం; రోజువారీ సేకరణ ఎప్పటి నుంచి క్రమంగా జరుగుతుందో ఆ తేదీ.
+
+= A written confirmation of the collection days and times for this ward.
+इस वार्ड के संग्रह के दिनों और समय की लिखित पुष्टि।
+ఈ వార్డులో సేకరణ రోజులు, వేళల లిఖిత ధృవీకరణ.
+
+= Case file copied.
+केस फ़ाइल कॉपी हो गई।
+కేసు ఫైల్ కాపీ అయింది.

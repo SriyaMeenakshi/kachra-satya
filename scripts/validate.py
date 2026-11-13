@@ -1,4 +1,4 @@
-"""Kachra Satya validation engine.
+"""TrashTally validation engine.
 
 Reads data/waste_clean.csv and data/national_stated.csv, runs six plain-function rules and writes
   data/flags.csv        (state, year, rule, values, explanation)

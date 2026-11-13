@@ -11,19 +11,22 @@ Status: **script only, not recorded.** Every figure below was checked against `w
 
 **One line to say in the first 10 seconds:** "Every waste promise deserves a receipt." Then walk the loop the site itself shows on its Home page and on every page: Promise, Proof, Reality, Action.
 
-## The beats (follow the loop: Promise, Proof, Reality, Action)
+## The beats (about 3 minutes; the resident first, then the numbers)
+Revised 2026-11-14 for TrashTally. Use fictional wards and names on screen. Read the figures off the page on the day; do not trust the ones typed here.
+
 | Time | On screen | Narration |
 |---|---|---|
-| 0:00 | Start page, hero and map | "India's waste story doesn't always add up. The Housing Ministry says 81 percent of urban waste is processed. The pollution board's figures give about 62 percent treated." |
-| 0:15 | Click the 81% card's source page, red box on the number | "Both are from government documents, and every number opens the page it came from. These are different years, 2025-26 and 2023-24, and the two bodies may not mean the same thing by processed and treated. We don't say which is right." |
-| 0:40 | Scroll to the dot charts and the "17,420 tonnes a day apart" band | "About seventeen thousand four hundred tonnes a day apart. We call it a difference, never an error." |
-| 0:55 | Check a claim: paste "81% of India's urban waste is processed", press Check | "Proof. Type a claim someone made. Here the sources disagree: some match, some don't. We show who, with the page for each." |
-| 1:20 | Map: pick Kerala, open the flags | "Kerala reported more waste treated than collected, four years in a row. Both can't be true. A flag doesn't say which figure to trust." |
-| 1:40 | Map: open a state with a blank (Ladakh), show "not reported" and the reason | "Where a figure is missing we say not reported, and why. We never fill gaps." |
-| 1:55 | Your ward (`#/ward`), fictional ward only | "Reality. Does the truck actually come? Residents tap a day. These are unverified reports kept on your own device, and the page says no reports yet when there are none." (Label: **illustrative, fictional ward**.) |
-| 2:15 | Get help: complaint writer, fictional example | "Action. We draft the complaint and the escalation letter. We never send them: you do." |
-| 2:30 | Switch language to Hindi, then back; show phone view | "It works in English, Hindi and Telugu, on a phone." |
-| 2:40 | Start page footer, counts | "Thirty-six states and UTs, six hundred ninety-seven reported figures, six hundred ninety-six open on a source page. All self-reported; we check consistency, not truth." |
+| 0:00 | Home in "My street": the headline and the five things to do | "This is TrashTally. If your garbage is not collected, a phone call is your word against the office's. We give you a record." |
+| 0:15 | Your ward (a fictional ward): tap "did not come" for a few days, the calendar fills | "Reality. Each day you tap whether the truck came. These are your own taps: unverified, and kept on your phone." |
+| 0:35 | Scroll to "Case file for this ward" | "After a few days you get a case file: what happened, who else says so, what you filed, and what the government itself reports for your state, with the page it is printed on." |
+| 0:55 | Press Copy as text, show the WhatsApp button and Print | "Action. We write it. You send it: to a councillor, a ward officer, a reporter." |
+| 1:05 | The ward's shared total and the QR code | "Neighbours can add their taps by scanning a code on the bin, so one complaint becomes a ward's record. We store no names and no emails." Say this only if sign-in is switched on; otherwise say "sharing is built and off until the database is set up". |
+| 1:20 | Switch Home to "The numbers": the map and the lead case | "Now the other half. India has two official numbers for how much waste is processed, and they disagree." |
+| 1:35 | The lead case: open both source pages | "Chandigarh: one report says all of it is processed, another says under a quarter. Both are official. Every number opens the page it came from. We do not say which is right." |
+| 1:55 | Check a claim: paste "81% of India's urban waste is processed", press Check, then Copy link | "Promise and proof. Type a number someone quoted. You get which sources agree, and a receipt you can forward." |
+| 2:15 | Insights: the six question cards, open one tab | "Six plain questions the published figures raise, each with one number and one chart. Every row and source page is one tap away." |
+| 2:35 | Switch the language to Telugu, then Hindi; show a phone width | "The whole site works in English, Hindi and Telugu, on a phone." |
+| 2:45 | About: what we will not do | "All figures are self-reported. We check that they agree, not that they are true. We draft, we never send. And we have not yet measured whether a complaint gets a truck to come." |
 
 ## Numbers to confirm on the day
 81% MoHUA 2025-26 and 62% CPCB 2023-24 (61.6% computed); 17,420 tonnes a day apart; Kerala four years; 36 states and UTs; 697 reported figures; 696 open on a source page; 72 flags.

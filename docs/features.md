@@ -1,20 +1,20 @@
 # Features: what each part of the app does
 
-This page explains every feature of the Kachra Satya web app (`web/app/`) in plain words: what it is for, what you do, what you get, and what it does not do. The idea behind all of it is a receipt for every waste promise: **Promise, Proof, Reality, Action** ([central_idea.md](central_idea.md)).
+This page explains every feature of the TrashTally web app (`web/app/`) in plain words: what it is for, what you do, what you get, and what it does not do. The idea behind all of it is a receipt for every waste promise: **Promise, Proof, Reality, Action** ([central_idea.md](central_idea.md)).
 
 Two rules hold everywhere: we never invent a figure (a blank says "not reported"), and when the sources disagree we say "the sources disagree" instead of picking one.
 
 ## The loop on every page
 The central idea, *a receipt for every waste promise*, is visible: the Home headline says it, a four-step strip under the hero shows Promise, Proof, Reality, Action, and every other page carries a step bar ("Step 2 of 4, Proof") with a link to the next stop. The demo film labels each step with its stop. The page-to-stop mapping lives in `web/app/loop.js`.
 
-## 0. Insights and About
-Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (Money and gaps; Sources and checks). Their links (`#/gaps/...`, `#/explore/...`) are unchanged. **About** (`#/about`) holds how we check, the site's numbers, what we will not do, the sources and the licence. The top bar is Home, Map, Check a claim, Insights, Get help and More (Your city, Ask, Your ward, Briefing, Schools, Nearest drop-off, About).
+## 0. Two ways in, Insights and About
+A switch at the top of Home chooses what comes first: **The numbers** (the default) or **My street** (see the last section). **Insights** (`#/gaps`, `#/explore`) opens on six plain questions and has ten tabs, each named as a question. **About** (`#/about`) holds how we check, the site's numbers, what we will not do, where the figures come from and the licence.
 
 ## 1. Home (`#/start`)
 **For:** anyone arriving cold.
-- **Goal chooser:** "What brings you here?" offers five goals plus "just look around". Each goal starts a guided path (section 12).
+- **Four doors:** "What brings you here?" offers my garbage isn't collected, someone quoted a number, I'm preparing a briefing, and our school, plus "just look around the map". Each door starts a guided path (section 12) and sets the mode it belongs to.
 - **Why this matters:** four stakes computed from the data, not typed in: the share of solid-waste money used, tonnes a day CPCB found neither treated nor landfilled, door-to-door collection against source segregation, and the gap between the two national "treated" totals.
-- **The main parts as one road:** Hear it, Check it, See your street, Do something, each with a real number and links to the pages.
+- **The loop strip:** Promise, Proof, Reality, Action, each a way in to its pages.
 
 - **See it working:** a short film of four demo screens, one per door, that plays by itself when it scrolls into view: about 5 seconds a step, a timeline bar and a "playing" light, one part after another, then it loops. Pause, Play, Back, Next and the numbered tabs are always there, and people who prefer reduced motion get still screens with the same buttons. The inputs are made up and marked "example"; the figures, verdicts, document names and letter sentences are the real ones from the data and the real functions. They cover: a resident (ward taps, complaint, log, letter with the tally), a quoted number (typed sentence, verdict, evidence), a briefing (pick any state, its card and questions), and a school (bins, weighing grid, report card with made-up numbers).
 
@@ -98,23 +98,22 @@ Gaps and Explore now share one heading, **Insights**, and one pair of tab rows (
 ## 11. Your ward (`#/ward`) and Nearest drop-off (`#/dropoff`)
 **For:** seeing whether it is true on your street.
 - **Ward:** tap whether the garbage truck came today, keep a 30-day calendar beside the official figures, print a QR code for a ward, and see a green-ward badge ([ward_reports.md](ward_reports.md)).
-- Reports are unverified and stay in your own browser; no shared server exists yet. Scanning a printed QR on a real phone is not yet tested.
+- Reports are unverified. They stay in your own browser unless you sign in to add them to the ward's shared total (see "Sign-in and the shared ward total"). From a ward page you can also make the ward case file. Scanning a printed QR on a real phone is not yet tested.
 - **Drop-off:** where to take batteries, e-waste and other special items.
 
 ## 12. Guided paths
 **For:** a visitor who does not know where to start ([guided_paths.md](guided_paths.md)).
-- Five goals, each a short path of existing pages with a bar showing the step, why it matters, and Back and Next:
-  1. Get my garbage collected: complain, log, escalate, check bins.
-  2. Check a number someone quoted: claim, source pages, state map, state card.
-  3. Understand the problem in 3 minutes: two numbers, map, gaps, definitions.
-  4. Prepare something to cite or ask: state card, briefing, claim, source pages.
-  5. Run a school waste challenge: bins, school grid, bulk generators.
+- Four doors, each a short path of existing pages with a bar showing the step, why it matters, and Back and Next:
+  1. My garbage isn't collected: your ward, complain, log, escalate.
+  2. Someone quoted a number: check the claim, open the source pages, share a state card.
+  3. I'm preparing a briefing: state card, briefing, the gaps, your city's data.
+  4. Our school: the bins, the school grid, bulk generators.
 - Pages outside a path end with a "What next?" row. If browser storage is blocked, the pages still work without the bar.
 
 ## 13. Across the app
-- **Languages:** the interface is English, with Hindi and Telugu partly translated (first drafts). Ask answers in English, Hindi, Tamil and Telugu, and the bin guide shows stream names in all three, which are provisional until a native speaker checks them. Machine answers in Hindi, Tamil and Telugu are not reviewed.
+- **Languages:** English, Hindi and Telugu across the whole site (see "Languages" below). Ask answers in English, Hindi, Tamil and Telugu, and the bin guide shows stream names in all three, which a native speaker has not checked.
 - **Design:** the "Eco-Intelligence Observatory" system, light and dark ([ui_theme.md](ui_theme.md)).
-- **Privacy:** logs, ward reports and uploads stay in your browser.
+- **Privacy:** logs, ward reports and uploads stay in your browser. Two things can leave it, each only when you choose: a question you send on Ask, and ward taps you share after signing in (stored without your name or email).
 - **Honesty:** every figure keeps its source document and page; see [methodology.md](methodology.md) and [track_coverage.md](track_coverage.md) for limits.
 
 ## Languages (English, Hindi, Telugu)
@@ -129,3 +128,10 @@ The menu follows the loop: Home, Check a claim (Promise), Map and Insights (Proo
 
 ## Sign-in and the shared ward total
 On a ward page a resident can sign in with Google and add their truck taps to a total for the ward: how many people reported in the last 30 days, and how many reports said the truck came or did not. One report per person per day; a day people disagree on shows both counts. The server stores an anonymous code, the ward, the day and the answer, and no name or email. Nothing is sent, and the Google script is not loaded, until the person presses Turn on sharing. It is off unless the server has a Google client ID and a database. Details: docs/sign_in.md.
+
+## The ward case file
+On a ward page, "Case file for this ward" writes one page from what the resident already has on the site: their own truck record for the last 30 days with the missed dates, the ward's shared total if sharing is on, the complaints for that city in their log, the state's official collection figure with its document and page, and what is asked. It can be copied as text, sent on WhatsApp or printed. Nothing is invented: a part with no data says so, and every resident record is labelled unverified. The site writes it and never sends it. Code: web/app/casefile.js, drawCase() in web/app/ward.js.
+
+## My street and The numbers
+A switch at the top of Home, remembered on the device. "The numbers" is the default: the map, the lead case and the two official figures come first. "My street" puts a resident first: the headline is about uncollected garbage, the hero lists what to do today (tap the truck, write a complaint, make a case file, which bin, nearest drop-off), the walk-through film moves up, and the menu leads with Your ward and Get help. It changes order only. Every page stays in the menu in both modes, and every link or QR code opens the same page for everyone. The doors on Home set the mode they belong to. Code: web/app/mode.js, web/app/mode.css.
+

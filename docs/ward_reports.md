@@ -17,9 +17,9 @@ Covers items O1 (garbage uptime page), M1 (QR one-tap flow) and M2 (green ward b
 A resident can now sign in with Google and add their taps to a total for the ward that everyone sees. It is off until the server is given a Google client ID and a database, it stores no name or email, and it is described in docs/sign_in.md. The sections below describe the device-only behaviour, which is still what happens for anyone who does not sign in.
 
 ## What is real and what is not
-- Reports live in this browser (localStorage). **There is no shared server**, so a ward page shows only the taps made on this device. A neighbour who scans the QR code sees their own calendar, not yours. We say this on every ward page.
+- Reports live in this browser (localStorage). **Unless a person signs in to share**, a ward page shows only the taps made on this device. A neighbour who scans the QR code sees their own calendar, not yours. We say this on every ward page.
 - No tap is ever created by the code. The tests check that an empty ward shows zero reports and "not enough reports", never a failure.
-- Nothing is sent anywhere.
+- Nothing is sent anywhere unless the person turns on sharing; then each tap for that ward goes to the shared total, stored without a name or email (docs/sign_in.md).
 
 ## Duplicate taps
 - **On a device (built):** one report per ward per day. A later tap for the same day replaces the earlier one, and the page says so.
@@ -38,3 +38,6 @@ A resident can now sign in with Google and add their taps to a total for the war
 - Ward names are free text, so two people can spell the same ward differently and get two different pages.
 - The QR code generator is a library (see `web/app/vendor/NOTICE.md`). We tested that it produces a valid-sized symbol; scanning a printed code with a phone has not been tested yet.
 - The badge thresholds are a proposal. No resident has used them.
+
+## Case file (new)
+A ward page can write a one-page case file from the resident's own record, the ward's shared total, the complaints in their log and the state's official collection figure, to copy, send on WhatsApp or print. A part with no data says so. Code: `web/app/casefile.js`. The QR code made on a test copy of the site now points to the live site instead of the local address.

@@ -58,6 +58,22 @@
     var segC = KS.segregation.filter(function (x) { return x.indicator.indexOf("D2D") >= 0; })[0], segS = KS.segregation.filter(function (x) { return x.indicator.indexOf("Segregation") >= 0; })[0];
     var agentOn = !!(root.KS_CONFIG && root.KS_CONFIG.agentEndpoint);
     var taps = 0; try { var wr = JSON.parse(localStorage.getItem("ks-ward-reports-v1") || "null"); taps = wr && Array.isArray(wr.reports) ? wr.reports.length : 0; } catch (e) { taps = 0; }   /* this device only; storage may be blocked */
+    var street = !!(root.KSMode && root.KSMode.get() === "street");
+    function modeSwitch() {      /* "My street" or "The numbers": changes what comes first, never how a page works (mode.js) */
+      if (!root.KSMode) return "";
+      return '<div class="op-mode"><span class="op-mode-l" id="op-mode-l">' + esc(T("md_label", "Show me first")) + '</span><div class="seg" role="group" aria-labelledby="op-mode-l">' +
+        [["street", T("md_street", "My street")], ["numbers", T("md_numbers", "The numbers")]].map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (root.KSMode.get() === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div></div>";
+    }
+    function streetPanel() {      /* the hero's right-hand side in "My street": the things a resident can do today */
+      var mine = null; try { var wr2 = JSON.parse(localStorage.getItem("ks-ward-reports-v1") || "null"); var last = wr2 && Array.isArray(wr2.reports) && wr2.reports.length ? wr2.reports[wr2.reports.length - 1].ward : ""; var pp = String(last || "").split("~"); if (pp.length === 3) mine = { id: last, ward: pp[2], city: pp[1] }; } catch (e) { mine = null; }
+      var wardHref = mine ? "#/ward/" + encodeURIComponent(mine.id) : "#/ward";
+      return '<div class="op-street"><h2>' + esc(T("sp_h", "On your street")) + "</h2>" +
+        row(wardHref, "i-ward", T("sp_truck", "Did the truck come today?"), mine ? mine.ward + ", " + mine.city : T("sp_truck_d", "Tap once a day and build your street's record.")) +
+        row("#/help/complain", "i-help", T("sp_comp", "Write a complaint"), T("sp_comp_d", "We write it; you send it.")) +
+        row(wardHref, "i-brief", T("sp_case", "Make a case file for your ward"), T("sp_case_d", "One page for a councillor, a ward officer or a reporter.")) +
+        row("#/help/bins", "i-bin", T("sp_bin", "Which bin does it go in?"), T("sp_bin_d", "Wet, dry, sanitary and special care.")) +
+        row("#/dropoff", "i-map", T("sp_drop", "Nearest drop-off"), T("sp_drop_d", "For batteries, electronics and recyclables.")) + "</div>";
+    }
     function doors() {      /* "What brings you here?": four doors, one per kind of visitor. Each starts a guided path (guide.js). */
       return '<div class="op-doors" role="group" aria-labelledby="op-go-h"><h2 id="op-go-h" class="op-doors-h">' + esc(T("goal_h", "What brings you here?")) + '</h2>' + (root.KSGuide ? root.KSGuide.chooser() : "") + '<p class="op-explore"><a href="#/map">' + esc(T("cta_explore", "Explore the data")) + ' &rarr;</a></p></div>';
     }
@@ -73,11 +89,11 @@
         '<div class="op-why3-cta"><a class="op-btn primary" href="#/map/' + encodeURIComponent(L.state) + '">' + esc(T("lead_map", "Open {state} on the map", { state: L.state })) + '</a><a class="op-btn ghost" href="#/ward">' + esc(T("lead_street", "Is it true on your street?")) + '</a></div></section>';
     }
     view.innerHTML = '<div class="op">' +
-      '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy"><p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
-      '<h1 class="op-h1" id="op-h1">' + (root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'Every waste promise <span class="mark">deserves a receipt.</span>') + '</h1><p class="op-lede">' + esc(T("lede", "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.")) + '</p>' +
+      '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy">' + modeSwitch() + '<p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
+      '<h1 class="op-h1" id="op-h1">' + (street ? esc(T("s_h1", "Garbage not collected? Keep a record. Get it fixed.")) : root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'Every waste promise <span class="mark">deserves a receipt.</span>') + '</h1><p class="op-lede">' + esc(street ? T("s_lede", "Tap whether the truck came, add your neighbours' reports, and hand over a one-page case file with the official figure on it.") : T("lede", "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.")) + '</p>' +
       doors() +
-      '<p class="op-what">' + esc(T("what", "Kachra Satya puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
-      '<div class="op-mapwrap"><div id="op-mapbox"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
+      '<p class="op-what">' + esc(T("what", "TrashTally puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.")) + "</p></div>" +
+      '<div class="op-mapwrap">' + streetPanel() + '<div id="op-mapbox"><div class="seg op-layers" role="group" aria-label="' + esc(T("layer_label", "Colour the map by")) + '">' +
       [["gap", T("layer_gap", "Difference")], ["mohua", T("layer_mohua", "MoHUA processed")], ["cpcb", T("layer_cpcb", "CPCB treated")]].map(function (m) { return '<button type="button" data-l="' + m[0] + '" aria-pressed="' + (LAYER === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div>" +
       '<div class="geo op-map" id="op-map"></div><div class="op-legend" id="op-legend"></div><p class="op-maphint">' + esc(T("map_hint", "Select a state to open its figures")) + "</p>" +
       '<div class="op-floats"><div class="op-float m op-f1"><span class="who">' + esc(T("stat_mohua_who", "MoHUA says")) + '</span><span class="big">' + (mpct == null ? "&ndash;" : mpct + "%") + '</span><span class="sm">' + term("processed") + " · 2025-26 · " + (mp ? esc(nm(mp.source_doc)) + ", p." + esc(mp.source_page) + rbtn(mKey) : "") + "</span></div>" +
@@ -117,6 +133,9 @@
     view.querySelectorAll(".op-layers button").forEach(function (b) { b.onclick = function () { LAYER = b.dataset.l; view.querySelectorAll(".op-layers button").forEach(function (x) { x.setAttribute("aria-pressed", x === b); }); drawMap(); }; });
     if (root.KSGuide) root.KSGuide.wireGoals(view);
     if (root.KSDemo) root.KSDemo.wire(view);
+    /* the mode switch redraws Home; a door also sets the mode it belongs to (garbage and school: My street; a number and a briefing: The numbers) */
+    view.querySelectorAll(".op-mode [data-m]").forEach(function (b) { b.onclick = function () { root.KSMode.set(b.dataset.m); render(); var again = view.querySelector('.op-mode [data-m="' + b.dataset.m + '"]'); if (again) again.focus(); }; });
+    if (root.KSMode) view.querySelectorAll(".op-doors [data-path]").forEach(function (b) { b.addEventListener("click", function () { var m = root.KSMode.forDoor(b.dataset.path); if (m) root.KSMode.set(m); }); });
     /* reveal: content is visible by default; .pre hides it only while it is about to be revealed, and everything is forced visible after 4 s so a throttled tab never stays blank */
     var targets = [].slice.call(view.querySelectorAll(".dots .g, .op-find, .stamp"));
     if (!(root.matchMedia && root.matchMedia("(prefers-reduced-motion: reduce)").matches) && "IntersectionObserver" in root) {

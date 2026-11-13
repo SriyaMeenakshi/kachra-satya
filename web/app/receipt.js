@@ -10,7 +10,7 @@
   function fromArgs(args) { return clean((args || []).join("/")); }
   /* o: { claim, verdict, figures: [{ source, year, figure, computed, doc, page }], matches, total, built, url } */
   function text(o) {
-    var L = ["Kachra Satya receipt", "Claim: " + clean(o.claim), "Result: " + o.verdict];
+    var L = ["TrashTally receipt", "Claim: " + clean(o.claim), "Result: " + o.verdict];
     (o.figures || []).forEach(function (f) { L.push("- " + f.source + " " + f.year + ": " + f.figure + (f.computed ? " (computed by us)" : "") + ". " + f.doc + ", page " + f.page); });
     if (o.total) L.push(o.matches + " of " + o.total + " source figures match the claim.");
     L.push("We do not say which source is right.");

@@ -3,9 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kachra Satya</title>
+<title>TrashTally</title>
 <meta name="description" content="India's waste story doesn't always add up. Follow the numbers, compare official claims and see what India's waste data actually says.">
 <meta name="theme-color" content="#0E2A20">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
 <link rel="preload" href="fonts/anek-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="saathi.css">
@@ -18,9 +20,10 @@
 <link rel="stylesheet" href="splash.css">
 <link rel="stylesheet" href="guide.css">
 <link rel="stylesheet" href="theme.css">
+<link rel="stylesheet" href="mode.css">
 </head>
 <body>
-<div id="splash" role="status" aria-live="polite"><div class="sp-in"><div class="sp-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14M5 19c2-5 5-8 9-10"/></svg></div><p class="sp-name">Kachra Satya</p><p class="sp-sub">Loading India's waste figures&hellip;</p><div class="sp-bar" aria-hidden="true"><i></i></div></div></div>
+<div id="splash" role="status" aria-live="polite"><div class="sp-in"><div class="sp-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0E2A20"/><path d="M8.5 10.5h15M13 10.5V8.2h6v2.3" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13.6v9.6M14.7 13.6v9.6M17.3 13.6v9.6M20 13.6v9.6" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round"/><path d="M9.4 22.4l13.2-7.6" fill="none" stroke="#E4795B" stroke-width="2.2" stroke-linecap="round"/></svg></div><p class="sp-name">TrashTally</p><p class="sp-sub">Loading India's waste figures&hellip;</p><div class="sp-bar" aria-hidden="true"><i></i></div></div></div>
 <noscript><style>#splash{display:none}</style></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
   <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h14V10M10 20v-6h4v6"/></symbol>
@@ -39,9 +42,9 @@
 </defs></svg>
 <a class="skip" href="#view">Skip to content</a>
 <header class="bar"><div class="wrap">
-  <a class="brand" href="#/start" aria-label="Kachra Satya, home">
-    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="9" fill="#0E2A20"/><path d="M8 23c0-8 5-13 16-14 0 9-5 15-12 15" fill="#BFE84F"/><path d="M8 23l8-8" stroke="#0E2A20" stroke-width="1.8" stroke-linecap="round" fill="none"/><circle cx="24" cy="24" r="2.6" fill="#E4795B"/></svg>
-    <span>Kachra Satya</span>
+  <a class="brand" href="#/start" aria-label="TrashTally, home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#0E2A20"/><path d="M8.5 10.5h15M13 10.5V8.2h6v2.3" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13.6v9.6M14.7 13.6v9.6M17.3 13.6v9.6M20 13.6v9.6" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round"/><path d="M9.4 22.4l13.2-7.6" fill="none" stroke="#E4795B" stroke-width="2.2" stroke-linecap="round"/></svg>
+    <span>TrashTally</span>
   </a>
   <nav aria-label="Main" id="nav">
     <a href="#/start" data-r="start"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg><span data-i="nav_home">Home</span></a>
@@ -52,6 +55,8 @@
     <a href="#/help" data-r="help"><svg class="ic" aria-hidden="true"><use href="#i-help"/></svg><span data-i="nav_help">Get help</span></a>
     <details class="more"><summary><svg class="ic" aria-hidden="true"><use href="#i-more"/></svg><span data-i="nav_more">More</span></summary>
       <div class="menu">
+        <a class="s-only" href="#/map" data-r="map"><svg class="ic" aria-hidden="true"><use href="#i-map"/></svg><span data-i="nav_map">Map</span></a>
+        <a class="s-only s-ins" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_insights">Insights</span></a>
         <a class="m-only" href="#/gaps" data-r="gaps explore"><svg class="ic" aria-hidden="true"><use href="#i-explore"/></svg><span data-i="nav_insights">Insights</span></a>
         <a class="m-only" href="#/ward" data-r="ward"><svg class="ic" aria-hidden="true"><use href="#i-ward"/></svg><span data-i="nav_ward">Your ward</span></a>
         <a href="#/ask" data-r="ask"><svg class="ic" aria-hidden="true"><use href="#i-ask"/></svg><span data-i="nav_ask">Ask</span></a>
@@ -68,7 +73,7 @@
     <button class="tg" id="theme" type="button" aria-label="Switch theme">Theme</button>
   </div>
 </div></header>
-<main><div class="wrap" id="view" tabindex="-1"><noscript><h2>This site needs JavaScript</h2><p>Kachra Satya shows India's official waste figures side by side, with the source page for each. It runs in your browser and needs JavaScript turned on. The figures and sources are listed in the project's repository: <a href="https://github.com/SriyaMeenakshi/kachra-satya">github.com/SriyaMeenakshi/kachra-satya</a>.</p></noscript></div></main>
+<main><div class="wrap" id="view" tabindex="-1"><noscript><h2>This site needs JavaScript</h2><p>TrashTally shows India's official waste figures side by side, with the source page for each. It runs in your browser and needs JavaScript turned on. The figures and sources are listed in the project's repository: <a href="https://github.com/SriyaMeenakshi/kachra-satya">github.com/SriyaMeenakshi/kachra-satya</a>.</p></noscript></div></main>
 <footer><div class="wrap">All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged from the cited document, with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built <span id="built"></span>.</div></footer>
 <div class="tip" id="tip" role="tooltip"></div>
 <dialog id="dlg" aria-label="Source page"><button class="alt x" type="button" id="dlgx">Close</button><div id="dlgbody"></div></dialog>
@@ -77,6 +82,7 @@
 <script src="../trust/claim.js" defer></script>
 <script src="city.js" defer></script>
 <script src="config.js" defer></script>
+<script src="mode.js" defer></script>
 <script src="i18n.js" defer></script>
 <script src="i18n_pages.js" defer></script>
 <script src="i18n_dom.js" defer></script>
@@ -94,6 +100,7 @@
 <script src="school.js" defer></script>
 <script src="vendor/qrcode.js" defer></script>
 <script src="account.js" defer></script>
+<script src="casefile.js" defer></script>
 <script src="ward.js" defer></script>
 <script src="dropoff_data.js" defer></script>
 <script src="dropoff.js" defer></script>

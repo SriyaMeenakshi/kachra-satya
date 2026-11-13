@@ -16,3 +16,19 @@
   body.print-qr #qrcard h3{display:none}
   body.print-qr #qrcard .card{border:0;box-shadow:none}body.print-qr #qrcard .card>*:not(.qrbox){display:none!important}
   body.print-qr .qrbox{max-width:none;width:14cm;border:0;margin:0 auto}}
+/* the ward case file (casefile.js) */
+.cf{margin:var(--sp-3) 0;padding:var(--sp-5);border:1.5px solid var(--ink);border-radius:var(--r-2);background:var(--card);max-width:760px}
+.cf-k{margin:0;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+:lang(hi) .cf-k,:lang(te) .cf-k{font-family:var(--font);letter-spacing:0;text-transform:none;font-size:var(--t-sm)}
+.cf-p{margin:4px 0 0;font-size:var(--t-xl);letter-spacing:-.02em}.cf-d{margin:2px 0 var(--sp-3);color:var(--ink2);font-size:var(--t-sm)}
+.cf-s{padding:var(--sp-3) 0;border-top:1px solid var(--hair)}.cf-s h5{margin:0 0 4px;font-size:var(--t-md);display:flex;align-items:center;gap:8px}
+.cf-s h5 span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--forest-700);color:var(--ivory);font-size:.78rem;flex:none}
+.cf-s p{margin:4px 0 0 32px;max-width:66ch}
+.cf-f{margin:var(--sp-3) 0 0;padding-top:var(--sp-3);border-top:1.5px dashed var(--axis);color:var(--ink2);font-size:var(--t-sm);overflow-wrap:anywhere}
+.cf-acts{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
+.cf-wa{display:inline-flex;align-items:center;min-height:48px;padding:0 22px;border:1.5px solid var(--ink);border-radius:var(--r-pill);color:var(--ink);text-decoration:none;font-weight:600}
+@media (max-width:600px){.cf{padding:var(--sp-4)}.cf-s p{margin-left:0}}
+@media print{body.print-case header,body.print-case footer,body.print-case nav,body.print-case .skip,body.print-case .loop-bar{display:none!important}
+  body.print-case #view>*:not(#casecard){display:none!important}
+  body.print-case #casecard h3,body.print-case #casecard .card>*:not(.cf){display:none!important}
+  body.print-case #casecard .card{border:0;box-shadow:none;padding:0}body.print-case .cf{border:0;max-width:none;padding:0}body.print-case .cf-s h5 span{background:#000;color:#fff}}

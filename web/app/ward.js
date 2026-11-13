@@ -135,16 +135,17 @@
       '<p style="margin-bottom:6px"><button class="go" id="wyes" type="button">✓ The truck came</button> <button class="alt" id="wno" type="button">✗ The truck did not come</button></p><div id="wmsg" class="note" role="status" aria-live="polite"></div></div></div>' +
       '<div class="section"><h3>Last ' + WINDOW + ' days</h3><div id="wcal"></div></div>' +
       '<div class="section"><h3>Your ward&rsquo;s shared total</h3><div id="wshare"></div></div>' +
+      '<div class="section" id="casecard"><h3>Case file for this ward</h3><div id="wcase"></div></div>' +
       '<div class="section"><h3>Official figures, for context</h3>' + official + "</div>" +
       '<div class="section"><h3>Green ward badge</h3><div id="wbadge"></div></div>' +
       '<div class="section" id="qrcard"><h3>QR code for this ward</h3><div class="card pad" id="wqr"></div></div>' +
       '<p><button class="alt" id="wdl" type="button">Download these reports (CSV)</button> <button class="alt" id="wclear" type="button">Delete this ward\'s reports from this device</button></p>';
-    drawCal(s); drawBadge(s, b); drawQR(w); drawShare(w);
+    drawCal(s); drawBadge(s, b); drawQR(w); drawShare(w); drawCase(w);
     function tap(status) {
       var r = recordTap(mem.reports, { ward: w.id, date: $("wdate").value, status: status, today: today(), device: mem.device });
       if (r.error) { $("wmsg").textContent = r.error; return; }
       mem.reports = r.list; save();
-      var s2 = summarise(mem.reports, w.id, today()); drawCal(s2); drawBadge(s2, badge(s2));
+      var s2 = summarise(mem.reports, w.id, today()); drawCal(s2); drawBadge(s2, badge(s2)); drawCase(w);
       var day = $("wdate").value, said = "Saved on this device as an unverified report: " + STATUS[status].toLowerCase() + ", " + nice(day) + "." + (r.replaced ? " It replaced your earlier report for that day." : "");
       $("wmsg").textContent = said;
       var A = root.KSAccount;      /* sharing is on: the same tap also goes to the ward's total */
@@ -212,6 +213,32 @@
       })();
     }
     drawShare.refresh = function (m) { paint(m); };
+  }
+
+  /* The ward case file (casefile.js): this ward's record, the shared total, the complaints in the log and the official figure, on one page to hand over. */
+  function drawCase(w) {
+    var C = root.KSCase, box = $("wcase"); if (!C || !box) return;
+    var s = summarise(mem.reports, w.id, today()), off = officialFor(KS, w.state), complaints = [];
+    try { complaints = JSON.parse(localStorage.getItem("ks-complaints") || "[]"); if (!Array.isArray(complaints)) complaints = []; } catch (e) { complaints = []; }
+    var base = (root.KS_CONFIG && root.KS_CONFIG.publicBase) || location.href.split("#")[0];
+    var docName = function (d) { return root.KSAnswer && root.KSAnswer.docName ? root.KSAnswer.docName(d) : d; };
+    function paint(shared) {
+      if (!$("wcase")) return;
+      var cf = C.build({ ward: w, today: today(), own: { window: s.window, days: s.days.filter(function (d) { return d.status; }) }, shared: shared, complaints: complaints,
+        official: off.state ? { pct: off.state.pct, doc: docName(off.state.doc), page: off.state.page } : null, url: base.split("#")[0] + "#/explore/receipts/" + encodeURIComponent(w.state) });
+      box.innerHTML = '<div class="card pad"><p style="margin-top:0">One page that puts your record, your neighbours&rsquo; reports, your complaint and the official figure together, to hand to a councillor, a ward officer or a reporter. We write it; you send it.</p>' +
+        (cf.ready ? "" : '<p class="notice">Record a few days first. The case file is written from your own taps, and there are none for this ward yet.</p>') + C.html(cf) +
+        '<p class="cf-acts"><button class="go" id="cfcopy" type="button">Copy as text</button> <a class="alt cf-wa" id="cfwa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(cf.text) + '">WhatsApp</a> <button class="alt" id="cfprint" type="button">Print or save as PDF</button></p><p class="note" id="cfmsg" role="status" style="margin-bottom:0"></p></div>';
+      $("cfcopy").onclick = function () {
+        var done = function (ok) { $("cfmsg").textContent = ok ? "Case file copied." : "Could not copy. Select the text above and copy it by hand."; };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(cf.text).then(function () { done(true); }, function () { done(false); }); else done(false);
+      };
+      $("cfprint").onclick = function () { document.body.classList.add("print-case"); window.print(); setTimeout(function () { document.body.classList.remove("print-case"); }, 500); };
+    }
+    paint(null);
+    var A = root.KSAccount;      /* add the ward's shared total when sharing is switched on for this site */
+    if (A && A.base() !== null) A.config().then(function (c) { if (c.signIn) A.summary(w.id).then(function (sum) { paint(A.tally(sum)); }, function () {}); });
+    drawCase.refresh = function () { drawCase(w); };
   }
 
   function drawCal(s) {

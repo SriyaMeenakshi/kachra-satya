@@ -1,4 +1,4 @@
-# Methodology note: Kachra Satya waste dataset
+# Methodology note: TrashTally waste dataset
 
 Version: 2026-11-10 (draft for the hackathon submission and a later public release). Counts below are from the files in this repo on that date.
 
@@ -58,4 +58,4 @@ python -m pytest -q tests
 ```
 
 ## Citing
-Kachra Satya team (2026). Kachra Satya: an audit of India's municipal solid waste figures. Version 2026-11-10. Source documents and pages are in every row; see `SOURCES.md` and `docs/licences.md` for reuse terms.
+TrashTally team (2026). TrashTally: an audit of India's municipal solid waste figures. Version 2026-11-10. Source documents and pages are in every row; see `SOURCES.md` and `docs/licences.md` for reuse terms.

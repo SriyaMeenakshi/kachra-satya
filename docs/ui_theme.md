@@ -17,7 +17,7 @@ Opened in the browser pane in the redesign session: Awwwards (home page and the 
 | coral `#E4795B` | graphics only | graphics only | never body text on ivory (2.7:1) |
 | ramps | `--s1..7` lime to forest (% treated or processed), `--g1..7` coral (difference), `--d*`/`--dg*` for the always-dark hero stage | | maps and charts |
 
-Scales: spacing 4, 8, 12, 16, 24, 32, 48, 72, 112; radii 8, 14, 22, pill; type 13 to 64 px with a fluid display size; motion 150 and 320 ms. Outfit is the only web font; Hindi and Telugu use system fonts and get relaxed letter-spacing and line-height (`:lang(hi)`, `:lang(te)`).
+Scales: spacing 4, 8, 12, 16, 24, 32, 48, 72, 112; radii 8, 14, 22, pill; type 13 to 64 px with a fluid display size; motion 150 and 320 ms. Web fonts, all self-hosted under the SIL Open Font License (`web/app/fonts/`): Anek for text in Latin, Devanagari and Telugu, so the three languages share one design; Teko for big figures (`--font-num`); Martian Mono for small data labels (`--font-mono`). Each script's file is fetched only when a page uses that script.
 
 ## Rules
 - **One accent.** Forest (lime in dark) is the only brand action colour. Coral means disagreement. Status colours (good, warning, crit) stay reserved for status.
@@ -38,3 +38,9 @@ Scales: spacing 4, 8, 12, 16, 24, 32, 48, 72, 112; radii 8, 14, 22, pill; type 1
 ## Checked, and not checked
 Checked in the browser pane: 24 routes at 375 px in light and dark with no console errors, no horizontal scroll, and exactly one level-1 heading each; Hindi and Telugu on Start, Map, Claim and Definitions; the Start page numbers against the data; the tab bar position; the pop-ups with mouse and keyboard.
 **Not checked:** a real phone, a screen reader, browsers other than the pane's, `prefers-reduced-motion` in a browser (the rules are written and tested for presence, not exercised), and the Hindi and Telugu text by a native speaker (it is a first draft covering the nav, Start, claim verdicts and glossary; other pages and the long Start paragraphs stay in English).
+
+## Changes on 2026-11-13 and 14
+- **Name and icon.** The site is TrashTally. The icon is a bin whose four ribs are tally marks, struck through in coral (`web/app/icon.svg`); it is the header logo, the loading mark and the favicon.
+- **Light theme.** The hero follows the page in light theme (a soft green panel) instead of staying dark; the map on it then uses the light ramps.
+- **Menu.** It follows the loop: Home, Check a claim, Map, Insights, Your ward, Get help, More. In "My street" it leads with Your ward and Get help (`web/app/mode.css`).
+- **Insights charts** are plain HTML rows (two dots per state, bars, squares), each carrying its figures as text (`web/app/insights.js`).

@@ -91,7 +91,7 @@ def test_claim_page_wires_the_receipt():
 
 def test_hero_is_the_map_with_no_switch_or_autoplay():
     js, html = read("web/app/opening.js"), read("web/app/index.html")
-    assert '<div class="op-mapwrap"><div id="op-mapbox">' in js and 'id="op-map"' in js      # the India map is the hero again, shown at once
+    assert '<div id="op-mapbox">' in js and 'id="op-map"' in js      # the India map is the hero again, shown at once
     for gone in ("board()", "story()", "op-view", "setInterval"):
         assert gone not in js, gone
     assert "board.css" not in html and "story.css" not in html

@@ -1,4 +1,4 @@
-Kachra Satya Q&A Web API Agent
+TrashTally Q&A Web API Agent
 
 One endpoint: POST /ask with {"question": "...", "language": "en"} that returns {"answer": "...", "sources": [...]}.
 
@@ -51,3 +51,7 @@ Notes
 - No API keys are written to disk by this code.
 
 If you want changes, tell me which piece to adjust.
+
+## Sign-in and the shared ward store
+`accounts.py` adds sign-in with Google and the shared ward totals to this same server. It is registered from `app.py` and is off unless `GOOGLE_CLIENT_ID` and `KS_SECRET` are set. Routes: `GET /api/config`, `POST /api/signin`, `POST /api/ward/report`, `GET /api/ward/summary`, `DELETE /api/me`. It stores an anonymous code, the ward, the day and the answer, and no name or email. Database: `DATABASE_URL` (PostgreSQL) or a local SQLite file. See `docs/sign_in.md` and `tests/test_accounts.py`.
+

@@ -1,4 +1,4 @@
-# Kachra Satya Agent - Environment Configuration
+# TrashTally Agent - Environment Configuration
 # Create a .env file in the agent/ folder and fill in your keys
 # OR set these as system environment variables before running
 

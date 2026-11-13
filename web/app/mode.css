@@ -1,0 +1,44 @@
+/* "My street" and "The numbers" (mode.js). Order only: nothing is removed from the site in either mode. Loaded after theme.css. */
+
+/* the switch on Home */
+.op-mode{order:0;display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2) var(--sp-3);margin:0 0 var(--sp-3)}
+.op-mode-l{font-size:var(--t-sm);color:var(--ink2);font-weight:600}
+.op-mode .seg{display:inline-flex}
+.op-mode .seg button{min-height:44px;padding:8px 18px;font-weight:600}
+
+/* Home: the hero's right-hand column */
+.op-street{display:none}
+body.mode-street .op-street{display:block}
+body.mode-street #op-mapbox{display:none}
+.op-street h2{margin:0 0 var(--sp-2);font-size:var(--t-xl);letter-spacing:-.02em}
+.op-street .op-row:last-child{border-bottom:0}
+.op-street .op-row b{font-size:var(--t-lg)}
+
+/* Home: in "My street" the walk-through and the idea come before the national figures */
+body.mode-street .op{display:flex;flex-direction:column}
+body.mode-street .op>.op-stage{order:0}
+body.mode-street .op>.demo{order:1}
+body.mode-street .op>.loop-strip{order:2}
+body.mode-street .op>.op-lead{order:3}
+body.mode-street .op>.op-two{order:4}
+body.mode-street .op>*{order:5}
+body.mode-street .op>.op-close{order:9}
+
+/* the menu, wide screens: Home, Your ward, Get help, Check a claim, Map, More (Insights moves into More) */
+#nav .s-only,#nav .more .menu a.s-only{display:none}
+body.mode-street #nav>a[href="#/start"]{order:0}
+body.mode-street #nav>a[href="#/ward"]{order:1}
+body.mode-street #nav>a[href="#/help"]{order:2}
+body.mode-street #nav>a[href="#/claim"]{order:3}
+body.mode-street #nav>a[href="#/map"]{order:4}
+body.mode-street #nav>.more{order:9}
+body.mode-street #nav>a[href="#/gaps"]{display:none}
+body.mode-street #nav .more .menu a.s-only.s-ins{display:flex}
+
+/* the menu, phones: Home, Your ward, Get help, Check a claim, More (Map and Insights move into More) */
+@media (max-width:860px){
+  body.mode-street #nav>a.d-only[href="#/ward"]{display:inline-flex}
+  body.mode-street #nav>a[href="#/map"]{display:none}
+  body.mode-street #nav .more .menu a.m-only[href="#/ward"],body.mode-street #nav .more .menu a.m-only[href="#/gaps"]{display:none}
+  body.mode-street #nav .more .menu a.s-only{display:flex}
+}

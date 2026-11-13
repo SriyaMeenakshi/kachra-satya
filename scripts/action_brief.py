@@ -73,7 +73,7 @@ def brief(w, flags, state, funds=None):
     sf = flags[flags.state == state]
 
     L = [f"# Action Brief: {state}", "",
-         "_Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for different years; "
+         "_Data only from the TrashTally dataset. The CPCB and MoHUA figures are for different years; "
          "no same-year pair exists yet. Anything not in the data is marked 'not reported'._", "",
          "## 1. The gap", "",
          "| | CPCB " + CPCB_YEAR + " | MoHUA " + MOHUA_YEAR + " |", "|---|---|---|",
