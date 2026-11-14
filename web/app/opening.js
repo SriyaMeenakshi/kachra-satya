@@ -89,6 +89,7 @@
         '<div class="op-why3-cta"><a class="op-btn primary" href="#/map/' + encodeURIComponent(L.state) + '">' + esc(T("lead_map", "Open {state} on the map", { state: L.state })) + '</a><a class="op-btn ghost" href="#/ward">' + esc(T("lead_street", "Is it true on your street?")) + '</a></div></section>';
     }
     view.innerHTML = '<div class="op">' +
+      '<p class="op-nudge"><a href="#/claim">' + esc(T("nudge", "Saw a waste number? Check it before you repeat it.")) + '</a></p>' +
       '<section class="op-stage stage" aria-labelledby="op-h1"><div class="op-stage-in"><div class="op-copy">' + modeSwitch() + '<p class="op-kicker">' + esc(T("kicker", "Waste data observatory · India")) + '</p>' +
       '<h1 class="op-h1" id="op-h1">' + (street ? esc(T("s_h1", "Garbage not collected? Keep a record. Get it fixed.")) : root.KSi18n && root.KSi18n.lang() !== "en" ? esc(T("h1", "")) : 'Every waste promise <span class="mark">deserves a receipt.</span>') + '</h1><p class="op-lede">' + esc(street ? T("s_lede", "Tap whether the truck came, add your neighbours' reports, and hand over a one-page case file with the official figure on it.") : T("lede", "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.")) + '</p>' +
       doors() +
