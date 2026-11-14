@@ -43,7 +43,7 @@ To change the settings later (for example the key or provider): the service, **E
 
 ## Keeping the live site up through judging (decided 2026-11-14)
 The free Render plan puts the service to sleep after about 15 minutes without a visit, and the first visit then takes about a minute. Judging runs through November and winners are announced on 5 Dec, so a judge could arrive at any time.
-**Decision: a free external pinger.** An uptime monitor calls `https://kachra-satya.onrender.com/health` every 10 minutes, so the service does not sleep. **Status: not set up yet.** To set it up (a person must do this; it needs an account):
+**Decision: a free external pinger.** An uptime monitor calls `https://kachra-satya.onrender.com/health` every 10 minutes, so the service does not sleep. **Status: set up by the owner on 2026-11-14 (reported, not seen by the assistant that wrote this page). The first-day check below is still to do.** How it was set up (a person must do this; it needs an account):
 1. Create a free account at an uptime monitor, for example UptimeRobot or cron-job.org.
 2. Add an HTTP(S) monitor for `https://kachra-satya.onrender.com/health`, checking every 10 minutes (the shortest interval the free plan allows may be 5 minutes; either works). Treat a response without `"status":"ok"` as down, and send the alert to a team email.
 3. After a day, open the Render service's **Events** and **Logs** and confirm it did not sleep. Write the date here: ______
@@ -57,7 +57,9 @@ To switch (about 3 minutes, including the redeploy):
 2. In Render, open the service, **Environment**. Change `MODEL_PROVIDER` and `MODEL_API_KEY` together (and the model variable if the default is wrong for your key). **Save**; Render redeploys.
 3. Open `/health`: it should show the new provider. Ask one question in English and one in Hindi.
 4. Switch back the same way when the first provider recovers.
-Only the primary provider has been tested on the live site. **A second provider has not been tested here**, so test it once before relying on it.
+On 2026-11-14 the owner reported getting a second provider's key (kept outside the repo) and testing the switch once, then switching back; `/health` showed `gemini` afterwards. That test was not seen by the assistant that wrote this page, and no answer from the second provider has been read and recorded. Read one before relying on it.
+
+**Key replacement.** The first Gemini key was pasted into a chat on 2026-11-12. The owner reported on 2026-11-14 that it was revoked and replaced in Render's `MODEL_API_KEY`. After the replacement the live service answered in model mode (see `docs/agentfoundry_run_sheet.md`, "Model-mode run on the live site").
 
 ## Release tag (at the freeze)
 When the team freezes the code, on the commit you will submit: `python -m pytest -q tests`, then `python scripts/build_site.py`, then tag it so judges see a stable version, and check the live About page shows that commit's build:
