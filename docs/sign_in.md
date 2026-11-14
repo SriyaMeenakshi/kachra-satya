@@ -41,3 +41,14 @@ Writes are limited to 30 a minute per person (`WARD_WRITES_PER_MIN`).
 - One Google account is one person as far as the count goes. Someone with two accounts counts twice.
 - Ward names are free text, so two spellings of one ward are two wards.
 - A total is a signal for a question to the municipality, not proof.
+
+## Go or no-go (before the code freeze)
+Switch sign-in on in the live site only if every line below has been done and seen with real accounts. Otherwise leave `GOOGLE_CLIENT_ID` empty: the page then says sign-in is not switched on, which is true and costs nothing. As of 2026-11-14 the live `/api/config` returns `signIn: false`, and the ten tests in `tests/test_accounts.py` pass (they use a stand-in for Google and a SQLite file).
+1. **Google client.** In Google Cloud console, create an OAuth client of type "Web application", with `https://kachra-satya.onrender.com` as an authorised JavaScript origin.
+2. **Consent screen.** Check whether the app is in "Testing" mode. If it is, only the test users you list can sign in; add the team and your testers, or publish it. Check Google's current wording and limits.
+3. **Database.** Create a PostgreSQL database on Render and set `DATABASE_URL`. Check when a free database expires and make sure it outlasts judging (through 5 Dec). Without it, reports are lost on every deploy.
+4. **Settings.** In Render, set `GOOGLE_CLIENT_ID` and a long random `KS_SECRET` (the Blueprint can generate one). Never put either in the repo.
+5. **End-to-end test with a real Google account on the live site:** press "Turn on sharing", tap a ward day, see the shared total change, sign out, sign in again and see the tap still counted, then "Delete everything I shared" and see the total drop.
+6. **Look inside the database** and check the rows hold no name, email address or Google account id, only the anonymous code, the ward, the day and the status.
+7. **If all of that worked:** update the README line that says sign-in was never tried for real. **If not by the freeze:** leave it off and keep that line.
+

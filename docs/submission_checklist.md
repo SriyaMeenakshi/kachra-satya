@@ -1,10 +1,10 @@
 # Submission checklist (15 Nov 2026)
 
-Status as of 2026-11-12. Tick an item only when you have done it and seen it with your own eyes. "Not done" is the honest default.
+Status as of 2026-11-14. Tick an item only when you have done it and seen it with your own eyes. "Not done" is the honest default.
 
 ## Must be true before you submit
 - [ ] **Re-read the hackathon's current track list and rules** (Code for a Billion, Waste Management track) and confirm the submission format and deadline. Nobody on the team has recorded the rules in this repo, so do it from the official page and paste the link here: ______
-- [ ] **Public URL is live** and opens on a phone: Start, Map, Check a claim, one source page. Live at https://kachra-satya.onrender.com since 2026-11-12 and checked in a desktop browser (`docs/deploy.md`, "What was checked on the live site"). **Not yet opened on a phone**, so this stays unticked.
+- [ ] **Public URL is live** and opens on a phone: Start, Map, Check a claim, one source page. Live at https://kachra-satya.onrender.com since 2026-11-12 and checked in a desktop browser (`docs/deploy.md`, "What was checked on the live site"). On 2026-11-14 eleven routes also loaded cleanly at phone width in a browser emulation. **Not yet opened on a real phone**, so this stays unticked.
 - [ ] **Decide about publishing the page images** (`receipts/pages/`, copies of pages from government documents). **They are already live** on the Render site. Reuse terms are not confirmed (`docs/licences.md`). The team decided to use these public records with attribution; no permission requests were sent. Decide to keep them (with the attribution notices) or take them down.
 - [ ] **Demo video** recorded, 2 to 3 minutes, along the loop; any persona labelled illustrative (`docs/demo_video_script.md`). Not recorded yet.
 - [ ] **Run the tests and the build on the commit you submit:** `python -m pytest -q tests` and `python scripts/build_site.py`.
