@@ -1,12 +1,12 @@
-# TrashTally
+# Kachra Satya
 
 **Every waste promise deserves a receipt.**
 
-TrashTally does two jobs. It helps a resident whose garbage is not collected keep a record and get heard. And it lets anyone check an official waste figure against the other official figures, on the page each one was printed on.
+Kachra Satya does two jobs. It helps a resident whose garbage is not collected keep a record and get heard. And it lets anyone check an official waste figure against the other official figures, on the page each one was printed on.
 
 Built for the Code for a Billion hackathon, Waste Management track (submissions close 15 Nov 2026). Live at https://kachra-satya.onrender.com.
 
-*Formerly Kachra Satya. The repository and the live address keep the old name (`kachra-satya`), so existing links and printed QR codes still work.*
+*Kachra satya* means "the truth about garbage".
 
 ## Why it exists
 India's Housing Ministry (MoHUA) and the pollution control board (CPCB) publish different numbers for the same municipal solid waste, and nothing checks them against each other.
@@ -22,7 +22,7 @@ These are different years, and CPCB says "treated" where MoHUA says "processed".
 Meanwhile a resident whose truck does not come has nothing to show for it. A phone call to the ward office is one person's word against the office's.
 
 ## Who it helps
-| Person | What they could not do before | What TrashTally gives them |
+| Person | What they could not do before | What Kachra Satya gives them |
 |---|---|---|
 | **A resident whose garbage is not picked up** | Prove the truck did not come | A dated record of each day, a complaint written for them, and a one-page **case file** that sets their record beside the state's official collection figure |
 | **A group of neighbours** | Be counted together | A **shared total** for their ward: how many people reported, and how many reports said the truck came or did not. A QR code on a bin lets a neighbour join without installing anything |
@@ -80,7 +80,7 @@ Off unless the server is given a Google client ID and a database. A resident who
 English, Hindi and Telugu, switched in the header. The whole site changes: menus, headings, buttons, notes and forms. Figures, state names, document names, anything a person types and the drafted letters are never translated. Pages measure 71% to 100% translated in the browser; the rest is text that comes straight from the data files. The translations are in `web/app/i18n/*.txt` and are a first draft that **no native speaker has reviewed**. Ask also answers in Tamil.
 
 ### Design
-The "Eco-Intelligence Observatory" system, light and dark ([docs/ui_theme.md](docs/ui_theme.md)). Fonts are self-hosted under the SIL Open Font License: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for small data labels. The icon is a bin whose ribs are tally marks (`web/app/icon.svg`).
+The "Eco-Intelligence Observatory" system, light and dark ([docs/ui_theme.md](docs/ui_theme.md)). Fonts are self-hosted under the SIL Open Font License: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for small data labels. The icon is a bin whose ribs are tally marks, one for each count that has to add up (`web/app/icon.svg`).
 
 ## The data
 - **676 rows** for 36 states and UTs, in tonnes per day, 2019-20 to 2025-26; 666 carry a reported value. Every row names its source document, page and retrieval date. Missing values stay blank and say "not reported"; nothing is estimated or filled in.

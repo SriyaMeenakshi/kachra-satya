@@ -1,4 +1,4 @@
-"""Audit Your City: run the TrashTally consistency rules on a ward-level (or ULB-level) CSV supplied by the user.
+"""Audit Your City: run the Kachra Satya consistency rules on a ward-level (or ULB-level) CSV supplied by the user.
 
 Input columns (see data/city_audit_template.csv): ulb, ward, period, generated_tpd, collected_tpd, segregated_tpd,
 treated_tpd, landfilled_tpd, notes. Any numeric cell may be blank: blank means "not reported" and is never filled in or guessed.

@@ -1,4 +1,4 @@
-"""TrashTally Q&A web API agent.
+"""Kachra Satya Q&A web API agent.
 
 Exposes POST /ask with {"question": "...", "language": "en"}
 that returns {"answer": "...", "sources": [...]}.
@@ -725,7 +725,7 @@ if SERVE_SITE:
 
 
 if __name__ == "__main__":
-    print("TrashTally Q&A Web API Agent")
+    print("Kachra Satya Q&A Web API Agent")
     print(f"Model Provider: {MODEL_PROVIDER if MODEL_API_KEY else 'NONE (fallback mode)'}")
     print(f"CORS allowed origins: {origins}")
     if MODEL_PROVIDER == "gemini" and MODEL_API_KEY:

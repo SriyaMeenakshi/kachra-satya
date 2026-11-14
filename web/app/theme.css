@@ -1,4 +1,4 @@
-/* TrashTally design system: "Eco-Intelligence Observatory". Loaded last, so it sets the tokens and re-skins the shared components in app.css.
+/* Kachra Satya design system: "Eco-Intelligence Observatory". Loaded last, so it sets the tokens and re-skins the shared components in app.css.
    Palette: deep forest, fresh lime, warm ivory, muted coral. Type: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for receipt-style data (all variable, self-hosted, SIL OFL, see fonts/OFL.txt), system fonts for Hindi and Telugu.
    Rules: one primary action per view; coral is for "the sources disagree" and flags, never for body text on ivory (use --crit); status colours stay reserved for status.
    Motion is short and optional (prefers-reduced-motion switches it off). See docs/ui_theme.md. */

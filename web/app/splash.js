@@ -15,7 +15,7 @@
     var back = document.createElement("div"); back.className = "demo-back"; back.id = "demo-back";
     back.innerHTML = '<div class="demo-box" role="dialog" aria-modal="true" aria-labelledby="demo-h" aria-describedby="demo-d"><span class="demo-tag">Demo</span>' +
       '<h2 id="demo-h">This site is for demonstration</h2>' +
-      '<div id="demo-d"><p>TrashTally was built for a hackathon to show how India\'s published waste figures can be checked against each other. It is not an official government site and is not run by any ministry or board.</p>' +
+      '<div id="demo-d"><p>Kachra Satya was built for a hackathon to show how India\'s published waste figures can be checked against each other. It is not an official government site and is not run by any ministry or board.</p>' +
       '<ul><li>The figures are copied from published government documents. We show where they disagree and do not say which is right.</li>' +
       '<li>Complaints, logs and letters are drafts only. Nothing is sent for you.</li>' +
       '<li>Ward reports stay in your own browser and are unverified.</li></ul></div>' +

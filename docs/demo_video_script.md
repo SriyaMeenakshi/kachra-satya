@@ -12,11 +12,11 @@ Status: **script only, not recorded.** Every figure below was checked against `w
 **One line to say in the first 10 seconds:** "Every waste promise deserves a receipt." Then walk the loop the site itself shows on its Home page and on every page: Promise, Proof, Reality, Action.
 
 ## The beats (about 3 minutes; the resident first, then the numbers)
-Revised 2026-11-14 for TrashTally. Use fictional wards and names on screen. Read the figures off the page on the day; do not trust the ones typed here.
+Revised 2026-11-14 for Kachra Satya. Use fictional wards and names on screen. Read the figures off the page on the day; do not trust the ones typed here.
 
 | Time | On screen | Narration |
 |---|---|---|
-| 0:00 | Home in "My street": the headline and the five things to do | "This is TrashTally. If your garbage is not collected, a phone call is your word against the office's. We give you a record." |
+| 0:00 | Home in "My street": the headline and the five things to do | "This is Kachra Satya. If your garbage is not collected, a phone call is your word against the office's. We give you a record." |
 | 0:15 | Your ward (a fictional ward): tap "did not come" for a few days, the calendar fills | "Reality. Each day you tap whether the truck came. These are your own taps: unverified, and kept on your phone." |
 | 0:35 | Scroll to "Case file for this ward" | "After a few days you get a case file: what happened, who else says so, what you filed, and what the government itself reports for your state, with the page it is printed on." |
 | 0:55 | Press Copy as text, show the WhatsApp button and Print | "Action. We write it. You send it: to a councillor, a ward officer, a reporter." |

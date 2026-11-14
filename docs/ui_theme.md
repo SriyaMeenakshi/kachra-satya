@@ -40,7 +40,7 @@ Checked in the browser pane: 24 routes at 375 px in light and dark with no conso
 **Not checked:** a real phone, a screen reader, browsers other than the pane's, `prefers-reduced-motion` in a browser (the rules are written and tested for presence, not exercised), and the Hindi and Telugu text by a native speaker (it is a first draft covering the nav, Start, claim verdicts and glossary; other pages and the long Start paragraphs stay in English).
 
 ## Changes on 2026-11-13 and 14
-- **Name and icon.** The site is TrashTally. The icon is a bin whose four ribs are tally marks, struck through in coral (`web/app/icon.svg`); it is the header logo, the loading mark and the favicon.
+- **Icon.** The name stays Kachra Satya (a rename to another name was tried on 2026-11-14 and reverted the same day). The icon is a bin whose four ribs are tally marks, struck through in coral (`web/app/icon.svg`); it is the header logo, the loading mark and the favicon.
 - **Light theme.** The hero follows the page in light theme (a soft green panel) instead of staying dark; the map on it then uses the light ramps.
 - **Menu.** It follows the loop: Home, Check a claim, Map, Insights, Your ward, Get help, More. In "My street" it leads with Your ward and Get help (`web/app/mode.css`).
 - **Insights charts** are plain HTML rows (two dots per state, bars, squares), each carrying its figures as text (`web/app/insights.js`).

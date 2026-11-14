@@ -71,7 +71,7 @@
   }
   function briefText(f, aud) {
     var qs = questions(f, aud), L = [];
-    L.push("BRIEFING: solid waste figures for " + f.state, "For: " + AUD[aud] + ". Prepared from published government documents; every figure below has a source page in the TrashTally app.", "");
+    L.push("BRIEFING: solid waste figures for " + f.state, "For: " + AUD[aud] + ". Prepared from published government documents; every figure below has a source page in the Kachra Satya app.", "");
     L.push("1. THE TWO OFFICIAL FIGURES", "- MoHUA, 2025-26 (Rajya Sabha Q2433): generated " + n0(f.mg) + " tonnes/day, processed " + n0(f.mt) + " tonnes/day (" + kg(f.mohua) + " per 100 kg).",
       "- CPCB, 2023-24 (Lok Sabha Q50): generated " + n0(f.cg) + " tonnes/day, collected " + n0(f.cc) + ", treated " + n0(f.ct) + " tonnes/day (" + kg(f.cpcb) + " per 100 kg).",
       "- The years differ, and CPCB says \"treated\" where MoHUA says \"processed\". The sources disagree; this briefing does not say which is right.", "");

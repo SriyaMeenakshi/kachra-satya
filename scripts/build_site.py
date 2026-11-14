@@ -46,12 +46,12 @@ def main():
     # The script keeps a #/route from the URL; the meta refresh and link are the no-JavaScript fallback.
     # No _redirects or netlify.toml is needed: a plain static index.html redirect works on every static host.
     with open(os.path.join(out, "index.html"), "w", encoding="utf8") as f:
-        f.write('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>TrashTally</title>\n'
+        f.write('<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Kachra Satya</title>\n'
                 '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
                 '<link rel="canonical" href="web/app/index.html">\n'
                 '<meta http-equiv="refresh" content="0; url=web/app/index.html">\n'
                 '<script>location.replace("web/app/index.html" + location.hash);</script>\n'
-                '</head><body><p><a href="web/app/index.html">Open TrashTally</a></p></body></html>\n')
+                '</head><body><p><a href="web/app/index.html">Open Kachra Satya</a></p></body></html>\n')
     open(os.path.join(out, ".nojekyll"), "w").close()
     print("built", out, "->", sum(len(fs) for _, _, fs in os.walk(out)), "files")
 

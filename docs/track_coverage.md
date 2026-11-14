@@ -1,7 +1,7 @@
 # How the project covers the Waste Management track
 
 Track text: "Segregation, collection routing, recycling markets, landfill and plastic tracking."
-TrashTally is the data-integrity layer for those decisions. This page says what each segment has and what it does not.
+Kachra Satya is the data-integrity layer for those decisions. This page says what each segment has and what it does not.
 
 | Segment | What we provide | Files | Limit |
 |---|---|---|---|

@@ -1,4 +1,4 @@
-/* TrashTally app: one page, hash routes. Reuses ../trust/data.js (window.KS), ../trust/claim.js (KSClaim) and city.js (KSCity).
+/* Kachra Satya app: one page, hash routes. Reuses ../trust/data.js (window.KS), ../trust/claim.js (KSClaim) and city.js (KSCity).
    Rules: never fill in missing data ("not reported"); every number links to its source page; say "the sources disagree", never "wrong". */
 (function () {
   var KS = window.KS, CFG = window.KS_CONFIG || {}, $ = function (i) { return document.getElementById(i); };
@@ -48,7 +48,7 @@
     return { name: TITLES[n] ? n : "start", args: a };
   }
   function go() {
-    var r = route(); document.title = TITLES[r.name] + " | TrashTally"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
+    var r = route(); document.title = TITLES[r.name] + " | Kachra Satya"; var mm = document.querySelector("#nav .more"); if (mm) mm.open = false;
     document.querySelectorAll("#nav a").forEach(function (a) { if ((a.dataset.r || "").split(" ").indexOf(r.name) >= 0 && getComputedStyle(a).display !== "none") a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");      /* a copy of a link that this screen size or mode hides is never the current one, so More is not lit for it */ });
     ({ start: function () { KSSaathi.renderStart(); }, help: function (tab, args) { KSSaathi.renderHelp(tab, args); }, brief: function (tab, args) { KSLeaders.render(args); }, school: function () { KSSchool.render(); }, dropoff: function () { KSDropoff.render(); }, ward: function (tab, args) { KSWard.render(args); }, map: renderMap, claim: renderClaim, gaps: renderGaps, city: renderCity, ask: renderAsk, explore: renderExplore, about: function () { KSAbout.render(); } })[r.name](r.args[0], r.args);
     wireR(view);
@@ -117,7 +117,7 @@
       }
       $("cccopy").onclick = function () { copy(txt, "Receipt copied."); };
       $("cclink").onclick = function () { copy(url, "Link copied."); };
-      var sh = $("ccshare"); if (navigator.share) sh.onclick = function () { navigator.share({ title: "TrashTally receipt", text: txt }).catch(function () {}); }; else sh.hidden = true;
+      var sh = $("ccshare"); if (navigator.share) sh.onclick = function () { navigator.share({ title: "Kachra Satya receipt", text: txt }).catch(function () {}); }; else sh.hidden = true;
     }
     function check(adjusted) {
       var st = $("cstate").value, v = parseFloat($("value").value);

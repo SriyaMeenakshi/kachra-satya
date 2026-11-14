@@ -1,6 +1,6 @@
 # Action Brief: Tripura
 
-_Data only from the TrashTally dataset. The CPCB and MoHUA figures are for different years; no same-year pair exists yet. Anything not in the data is marked 'not reported'._
+_Data only from the Kachra Satya dataset. The CPCB and MoHUA figures are for different years; no same-year pair exists yet. Anything not in the data is marked 'not reported'._
 
 ## 1. The gap
 

@@ -108,7 +108,7 @@
 
   function show(animate) {
     var d = DEMOS[cur], s = d.steps[step];
-    $("dm-url").textContent = "trashtally / " + d.url; $("dm-cap").textContent = s.cap; $("dm-stage").innerHTML = root.KSLoop ? root.KSLoop.chip(s.stage) : "";
+    $("dm-url").textContent = "kachra-satya / " + d.url; $("dm-cap").textContent = s.cap; $("dm-stage").innerHTML = root.KSLoop ? root.KSLoop.chip(s.stage) : "";
     $("dm-prog").innerHTML = d.steps.map(function (x, i) { return "<i" + (i === step ? ' class="on"' : "") + "></i>"; }).join("");
     $("dm-back").disabled = cur === 0 && step === 0;
     $("dm-open").setAttribute("href", d.link[0]); $("dm-open").textContent = d.link[1] + " \u2192";

@@ -110,7 +110,7 @@
   function summaryText(log, wardReps, todayStr) {
     log = log || []; wardReps = wardReps || [];
     var open = log.filter(function (r) { return r.status !== "Resolved"; }).length, nc = wardReps.filter(function (r) { return r.status === "not_collected"; }).length;
-    return "TrashTally anonymous summary (" + todayStr + "): complaints logged " + log.length + " (open " + open + ", resolved " + (log.length - open) + "); ward days tapped " + wardReps.length + " (truck did not come " + nc + "). Counts only: no names, places or text.";
+    return "Kachra Satya anonymous summary (" + todayStr + "): complaints logged " + log.length + " (open " + open + ", resolved " + (log.length - open) + "); ward days tapped " + wardReps.length + " (truck did not come " + nc + "). Counts only: no names, places or text.";
   }
 
   function tabLog(el) {

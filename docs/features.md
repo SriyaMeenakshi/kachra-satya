@@ -1,6 +1,6 @@
 # Features: what each part of the app does
 
-This page explains every feature of the TrashTally web app (`web/app/`) in plain words: what it is for, what you do, what you get, and what it does not do. The idea behind all of it is a receipt for every waste promise: **Promise, Proof, Reality, Action** ([central_idea.md](central_idea.md)).
+This page explains every feature of the Kachra Satya web app (`web/app/`) in plain words: what it is for, what you do, what you get, and what it does not do. The idea behind all of it is a receipt for every waste promise: **Promise, Proof, Reality, Action** ([central_idea.md](central_idea.md)).
 
 Two rules hold everywhere: we never invent a figure (a blank says "not reported"), and when the sources disagree we say "the sources disagree" instead of picking one.
 

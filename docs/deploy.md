@@ -50,5 +50,5 @@ To change the settings later (for example the key or provider): the service, **E
 `agent/requirements.txt` adds `psycopg2-binary` for PostgreSQL. Steps and limits: [sign_in.md](sign_in.md). Not yet run against a real Google client or database.
 
 ## After the next push
-The live site is built from `main`. This round changes the name shown on the site (TrashTally), the fonts, the languages and the ward page. After a push, open the live site, hard-refresh, and check: the header says TrashTally, Telugu changes the whole page, a ward page shows "Case file for this ward", and the ward's shared total says it is not switched on.
+The live site is built from `main`. This round changes the icon, the fonts, the languages and the ward page. After a push, open the live site, hard-refresh, and check: the header shows the new bin icon, Telugu changes the whole page, a ward page shows "Case file for this ward", and the ward's shared total says it is not switched on.
 

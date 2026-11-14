@@ -46,7 +46,7 @@ def client(built, monkeypatch):
 def test_site_pages_are_served(client):
     for path in ["/", "/web/app/index.html", "/web/app/app.js", "/web/trust/data.js", "/receipts/NOTICE.md"]:
         assert client.get(path).status_code == 200, path
-    assert b"TrashTally" in client.get("/web/app/index.html").data
+    assert b"Kachra Satya" in client.get("/web/app/index.html").data
 
 
 def test_config_points_the_ask_page_at_the_same_server(client):

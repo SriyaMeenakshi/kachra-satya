@@ -1,6 +1,6 @@
 # The central idea: a receipt for every waste promise
 
-> TrashTally gives every promise about India's waste a receipt, so anyone can see what was promised, what was delivered, and what to do next.
+> Kachra Satya gives every promise about India's waste a receipt, so anyone can see what was promised, what was delivered, and what to do next.
 
 India's waste story is a chain of promises: "81% processed", "97% of wards have door-to-door collection", rupees allocated. Each one is a number nobody can check, and each stops at a PDF. We turn the chain into a loop a person can walk through.
 

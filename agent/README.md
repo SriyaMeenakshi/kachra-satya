@@ -1,4 +1,4 @@
-TrashTally Q&A Web API Agent
+Kachra Satya Q&A Web API Agent
 
 One endpoint: POST /ask with {"question": "...", "language": "en"} that returns {"answer": "...", "sources": [...]}.
 
