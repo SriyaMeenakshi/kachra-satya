@@ -23,7 +23,7 @@ It is off unless both `GOOGLE_CLIENT_ID` and `KS_SECRET` are set on the server.
 
 1. **Google client ID.** In the Google Cloud console create an OAuth client of type "Web application". Under "Authorised JavaScript origins" add the site's address (for the live site, `https://kachra-satya.onrender.com`; for local testing, `http://localhost:8777`). No redirect address and no client secret are needed. Set the client ID as `GOOGLE_CLIENT_ID`.
 2. **`KS_SECRET`.** Any long random string. `render.yaml` asks Render to generate one. Changing it signs everyone out and breaks the link between a person and their earlier reports.
-3. **Database.** Set `DATABASE_URL` to a PostgreSQL connection string. A free Render web service loses its own disk on every deploy, so the default SQLite file (`agent/ward_reports.sqlite`, or `KS_DB_PATH`) is only for local use.
+3. **Database.** Set `DATABASE_URL` to a PostgreSQL connection string (Render's PostgreSQL or Neon; see `docs/deploy.md`, "Using Neon"). A free Render web service loses its own disk on every deploy, so the default SQLite file (`agent/ward_reports.sqlite`, or `KS_DB_PATH`) is only for local use.
 
 ## Endpoints
 | Method and path | Who | What |

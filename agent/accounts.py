@@ -48,7 +48,8 @@ def _pg() -> bool:
 def _connect():
     if _pg():
         import psycopg2                                   # only needed when DATABASE_URL is set
-        return psycopg2.connect(DATABASE_URL.replace("postgres://", "postgresql://", 1))
+        # connect_timeout: a serverless database such as Neon may need a moment to wake after idle; wait up to 10 seconds instead of forever
+        return psycopg2.connect(DATABASE_URL.replace("postgres://", "postgresql://", 1), connect_timeout=10)
     return sqlite3.connect(DB_PATH, timeout=10)
 
 
