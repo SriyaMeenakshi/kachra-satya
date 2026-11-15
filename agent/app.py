@@ -139,6 +139,18 @@ def _norm_lang(language: str) -> str:
     return code if code in TEXT else "en"
 
 
+_LANG_NAMES = {"hi": "Hindi", "ta": "Tamil", "te": "Telugu"}
+
+
+def with_language(question: str, language: str) -> str:
+    """The question as the AI model should see it. For Hindi, Tamil or Telugu it asks for the answer in that language, whatever language the question was typed in.
+    Numbers, state and city names and document titles stay exactly as in the data, so a figure is never changed by translation."""
+    name = _LANG_NAMES.get(_norm_lang(language))
+    if not name:
+        return question
+    return f"{question}\n\n(Write your whole answer in {name}. Keep every number, state and city name, and document title exactly as it appears in the data.)"
+
+
 def _fmt_tpd(v) -> str:
     """Thousands separators, all decimals kept: 17843.455 -> '17,843.455'.
     Anything that isn't a plain number is returned unchanged."""
@@ -683,7 +695,7 @@ def ask():
             else:
                 call = {"gemini": call_gemini_tool_use, "grok": call_grok_tool_use}.get(MODEL_PROVIDER, call_anthropic_tool_use)
                 try:
-                    answer, sources = call(question)
+                    answer, sources = call(with_language(question, language))
                     _note_model_ok()
                 except Exception as e:
                     log.error("%s call failed: %s: %s", MODEL_PROVIDER, type(e).__name__, _redact(str(e))[:300])
@@ -692,7 +704,7 @@ def ask():
                     if MODEL_PROVIDER == "gemini" and GEMINI_FALLBACK_MODEL and GEMINI_FALLBACK_MODEL != GEMINI_MODEL and _transient(e):
                         log.warning("retrying once with GEMINI_FALLBACK_MODEL=%s", GEMINI_FALLBACK_MODEL)
                         try:
-                            answer, sources = call_gemini_tool_use(question, model=GEMINI_FALLBACK_MODEL)
+                            answer, sources = call_gemini_tool_use(with_language(question, language), model=GEMINI_FALLBACK_MODEL)
                             _note_model_ok()
                             recovered = True
                         except Exception as e2:
