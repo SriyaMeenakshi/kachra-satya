@@ -5,6 +5,7 @@
 <p align="center">
   <a href="https://kachra-satya.onrender.com"><img alt="Live site" src="https://img.shields.io/badge/live-kachra--satya.onrender.com-BFE84F?style=for-the-badge&labelColor=0E2A20"></a>
   <img alt="Code for a Billion, Waste Management track" src="https://img.shields.io/badge/Code%20for%20a%20Billion-Waste%20Management-E4795B?style=for-the-badge&labelColor=0E2A20">
+  <a href="https://youtu.be/kuiXp7VfZz8"><img alt="Watch the demo video" src="https://img.shields.io/badge/demo-watch%20on%20YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=0E2A20"></a>
 </p>
 
 <p align="center">
@@ -21,6 +22,7 @@
 
 <p align="center">
   <a href="https://kachra-satya.onrender.com"><b>Live site</b></a> &middot;
+  <a href="https://youtu.be/kuiXp7VfZz8"><b>Demo video</b></a> &middot;
   <a href="#what-it-does">What it does</a> &middot;
   <a href="#join-your-profile-and-the-team-dashboard">Join and profile</a> &middot;
   <a href="#run-it">Run it</a> &middot;
@@ -37,7 +39,7 @@
 
 Kachra Satya does two jobs. It helps a resident whose garbage is not collected keep a record and get heard. And it lets anyone check an official waste figure against the other official figures, on the page each one was printed on.
 
-Built for the **Code for a Billion** hackathon, **Waste Management** track (submissions close 15 Nov 2026). Live at https://kachra-satya.onrender.com.
+Built for the **Code for a Billion** hackathon, **Waste Management** track (submissions close 15 Nov 2026). Live at https://kachra-satya.onrender.com. **Demo video: https://youtu.be/kuiXp7VfZz8**
 
 ### At a glance
 | | |

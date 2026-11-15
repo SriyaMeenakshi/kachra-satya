@@ -1,6 +1,6 @@
 # Demo video script (2 to 3 minutes)
 
-Status: **recorded (the team reported this on 2026-11-15; link in `docs/submission_checklist.md`).** The text below is the script it was made from. Every figure below was checked against `web/trust/data.js` on 2026-11-11; re-check it on the day you record, because the data can change. Narration is about 330 words, which is roughly 2 minutes 30 seconds at a calm pace.
+Status: **recorded (the team reported this on 2026-11-15; https://youtu.be/kuiXp7VfZz8).** The text below is the script it was made from. Every figure below was checked against `web/trust/data.js` on 2026-11-11; re-check it on the day you record, because the data can change. Narration is about 330 words, which is roughly 2 minutes 30 seconds at a calm pace.
 
 ## Before you record
 1. Deploy first (or run `python -m http.server 8777` and open `http://127.0.0.1:8777/web/app/index.html`). Say in the video which one it is.
