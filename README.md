@@ -111,6 +111,7 @@ On a local address the page finds the server at `http://127.0.0.1:5000` by itsel
 | Variable | What it does |
 |---|---|
 | `MODEL_PROVIDER`, `MODEL_API_KEY` | `gemini`, `anthropic` or `grok`, and its key. Empty key: Ask answers from the data only |
+| `GEMINI_MODEL`, `GEMINI_FALLBACK_MODEL` | The Gemini model, and an optional second one tried once when the first is overloaded, over quota or times out. `/health` shows the model in use and the last model error |
 | `ALLOWED_ORIGINS` | Sites allowed to call the server when it does not serve the site itself |
 | `GOOGLE_CLIENT_ID` | Switches sign-in on (with `KS_SECRET`). Empty: sign-in is off and nothing is stored |
 | `KS_SECRET` | Signs sessions and salts the anonymous codes |
@@ -206,7 +207,8 @@ In the repo and passing 159 tests: the data and checks, the app with both ways i
 Not done:
 - **No real person has used it.** There are 0 recorded user sessions ([docs/user_tests.md](docs/user_tests.md), [docs/impact_evidence.md](docs/impact_evidence.md)). The problem is documented from the sources; impact is not shown.
 - **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
-- **Sign-in is not switched on** on the live site: it needs a Google client ID and a PostgreSQL database ([docs/sign_in.md](docs/sign_in.md)).
+- **Sign-in is switched on** on the live site since 2026-11-15 (a Google client ID and a Render PostgreSQL database are set; `/api/config` reports `signIn: true`). The owner reports a real sign-in test; the assistant that wrote this line could check only the configuration, the database connection and the shared-total endpoint, not a Google sign-in. Not tested: many people at once ([docs/sign_in.md](docs/sign_in.md)).
+- **Ask can fall back to data-only answers.** On 2026-11-14 and 2026-11-15 the Gemini call failed intermittently; the page then says "AI model unavailable, showing data-only answer". `/health` now says why (`model.last_error`). See [docs/deploy.md](docs/deploy.md), "If Ask is in data-only mode".
 - **The live site may be behind this repo.** Render deploys from `main`; check the date on the About page after a push.
 - **Not checked on a real device:** a phone, a screen reader, scanning a printed ward QR code, the share sheet, and voice in Ask.
 - **Translations:** the Hindi and Telugu were read by teammates, not by an independent or professional reviewer. Tamil (bin-guide stream names, Ask answers) is unread.
