@@ -143,3 +143,18 @@ def test_signing_in_again_finds_the_details_whichever_way_the_person_joined(sg, 
     c.post("/api/signup", json=GOOD)                                          # joined by hand, no Google token
     tok = c.post("/api/signin", json={"credential": "t"}).get_json()["token"]  # later signs in with the same Google email
     assert c.get("/api/me/profile", headers={"Authorization": "Bearer " + tok}).get_json()["city"] == "Kochi"
+
+
+def test_the_dashboard_reports_ward_use_as_counts_only(sg, monkeypatch):
+    acc, c = sg
+    monkeypatch.setattr(acc, "GOOGLE_CLIENT_ID", "x.apps.googleusercontent.com")
+    monkeypatch.setattr(acc, "KS_SECRET", "s")
+    monkeypatch.setattr(acc, "verify_google", lambda cred: {"sub": cred, "iss": "accounts.google.com", "email": cred + "@example.com", "email_verified": True, "name": "A"})
+    import datetime as dt
+    today = dt.datetime.now(dt.timezone.utc).date().isoformat()
+    for who, ward, st in (("a", "Kerala~Kochi~Ward 4", "not_collected"), ("b", "Kerala~Kochi~Ward 4", "collected"), ("b", "Bihar~Patna~Ward 1", "not_collected")):
+        h = {"Authorization": "Bearer " + c.post("/api/signin", json={"credential": who}).get_json()["token"]}
+        assert c.post("/api/ward/report", headers=h, json={"ward": ward, "date": today, "status": st}).status_code == 200
+    d = c.get("/api/signups?format=json", headers={"X-Admin-Key": "team-key"}).get_json()
+    assert d["ward_use"] == {"taps": 3, "wards": 2, "residents": 2, "truck_came": 1, "truck_did_not_come": 2, "days": 1}
+    assert "Ward" not in str(d["ward_use"]) and "Kerala" not in str(d["ward_use"])      # counts only, no ward names or ids

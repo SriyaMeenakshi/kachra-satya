@@ -280,6 +280,13 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 ## Reply or report an error
 A state, city or department can reply to a figure, and anyone can report a mismatch with its source page, through the issue forms in `.github/ISSUE_TEMPLATE/`. We show replies beside the figure, never delete a published figure, and fix and log our own mistakes.
 
+## Next steps
+Not built yet, and not claimed anywhere above:
+- **Link the dumpsite list to open satellite sources.** MoHUA's list names cities, not coordinates. Once each site has a verified location, join it to open data: NASA FIRMS fire detections, Copernicus Sentinel-2 imagery and the European GHSL population grid, so a resident can see what is around a dumpsite.
+- **Measured outcomes.** Record which ward complaints were acted on and how quickly, so impact is shown by results and not only by use.
+- **A real pilot** with one residents' association or ward office.
+- **Independent review** of the Hindi, Telugu and Tamil text.
+
 ## Team
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
 - **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.

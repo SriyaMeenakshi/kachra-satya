@@ -351,7 +351,10 @@ def api_signups_export():
         for r in rows:
             by_day[r[0][:10]] = by_day.get(r[0][:10], 0) + 1
         ppl = _run("SELECT COUNT(*) FROM people", fetch=True)
-        return jsonify({"count": len(rows), "signed_in": int(ppl[0][0]) if ppl else 0, "by_role": tally(3), "by_state": tally(4), "by_language": tally(6),
+        w = _run("SELECT COUNT(*), COUNT(DISTINCT ward), COUNT(DISTINCT user_id), COALESCE(SUM(CASE WHEN status = 'collected' THEN 1 ELSE 0 END), 0), COALESCE(SUM(CASE WHEN status = 'not_collected' THEN 1 ELSE 0 END), 0), COUNT(DISTINCT day) FROM ward_reports", fetch=True)
+        wr = [int(x or 0) for x in (w[0] if w else (0, 0, 0, 0, 0, 0))]
+        ward_use = {"taps": wr[0], "wards": wr[1], "residents": wr[2], "truck_came": wr[3], "truck_did_not_come": wr[4], "days": wr[5]}      # counts only: no ids, no ward names
+        return jsonify({"count": len(rows), "signed_in": int(ppl[0][0]) if ppl else 0, "by_role": tally(3), "by_state": tally(4), "by_language": tally(6), "ward_use": ward_use,
                         "by_day": by_day, "recent": [{"joined_at": r[0], "name": r[1], "role": r[3], "state": r[4], "city": r[5]} for r in rows[-10:][::-1]]})
     import csv
     import io

@@ -107,6 +107,7 @@
   }
   function dash(d) {
     return '<div class="tm-stats"><div class="card"><b>' + d.count + '</b><span>joined with details</span></div><div class="card"><b>' + d.signed_in + '</b><span>signed in with Google</span></div></div>' +
+      (d.ward_use ? '<div class="tm-stats"><div class="card"><b>' + d.ward_use.taps + '</b><span>ward taps recorded</span></div><div class="card"><b>' + d.ward_use.wards + '</b><span>wards with a report</span></div><div class="card"><b>' + d.ward_use.residents + '</b><span>residents who tapped</span></div><div class="card"><b>' + d.ward_use.truck_did_not_come + '</b><span>"truck did not come" (and ' + d.ward_use.truck_came + ' "came")</span></div></div>' : "") +
       '<div class="tm-grid"><div class="card"><h3>By role</h3>' + bars(d.by_role) + '</div><div class="card"><h3>By state</h3>' + bars(d.by_state) + '</div><div class="card"><h3>By language</h3>' + bars(d.by_language) + '</div></div>' +
       '<div class="card"><h3>Latest sign-ups</h3><table class="tm-t"><thead><tr><th>When</th><th>Name</th><th>Role</th><th>Where</th></tr></thead><tbody>' +
       (d.recent || []).map(function (r) { return "<tr><td>" + esc(r.joined_at.slice(0, 16).replace("T", " ")) + "</td><td>" + esc(r.name) + "</td><td>" + esc(r.role) + "</td><td>" + esc([r.city, r.state].filter(Boolean).join(", ")) + "</td></tr>"; }).join("") + '</tbody></table><p><button type="button" class="alt" id="tcsv">Download full list (CSV)</button></p></div>';
