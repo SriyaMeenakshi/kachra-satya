@@ -1,0 +1,23 @@
+/* Header sign-in button and its panel. Uses the tokens in theme.css; sits with the language and theme controls and looks like them. */
+.bar .tools{position:relative}
+#signin{display:inline-flex;align-items:center;gap:var(--sp-2)}
+#signin[hidden]{display:none}
+#signin .si-ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+#signin.on{color:var(--ink);border-color:var(--ink2)}
+#signin.on .si-ic{stroke:var(--good,currentColor)}
+.signin-pop{position:absolute;right:0;top:calc(100% + var(--sp-2));z-index:40;width:min(320px,calc(100vw - 2*var(--sp-4)));
+  padding:var(--sp-4);background:var(--card);color:var(--ink);border:1px solid var(--hair);border-radius:var(--r-2);box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.signin-pop[hidden]{display:none}
+.signin-pop p{margin:0 0 var(--sp-3);font-size:var(--t-sm);line-height:1.45}
+.signin-pop .si-h{font-size:var(--t-md)}
+.signin-pop .note{color:var(--ink2);font-size:var(--t-xs)}
+.signin-pop .si-g{min-height:44px;margin:var(--sp-2) 0 var(--sp-3);display:flex;justify-content:flex-start}
+.signin-pop .si-row{display:flex;gap:var(--sp-2);flex-wrap:wrap}
+.signin-pop .si-l a{font-weight:600}
+.signed-count{margin:var(--sp-3) 0 0;color:var(--ink2);font-size:var(--t-xs)}
+.signed-count[hidden]{display:none}
+/* narrow screens: keep brand, language, theme and sign-in on one row by showing only the icon */
+@media (max-width:520px){
+  #signin .si-t{display:none}
+  #signin{padding:8px 10px}
+}

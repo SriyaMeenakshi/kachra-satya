@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="theme.css">
 <link rel="stylesheet" href="mode.css">
 <link rel="stylesheet" href="tour.css">
+<link rel="stylesheet" href="signin.css">
 </head>
 <body>
 <div id="splash" role="status" aria-live="polite"><div class="sp-in"><div class="sp-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0E2A20"/><path d="M8.5 10.5h15M13 10.5V8.2h6v2.3" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 13.6v9.6M14.7 13.6v9.6M17.3 13.6v9.6M20 13.6v9.6" fill="none" stroke="#BFE84F" stroke-width="1.9" stroke-linecap="round"/><path d="M9.4 22.4l13.2-7.6" fill="none" stroke="#E4795B" stroke-width="2.2" stroke-linecap="round"/></svg></div><p class="sp-name">Kachra Satya</p><p class="sp-sub">Loading India's waste figures&hellip;</p><div class="sp-bar" aria-hidden="true"><i></i></div></div></div>
@@ -71,11 +72,13 @@
   </nav>
   <div class="tools">
     <select class="tg" id="uilang" aria-label="Language"></select>
+    <button class="tg" id="signin" type="button" hidden aria-haspopup="dialog" aria-expanded="false" aria-controls="signin-pop" aria-label="Sign in with Google"><svg class="si-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.9-3.7 3.9-5.6 7.5-5.6s6.6 1.9 7.5 5.6"/></svg><span class="si-t" data-i="signin">Sign in</span></button>
     <button class="tg" id="theme" type="button" aria-label="Switch theme">Theme</button>
+    <div class="signin-pop" id="signin-pop" role="dialog" aria-label="Sign in" hidden></div>
   </div>
 </div></header>
 <main><div class="wrap" id="view" tabindex="-1"><noscript><h2>This site needs JavaScript</h2><p>Kachra Satya shows India's official waste figures side by side, with the source page for each. It runs in your browser and needs JavaScript turned on. The figures and sources are listed in the project's repository: <a href="https://github.com/SriyaMeenakshi/kachra-satya">github.com/SriyaMeenakshi/kachra-satya</a>.</p></noscript></div></main>
-<footer><div class="wrap">All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged from the cited document, with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built <span id="built"></span>.</div></footer>
+<footer><div class="wrap">All figures are self-reported by states, cities and boards and come from published government documents; this site checks consistency, not truth. Page images are reproduced unchanged from the cited document, with the source named; rights stay with the publisher. We are not affiliated with or endorsed by the Lok Sabha or Rajya Sabha Secretariat, CPCB or MoHUA. Data built <span id="built"></span>.<p class="signed-count" id="signed-count" hidden></p></div></footer>
 <div class="tip" id="tip" role="tooltip"></div>
 <dialog id="dlg" aria-label="Source page"><button class="alt x" type="button" id="dlgx">Close</button><div id="dlgbody"></div></dialog>
 
@@ -104,6 +107,7 @@
 <script src="account.js" defer></script>
 <script src="casefile.js" defer></script>
 <script src="ward.js" defer></script>
+<script src="signin.js" defer></script>
 <script src="dropoff_data.js" defer></script>
 <script src="dropoff.js" defer></script>
 <script src="about.js" defer></script>

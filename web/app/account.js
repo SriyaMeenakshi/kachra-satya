@@ -10,7 +10,8 @@
   function token() { return get(TOKEN); }
   function name() { return get(NAME); }
   function signedIn() { return !!token(); }
-  function signOut() { set(TOKEN, ""); set(NAME, ""); try { if (root.google && root.google.accounts) root.google.accounts.id.disableAutoSelect(); } catch (e) {} }
+  function announce() { try { if (root.dispatchEvent && typeof Event !== "undefined") root.dispatchEvent(new Event("ks-auth")); } catch (e) {} }   /* the header button listens */
+  function signOut() { set(TOKEN, ""); set(NAME, ""); try { if (root.google && root.google.accounts) root.google.accounts.id.disableAutoSelect(); } catch (e) {} announce(); }
 
   function call(method, path, body, auth) {
     var b = base(); if (b === null) return Promise.reject(new Error("no server"));
@@ -46,7 +47,7 @@
       if (!c.signIn) throw new Error("Sign-in is not switched on for this site.");
       return loadGoogle().then(function () {
         root.google.accounts.id.initialize({ client_id: c.clientId, auto_select: false, callback: function (resp) {
-          call("POST", "/api/signin", { credential: resp.credential }).then(function (j) { set(TOKEN, j.token); set(NAME, firstName(resp.credential)); done(null); }, function (e) { done(e); });
+          call("POST", "/api/signin", { credential: resp.credential }).then(function (j) { set(TOKEN, j.token); set(NAME, firstName(resp.credential)); announce(); done(null); }, function (e) { done(e); });
         } });
         root.google.accounts.id.renderButton(el, { theme: "outline", size: "large", text: "signin_with", shape: "pill" });
       });
@@ -55,6 +56,7 @@
 
   function report(ward, date, status) { return call("POST", "/api/ward/report", { ward: ward, date: date, status: status }, true); }
   function summary(ward) { return call("GET", "/api/ward/summary?ward=" + encodeURIComponent(ward)); }
+  function stats() { return call("GET", "/api/stats"); }
   function deleteMine() { return call("DELETE", "/api/me", null, true); }
 
   /* totals for the ward page, from a summary: pure, so the tests can run it */
@@ -64,6 +66,6 @@
     return { reporters: (s && s.reporters) || 0, days: days.length, collected: c, notCollected: n, contested: contested };
   }
 
-  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, deleteMine: deleteMine, tally: tally, firstName: firstName };
+  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, stats: stats, deleteMine: deleteMine, tally: tally, firstName: firstName };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSAccount = api;
 })(typeof window !== "undefined" ? window : this);
