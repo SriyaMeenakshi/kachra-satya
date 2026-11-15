@@ -16,7 +16,7 @@
     if (n > 0) { el.textContent = countText(n); el.hidden = false; } else { el.hidden = true; el.textContent = ""; }
   }
   function loadCount() {
-    if (!A || !A.stats) return;
+    return;      /* the public sign-in count is no longer shown in the footer; the team sees it on #/team */
     A.stats().then(function (s) { showCount(s && s.signIn ? +s.people || 0 : 0); }, function () { showCount(0); });
   }
 

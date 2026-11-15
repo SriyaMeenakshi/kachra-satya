@@ -16,7 +16,7 @@ def test_button_panel_and_footer_count_are_in_the_page_and_hidden_by_default():
     btn = re.search(r'<button[^>]*id="signin"[^>]*>', html).group(0)
     assert " hidden" in btn and 'aria-haspopup="dialog"' in btn and 'aria-expanded="false"' in btn and "aria-label=" in btn
     assert re.search(r'<div class="signin-pop" id="signin-pop" role="dialog"[^>]*hidden', html)
-    assert re.search(r'<p class="signed-count" id="signed-count" hidden>', html)
+    assert 'id="signed-count"' not in html
     # it sits with the language and theme controls, in the header
     tools = html[html.index('<div class="tools">'):html.index("</header>")]
     assert tools.index('id="uilang"') < tools.index('id="signin"') < tools.index('id="theme"')
