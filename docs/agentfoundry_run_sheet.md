@@ -1,6 +1,6 @@
 # AgentFoundry run sheet (for Likitha)
 
-Use this with `docs/agentfoundry_setup.md`. The expected answers below were produced on 2026-11-11 by running the real lookup tools (`python scripts/qa_tool_cli.py <tool> '<json>'`) against the current data, so you can compare the agent's reply with what the data says. **Status (2026-11-11).** The team built the agent as a small Flask web API in `agent/` (`POST /ask`, see `agent/README.md`) with a data-only fallback that needs no model key. Nothing here has been run against AgentFoundry itself, and model mode had not been tested on 2026-11-11 because no API key was available. **Update 2026-11-14:** model mode (Gemini) has now been run on the live site; see "Model-mode run on the live site" at the end of this page. The fallback run is below.
+Use this with `docs/agentfoundry_setup.md`. The expected answers below were produced on 2026-11-11 by running the real lookup tools (`python scripts/qa_tool_cli.py <tool> '<json>'`) against the current data, so you can compare the agent's reply with what the data says. **Status (2026-11-11).** The team built the agent as a small Flask web API in `agent/` (`POST /ask`, see `agent/README.md`) with a data-only fallback that needs no model key. AgentFoundry's agent platform (Build, Replay, Agent21) was not used, and model mode had not been tested on 2026-11-11 because no API key was available. **Update 2026-11-14:** model mode (Gemini) has now been run on the live site; see "Model-mode run on the live site" at the end of this page. The fallback run is below.
 
 ## Before you start
 1. Create the agent, paste the system prompt from `docs/agentfoundry_setup.md`, and give it the six tools (or upload `data/waste_clean.csv`, `national_stated.csv`, `flags.csv`, `gap_ranking.csv` as its only knowledge, as the setup doc explains).
@@ -37,7 +37,7 @@ Both are fixed in `agent/app.py` (it now reads `gap_pct_points`, `cpcb_pct_treat
 **Browser access:** the agent refuses browser calls from any site not listed in `ALLOWED_ORIGINS` (default: `http://localhost` and `http://127.0.0.1`, no port), which is a good default. Set it to the site that serves the app.
 
 ## Model-mode run on the live site (2026-11-14)
-Every question was sent to `POST /ask` on https://kachra-satya.onrender.com from a browser on 2026-11-14, with the Gemini provider active (`/health` showed `gemini`). Every answer was read in full against the table above. The API key had been replaced that day (reported by the owner). AgentFoundry itself was not used. Whoever owns the Q&A item should read these answers once more before ticking the checklist.
+Every question was sent to `POST /ask` on https://kachra-satya.onrender.com from a browser on 2026-11-14, with the Gemini provider active (`/health` showed `gemini`). Every answer was read in full against the table above. The API key had been replaced that day (reported by the owner). AgentFoundry's agent platform was not used; agent/ was built in AgentFoundry's IDE panels (see docs/agentfoundry.md). Whoever owns the Q&A item should read these answers once more before ticking the checklist.
 
 | # | Ask (language) | Result | What the answer said |
 |---|---|---|---|
