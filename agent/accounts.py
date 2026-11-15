@@ -72,6 +72,7 @@ def init_db() -> None:
     if _ready:
         return
     _run("CREATE TABLE IF NOT EXISTS ward_reports (user_id TEXT NOT NULL, ward TEXT NOT NULL, day TEXT NOT NULL, status TEXT NOT NULL, saved_at TEXT NOT NULL, PRIMARY KEY (user_id, ward, day))")
+    _run("CREATE TABLE IF NOT EXISTS signups (email TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL, state TEXT NOT NULL, city TEXT NOT NULL, language TEXT NOT NULL, source TEXT NOT NULL, joined_at TEXT NOT NULL)")
     _ready = True
 
 
@@ -219,6 +220,104 @@ def api_ward_summary():
         days.setdefault(day, {"date": day, "collected": 0, "not_collected": 0})[status] = int(n)
     return jsonify({"shared": True, "ward": ward, "window_days": SUMMARY_DAYS, "reporters": int(who[0][0]) if who else 0, "days": list(days.values()),
                     "note": "Unverified reports from signed-in residents. One report per person per day."})
+
+
+# ---------- the sign-up page: a separate, optional list so the team can count its users ----------
+# Unlike the ward store above, this one keeps contact details, because a person chose to hand them over on the Join page and ticked the consent box.
+# It is never joined to ward reports. Public: only the number of people. Private: the list, behind KS_ADMIN_KEY.
+ADMIN_KEY = os.environ.get("KS_ADMIN_KEY", "").strip()
+ROLES = ("resident", "student", "journalist", "official", "researcher", "ngo", "other")
+LANGS = ("en", "hi", "te", "other")
+SIGNUPS_PER_HOUR = int(os.environ.get("SIGNUPS_PER_HOUR", "6"))
+_signups: dict = {}                                       # client address -> recent sign-up times (in memory, one worker)
+_EMAIL = re.compile(r"[^@\s]{1,64}@[^@\s]{1,190}\.[^@\s]{2,24}")
+
+
+def clean_signup(body) -> tuple[dict | None, str]:
+    """Check what the Join page sent. Returns (row, "") or (None, a message for the person)."""
+    if not isinstance(body, dict):
+        return None, "Nothing was sent."
+    if body.get("consent") is not True:
+        return None, "Please tick the box to say we may keep these details."
+    def text(k, n):
+        v = body.get(k)
+        return " ".join(v.split())[:n] if isinstance(v, str) else ""
+    name, email, state, city, source = text("name", 80), text("email", 254).lower(), text("state", 60), text("city", 80), text("source", 120)
+    if len(name) < 2:
+        return None, "Please enter your name."
+    if not _EMAIL.fullmatch(email) or len(email) > 254:
+        return None, "That email address does not look right."
+    if re.search(r"[\x00-\x1f]", name + email + state + city + source):
+        return None, "Please use plain text."
+    role = body.get("role") if body.get("role") in ROLES else "other"
+    lang = body.get("language") if body.get("language") in LANGS else "en"
+    return {"email": email, "name": name, "role": role, "state": state, "city": city, "language": lang, "source": source}, ""
+
+
+def _client() -> str:
+    return (request.headers.get("X-Forwarded-For", "").split(",")[0].strip() or request.remote_addr or "?")[:64]
+
+
+def _signup_limited(who: str) -> bool:
+    now = time.monotonic()
+    recent = [t for t in _signups.get(who, []) if now - t < 3600]
+    limited = len(recent) >= SIGNUPS_PER_HOUR
+    if not limited:
+        recent.append(now)
+    _signups[who] = recent
+    return limited
+
+
+@bp.route("/api/signup", methods=["POST"])
+def api_signup():
+    body = request.get_json(silent=True) or {}
+    if isinstance(body, dict) and body.get("website"):        # a hidden field only a bot fills in: pretend it worked
+        return jsonify({"saved": True, "count": 0})
+    row, why = clean_signup(body)
+    if not row:
+        return jsonify({"error": why}), 400
+    if _signup_limited(_client()):
+        return jsonify({"error": "Too many sign-ups from this connection. Please try again later."}), 429
+    init_db()
+    row["joined_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    existing = _run("SELECT 1 FROM signups WHERE email = ?", (row["email"],), fetch=True)
+    _run("INSERT INTO signups (email, name, role, state, city, language, source, joined_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
+         "ON CONFLICT (email) DO UPDATE SET name = excluded.name, role = excluded.role, state = excluded.state, city = excluded.city, language = excluded.language, source = excluded.source",
+         (row["email"], row["name"], row["role"], row["state"], row["city"], row["language"], row["source"], row["joined_at"]))
+    n = _run("SELECT COUNT(*) FROM signups", fetch=True)
+    return jsonify({"saved": True, "already": bool(existing), "count": int(n[0][0])})
+
+
+@bp.route("/api/signup/count", methods=["GET"])
+def api_signup_count():
+    """Public: how many people have joined, and nothing about any of them."""
+    init_db()
+    n = _run("SELECT COUNT(*) FROM signups", fetch=True)
+    return jsonify({"count": int(n[0][0])})
+
+
+@bp.route("/api/signups", methods=["GET"])
+def api_signups_export():
+    """For the team: the full list as CSV, or the counts as JSON with ?format=json. Needs KS_ADMIN_KEY in the X-Admin-Key header; off if that is not set."""
+    import hmac
+    sent = request.headers.get("X-Admin-Key", "")
+    if not ADMIN_KEY or not hmac.compare_digest(sent.encode("utf-8"), ADMIN_KEY.encode("utf-8")):
+        return jsonify({"error": "Not found."}), 404
+    init_db()
+    rows = _run("SELECT joined_at, name, email, role, state, city, language, source FROM signups ORDER BY joined_at", fetch=True)
+    if request.args.get("format") == "json":
+        by_role: dict = {}
+        for r in rows:
+            by_role[r[3]] = by_role.get(r[3], 0) + 1
+        return jsonify({"count": len(rows), "by_role": by_role})
+    import csv
+    import io
+    out = io.StringIO()
+    w = csv.writer(out)
+    w.writerow(["joined_at", "name", "email", "role", "state", "city", "language", "source"])
+    for r in rows:
+        w.writerow([("'" + c if isinstance(c, str) and c[:1] in "=+-@" else c) for c in r])      # a spreadsheet must not run a typed formula
+    return out.getvalue(), 200, {"Content-Type": "text/csv; charset=utf-8", "Content-Disposition": "attachment; filename=kachra-satya-signups.csv"}
 
 
 @bp.route("/api/me", methods=["DELETE"])

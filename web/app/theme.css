@@ -78,6 +78,7 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 #nav{display:flex;align-items:center;gap:2px;flex:1;margin-left:var(--sp-3);overflow:visible}   /* app.css makes the nav scroll (overflow-x:auto), which clipped the More dropdown on desktop: the menu opened but was invisible */
 #nav>a,#nav summary{display:inline-flex;align-items:center;gap:var(--sp-2);padding:9px 12px;border-radius:var(--r-pill);color:var(--ink2);font-size:var(--t-sm);font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;list-style:none;min-height:44px;transition:background var(--dur-1),color var(--dur-1)}
 #nav summary::-webkit-details-marker{display:none}
+@media (min-width:861px){#nav{justify-content:center}}   /* the tabs sit in the middle of the bar on wide screens; phones keep their bottom bar */
 #nav>a:hover,#nav summary:hover{background:var(--soft);color:var(--ink)}
 #nav a[aria-current="page"],#nav .more:has(.menu a[aria-current="page"]:not(.m-only))>summary{background:var(--forest-700);color:var(--ivory);font-weight:600}
 :root[data-theme="dark"] #nav a[aria-current="page"],:root[data-theme="dark"] #nav .more:has(.menu a[aria-current="page"]:not(.m-only))>summary{background:var(--lime);color:var(--forest-900)}
