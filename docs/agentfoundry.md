@@ -19,10 +19,10 @@ The `agent/` folder contains a Python web Q&A API that answers questions about I
 - Added Hindi, Tamil and Telugu labels in fallback mode (fixed translated labels for key terms; numbers, state names and file names are never translated). These translations are a first draft and have not been reviewed by native speakers.
 - Added thousands separators to numbers in answers (for example 17,843.455).
 
-**Test and build results (FILL IN from your own run before committing):**
-- `python -m pytest -q tests`: 188 passed
-- `python scripts/build_site.py`: built dist -> 95 files
-- Date of the run: 2026-11-15
+**Test and build results:**
+- Verified on 2026-11-15, after merging `origin/main` into this branch: `python -m pytest -q tests`: 191 passed, 0 failed, 0 skipped, in 78.9 seconds.
+- Recorded earlier by the team and not re-run in that verification: `python scripts/build_site.py` built dist -> 95 files.
+- The 191 passed tests cover the agent as it is today. The fixes listed under "Planned, not yet implemented" below have not been made, so no test covers them.
 
 Later changes to `agent/` (accounts and sign-in, Render deployment settings and their packages) were made by teammates outside AgentFoundry.
 
@@ -95,6 +95,15 @@ python agent/test_acceptance.py
 - Fallback labels in Hindi, Tamil and Telugu are first drafts, not reviewed by native speakers.
 - Fallback mode handles only the question patterns above.
 - Model-mode answers can be slow on the first call (up to about 17 seconds in the 2026-11-14 run).
+
+## Planned, not yet implemented
+
+These problems were found in an audit on 2026-11-15. None of them has been fixed yet:
+- A claim check can give the verdict `SUPPORTED_BY_SOME_CONTRADICTED_BY_OTHERS` when no source figure matches the claim (for example Kerala "95% processed": 0 figures match, 6 do not).
+- In data-only mode, any question containing "%" is read as a processed-waste percentage claim.
+- Data-only mode has no handler for national figures (for example "India total waste generated 2023-24"), although the `national_figures` tool exists.
+- A state name that is not in the data gets the generic help message instead of a clear "not in the data" reply.
+- Data-only answers for claims, the gap list and national figures are not translated into Hindi, Tamil or Telugu; only the fixed labels are.
 
 ## Not changed by the AgentFoundry session
 
