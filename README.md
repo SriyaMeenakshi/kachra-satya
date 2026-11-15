@@ -74,7 +74,7 @@ Meanwhile a resident whose truck does not come has nothing to show for it. A pho
 | **An MP, MLA, councillor or reporter** | Get a state's figures in plain words | A state card and a one-page briefing with sourced questions |
 | **A school** | Run a waste project with a result | A one-week weighing challenge that ends in a report card |
 
-It does not collect garbage. It helps a person be heard; whether the municipality acts is outside the app. About 35 people have tried it so far (see Status).
+It does not collect garbage. It helps a person be heard; whether the municipality acts is outside the app. About 35 people have tried it so far.
 
 ## The idea in one loop
 Every page is one stop on the same loop, and each page says which one.
@@ -280,20 +280,3 @@ A state, city or department can reply to a figure, and anyone can report a misma
 - **Yasaswini (Yasaswini-ch):** trust layer (claim checker, receipts, audit list, definitions), data publishing, Home page and guided paths.
 - **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.
 - **Likhitha:** platform and design system, Q&A agent setup, deployment, demo and submission.
-
-## Status (2026-11-15, submission day)
-**Done and live:** the data and checks; the app with both ways in; the lead case; shareable claim receipts; question-led Insights; the whole site in Hindi and Telugu, with Tamil in Ask and the bin guide; the ward case file; sign-in with shared ward totals on a Neon PostgreSQL database; the Join page, My details and the team dashboard; the step-by-step tour; Ask in the chosen language. 191 tests pass.
-
-**Also done by the team:**
-- **Demo video** recorded.
-- **People:** about 35 people have tried the app (the team's count), and it has been tested on a phone.
-- **Translations:** Hindi (Yasaswini) and Telugu (Sriya) were read through by teammates, and the Tamil has now been reviewed by the team too. None of this is an independent or professional review.
-- **Server settings:** the admin key and the Neon database are set on the live service.
-
-**Not done or not verified:**
-- **Session notes.** The count of people is the team's; the recorded per-session notes and results are not all in [docs/user_tests.md](docs/user_tests.md) yet, so impact figures are not claimed ([docs/impact_evidence.md](docs/impact_evidence.md)).
-- **Submission form and checklist** ([docs/submission_checklist.md](docs/submission_checklist.md)).
-- **Ask can fall back to data-only answers** when the Gemini call fails; the page then says "AI model unavailable, showing data-only answer", and `/health` says why (`model.last_error`). See [docs/deploy.md](docs/deploy.md), "If Ask is in data-only mode".
-- **Not checked on real devices:** a screen reader, scanning a printed ward QR code, the share sheet, and voice in Ask.
-- **Free-plan hosting.** The first visit after a quiet spell can take about a minute; `/health` wakes it.
-- **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, record the human spot check, verify the map boundary.

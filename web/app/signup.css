@@ -27,3 +27,7 @@
 .join-or{display:flex;align-items:center;gap:var(--sp-3);margin:0 0 var(--sp-2);color:var(--ink2);font-size:var(--t-sm)}.join-or::before,.join-or::after{content:"";flex:1;border-top:1px solid var(--hair)}
 .join-or[hidden]{display:none}
 .join-g{justify-items:center}.join-em{margin:0 0 var(--sp-2);font-family:var(--font-mono);color:var(--ink2)}.join-acts{display:flex;flex-wrap:wrap;gap:var(--sp-3);margin-top:var(--sp-2)}.join-ok-msg{margin:0;color:var(--forest-700);font-weight:600}:root[data-theme="dark"] .join-ok-msg{color:var(--lime)}@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .join-ok-msg{color:var(--lime)}}.join-ok-msg[hidden]{display:none}
+.join-form[hidden]{display:none}
+.team .card{padding:var(--sp-4) var(--sp-5)}
+.team .card h3{margin:0 0 var(--sp-3)}
+.tm-stats .card span{display:block;margin-top:var(--sp-2);color:var(--ink2)}
