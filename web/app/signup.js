@@ -15,22 +15,57 @@
     return "";
   }
 
+  /* the details fields, shared by the Join form and the My details form */
+  function detailFields(v) {
+    v = v || {};
+    var opts = ROLES.map(function (r) { return '<option value="' + r[0] + '"' + (v.role === r[0] ? " selected" : "") + ">" + esc(r[1]) + "</option>"; }).join("");
+    var lg = ["en", "hi", "te", "other"], ln = ["English", "हिन्दी", "తెలుగు", "Other"];
+    return '<label for="jn">Your name</label><input id="jn" name="name" type="text" autocomplete="name" maxlength="80" required value="' + esc(v.name) + '">' +
+      '<label for="jr">I am a</label><select id="jr" name="role">' + opts + '</select>' +
+      '<div class="join-two"><div><label for="js">State</label><input id="js" name="state" type="text" autocomplete="address-level1" maxlength="60" value="' + esc(v.state) + '"></div>' +
+      '<div><label for="jc">City or ward</label><input id="jc" name="city" type="text" autocomplete="address-level2" maxlength="80" value="' + esc(v.city) + '"></div></div>' +
+      '<label for="jl">Language I prefer</label><select id="jl" name="language">' + lg.map(function (c, i) { return '<option value="' + c + '"' + (v.language === c ? " selected" : "") + ">" + ln[i] + "</option>"; }).join("") + "</select>" +
+      '<label for="jh">How did you hear about us? (optional)</label><input id="jh" name="source" type="text" maxlength="120" value="' + esc(v.source) + '">';
+  }
+
+  /* ---------- My details (#/me): a signed-in person edits what they gave on the Join page ---------- */
+  function renderMe() {
+    var view = document.getElementById("view"), A = root.KSAccount;
+    function say(html) { view.innerHTML = '<div class="join"><h2>My details</h2>' + html + "</div>"; }
+    if (base() === null) { say('<div class="card"><p>This copy of the site has no server.</p></div>'); return; }
+    if (!A || !A.signedIn()) { say('<p class="sub">Sign in to see and change the details you gave us.</p><div class="card"><p><a class="go" href="#/join">Sign in or join</a></p></div>'); return; }
+    say('<p class="sub">Loading your details&hellip;</p>');
+    A.profile().then(function (p) {
+      say('<p class="sub">These are the details you gave on the Join page. Change them any time.</p>' +
+        '<form class="card join-form" id="mform" novalidate><label>Email (from Google, cannot be changed)</label><p class="join-em">' + esc(p.email) + "</p>" + detailFields(p) +
+        '<p class="join-err" id="merr" role="alert" hidden></p><p class="join-ok-msg" id="mok" role="status" hidden>Saved.</p>' +
+        '<div class="join-acts"><button type="submit" class="go">Save</button><button type="button" class="alt" id="mdel">Delete my details</button></div></form>');
+      var f = document.getElementById("mform");
+      f.addEventListener("submit", function (e) {
+        e.preventDefault(); var x = f.elements, v = { name: x.name.value, role: x.role.value, state: x.state.value, city: x.city.value, language: x.language.value, source: x.source.value };
+        var m = document.getElementById("merr"), ok = document.getElementById("mok"); m.hidden = ok.hidden = true;
+        if (v.name.trim().length < 2) { m.hidden = false; m.textContent = "Please enter your name."; return; }
+        A.saveProfile(v).then(function () { ok.hidden = false; }, function (er) { m.hidden = false; m.textContent = er.message; });
+      });
+      document.getElementById("mdel").onclick = function () {
+        if (!confirm("Delete the details you gave on the Join page? Your sign-in and ward taps are not affected.")) return;
+        A.deleteProfile().then(function () { say('<div class="card"><h3>Your details are deleted.</h3><p><a href="#/start">Back to Home</a></p></div>'); }, function (er) { var m = document.getElementById("merr"); m.hidden = false; m.textContent = er.message; });
+      };
+    }, function (er) {
+      if (er.status === 404) say('<p class="sub">You are signed in, but you have not joined yet.</p><div class="card"><p>Fill in the Join form, using the Google button, and your details will appear here.</p><p><a class="go" href="#/join">Go to the Join page</a></p></div>');
+      else say('<div class="card"><p>' + esc(er.message) + "</p></div>");
+    });
+  }
+
   function render() {
     var view = document.getElementById("view"), b = base(), lang = root.KSi18n ? root.KSi18n.lang() : "en";
-    var opts = ROLES.map(function (r) { return '<option value="' + r[0] + '">' + esc(r[1]) + "</option>"; }).join("");
     view.innerHTML = '<div class="join"><h2>Join Kachra Satya</h2>' +
       '<p class="sub">Tell us who you are so we can count the people using this and write back when something changes. It takes under a minute.</p>' +
       '<p class="join-count" id="jcount" aria-live="polite" hidden></p>' +
       (b === null ? '<div class="card"><p>This copy of the site has no server, so it cannot take sign-ups. The live site can: <a href="https://kachra-satya.onrender.com/web/app/index.html#/join">kachra-satya.onrender.com</a>.</p></div>' :
       '<form class="card join-form" id="jform" novalidate>' +
-        '<div class="join-g"><div id="jg"></div><p class="join-or" id="jgn" hidden>Or fill in the form by hand.</p></div>' +
-        '<label for="jn">Your name</label><input id="jn" name="name" type="text" autocomplete="name" maxlength="80" required>' +
-        '<label for="je">Email</label><input id="je" name="email" type="email" autocomplete="email" maxlength="254" required>' +
-        '<label for="jr">I am a</label><select id="jr" name="role">' + opts + '</select>' +
-        '<div class="join-two"><div><label for="js">State</label><input id="js" name="state" type="text" autocomplete="address-level1" maxlength="60"></div>' +
-        '<div><label for="jc">City or ward</label><input id="jc" name="city" type="text" autocomplete="address-level2" maxlength="80"></div></div>' +
-        '<label for="jl">Language I prefer</label><select id="jl" name="language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="te">తెలుగు</option><option value="other">Other</option></select>' +
-        '<label for="jh">How did you hear about us? (optional)</label><input id="jh" name="source" type="text" maxlength="120">' +
+        '<div class="join-g" id="jgw"><div id="jg"></div></div><p class="join-or" id="jgn" hidden>or</p>' +
+        '<label for="je">Email</label><input id="je" name="email" type="email" autocomplete="email" maxlength="254" required>' + detailFields() +
         '<div class="join-hp" aria-hidden="true"><label for="jw">Leave this empty</label><input id="jw" name="website" type="text" tabindex="-1" autocomplete="off"></div>' +
         '<label class="join-ok"><input id="jok" type="checkbox"> <span>I agree that Kachra Satya may keep these details to count its users and to email me about this project. They are never shown to anyone, never sold, and not linked to my ward taps. I can ask for them to be deleted.</span></label>' +
         '<p class="join-err" id="jerr" role="alert" hidden></p>' +
@@ -45,7 +80,7 @@
     var cred = "", form = document.getElementById("jform"), err = document.getElementById("jerr");
     if (root.KSAccount) KSAccount.button(document.getElementById("jg"), function () {}, function (c) {
       var g = KSAccount.claims(c); cred = c; if (g.name) form.elements.name.value = g.name; if (g.email) { form.elements.email.value = g.email; form.elements.email.readOnly = true; }
-    }).then(function () { document.getElementById("jgn").hidden = false; }, function () { var g = document.querySelector(".join-g"); if (g) g.hidden = true; });      /* no Google on this site: just the form */
+    }).then(function () { document.getElementById("jgn").hidden = false; }, function () { var g = document.getElementById("jgw"); if (g) g.hidden = true; });      /* no Google on this site: just the form */
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       var f = form.elements, v = { name: f.name.value, email: f.email.value, role: f.role.value, state: f.state.value, city: f.city.value, language: f.language.value, source: f.source.value, website: f.website.value, credential: cred, consent: document.getElementById("jok").checked };
@@ -93,6 +128,6 @@
     });
   }
 
-  var api = { render: render, renderTeam: renderTeam, problem: problem, ROLES: ROLES };
+  var api = { render: render, renderTeam: renderTeam, renderMe: renderMe, problem: problem, ROLES: ROLES };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSJoin = api;
 })(typeof window !== "undefined" ? window : this);

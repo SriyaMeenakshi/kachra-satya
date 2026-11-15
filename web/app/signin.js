@@ -41,11 +41,11 @@
     if (A.signedIn()) {
       var n = A.name();
       pop.innerHTML = '<p class="si-h"><span>Signed in as</span> ' + (n ? '<strong data-notr>' + esc(n) + "</strong>" : "") + "</p>" +
-        '<p class="si-l"><a href="#/ward">Open Your ward</a></p>' +
+        '<p class="si-l"><a href="#/ward">Open Your ward</a></p><p class="si-l"><a href="#/me">My details</a></p>' +
         '<div class="si-row"><button class="tg" id="si-out" type="button">Sign out</button><button class="tg" id="si-x" type="button">Close</button></div>';
       $("si-out").onclick = function () { A.signOut(); close(true); afterChange(); };
       $("si-x").onclick = function () { close(true); };
-      var lk = pop.querySelector("a"); if (lk) lk.onclick = function () { close(false); };
+      [].forEach.call(pop.querySelectorAll("a"), function (lk) { lk.onclick = function () { close(false); }; });
     } else {
       pop.innerHTML = '<p class="si-h"><strong>Sign in with Google</strong></p>' +
         "<p>Optional. Signing in lets you add your ward taps to a shared total, and counts you once as a person who used this site.</p>" +
@@ -73,7 +73,7 @@
       if (!c || !c.signIn) return;                          /* off, or no server: stay hidden */
       btn.hidden = false; refresh(); loadCount();
     });
-    btn.onclick = function () { if (isOpen) close(false); else open(); };
+    btn.onclick = function () { if (isOpen) close(false); else if (!A.signedIn()) location.hash = "#/join"; else open(); };      /* signed out: the Join page is the one place to sign in and give details; signed in: the small panel (sign out) */
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && isOpen) close(true); });
     document.addEventListener("click", function (e) { if (isOpen && !pop.contains(e.target) && !btn.contains(e.target)) close(false); });
     root.addEventListener("ks-auth", function () { refresh(); loadCount(); });   /* a sign-in made on the ward page */

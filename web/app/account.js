@@ -62,6 +62,9 @@
   function report(ward, date, status) { return call("POST", "/api/ward/report", { ward: ward, date: date, status: status }, true); }
   function summary(ward) { return call("GET", "/api/ward/summary?ward=" + encodeURIComponent(ward)); }
   function stats() { return call("GET", "/api/stats"); }
+  function profile() { return call("GET", "/api/me/profile", null, true); }
+  function saveProfile(v) { return call("PUT", "/api/me/profile", v, true); }
+  function deleteProfile() { return call("DELETE", "/api/me/profile", null, true); }
   function deleteMine() { return call("DELETE", "/api/me", null, true); }
 
   /* totals for the ward page, from a summary: pure, so the tests can run it */
@@ -71,6 +74,6 @@
     return { reporters: (s && s.reporters) || 0, days: days.length, collected: c, notCollected: n, contested: contested };
   }
 
-  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, stats: stats, deleteMine: deleteMine, tally: tally, firstName: firstName, claims: claims };
+  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, stats: stats, deleteMine: deleteMine, profile: profile, saveProfile: saveProfile, deleteProfile: deleteProfile, tally: tally, firstName: firstName, claims: claims };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSAccount = api;
 })(typeof window !== "undefined" ? window : this);

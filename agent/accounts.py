@@ -76,6 +76,7 @@ def init_db() -> None:
         return
     _run("CREATE TABLE IF NOT EXISTS ward_reports (user_id TEXT NOT NULL, ward TEXT NOT NULL, day TEXT NOT NULL, status TEXT NOT NULL, saved_at TEXT NOT NULL, PRIMARY KEY (user_id, ward, day))")
     _run("CREATE TABLE IF NOT EXISTS signups (email TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL, state TEXT NOT NULL, city TEXT NOT NULL, language TEXT NOT NULL, source TEXT NOT NULL, joined_at TEXT NOT NULL)")
+    _run("CREATE TABLE IF NOT EXISTS signup_links (user_id TEXT PRIMARY KEY, email TEXT NOT NULL)")      # which signed-in person owns which Join row, set only when Google vouched for the email
     _run("CREATE TABLE IF NOT EXISTS people (user_id TEXT PRIMARY KEY, first_seen TEXT NOT NULL)")
     _ready = True
 
@@ -293,11 +294,13 @@ def api_signup():
     if isinstance(body, dict) and body.get("website"):        # a hidden field only a bot fills in: pretend it worked
         return jsonify({"saved": True, "count": 0})
     cred = body.get("credential") if isinstance(body, dict) else None
+    link_uid = None
     if isinstance(cred, str) and cred and enabled() and len(cred) <= 4096:      # signed in with Google on the form: use the name and email Google vouches for
         try:
             g = verify_google(cred)
             if g.get("email") and g.get("email_verified") in (True, "true"):
                 body = dict(body, email=g["email"], name=g.get("name") or body.get("name") or "")
+                link_uid = user_id_for(g["sub"])
         except Exception:
             return jsonify({"error": "Google did not confirm that sign-in. Please sign in again or fill the form by hand."}), 401
     row, why = clean_signup(body)
@@ -311,6 +314,8 @@ def api_signup():
     _run("INSERT INTO signups (email, name, role, state, city, language, source, joined_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?) "
          "ON CONFLICT (email) DO UPDATE SET name = excluded.name, role = excluded.role, state = excluded.state, city = excluded.city, language = excluded.language, source = excluded.source",
          (row["email"], row["name"], row["role"], row["state"], row["city"], row["language"], row["source"], row["joined_at"]))
+    if link_uid:
+        _run("INSERT INTO signup_links (user_id, email) VALUES (?, ?) ON CONFLICT (user_id) DO UPDATE SET email = excluded.email", (link_uid, row["email"]))
     n = _run("SELECT COUNT(*) FROM signups", fetch=True)
     return jsonify({"saved": True, "already": bool(existing), "count": int(n[0][0])})
 
@@ -355,6 +360,48 @@ def api_signups_export():
     return out.getvalue(), 200, {"Content-Type": "text/csv; charset=utf-8", "Content-Disposition": "attachment; filename=kachra-satya-signups.csv"}
 
 
+_PROFILE = ("name", "role", "state", "city", "language", "source")
+
+
+@bp.route("/api/me/profile", methods=["GET", "PUT"])
+def api_my_profile():
+    """A signed-in person sees and edits the details they gave on the Join page. The email cannot be changed here: it is what Google confirmed."""
+    uid = _current_user()
+    if not uid:
+        return jsonify({"error": "Sign in first."}), 401
+    init_db()
+    link = _run("SELECT email FROM signup_links WHERE user_id = ?", (uid,), fetch=True)
+    if not link:
+        return jsonify({"joined": False}), 404
+    email = link[0][0]
+    if request.method == "PUT":
+        body = request.get_json(silent=True) or {}
+        row, why = clean_signup(dict(body if isinstance(body, dict) else {}, email=email, consent=True))
+        if not row:
+            return jsonify({"error": why}), 400
+        _run("UPDATE signups SET name = ?, role = ?, state = ?, city = ?, language = ?, source = ? WHERE email = ?",
+             (row["name"], row["role"], row["state"], row["city"], row["language"], row["source"], email))
+    r = _run("SELECT name, role, state, city, language, source, joined_at FROM signups WHERE email = ?", (email,), fetch=True)
+    if not r:
+        return jsonify({"joined": False}), 404
+    d = dict(zip(_PROFILE + ("joined_at",), r[0]))
+    d.update({"joined": True, "email": email})
+    return jsonify(d)
+
+
+@bp.route("/api/me/profile", methods=["DELETE"])
+def api_delete_my_profile():
+    uid = _current_user()
+    if not uid:
+        return jsonify({"error": "Sign in first."}), 401
+    init_db()
+    link = _run("SELECT email FROM signup_links WHERE user_id = ?", (uid,), fetch=True)
+    if link:
+        _run("DELETE FROM signups WHERE email = ?", (link[0][0],))
+        _run("DELETE FROM signup_links WHERE user_id = ?", (uid,))
+    return jsonify({"deleted": bool(link)})
+
+
 @bp.route("/api/me", methods=["DELETE"])
 def api_delete_me():
     uid = _current_user()
@@ -362,5 +409,9 @@ def api_delete_me():
         return jsonify({"error": "Sign in first."}), 401
     init_db()
     n = _run("DELETE FROM ward_reports WHERE user_id = ?", (uid,))
+    link = _run("SELECT email FROM signup_links WHERE user_id = ?", (uid,), fetch=True)
+    if link:
+        _run("DELETE FROM signups WHERE email = ?", (link[0][0],))
+        _run("DELETE FROM signup_links WHERE user_id = ?", (uid,))
     _run("DELETE FROM people WHERE user_id = ?", (uid,))      # deleting everything also takes this person out of the sign-in count
     return jsonify({"deleted": int(n or 0)})

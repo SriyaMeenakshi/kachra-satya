@@ -93,7 +93,7 @@ def test_the_join_page_is_wired_in_and_sends_nothing_until_join_is_pressed():
 
 def test_the_header_has_a_join_button_and_the_team_dashboard_is_routed():
     html, app, js = read("web/app/index.html"), read("web/app/app.js"), read("web/app/signup.js")
-    assert 'id="joinlink" href="#/join"' in html and "team: function () { KSJoin.renderTeam(); }" in app
+    assert 'id="joinlink"' not in html and 'location.hash = "#/join"' in read("web/app/signin.js") and "team: function () { KSJoin.renderTeam(); }" in app
     assert "X-Admin-Key" in js and "sessionStorage" not in js and "localStorage" not in js      # the key is never kept
 
 
@@ -106,3 +106,29 @@ def test_google_on_the_join_form_takes_the_verified_email_from_the_token(sg, mon
     assert "real@example.com" in c.get("/api/signups", headers={"X-Admin-Key": "team-key"}).get_data(as_text=True)
     monkeypatch.setattr(acc, "verify_google", lambda cred: (_ for _ in ()).throw(ValueError("bad")))
     assert c.post("/api/signup", json=dict(GOOD, credential="bad")).status_code == 401
+
+
+def test_a_signed_in_person_can_see_edit_and_delete_their_join_details(sg, monkeypatch):
+    acc, c = sg
+    monkeypatch.setattr(acc, "GOOGLE_CLIENT_ID", "x.apps.googleusercontent.com")
+    monkeypatch.setattr(acc, "KS_SECRET", "s")
+    monkeypatch.setattr(acc, "verify_google", lambda cred: {"sub": cred, "iss": "accounts.google.com", "email": cred + "@example.com", "email_verified": True, "name": "Asha"})
+    tok = c.post("/api/signin", json={"credential": "u1"}).get_json()["token"]
+    h = {"Authorization": "Bearer " + tok}
+    assert c.get("/api/me/profile").status_code == 401
+    assert c.get("/api/me/profile", headers=h).status_code == 404            # signed in, not joined yet
+    c.post("/api/signup", json=dict(GOOD, credential="u1"))
+    p = c.get("/api/me/profile", headers=h).get_json()
+    assert p["email"] == "u1@example.com" and p["city"] == "Kochi"
+    q = c.put("/api/me/profile", headers=h, json={"name": "Asha R", "role": "student", "state": "Kerala", "city": "Thrissur", "language": "hi", "source": "", "email": "evil@example.com"}).get_json()
+    assert q["city"] == "Thrissur" and q["role"] == "student" and q["email"] == "u1@example.com"      # the email cannot be changed
+    assert c.put("/api/me/profile", headers=h, json={"name": "A"}).status_code == 400
+    other = {"Authorization": "Bearer " + c.post("/api/signin", json={"credential": "u2"}).get_json()["token"]}
+    assert c.get("/api/me/profile", headers=other).status_code == 404         # nobody sees another person's row
+    assert c.delete("/api/me/profile", headers=h).get_json() == {"deleted": True}
+    assert c.get("/api/signup/count").get_json() == {"count": 0}
+
+
+def test_the_my_details_page_is_wired_in():
+    app, si, js = read("web/app/app.js"), read("web/app/signin.js"), read("web/app/signup.js")
+    assert "me: function () { KSJoin.renderMe(); }" in app and 'href="#/me"' in si and "function renderMe" in js
