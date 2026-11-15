@@ -8,7 +8,7 @@ Many people who would benefit from checking a waste claim or writing a complaint
 ## What exists today
 - **The Ask page** (`#/ask`) has an English, Hindi, Tamil and Telugu language choice, suggestion chips, and browser speech input and output (browser speech recognition and synthesis; support for Indian languages depends on the browser and device, and the page says so). The agent endpoint in `web/app/config.js` is **empty**, so the page shows "not connected yet".
 - **The agent** is specified in `docs/agentfoundry_setup.md` (system prompt, six lookup tools, six acceptance questions) and has **not** been created or run. See `docs/agentfoundry_run_sheet.md`.
-- **The interface** has English, Hindi and Telugu text for the main pages (first draft, not reviewed by a native speaker). The four-stream bin guide has Hindi, Tamil and Telugu names that still need a native-speaker check.
+- **The interface** has English, Hindi and Telugu text for the main pages (read by teammates on 2026-11-15, not independently reviewed). The four-stream bin guide has Hindi, Tamil and Telugu names that still need a native-speaker check.
 
 ## What we would build, in order
 1. **Finish the web agent first.** Create the agent, run its six questions, set the endpoint. Nothing below is worth building until answers are correct in the browser.

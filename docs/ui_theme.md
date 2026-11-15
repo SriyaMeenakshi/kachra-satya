@@ -37,7 +37,7 @@ Scales: spacing 4, 8, 12, 16, 24, 32, 48, 72, 112; radii 8, 14, 22, pill; type 1
 
 ## Checked, and not checked
 Checked in the browser pane: 24 routes at 375 px in light and dark with no console errors, no horizontal scroll, and exactly one level-1 heading each; Hindi and Telugu on Start, Map, Claim and Definitions; the Start page numbers against the data; the tab bar position; the pop-ups with mouse and keyboard.
-**Not checked:** a real phone, a screen reader, browsers other than the pane's, `prefers-reduced-motion` in a browser (the rules are written and tested for presence, not exercised), and the Hindi and Telugu text by a native speaker (it is a first draft covering the nav, Start, claim verdicts and glossary; other pages and the long Start paragraphs stay in English).
+**Not checked:** a real phone, a screen reader, browsers other than the pane's, `prefers-reduced-motion` in a browser (the rules are written and tested for presence, not exercised), and the Hindi and Telugu text by an independent reviewer (a teammate read each language on 2026-11-15 and found it good; since then the whole site has been translated, with the detail of some pages still in English).
 
 ## Changes on 2026-11-13 and 14
 - **Icon.** The name stays Kachra Satya (a rename to another name was tried on 2026-11-14 and reverted the same day). The icon is a bin whose four ribs are tally marks, struck through in coral (`web/app/icon.svg`); it is the header logo, the loading mark and the favicon.

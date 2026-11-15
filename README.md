@@ -77,7 +77,7 @@ One page written from what a resident already has: what happened (their truck re
 Off unless the server is given a Google client ID and a database. A resident who signs in adds their taps to a total everyone sees for that ward. The server stores an anonymous code, the ward, the day and the answer, and **no name or email**. Nothing is sent, and Google's script is not loaded, until the person presses "Turn on sharing". They can sign out or delete everything they shared. Set-up and limits: [docs/sign_in.md](docs/sign_in.md).
 
 ### Languages
-English, Hindi and Telugu, switched in the header. The whole site changes: menus, headings, buttons, notes and forms. Figures, state names, document names, anything a person types and the drafted letters are never translated. Pages measure 71% to 100% translated in the browser; the rest is text that comes straight from the data files. The translations are in `web/app/i18n/*.txt` and are a first draft that **no native speaker has reviewed**. Ask also answers in Tamil.
+English, Hindi and Telugu, switched in the header. The whole site changes: menus, headings, buttons, notes and forms. Figures, state names, document names, anything a person types and the drafted letters are never translated. Pages measure 71% to 100% translated in the browser; the rest is text that comes straight from the data files. The translations are in `web/app/i18n/*.txt` and were read through by two team members on 2026-11-15, one per language: the Hindi by Yasaswini and the Telugu by Sriya, who found them good. That is a read by teammates, not an independent or professional review. The Tamil in the bin guide and in Ask answers has not been read by anyone.
 
 ### Design
 The "Eco-Intelligence Observatory" system, light and dark ([docs/ui_theme.md](docs/ui_theme.md)). Fonts are self-hosted under the SIL Open Font License: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for small data labels. The icon is a bin whose ribs are tally marks, one for each count that has to add up (`web/app/icon.svg`).
@@ -207,5 +207,5 @@ Not done:
 - **Sign-in is not switched on** on the live site: it needs a Google client ID and a PostgreSQL database ([docs/sign_in.md](docs/sign_in.md)).
 - **The live site may be behind this repo.** Render deploys from `main`; check the date on the About page after a push.
 - **Not checked on a real device:** a phone, a screen reader, scanning a printed ward QR code, the share sheet, and voice in Ask.
-- **Translations** need a native speaker's read.
+- **Translations:** the Hindi and Telugu were read by teammates, not by an independent or professional reviewer. Tamil (bin-guide stream names, Ask answers) is unread.
 - **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, record the human spot check, verify the map boundary.

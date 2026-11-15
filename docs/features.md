@@ -111,7 +111,7 @@ A switch at the top of Home chooses what comes first: **The numbers** (the defau
 - Pages outside a path end with a "What next?" row. If browser storage is blocked, the pages still work without the bar.
 
 ## 13. Across the app
-- **Languages:** English, Hindi and Telugu across the whole site (see "Languages" below). Ask answers in English, Hindi, Tamil and Telugu, and the bin guide shows stream names in all three, which a native speaker has not checked.
+- **Languages:** English, Hindi and Telugu across the whole site (see "Languages" below). Ask answers in English, Hindi, Tamil and Telugu, and the bin guide shows stream names in all three, whose Tamil names nobody has checked (the Hindi and Telugu ones are covered by the read below).
 - **Design:** the "Eco-Intelligence Observatory" system, light and dark ([ui_theme.md](ui_theme.md)).
 - **Privacy:** logs, ward reports and uploads stay in your browser. Two things can leave it, each only when you choose: a question you send on Ask, and ward taps you share after signing in (stored without your name or email).
 - **Honesty:** every figure keeps its source document and page; see [methodology.md](methodology.md) and [track_coverage.md](track_coverage.md) for limits.
@@ -121,7 +121,7 @@ The language switch in the header changes the whole site. Two layers do it:
 - **Named strings** (`web/app/i18n.js`, `web/app/i18n_pages.js`): the menu, Home, the loop, the four doors, the Insights overview and each page's heading.
 - **Whole-page layer** (`web/app/i18n_dom.js`): after every render it swaps the English text on the page for its Hindi or Telugu, looked up by the English wording with the numbers taken out and put back. The translations are plain text files in `web/app/i18n/*.txt` (three lines per entry: English, Hindi, Telugu); `python scripts/build_i18n.py` builds `web/app/i18n_dict.js`, and a test fails if that file is stale.
 
-Never translated: figures, state names, document names, anything a person types, and the text of a drafted complaint or letter. Text that comes straight from the data files (flag explanations, the definitions crosswalk) and sentences with a state's name inside them stay in English. Anything without a translation shows in English, so a page is never blank. Measured in the browser, pages are 71% to 100% translated. The translations are a first draft and need a native speaker's review.
+Never translated: figures, state names, document names, anything a person types, and the text of a drafted complaint or letter. Text that comes straight from the data files (flag explanations, the definitions crosswalk) and sentences with a state's name inside them stay in English. Anything without a translation shows in English, so a page is never blank. Measured in the browser, pages are 71% to 100% translated. The translations were read through on 2026-11-15, one language each by two team members: the Hindi by Yasaswini and the Telugu by Sriya, who found them good. That is a teammate's read, not an independent or professional review, and Tamil has not been read.
 
 ## Menu order
 The menu follows the loop: Home, Check a claim (Promise), Map and Insights (Proof), Your ward (Reality), Get help (Action). Ask, Your city, Briefing, Schools, Nearest drop-off and About are under More. On a phone the bottom bar keeps five items and Insights and Your ward move into More.

@@ -1,7 +1,7 @@
 /* More Hindi and Telugu: the menu, the four doors, the loop, the lead case on Home, the Insights overview and tab names, and every page's heading and first line.
    The English text lives where it is used (the fallback passed to KSi18n.t); only the menu labels need English here, because the menu has no fallback.
    Not translated: state names, document names, figures, and the detail of each page (tables, letters, forms). A page that is partly English says so.
-   First draft: a native speaker should review these before launch. */
+   Read through on 2026-11-15 by two team members (Hindi: Yasaswini, Telugu: Sriya), who found them good; not an independent review. */
 (function (root) {
   if (!root.KSi18n || !root.KSi18n.extend) return;
   root.KSi18n.extend({

@@ -2,7 +2,7 @@
    API: KSi18n.t(key, englishFallback, vars)  -> text;  KSi18n.th(key, fallback, vars) -> escaped HTML where [[term]] becomes a tap-for-meaning button;
         KSi18n.term(key, label) -> button HTML;  KSi18n.lang() -> "en" | "hi" | "te".
    Anything without a Hindi or Telugu string shows the English string, so a page is never blank. Data (state names, document names) is never translated.
-   Hindi and Telugu are a first draft for the nav, the Start page, the claim verdicts and the glossary: a native speaker should review them before launch. */
+   Hindi and Telugu are written by us and were read through on 2026-11-15 by two team members (Hindi: Yasaswini, Telugu: Sriya), who found them good; an independent native-speaker review would still be better. */
 (function (root) {
   var LANGS = { en: "English", hi: "हिन्दी", te: "తెలుగు" }, L = "en";
   try { var saved = localStorage.getItem("ks-lang"); if (saved && LANGS[saved]) L = saved; } catch (e) {}
