@@ -23,6 +23,7 @@
       '<p class="join-count" id="jcount" aria-live="polite" hidden></p>' +
       (b === null ? '<div class="card"><p>This copy of the site has no server, so it cannot take sign-ups. The live site can: <a href="https://kachra-satya.onrender.com/web/app/index.html#/join">kachra-satya.onrender.com</a>.</p></div>' :
       '<form class="card join-form" id="jform" novalidate>' +
+        '<div class="join-g"><div id="jg"></div><p class="join-or" id="jgn" hidden>Or fill in the form by hand.</p></div>' +
         '<label for="jn">Your name</label><input id="jn" name="name" type="text" autocomplete="name" maxlength="80" required>' +
         '<label for="je">Email</label><input id="je" name="email" type="email" autocomplete="email" maxlength="254" required>' +
         '<label for="jr">I am a</label><select id="jr" name="role">' + opts + '</select>' +
@@ -41,10 +42,13 @@
     fetch(b + "/api/signup/count").then(function (r) { return r.json(); }).then(function (j) {
       var el = document.getElementById("jcount"); if (el && typeof j.count === "number" && j.count > 0) { el.hidden = false; el.textContent = j.count + (j.count === 1 ? " person has joined" : " people have joined"); }
     }).catch(function () {});
-    var form = document.getElementById("jform"), err = document.getElementById("jerr");
+    var cred = "", form = document.getElementById("jform"), err = document.getElementById("jerr");
+    if (root.KSAccount) KSAccount.button(document.getElementById("jg"), function () {}, function (c) {
+      var g = KSAccount.claims(c); cred = c; if (g.name) form.elements.name.value = g.name; if (g.email) { form.elements.email.value = g.email; form.elements.email.readOnly = true; }
+    }).then(function () { document.getElementById("jgn").hidden = false; }, function () { var g = document.querySelector(".join-g"); if (g) g.hidden = true; });      /* no Google on this site: just the form */
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = form.elements, v = { name: f.name.value, email: f.email.value, role: f.role.value, state: f.state.value, city: f.city.value, language: f.language.value, source: f.source.value, website: f.website.value, consent: document.getElementById("jok").checked };
+      var f = form.elements, v = { name: f.name.value, email: f.email.value, role: f.role.value, state: f.state.value, city: f.city.value, language: f.language.value, source: f.source.value, website: f.website.value, credential: cred, consent: document.getElementById("jok").checked };
       var p = problem(v); err.hidden = !p; err.textContent = p; if (p) return;
       var go = document.getElementById("jgo"); go.disabled = true;
       fetch(b + "/api/signup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(v) })
@@ -58,6 +62,37 @@
     });
   }
 
-  var api = { render: render, problem: problem, ROLES: ROLES };
+  /* ---------- the team dashboard (#/team): the numbers, behind the admin key. The key is typed in, kept only in this tab's memory, and sent as a header. ---------- */
+  function bars(obj) {
+    var k = Object.keys(obj), max = Math.max.apply(null, k.map(function (x) { return obj[x]; }).concat([1]));
+    return k.length ? '<ul class="tm-bars">' + k.map(function (x) { return '<li><span>' + esc(x) + '</span><i style="width:' + Math.round(obj[x] / max * 100) + '%"></i><b>' + obj[x] + "</b></li>"; }).join("") + "</ul>" : "<p>No one yet.</p>";
+  }
+  function dash(d) {
+    var days = Object.keys(d.by_day || {}).sort().slice(-14), dd = {}; days.forEach(function (x) { dd[x] = d.by_day[x]; });
+    return '<div class="tm-stats"><div class="card"><b>' + d.count + '</b><span>joined with details</span></div><div class="card"><b>' + d.signed_in + '</b><span>signed in with Google</span></div></div>' +
+      '<div class="tm-grid"><div class="card"><h3>By role</h3>' + bars(d.by_role) + '</div><div class="card"><h3>By state</h3>' + bars(d.by_state) + '</div><div class="card"><h3>By language</h3>' + bars(d.by_language) + '</div><div class="card"><h3>Joined per day (last 14 days)</h3>' + bars(dd) + '</div></div>' +
+      '<div class="card"><h3>Latest sign-ups</h3><table class="tm-t"><thead><tr><th>When</th><th>Name</th><th>Role</th><th>Where</th></tr></thead><tbody>' +
+      (d.recent || []).map(function (r) { return "<tr><td>" + esc(r.joined_at.slice(0, 16).replace("T", " ")) + "</td><td>" + esc(r.name) + "</td><td>" + esc(r.role) + "</td><td>" + esc([r.city, r.state].filter(Boolean).join(", ")) + "</td></tr>"; }).join("") + '</tbody></table><p><button type="button" class="alt" id="tcsv">Download full list (CSV)</button></p></div>';
+  }
+  function renderTeam() {
+    var view = document.getElementById("view"), b = base(), key = "";
+    view.innerHTML = '<div class="team"><h2>Team dashboard</h2><p class="sub">How many people have joined, and who they are. For the team only: enter the admin key.</p>' +
+      (b === null ? '<div class="card"><p>This copy of the site has no server.</p></div>' : '<form class="card join-form" id="tform"><label for="tk">Admin key</label><input id="tk" type="password" autocomplete="off"><p class="join-err" id="terr" role="alert" hidden></p><button type="submit" class="go">Show the numbers</button></form><div id="tout"></div>') + "</div>";
+    if (b === null) return;
+    function load() {
+      return fetch(b + "/api/signups?format=json", { headers: { "X-Admin-Key": key } }).then(function (r) { if (!r.ok) throw new Error("That key was not accepted, or the team list is not switched on."); return r.json(); });
+    }
+    document.getElementById("tform").addEventListener("submit", function (e) {
+      e.preventDefault(); key = document.getElementById("tk").value; var err = document.getElementById("terr"); err.hidden = true;
+      load().then(function (d) {
+        document.getElementById("tform").hidden = true; document.getElementById("tout").innerHTML = dash(d);
+        document.getElementById("tcsv").onclick = function () {
+          fetch(b + "/api/signups", { headers: { "X-Admin-Key": key } }).then(function (r) { return r.blob(); }).then(function (bl) { var a = document.createElement("a"); a.href = URL.createObjectURL(bl); a.download = "kachra-satya-signups.csv"; a.click(); });
+        };
+      }).catch(function (x) { err.hidden = false; err.textContent = x.message; });
+    });
+  }
+
+  var api = { render: render, renderTeam: renderTeam, problem: problem, ROLES: ROLES };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSJoin = api;
 })(typeof window !== "undefined" ? window : this);

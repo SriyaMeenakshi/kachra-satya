@@ -66,7 +66,8 @@ def test_the_list_is_private_and_safe_in_a_spreadsheet(sg):
     assert c.get("/api/signups", headers={"X-Admin-Key": "wrong"}).status_code == 404
     r = c.get("/api/signups", headers={"X-Admin-Key": "team-key"})
     assert r.status_code == 200 and "asha@example.com" in r.get_data(as_text=True) and "'=HYPERLINK" in r.get_data(as_text=True)
-    assert c.get("/api/signups?format=json", headers={"X-Admin-Key": "team-key"}).get_json() == {"count": 1, "by_role": {"resident": 1}}
+    d = c.get("/api/signups?format=json", headers={"X-Admin-Key": "team-key"}).get_json()
+    assert d["count"] == 1 and d["by_role"] == {"resident": 1} and d["by_state"] == {"Kerala": 1} and d["signed_in"] == 0 and len(d["recent"]) == 1 and "email" not in d["recent"][0]
 
 
 def test_the_list_is_off_when_no_admin_key_is_set(sg, monkeypatch):
@@ -88,3 +89,20 @@ def test_the_join_page_is_wired_in_and_sends_nothing_until_join_is_pressed():
     assert "join: function () { KSJoin.render(); }" in app and 'join: "Join"' in app
     assert js.count('"/api/signup"') == 1 and js.index('addEventListener("submit"') < js.index('"/api/signup"')
 
+
+
+def test_the_header_has_a_join_button_and_the_team_dashboard_is_routed():
+    html, app, js = read("web/app/index.html"), read("web/app/app.js"), read("web/app/signup.js")
+    assert 'id="joinlink" href="#/join"' in html and "team: function () { KSJoin.renderTeam(); }" in app
+    assert "X-Admin-Key" in js and "sessionStorage" not in js and "localStorage" not in js      # the key is never kept
+
+
+def test_google_on_the_join_form_takes_the_verified_email_from_the_token(sg, monkeypatch):
+    acc, c = sg
+    monkeypatch.setattr(acc, "GOOGLE_CLIENT_ID", "x.apps.googleusercontent.com")
+    monkeypatch.setattr(acc, "KS_SECRET", "s")
+    monkeypatch.setattr(acc, "verify_google", lambda cred: {"sub": "1", "iss": "accounts.google.com", "email": "real@example.com", "email_verified": True, "name": "Real Person"})
+    assert c.post("/api/signup", json=dict(GOOD, email="fake@example.com", credential="tok")).get_json()["saved"]
+    assert "real@example.com" in c.get("/api/signups", headers={"X-Admin-Key": "team-key"}).get_data(as_text=True)
+    monkeypatch.setattr(acc, "verify_google", lambda cred: (_ for _ in ()).throw(ValueError("bad")))
+    assert c.post("/api/signup", json=dict(GOOD, credential="bad")).status_code == 401

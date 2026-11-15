@@ -292,6 +292,14 @@ def api_signup():
     body = request.get_json(silent=True) or {}
     if isinstance(body, dict) and body.get("website"):        # a hidden field only a bot fills in: pretend it worked
         return jsonify({"saved": True, "count": 0})
+    cred = body.get("credential") if isinstance(body, dict) else None
+    if isinstance(cred, str) and cred and enabled() and len(cred) <= 4096:      # signed in with Google on the form: use the name and email Google vouches for
+        try:
+            g = verify_google(cred)
+            if g.get("email") and g.get("email_verified") in (True, "true"):
+                body = dict(body, email=g["email"], name=g.get("name") or body.get("name") or "")
+        except Exception:
+            return jsonify({"error": "Google did not confirm that sign-in. Please sign in again or fill the form by hand."}), 401
     row, why = clean_signup(body)
     if not row:
         return jsonify({"error": why}), 400
@@ -325,10 +333,18 @@ def api_signups_export():
     init_db()
     rows = _run("SELECT joined_at, name, email, role, state, city, language, source FROM signups ORDER BY joined_at", fetch=True)
     if request.args.get("format") == "json":
-        by_role: dict = {}
+        def tally(i):
+            d: dict = {}
+            for r in rows:
+                k = (r[i] or "(not given)")
+                d[k] = d.get(k, 0) + 1
+            return dict(sorted(d.items(), key=lambda kv: -kv[1]))
+        by_day: dict = {}
         for r in rows:
-            by_role[r[3]] = by_role.get(r[3], 0) + 1
-        return jsonify({"count": len(rows), "by_role": by_role})
+            by_day[r[0][:10]] = by_day.get(r[0][:10], 0) + 1
+        ppl = _run("SELECT COUNT(*) FROM people", fetch=True)
+        return jsonify({"count": len(rows), "signed_in": int(ppl[0][0]) if ppl else 0, "by_role": tally(3), "by_state": tally(4), "by_language": tally(6),
+                        "by_day": by_day, "recent": [{"joined_at": r[0], "name": r[1], "role": r[3], "state": r[4], "city": r[5]} for r in rows[-10:][::-1]]})
     import csv
     import io
     out = io.StringIO()

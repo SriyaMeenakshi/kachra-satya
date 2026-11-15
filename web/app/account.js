@@ -35,6 +35,10 @@
   function firstName(credential) {
     try { var p = credential.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"); var j = JSON.parse(decodeURIComponent(escape(atob(p)))); return String(j.given_name || j.name || "").slice(0, 40); } catch (e) { return ""; }
   }
+  /* name and email shown in a Google ID token, to fill the Join form (the server checks the token again before it trusts either) */
+  function claims(credential) {
+    try { var p = credential.split(".")[1].replace(/-/g, "+").replace(/_/g, "/"); var j = JSON.parse(decodeURIComponent(escape(atob(p)))); return { name: String(j.name || "").slice(0, 80), email: String(j.email || "").slice(0, 254) }; } catch (e) { return { name: "", email: "" }; }
+  }
   var gsi = null;
   function loadGoogle() {
     if (gsi) return gsi;
@@ -42,11 +46,12 @@
     return gsi;
   }
   /* draw Google's own button inside el; done(err) is called after a sign-in attempt */
-  function button(el, done) {
+  function button(el, done, peek) {
     return config().then(function (c) {
       if (!c.signIn) throw new Error("Sign-in is not switched on for this site.");
       return loadGoogle().then(function () {
         root.google.accounts.id.initialize({ client_id: c.clientId, auto_select: false, callback: function (resp) {
+          if (peek) { try { peek(resp.credential); } catch (e) {} }
           call("POST", "/api/signin", { credential: resp.credential }).then(function (j) { set(TOKEN, j.token); set(NAME, firstName(resp.credential)); announce(); done(null); }, function (e) { done(e); });
         } });
         root.google.accounts.id.renderButton(el, { theme: "outline", size: "large", text: "signin_with", shape: "pill" });
@@ -66,6 +71,6 @@
     return { reporters: (s && s.reporters) || 0, days: days.length, collected: c, notCollected: n, contested: contested };
   }
 
-  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, stats: stats, deleteMine: deleteMine, tally: tally, firstName: firstName };
+  var api = { base: base, config: config, available: available, signedIn: signedIn, name: name, signOut: signOut, button: button, report: report, summary: summary, stats: stats, deleteMine: deleteMine, tally: tally, firstName: firstName, claims: claims };
   if (typeof module !== "undefined" && module.exports) module.exports = api; else root.KSAccount = api;
 })(typeof window !== "undefined" ? window : this);
