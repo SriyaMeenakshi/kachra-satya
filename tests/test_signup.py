@@ -88,7 +88,3 @@ def test_the_join_page_is_wired_in_and_sends_nothing_until_join_is_pressed():
     assert "join: function () { KSJoin.render(); }" in app and 'join: "Join"' in app
     assert js.count('"/api/signup"') == 1 and js.index('addEventListener("submit"') < js.index('"/api/signup"')
 
-
-def test_the_nav_tabs_are_centred_on_wide_screens():
-    css = read("web/app/theme.css")
-    assert re.search(r"@media \(min-width:861px\)\{#nav\{justify-content:center\}\}", css)

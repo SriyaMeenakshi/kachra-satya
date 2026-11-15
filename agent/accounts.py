@@ -2,9 +2,11 @@
 
 What is stored, and what is not
 - Stored: an anonymous id (a one-way hash of the Google account id, salted with KS_SECRET), the ward, the day, and "collected" or "not_collected".
+- Also stored, so the site can say how many people have signed in: the same anonymous id and the date it first signed in (a day, not a time). Nothing else.
 - Never stored: name, email address, picture, location, device, or the Google account id itself.
 - One report per person per ward per day: a later tap replaces the earlier one. A person can delete everything they shared.
 - Totals are public and unverified: "reported by N people". A day where people disagree shows both counts, never one winner.
+- /api/stats gives one public number: how many anonymous ids have signed in. It counts sign-ins, not visits, and a person with two Google accounts counts twice.
 
 Switched on only when GOOGLE_CLIENT_ID and KS_SECRET are both set; otherwise /api/config says sign-in is off and nothing is stored.
 Database: DATABASE_URL (PostgreSQL, needs psycopg2) if set, else a SQLite file at KS_DB_PATH (default agent/ward_reports.sqlite).
@@ -46,7 +48,8 @@ def _pg() -> bool:
 def _connect():
     if _pg():
         import psycopg2                                   # only needed when DATABASE_URL is set
-        return psycopg2.connect(DATABASE_URL.replace("postgres://", "postgresql://", 1))
+        # connect_timeout: a serverless database such as Neon may need a moment to wake after idle; wait up to 10 seconds instead of forever
+        return psycopg2.connect(DATABASE_URL.replace("postgres://", "postgresql://", 1), connect_timeout=10)
     return sqlite3.connect(DB_PATH, timeout=10)
 
 
@@ -73,6 +76,7 @@ def init_db() -> None:
         return
     _run("CREATE TABLE IF NOT EXISTS ward_reports (user_id TEXT NOT NULL, ward TEXT NOT NULL, day TEXT NOT NULL, status TEXT NOT NULL, saved_at TEXT NOT NULL, PRIMARY KEY (user_id, ward, day))")
     _run("CREATE TABLE IF NOT EXISTS signups (email TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT NOT NULL, state TEXT NOT NULL, city TEXT NOT NULL, language TEXT NOT NULL, source TEXT NOT NULL, joined_at TEXT NOT NULL)")
+    _run("CREATE TABLE IF NOT EXISTS people (user_id TEXT PRIMARY KEY, first_seen TEXT NOT NULL)")
     _ready = True
 
 
@@ -165,6 +169,17 @@ def api_config():
     return jsonify({"signIn": enabled(), "clientId": GOOGLE_CLIENT_ID if enabled() else ""})
 
 
+@bp.route("/api/stats", methods=["GET"])
+def api_stats():
+    """One public number: how many people (anonymous ids) have signed in. Counts only; it says nothing about any one person or about visits."""
+    if not enabled():
+        return jsonify({"signIn": False, "people": 0})
+    init_db()
+    rows = _run("SELECT COUNT(*) FROM people", fetch=True)
+    return jsonify({"signIn": True, "people": int(rows[0][0]) if rows else 0,
+                    "note": "Counts anonymous sign-ins, not visits. One person with two Google accounts counts twice."})
+
+
 @bp.route("/api/signin", methods=["POST"])
 def api_signin():
     if not enabled():
@@ -178,7 +193,11 @@ def api_signin():
     except Exception:
         return jsonify({"error": "Google did not confirm that sign-in. Please try again."}), 401
     init_db()
-    return jsonify({"token": _signer().dumps({"u": user_id_for(claims["sub"])}), "days": TOKEN_DAYS})
+    uid = user_id_for(claims["sub"])
+    # count this person once: the anonymous id and the day it first signed in, nothing else
+    _run("INSERT INTO people (user_id, first_seen) VALUES (?, ?) ON CONFLICT (user_id) DO NOTHING",
+         (uid, datetime.now(timezone.utc).date().isoformat()))
+    return jsonify({"token": _signer().dumps({"u": uid}), "days": TOKEN_DAYS})
 
 
 @bp.route("/api/ward/report", methods=["POST"])
@@ -327,4 +346,5 @@ def api_delete_me():
         return jsonify({"error": "Sign in first."}), 401
     init_db()
     n = _run("DELETE FROM ward_reports WHERE user_id = ?", (uid,))
+    _run("DELETE FROM people WHERE user_id = ?", (uid,))      # deleting everything also takes this person out of the sign-in count
     return jsonify({"deleted": int(n or 0)})

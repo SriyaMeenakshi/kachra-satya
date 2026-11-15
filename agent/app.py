@@ -60,6 +60,10 @@ GROK_BASE_URL = os.environ.get("GROK_BASE_URL", "https://api.x.ai/v1").strip().r
 GEMINI_MAX_TOOL_ROUNDS = int(os.environ.get("GEMINI_MAX_TOOL_ROUNDS", "5"))
 GEMINI_COOLDOWN_S = float(os.environ.get("GEMINI_COOLDOWN_S", "60"))           # skip Gemini after a failure
 _gemini_down_until = 0.0
+# Optional second Gemini model, tried once when the first fails for a temporary reason (overloaded, quota, timeout). Empty: no retry.
+GEMINI_FALLBACK_MODEL = os.environ.get("GEMINI_FALLBACK_MODEL", "").strip()
+_last_model_ok = None            # UTC time of the last answer the model wrote
+_last_model_error = None         # {"at", "provider", "type", "message"} for the last failed model call; the key is redacted
 MAX_QUESTION_CHARS = int(os.environ.get("MAX_QUESTION_CHARS", "500"))
 RATE_LIMIT_PER_MIN = int(os.environ.get("RATE_LIMIT_PER_MIN", "20"))           # questions per visitor per minute; 0 turns the limit off
 _hits: dict = {}                                                                # visitor -> recent request times (in memory, one worker)
@@ -154,6 +158,24 @@ def fallback_note(language: str) -> str:
 def _redact(msg: str) -> str:
     """Strip the API key from any text before logging."""
     return msg.replace(MODEL_API_KEY, "***") if MODEL_API_KEY else msg
+
+
+def _note_model_ok() -> None:
+    global _last_model_ok
+    _last_model_ok = datetime.utcnow().isoformat()
+
+
+def _note_model_error(provider: str, e: Exception) -> None:
+    """Remember why the last model call failed, so /health can say so without anyone reading the logs. No key, no newlines, 160 characters."""
+    global _last_model_error
+    _last_model_error = {"at": datetime.utcnow().isoformat(), "provider": provider, "type": type(e).__name__,
+                         "message": " ".join(_redact(str(e)).split())[:160]}
+
+
+def _transient(e: Exception) -> bool:
+    """A temporary reason (overloaded, over quota, timed out) that another model may get past. A bad key or a wrong model name is not."""
+    t = (type(e).__name__ + " " + str(e)).lower()
+    return any(k in t for k in ("503", "429", "unavailable", "resource_exhausted", "overloaded", "high demand", "quota", "timeout", "timed out", "rate"))
 DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 
 # Load the system prompt and tools from qa_agent
@@ -245,7 +267,7 @@ def check_gemini_model() -> bool:
         return False
 
 
-def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
+def call_gemini_tool_use(question: str, model: str | None = None) -> tuple[str, list[dict]]:
     """Call Google Gemini (google-genai SDK) with function calling.
 
     Bounded: GEMINI_MAX_TOOL_ROUNDS model calls and MODEL_TIMEOUT_S in total
@@ -254,6 +276,7 @@ def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
     """
     from google.genai import types
 
+    model_name = model or GEMINI_MODEL
     client = _gemini_client()
     declarations = [
         types.FunctionDeclaration(
@@ -281,13 +304,13 @@ def call_gemini_tool_use(question: str) -> tuple[str, list[dict]]:
         config.http_options = types.HttpOptions(
             timeout=int(remaining * 1000), retry_options=types.HttpRetryOptions(attempts=1))
         t0 = time.monotonic()
-        response = client.models.generate_content(model=GEMINI_MODEL, contents=contents, config=config)
+        response = client.models.generate_content(model=model_name, contents=contents, config=config)
         if not response.candidates or not response.candidates[0].content:
             raise RuntimeError(f"Gemini returned no content (prompt_feedback={response.prompt_feedback})")
         cand = response.candidates[0]
         parts = cand.content.parts or []
         calls = [p.function_call for p in parts if p.function_call]
-        log.info("round %d model=%s %.1fs finish=%s tool_calls=%s", rnd, GEMINI_MODEL,
+        log.info("round %d model=%s %.1fs finish=%s tool_calls=%s", rnd, model_name,
                  time.monotonic() - t0, cand.finish_reason, [c.name for c in calls])
 
         if not calls:
@@ -661,12 +684,25 @@ def ask():
                 call = {"gemini": call_gemini_tool_use, "grok": call_grok_tool_use}.get(MODEL_PROVIDER, call_anthropic_tool_use)
                 try:
                     answer, sources = call(question)
+                    _note_model_ok()
                 except Exception as e:
                     log.error("%s call failed: %s: %s", MODEL_PROVIDER, type(e).__name__, _redact(str(e))[:300])
-                    if MODEL_PROVIDER in ("gemini", "grok"):
-                        _gemini_down_until = time.monotonic() + GEMINI_COOLDOWN_S
-                    answer, sources = call_fallback_tools_only(question, language)
-                    answer += fallback_note(language)
+                    _note_model_error(MODEL_PROVIDER, e)
+                    recovered = False
+                    if MODEL_PROVIDER == "gemini" and GEMINI_FALLBACK_MODEL and GEMINI_FALLBACK_MODEL != GEMINI_MODEL and _transient(e):
+                        log.warning("retrying once with GEMINI_FALLBACK_MODEL=%s", GEMINI_FALLBACK_MODEL)
+                        try:
+                            answer, sources = call_gemini_tool_use(question, model=GEMINI_FALLBACK_MODEL)
+                            _note_model_ok()
+                            recovered = True
+                        except Exception as e2:
+                            log.error("gemini fallback model %s failed: %s: %s", GEMINI_FALLBACK_MODEL, type(e2).__name__, _redact(str(e2))[:300])
+                            _note_model_error("gemini (fallback model)", e2)
+                    if not recovered:
+                        if MODEL_PROVIDER in ("gemini", "grok"):
+                            _gemini_down_until = time.monotonic() + GEMINI_COOLDOWN_S
+                        answer, sources = call_fallback_tools_only(question, language)
+                        answer += fallback_note(language)
         else:
             return jsonify({
                 "error": f"Unknown MODEL_PROVIDER: {MODEL_PROVIDER}. Use 'gemini', 'grok' or 'anthropic'."
@@ -686,9 +722,17 @@ def ask():
 @app.route("/health", methods=["GET"])
 def health():
     """Health check endpoint."""
+    cooling = MODEL_PROVIDER in ("gemini", "grok") and time.monotonic() < _gemini_down_until
     return jsonify({
         "status": "ok",
         "model_provider": MODEL_PROVIDER if MODEL_API_KEY else "none (fallback mode)",
+        "model": {                       # why Ask may be in data-only mode; no key, no personal data
+            "name": {"gemini": GEMINI_MODEL, "grok": GROK_MODEL, "anthropic": os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-5-5")}.get(MODEL_PROVIDER),
+            "fallback_model": GEMINI_FALLBACK_MODEL or None,
+            "last_ok": _last_model_ok,
+            "last_error": _last_model_error,
+            "in_cooldown": bool(cooling),
+        },
         "timestamp": datetime.utcnow().isoformat(),
     }), 200
 

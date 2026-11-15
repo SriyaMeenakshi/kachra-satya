@@ -144,3 +144,47 @@ def test_tally_counts_contested_days():
     out = subprocess.run(["node", "-e", code], capture_output=True, text=True, encoding="utf-8")
     assert out.returncode == 0, out.stderr
     assert json.loads(out.stdout) == {"reporters": 3, "days": 2, "collected": 3, "notCollected": 1, "contested": 1}
+
+
+def test_stats_is_off_unless_configured_and_creates_nothing(tmp_path, monkeypatch):
+    import accounts
+    monkeypatch.setattr(accounts, "GOOGLE_CLIENT_ID", "")
+    monkeypatch.setattr(accounts, "DB_PATH", str(tmp_path / "w.sqlite"))
+    monkeypatch.setattr(accounts, "_ready", False)
+    from flask import Flask
+    app = Flask(__name__)
+    app.register_blueprint(accounts.bp)
+    assert app.test_client().get("/api/stats").get_json() == {"signIn": False, "people": 0}
+    assert not os.path.exists(tmp_path / "w.sqlite")
+
+
+def test_each_person_who_signs_in_is_counted_once_and_only_as_a_count(acc):
+    accounts, c = acc
+    assert c.get("/api/stats").get_json()["people"] == 0
+    signin(c, "asha-google-id-123")
+    signin(c, "asha-google-id-123")                     # signing in again does not count twice
+    signin(c, "bala-google-id-456")
+    s = c.get("/api/stats").get_json()
+    assert s["people"] == 2 and s["signIn"] is True
+    assert set(s) == {"signIn", "people", "note"}       # a number and a note: no ids, no dates, no names
+    rows = accounts._run("SELECT user_id, first_seen FROM people ORDER BY user_id", fetch=True)
+    assert len(rows) == 2 and all(len(r[0]) == 32 for r in rows)
+    assert all(len(r[1]) == 10 and r[1] == TODAY.isoformat() for r in rows)          # a day, not a time
+    raw = open(accounts.DB_PATH, "rb").read()
+    for secret in (b"asha-google-id-123", b"bala-google-id-456", b"example.com", b"Asha"):
+        assert secret not in raw
+
+
+def test_signing_in_alone_stores_no_ward_report(acc):
+    accounts, c = acc
+    signin(c, "asha")
+    assert accounts._run("SELECT COUNT(*) FROM ward_reports", fetch=True)[0][0] == 0
+
+
+def test_deleting_everything_also_removes_the_person_from_the_count(acc):
+    _, c = acc
+    a = signin(c, "asha")
+    signin(c, "bala")
+    assert c.get("/api/stats").get_json()["people"] == 2
+    c.delete("/api/me", headers=a)
+    assert c.get("/api/stats").get_json()["people"] == 1

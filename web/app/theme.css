@@ -78,7 +78,6 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 #nav{display:flex;align-items:center;gap:2px;flex:1;margin-left:var(--sp-3);overflow:visible}   /* app.css makes the nav scroll (overflow-x:auto), which clipped the More dropdown on desktop: the menu opened but was invisible */
 #nav>a,#nav summary{display:inline-flex;align-items:center;gap:var(--sp-2);padding:9px 12px;border-radius:var(--r-pill);color:var(--ink2);font-size:var(--t-sm);font-weight:500;text-decoration:none;white-space:nowrap;cursor:pointer;list-style:none;min-height:44px;transition:background var(--dur-1),color var(--dur-1)}
 #nav summary::-webkit-details-marker{display:none}
-@media (min-width:861px){#nav{justify-content:center}}   /* the tabs sit in the middle of the bar on wide screens; phones keep their bottom bar */
 #nav>a:hover,#nav summary:hover{background:var(--soft);color:var(--ink)}
 #nav a[aria-current="page"],#nav .more:has(.menu a[aria-current="page"]:not(.m-only))>summary{background:var(--forest-700);color:var(--ivory);font-weight:600}
 :root[data-theme="dark"] #nav a[aria-current="page"],:root[data-theme="dark"] #nav .more:has(.menu a[aria-current="page"]:not(.m-only))>summary{background:var(--lime);color:var(--forest-900)}
@@ -97,6 +96,13 @@ footer{border-top:1px solid var(--hair);margin-top:var(--sp-7);color:var(--ink2)
 .tg:hover{border-color:var(--ink2);color:var(--ink)}
 select.tg{appearance:none;padding-right:14px;width:auto}
 select.tg option{background:var(--card);color:var(--ink)}   /* the open list is drawn by the browser on its own background, so give it theme colours */
+/* wide screens: logo at the left, the tabs centred in the header, language / sign-in / theme at the right.
+   Below 1200px the old left-aligned row is kept, because the three groups need room to stay on one line. */
+@media (min-width:1200px){
+  .bar .wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:var(--sp-3)}
+  #nav{flex:none;margin:0;justify-self:center}
+  .bar .tools{margin-left:0;justify-self:end}
+}
 @media (max-width:860px){
   .bar{position:static;backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--page)}   /* a backdrop-filter would make the header the containing block of the fixed tab bar */
   .bar .wrap{min-height:56px}
