@@ -198,6 +198,9 @@ def api_signin():
     # count this person once: the anonymous id and the day it first signed in, nothing else
     _run("INSERT INTO people (user_id, first_seen) VALUES (?, ?) ON CONFLICT (user_id) DO NOTHING",
          (uid, datetime.now(timezone.utc).date().isoformat()))
+    em = str(claims.get("email") or "").lower()
+    if em and claims.get("email_verified") in (True, "true") and _run("SELECT 1 FROM signups WHERE email = ?", (em,), fetch=True):
+        _run("INSERT INTO signup_links (user_id, email) VALUES (?, ?) ON CONFLICT (user_id) DO UPDATE SET email = excluded.email", (uid, em))      # Google vouches for this email: the same person who joined, whichever way they joined
     return jsonify({"token": _signer().dumps({"u": uid}), "days": TOKEN_DAYS})
 
 

@@ -85,7 +85,7 @@ def test_the_join_form_check_matches_the_server():
 
 def test_the_join_page_is_wired_in_and_sends_nothing_until_join_is_pressed():
     html, app, js = read("web/app/index.html"), read("web/app/app.js"), read("web/app/signup.js")
-    assert html.count("signup.js") == 1 and html.count("signup.css") == 1 and 'href="#/join"' in html
+    assert html.count("signup.js") == 1 and html.count("signup.css") == 1
     assert "join: function () { KSJoin.render(); }" in app and 'join: "Join"' in app
     assert js.count('"/api/signup"') == 1 and js.index('addEventListener("submit"') < js.index('"/api/signup"')
 
@@ -93,8 +93,9 @@ def test_the_join_page_is_wired_in_and_sends_nothing_until_join_is_pressed():
 
 def test_the_header_has_a_join_button_and_the_team_dashboard_is_routed():
     html, app, js = read("web/app/index.html"), read("web/app/app.js"), read("web/app/signup.js")
-    assert 'id="joinlink"' not in html and 'location.hash = "#/join"' in read("web/app/signin.js") and "team: function () { KSJoin.renderTeam(); }" in app
-    assert "X-Admin-Key" in js and "sessionStorage" not in js and "localStorage" not in js      # the key is never kept
+    assert 'id="joinlink"' not in html and '"#/join"' in read("web/app/signin.js") and '"#/me"' in read("web/app/signin.js") and "team: function () { KSJoin.renderTeam(); }" in app
+    assert "X-Admin-Key" in js and "sessionStorage" not in js
+    assert js.count("localStorage.setItem") == 1 and '"ks-joined"' in js      # the only thing kept on the device is the first name; the admin key never is
 
 
 def test_google_on_the_join_form_takes_the_verified_email_from_the_token(sg, monkeypatch):
@@ -132,3 +133,13 @@ def test_a_signed_in_person_can_see_edit_and_delete_their_join_details(sg, monke
 def test_the_my_details_page_is_wired_in():
     app, si, js = read("web/app/app.js"), read("web/app/signin.js"), read("web/app/signup.js")
     assert "me: function () { KSJoin.renderMe(); }" in app and 'href="#/me"' in si and "function renderMe" in js
+
+
+def test_signing_in_again_finds_the_details_whichever_way_the_person_joined(sg, monkeypatch):
+    acc, c = sg
+    monkeypatch.setattr(acc, "GOOGLE_CLIENT_ID", "x.apps.googleusercontent.com")
+    monkeypatch.setattr(acc, "KS_SECRET", "s")
+    monkeypatch.setattr(acc, "verify_google", lambda cred: {"sub": "g1", "iss": "accounts.google.com", "email": "asha@example.com", "email_verified": True, "name": "Asha"})
+    c.post("/api/signup", json=GOOD)                                          # joined by hand, no Google token
+    tok = c.post("/api/signin", json={"credential": "t"}).get_json()["token"]  # later signs in with the same Google email
+    assert c.get("/api/me/profile", headers={"Authorization": "Bearer " + tok}).get_json()["city"] == "Kochi"

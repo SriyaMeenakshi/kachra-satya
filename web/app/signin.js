@@ -23,12 +23,17 @@
   /* the header button: icon plus a word; on very narrow screens the CSS keeps only the icon */
   function refresh() {
     if (!btn) return;
-    var on = A.signedIn();
-    btn.classList.toggle("on", on);
-    var key = on ? "signedin" : "signin", label = on ? "Signed in" : "Sign in";
-    var t = btn.querySelector(".si-t"); if (t) { t.setAttribute("data-i", key); t.textContent = root.KSi18n && root.KSi18n.t ? root.KSi18n.t(key, label) : label; }
-    btn.setAttribute("aria-label", on ? "Signed in. Open the sign-in panel" : "Sign in with Google");
+    var joined = A.signedIn() || !!joinedName(), nm = A.name() || joinedName();
+    btn.classList.toggle("on", joined);
+    var t = btn.querySelector(".si-t");
+    if (t) {
+      if (joined) { t.removeAttribute("data-i"); t.setAttribute("data-notr", ""); t.textContent = nm || (root.KSi18n && root.KSi18n.t ? root.KSi18n.t("nav_me", "My details") : "My details"); }
+      else { t.removeAttribute("data-notr"); t.setAttribute("data-i", "nav_join"); t.textContent = root.KSi18n && root.KSi18n.t ? root.KSi18n.t("nav_join", "Join") : "Join"; }
+    }
+    btn.setAttribute("aria-label", joined ? "Your profile" : "Join Kachra Satya");
   }
+  /* the first name of someone who joined on this device, kept here only so the button can show it */
+  function joinedName() { try { return localStorage.getItem("ks-joined") || ""; } catch (e) { return ""; } }
 
   function close(back) {
     if (!isOpen) return;
@@ -70,10 +75,10 @@
     btn = $("signin"); pop = $("signin-pop");
     if (!A || !btn || !pop) return;
     A.config().then(function (c) {
-      if (!c || !c.signIn) return;                          /* off, or no server: stay hidden */
+      if (A.base() === null) return;                        /* no server (a static copy): stay hidden */
       btn.hidden = false; refresh(); loadCount();
     });
-    btn.onclick = function () { if (isOpen) close(false); else if (!A.signedIn()) location.hash = "#/join"; else open(); };      /* signed out: the Join page is the one place to sign in and give details; signed in: the small panel (sign out) */
+    btn.onclick = function () { location.hash = (A.signedIn() || joinedName()) ? "#/me" : "#/join"; };      /* signed out: the Join page is the one place to sign in and give details; signed in: the small panel (sign out) */
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && isOpen) close(true); });
     document.addEventListener("click", function (e) { if (isOpen && !pop.contains(e.target) && !btn.contains(e.target)) close(false); });
     root.addEventListener("ks-auth", function () { refresh(); loadCount(); });   /* a sign-in made on the ward page */

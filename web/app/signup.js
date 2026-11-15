@@ -31,7 +31,11 @@
   /* ---------- My details (#/me): a signed-in person edits what they gave on the Join page ---------- */
   function renderMe() {
     var view = document.getElementById("view"), A = root.KSAccount;
-    function say(html) { view.innerHTML = '<div class="join"><h2>My details</h2>' + html + "</div>"; }
+    function say(html) {
+      view.innerHTML = '<div class="join"><h2>My details</h2>' + html + (A && A.signedIn() ? '<p><button type="button" class="alt" id="msignout">Sign out</button></p>' : "") + "</div>";
+      var so = document.getElementById("msignout");
+      if (so) so.onclick = function () { A.signOut(); try { localStorage.removeItem("ks-joined"); } catch (e) {} try { root.dispatchEvent(new Event("ks-auth")); } catch (e2) {} location.hash = "#/start"; };
+    }
     if (base() === null) { say('<div class="card"><p>This copy of the site has no server.</p></div>'); return; }
     if (!A || !A.signedIn()) { say('<p class="sub">Sign in to see and change the details you gave us.</p><div class="card"><p><a class="go" href="#/join">Sign in or join</a></p></div>'); return; }
     say('<p class="sub">Loading your details&hellip;</p>');
@@ -61,8 +65,7 @@
     var view = document.getElementById("view"), b = base(), lang = root.KSi18n ? root.KSi18n.lang() : "en";
     view.innerHTML = '<div class="join"><h2>Join Kachra Satya</h2>' +
       '<p class="sub">Tell us who you are so we can count the people using this and write back when something changes. It takes under a minute.</p>' +
-      '<p class="join-count" id="jcount" aria-live="polite" hidden></p>' +
-      (b === null ? '<div class="card"><p>This copy of the site has no server, so it cannot take sign-ups. The live site can: <a href="https://kachra-satya.onrender.com/web/app/index.html#/join">kachra-satya.onrender.com</a>.</p></div>' :
+            (b === null ? '<div class="card"><p>This copy of the site has no server, so it cannot take sign-ups. The live site can: <a href="https://kachra-satya.onrender.com/web/app/index.html#/join">kachra-satya.onrender.com</a>.</p></div>' :
       '<form class="card join-form" id="jform" novalidate>' +
         '<div class="join-g" id="jgw"><div id="jg"></div></div><p class="join-or" id="jgn" hidden>or</p>' +
         '<label for="je">Email</label><input id="je" name="email" type="email" autocomplete="email" maxlength="254" required>' + detailFields() +
@@ -74,9 +77,6 @@
       "</div>";
     if (b === null) return;
     var sel = document.getElementById("jl"); if (sel && ["en", "hi", "te"].indexOf(lang) >= 0) sel.value = lang;
-    fetch(b + "/api/signup/count").then(function (r) { return r.json(); }).then(function (j) {
-      var el = document.getElementById("jcount"); if (el && typeof j.count === "number" && j.count > 0) { el.hidden = false; el.textContent = j.count + (j.count === 1 ? " person has joined" : " people have joined"); }
-    }).catch(function () {});
     var cred = "", form = document.getElementById("jform"), err = document.getElementById("jerr");
     if (root.KSAccount) KSAccount.button(document.getElementById("jg"), function () {}, function (c) {
       var g = KSAccount.claims(c); cred = c; if (g.name) form.elements.name.value = g.name; if (g.email) { form.elements.email.value = g.email; form.elements.email.readOnly = true; }
@@ -89,8 +89,11 @@
       fetch(b + "/api/signup", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(v) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || "The server did not accept that."); return j; }); })
         .then(function (j) {
+          try { localStorage.setItem("ks-joined", String(v.name || "").trim().split(/\s+/)[0].slice(0, 30)); } catch (e2) {}      /* the header now shows this name instead of Join */
+          try { root.dispatchEvent(new Event("ks-auth")); } catch (e3) {}
+          setTimeout(function () { if (location.hash === "#/join") location.hash = "#/start"; }, 1500);      /* then back to Home */
           form.hidden = true; document.getElementById("jdone").hidden = false;
-          document.getElementById("jdonet").textContent = j.already ? "That email was already on the list, so we updated your details." : (j.count ? "You are person number " + j.count + "." : "We have your details.");
+          document.getElementById("jdonet").textContent = j.already ? "That email was already on the list, so we updated your details." : "We have your details.";
           document.getElementById("jdone").querySelector("h3").setAttribute("tabindex", "-1"); document.getElementById("jdone").querySelector("h3").focus();
         })
         .catch(function (x) { err.hidden = false; err.textContent = x.message || "Could not reach the server. Please try again."; go.disabled = false; });
@@ -103,9 +106,8 @@
     return k.length ? '<ul class="tm-bars">' + k.map(function (x) { return '<li><span>' + esc(x) + '</span><i style="width:' + Math.round(obj[x] / max * 100) + '%"></i><b>' + obj[x] + "</b></li>"; }).join("") + "</ul>" : "<p>No one yet.</p>";
   }
   function dash(d) {
-    var days = Object.keys(d.by_day || {}).sort().slice(-14), dd = {}; days.forEach(function (x) { dd[x] = d.by_day[x]; });
     return '<div class="tm-stats"><div class="card"><b>' + d.count + '</b><span>joined with details</span></div><div class="card"><b>' + d.signed_in + '</b><span>signed in with Google</span></div></div>' +
-      '<div class="tm-grid"><div class="card"><h3>By role</h3>' + bars(d.by_role) + '</div><div class="card"><h3>By state</h3>' + bars(d.by_state) + '</div><div class="card"><h3>By language</h3>' + bars(d.by_language) + '</div><div class="card"><h3>Joined per day (last 14 days)</h3>' + bars(dd) + '</div></div>' +
+      '<div class="tm-grid"><div class="card"><h3>By role</h3>' + bars(d.by_role) + '</div><div class="card"><h3>By state</h3>' + bars(d.by_state) + '</div><div class="card"><h3>By language</h3>' + bars(d.by_language) + '</div></div>' +
       '<div class="card"><h3>Latest sign-ups</h3><table class="tm-t"><thead><tr><th>When</th><th>Name</th><th>Role</th><th>Where</th></tr></thead><tbody>' +
       (d.recent || []).map(function (r) { return "<tr><td>" + esc(r.joined_at.slice(0, 16).replace("T", " ")) + "</td><td>" + esc(r.name) + "</td><td>" + esc(r.role) + "</td><td>" + esc([r.city, r.state].filter(Boolean).join(", ")) + "</td></tr>"; }).join("") + '</tbody></table><p><button type="button" class="alt" id="tcsv">Download full list (CSV)</button></p></div>';
   }

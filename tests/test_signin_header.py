@@ -32,7 +32,7 @@ def test_google_is_never_loaded_with_the_page_or_by_the_header_script():
 
 def test_header_button_stays_hidden_when_sign_in_is_off():
     js = read("web/app/signin.js")
-    assert "if (!c || !c.signIn) return;" in js and "btn.hidden = false" in js
+    assert "if (A.base() === null) return;" in js and "btn.hidden = false" in js
     assert "if (n > 0)" in js                                                          # the footer count is hidden while it is 0
 
 
