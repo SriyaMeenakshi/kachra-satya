@@ -10,7 +10,7 @@
 
   var UI = {
     en: {
-      nav_home: "Home", nav_map: "Map", nav_claim: "Check a claim", nav_claim_m: "Claim", nav_gaps: "Gaps", nav_city: "Your city", nav_city_m: "City", nav_ask: "Ask", nav_explore: "Explore", nav_more: "More", nav_ward: "Your ward", nav_help: "Get help", nav_dropoff: "Nearest drop-off", theme: "Theme", language: "Language",
+      nav_home: "Home", nav_map: "Map", nav_claim: "Check a claim", nav_claim_m: "Claim", nav_gaps: "Gaps", nav_city: "Your city", nav_city_m: "City", nav_ask: "Ask", nav_explore: "Explore", nav_more: "More", nav_ward: "Your ward", nav_help: "Get help", nav_dropoff: "Nearest drop-off", theme: "Theme", signin: "Sign in", signedin: "Signed in", language: "Language",
       kicker: "Waste data observatory · India", h1: "Every waste promise deserves a receipt.", lede: "India's two official numbers for the waste it processes disagree. Check the promise, open the proof, test it on your street, then do something about it.",
       cta_explore: "Explore the data", cta_claim: "Check a claim",
       what: "Kachra Satya puts India's two official waste numbers side by side (from the Housing Ministry, MoHUA, and the pollution control board, CPCB), shows the source page behind each, and flags figures that can't all be true.",
@@ -29,7 +29,7 @@
       v_mix_s: "Some official sources match this claim and others don't. The sources disagree with each other.", v_cant_s: "We have no figure to compare this with, and we don't guess."
     },
     hi: {
-      nav_home: "होम", nav_map: "नक्शा", nav_claim: "दावा जाँचें", nav_claim_m: "दावा", nav_gaps: "अंतर", nav_city: "आपका शहर", nav_city_m: "शहर", nav_ask: "पूछें", nav_explore: "खोजें", nav_more: "और", nav_ward: "आपका वार्ड", nav_help: "मदद", nav_dropoff: "नज़दीकी ड्रॉप-ऑफ़", theme: "थीम", language: "भाषा",
+      nav_home: "होम", nav_map: "नक्शा", nav_claim: "दावा जाँचें", nav_claim_m: "दावा", nav_gaps: "अंतर", nav_city: "आपका शहर", nav_city_m: "शहर", nav_ask: "पूछें", nav_explore: "खोजें", nav_more: "और", nav_ward: "आपका वार्ड", nav_help: "मदद", nav_dropoff: "नज़दीकी ड्रॉप-ऑफ़", theme: "थीम", signin: "साइन इन", signedin: "साइन इन किया", language: "भाषा",
       kicker: "कचरे के आँकड़ों की पड़ताल · भारत", h1: "कचरे पर किए गए हर वादे की एक रसीद होनी चाहिए।", lede: "भारत कितना कचरा प्रोसेस करता है, इस पर दो सरकारी आँकड़े आपस में मेल नहीं खाते। वादा जाँचें, सबूत खोलें, अपनी गली में परखें, फिर कुछ करें।",
       cta_explore: "डेटा देखें", cta_claim: "दावा जाँचें",
       what: "कचरा सत्य भारत के कचरे के दो सरकारी आँकड़े साथ-साथ रखता है, हर आँकड़े के पीछे का स्रोत पृष्ठ दिखाता है, और उन आँकड़ों को चिह्नित करता है जो सब एक साथ सही नहीं हो सकते।",
@@ -48,7 +48,7 @@
       v_mix_s: "कुछ सरकारी स्रोत इस दावे से मेल खाते हैं और कुछ नहीं। स्रोत आपस में सहमत नहीं हैं।", v_cant_s: "तुलना के लिए हमारे पास कोई आँकड़ा नहीं है, और हम अंदाज़ा नहीं लगाते।"
     },
     te: {
-      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "సంఖ్య తనిఖీ", nav_claim_m: "తనిఖీ", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", nav_dropoff: "దగ్గరి డ్రాప్-ఆఫ్", theme: "థీమ్", language: "భాష",
+      nav_home: "హోమ్", nav_map: "మ్యాప్", nav_claim: "సంఖ్య తనిఖీ", nav_claim_m: "తనిఖీ", nav_gaps: "తేడాలు", nav_city: "మీ నగరం", nav_city_m: "నగరం", nav_ask: "అడగండి", nav_explore: "అన్వేషించండి", nav_more: "మరిన్ని", nav_ward: "మీ వార్డు", nav_help: "సహాయం", nav_dropoff: "దగ్గరి డ్రాప్-ఆఫ్", theme: "థీమ్", signin: "సైన్ ఇన్", signedin: "సైన్ ఇన్ చేశారు", language: "భాష",
       kicker: "చెత్త లెక్కల పరిశీలన · భారతదేశం", h1: "చెత్తపై ఇచ్చిన ప్రతి హామీకి ఒక రసీదు ఉండాలి.", lede: "భారతదేశం ఎంత చెత్తను ప్రాసెస్ చేస్తోందనే దానిపై రెండు అధికారిక సంఖ్యలు ఒకదానితో ఒకటి సరిపోవడం లేదు. హామీని తనిఖీ చేయండి, ఆధారాన్ని తెరిచి చూడండి, మీ వీధిలో నిజమో కాదో చూడండి, ఆపై ఏదైనా చేయండి.",
       cta_explore: "డేటా చూడండి", cta_claim: "సంఖ్య తనిఖీ",
       what: "కచ్రా సత్య భారత చెత్తపై రెండు అధికారిక సంఖ్యలను పక్కపక్కన ఉంచి, ప్రతి సంఖ్య వెనుక ఉన్న మూల పేజీని చూపి, అన్నీ ఒకేసారి నిజం కాలేని సంఖ్యలను గుర్తిస్తుంది.",

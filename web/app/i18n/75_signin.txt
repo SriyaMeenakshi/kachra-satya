@@ -1,0 +1,46 @@
+; Header sign-in panel and the footer count. First draft written for the Hindi and Telugu layers: a native speaker should read these before wide use.
+; The header button's own words ("Sign in", "Signed in") are in i18n.js.
+
+= Sign in with Google
+Google से साइन इन करें
+Google తో సైన్ ఇన్ చేయండి
+
+= Optional. Signing in lets you add your ward taps to a shared total, and counts you once as a person who used this site.
+वैकल्पिक। साइन इन करने पर आप अपने वार्ड के टैप साझा जोड़ में जोड़ सकते हैं, और आपको इस साइट का उपयोग करने वाले एक व्यक्ति के रूप में एक बार गिना जाता है।
+ఐచ్ఛికం. సైన్ ఇన్ చేస్తే మీ వార్డు ట్యాప్‌లను ఉమ్మడి లెక్కలో చేర్చవచ్చు, మరియు ఈ సైట్‌ను ఉపయోగించిన ఒక వ్యక్తిగా మిమ్మల్ని ఒకసారి లెక్కిస్తారు.
+
+= We store only an anonymous code, never your name or email.
+हम केवल एक गुमनाम कोड रखते हैं, आपका नाम या ईमेल कभी नहीं।
+మేము ఒక అజ్ఞాత కోడ్‌ను మాత్రమే ఉంచుతాము; మీ పేరు లేదా ఈమెయిల్‌ను ఎప్పుడూ ఉంచం.
+
+= Everything else on this site works without signing in.
+साइन इन किए बिना भी इस साइट पर बाकी सब कुछ काम करता है।
+సైన్ ఇన్ చేయకుండానే ఈ సైట్‌లో మిగతా అన్నీ పనిచేస్తాయి.
+
+= Signed in as
+इस नाम से साइन इन:
+ఈ పేరుతో సైన్ ఇన్ అయ్యారు:
+
+= Open Your ward
+आपका वार्ड खोलें
+మీ వార్డు తెరవండి
+
+= Could not reach Google. Check your connection and try again.
+Google तक पहुँचा नहीं जा सका। अपना कनेक्शन जाँचकर फिर कोशिश करें।
+Google ని చేరుకోలేకపోయాం. మీ కనెక్షన్ చూసి మళ్లీ ప్రయత్నించండి.
+
+= # people have signed in with Google. This counts sign-ins, not visits, and uses anonymous codes.
+# लोगों ने Google से साइन इन किया है। यह साइन इन गिनता है, विज़िट नहीं, और गुमनाम कोड इस्तेमाल करता है।
+# మంది Google తో సైన్ ఇన్ చేశారు. ఇది సైన్ ఇన్‌లను లెక్కిస్తుంది, సందర్శనలను కాదు, అజ్ఞాత కోడ్‌లను వాడుతుంది.
+
+= # person has signed in with Google. This counts sign-ins, not visits, and uses anonymous codes.
+# व्यक्ति ने Google से साइन इन किया है। यह साइन इन गिनता है, विज़िट नहीं, और गुमनाम कोड इस्तेमाल करता है।
+# వ్యక్తి Google తో సైన్ ఇన్ చేశారు. ఇది సైన్ ఇన్‌లను లెక్కిస్తుంది, సందర్శనలను కాదు, అజ్ఞాత కోడ్‌లను వాడుతుంది.
+
+= The site also keeps that code and the day it first signed in, so it can say how many people have signed in. It counts sign-ins, not visits.
+साइट वही कोड और वह दिन भी रखती है जब उसने पहली बार साइन इन किया, ताकि वह बता सके कि कितने लोगों ने साइन इन किया है। यह साइन इन गिनता है, विज़िट नहीं।
+సైట్ ఆ కోడ్‌ను, అది మొదటిసారి సైన్ ఇన్ చేసిన రోజును కూడా ఉంచుతుంది, తద్వారా ఎంతమంది సైన్ ఇన్ చేశారో చెప్పగలదు. ఇది సైన్ ఇన్‌లను లెక్కిస్తుంది, సందర్శనలను కాదు.
+
+= You can delete everything you shared at any time. That also takes you out of the count.
+आप जो कुछ साझा करते हैं उसे कभी भी हटा सकते हैं। इससे आप गिनती से भी बाहर हो जाते हैं।
+మీరు పంచుకున్నదంతా ఎప్పుడైనా తొలగించవచ్చు. దీనివల్ల మీరు లెక్క నుండి కూడా బయటకు వస్తారు.
