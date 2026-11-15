@@ -62,7 +62,7 @@
     function modeSwitch() {      /* "My street" or "The numbers": changes what comes first, never how a page works (mode.js) */
       if (!root.KSMode) return "";
       return '<div class="op-mode"><span class="op-mode-l" id="op-mode-l">' + esc(T("md_label", "Show me first")) + '</span><div class="seg" role="group" aria-labelledby="op-mode-l">' +
-        [["street", T("md_street", "My street")], ["numbers", T("md_numbers", "The numbers")]].map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (root.KSMode.get() === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div></div>";
+        [["street", T("md_street", "My street")], ["numbers", T("md_numbers", "The numbers")]].map(function (m) { return '<button type="button" data-m="' + m[0] + '" aria-pressed="' + (root.KSMode.get() === m[0]) + '">' + esc(m[1]) + "</button>"; }).join("") + "</div>" + (root.KSTour ? root.KSTour.button("start") : "") + "</div>";
     }
     function streetPanel() {      /* the hero's right-hand side in "My street": the things a resident can do today */
       var mine = null; try { var wr2 = JSON.parse(localStorage.getItem("ks-ward-reports-v1") || "null"); var last = wr2 && Array.isArray(wr2.reports) && wr2.reports.length ? wr2.reports[wr2.reports.length - 1].ward : ""; var pp = String(last || "").split("~"); if (pp.length === 3) mine = { id: last, ward: pp[2], city: pp[1] }; } catch (e) { mine = null; }

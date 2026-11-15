@@ -68,6 +68,8 @@ The switch changes order only. Every page stays in the menu in both modes, and a
 | **Nearest drop-off** | `#/dropoff` | Where to take batteries, e-waste and recyclables (from OpenStreetMap, which is incomplete) |
 | **About** | `#/about` | How we check, the numbers behind the site, what we will not do, where the figures come from, the licence |
 
+Home, Check a claim and Your ward each have a **"Take a 1-minute tour"** button: a box around one part of the page with a short numbered note (seven steps on Your ward, the busiest page). It only starts when pressed.
+
 Features explained one by one: [docs/features.md](docs/features.md).
 
 ### The ward case file
@@ -146,7 +148,7 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
 - A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
-- **153 automated tests pass** (`python -m pytest -q tests`). Among other things they check that:
+- **159 automated tests pass** (`python -m pytest -q tests`). Among other things they check that:
   - the browser claim checker gives the same verdicts as the Python one;
   - the numbers on Home and Insights match the CSVs, and the lead case is the one the rule picks;
   - the case file never invents a part that has no data;
@@ -188,7 +190,7 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `receipts/` | Source page images and the index placing each figure on its page |
 | `briefs/` | One-page Action Briefs per state |
 | `docs/` | Methodology, features, sign-in, licences, track coverage, UI, deploy, demo script, submission checklist, user tests |
-| `tests/` | The 153 automated tests |
+| `tests/` | The 159 automated tests |
 
 ## Reply or report an error
 A state, city or department can reply to a figure, and anyone can report a mismatch with its source page, through the issue forms in `.github/ISSUE_TEMPLATE/`. We show replies beside the figure, never delete a published figure, and fix and log our own mistakes.
@@ -199,7 +201,7 @@ A state, city or department can reply to a figure, and anyone can report a misma
 - **Likhitha:** platform and design system, Q&A agent setup, deployment, demo and submission.
 
 ## Status (2026-11-14)
-In the repo and passing 153 tests: the data and checks, the app with both ways in, the lead case, the shareable claim receipt, question-led Insights, whole-site Hindi and Telugu, the ward case file, and sign-in with shared ward totals (off by default).
+In the repo and passing 159 tests: the data and checks, the app with both ways in, the lead case, the shareable claim receipt, question-led Insights, whole-site Hindi and Telugu, the ward case file, and sign-in with shared ward totals (off by default).
 
 Not done:
 - **No real person has used it.** There are 0 recorded user sessions ([docs/user_tests.md](docs/user_tests.md), [docs/impact_evidence.md](docs/impact_evidence.md)). The problem is documented from the sources; impact is not shown.

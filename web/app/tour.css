@@ -1,0 +1,27 @@
+/* The step-by-step tour (tour.js): a box around one part of the page and a note with Back / Next. Tokens from theme.css. No animation. */
+.tour-row{margin:0 0 var(--sp-3)}
+.tour-btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 18px;border:1.5px solid var(--forest-700);border-radius:var(--r-pill);background:transparent;color:var(--forest-700);font-family:var(--font);font-size:var(--t-sm);font-weight:600;cursor:pointer}
+.tour-btn span{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--forest-700);color:var(--ivory);font-size:.8rem;font-weight:800}
+.tour-btn:hover{background:var(--soft)}
+:root[data-theme="dark"] .tour-btn{border-color:var(--lime);color:var(--lime)}:root[data-theme="dark"] .tour-btn span{background:var(--lime);color:var(--forest-900)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .tour-btn{border-color:var(--lime);color:var(--lime)}:root:where(:not([data-theme="light"])) .tour-btn span{background:var(--lime);color:var(--forest-900)}}
+.op-mode .tour-btn{margin-left:auto}
+
+.tour-shade{position:fixed;inset:0;z-index:990;background:transparent}      /* stops clicks reaching the page behind the tour */
+.tour-hole{position:fixed;z-index:991;pointer-events:none;border:3px solid var(--lime,#BFE84F);border-radius:var(--r-2);box-shadow:0 0 0 100vmax rgba(5,15,11,.72),0 0 0 6px rgba(191,232,79,.28)}
+.tour-pop{position:fixed;z-index:992;box-sizing:border-box;width:min(440px,calc(100vw - 24px));max-height:calc(100vh - 24px);overflow:auto;padding:var(--sp-4) var(--sp-5);background:var(--card);color:var(--ink);border:2px solid var(--forest-700);border-radius:var(--r-2);box-shadow:0 18px 48px rgba(0,0,0,.45)}
+:root[data-theme="dark"] .tour-pop{border-color:var(--lime)}
+@media (prefers-color-scheme:dark){:root:where(:not([data-theme="light"])) .tour-pop{border-color:var(--lime)}}
+.tour-pop.dock{left:50%;bottom:calc(12px + env(safe-area-inset-bottom));top:auto;transform:translateX(-50%)}
+.tour-pop[hidden],.tour-shade[hidden],.tour-hole[hidden]{display:none}
+.tour-n{margin:0 0 2px;font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+:lang(hi) .tour-n,:lang(te) .tour-n{font-family:var(--font);letter-spacing:0;text-transform:none;font-size:var(--t-sm)}
+.tour-t{margin:0 0 6px;font-size:var(--t-lg);letter-spacing:-.02em}
+.tour-x{margin:0 0 var(--sp-3);color:var(--ink);line-height:1.5}
+.tour-acts{display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-2)}
+.tour-acts button{min-height:44px;padding:8px 18px}
+.tour-sp{flex:1}
+.tour-acts #tour-skip{border-color:transparent;color:var(--ink2);padding-left:0}
+.tour-pop :focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+body.tour-on{overflow-x:hidden}
+@media print{.tour-shade,.tour-hole,.tour-pop,.tour-row{display:none!important}}

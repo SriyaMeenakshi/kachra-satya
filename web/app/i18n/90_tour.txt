@@ -1,0 +1,153 @@
+; The step-by-step tour (tour.js).
+
+= Take a 1-minute tour
+# मिनट का दौरा करें
+# నిమిషం టూర్ చూడండి
+
+= Step # of #
+चरण #1 / #2
+#2లో #1వ దశ
+
+= Skip the tour
+दौरा छोड़ें
+టూర్ దాటవేయండి
+
+= Back
+पीछे
+వెనక్కి
+
+= Next
+आगे
+తరువాత
+
+= Done
+पूरा हुआ
+పూర్తయింది
+
+= Choose how to start
+शुरुआत का तरीक़ा चुनें
+ఎలా మొదలుపెట్టాలో ఎంచుకోండి
+
+= Pick My street if your garbage is not collected, or The numbers if you want to check an official figure. You can change this any time.
+कचरा नहीं उठ रहा तो "मेरी गली" चुनें, या किसी सरकारी आँकड़े को जाँचना हो तो "आँकड़े" चुनें। इसे कभी भी बदल सकते हैं।
+చెత్త తీసుకెళ్లకపోతే "మా వీధి" ఎంచుకోండి, లేదా అధికారిక సంఖ్యను తనిఖీ చేయాలంటే "సంఖ్యలు" ఎంచుకోండి. దీన్ని ఎప్పుడైనా మార్చవచ్చు.
+
+= Four doors
+चार दरवाज़े
+నాలుగు ద్వారాలు
+
+= Each door starts a short guided path, with the pages in the right order.
+हर दरवाज़ा एक छोटा निर्देशित रास्ता शुरू करता है, पन्ने सही क्रम में।
+ప్రతి ద్వారం ఒక చిన్న మార్గదర్శక దారిని మొదలుపెడుతుంది; పేజీలు సరైన క్రమంలో ఉంటాయి.
+
+= The map
+नक्शा
+మ్యాప్
+
+= Tap a state to see both official figures for it and the page each one is printed on.
+किसी राज्य पर टैप करें और उसके दोनों सरकारी आँकड़े और हर आँकड़े का छपा पन्ना देखें।
+ఒక రాష్ట్రంపై ట్యాప్ చేసి దాని రెండు అధికారిక సంఖ్యలు, ప్రతి సంఖ్య ముద్రించిన పేజీ చూడండి.
+
+= On your street
+आपकी गली में
+మీ వీధిలో
+
+= Things you can do today: tap whether the truck came, write a complaint, make a case file.
+आज आप ये कर सकते हैं: गाड़ी आई या नहीं टैप करें, शिकायत लिखें, केस फ़ाइल बनाएँ।
+ఈ రోజు మీరు చేయగలిగేవి: బండి వచ్చిందో లేదో ట్యాప్ చేయండి, ఫిర్యాదు రాయండి, కేసు ఫైల్ తయారు చేయండి.
+
+= The loop
+चक्र
+వలయం
+
+= Every page is one stop on a loop: Promise, Proof, Reality, Action. Each page says which stop you are on.
+हर पन्ना एक चक्र का पड़ाव है: वादा, सबूत, हक़ीक़त, कार्रवाई। हर पन्ना बताता है कि आप किस पड़ाव पर हैं।
+ప్రతి పేజీ ఒక వలయంలో ఒక మజిలీ: హామీ, ఆధారం, వాస్తవం, చర్య. మీరు ఏ మజిలీలో ఉన్నారో ప్రతి పేజీ చెబుతుంది.
+
+= Type a claim
+कोई दावा लिखें
+ఒక మాట టైప్ చేయండి
+
+= Paste or type a number someone quoted, for example: 81% of India's urban waste is processed.
+किसी का बताया आँकड़ा चिपकाएँ या लिखें, जैसे: #% of India's urban waste is processed.
+ఎవరో చెప్పిన సంఖ్యను పేస్ట్ చేయండి లేదా టైప్ చేయండి, ఉదా: #% of India's urban waste is processed.
+
+= Or try an example
+या कोई उदाहरण आज़माएँ
+లేదా ఒక ఉదాహరణ ప్రయత్నించండి
+
+= Tap one of these to see how the checker answers.
+इनमें से किसी पर टैप करें और देखें कि जाँच क्या जवाब देती है।
+వీటిలో ఒకదానిపై ట్యాప్ చేసి తనిఖీ ఏం చెబుతుందో చూడండి.
+
+= The result
+नतीजा
+ఫలితం
+
+= We show which sources agree. When they disagree we say so and never pick a winner.
+हम दिखाते हैं कि कौन-से स्रोत सहमत हैं। जहाँ सहमत नहीं, वही कहते हैं और किसी को सही नहीं ठहराते।
+ఏ మూలాలు ఏకీభవిస్తున్నాయో చూపిస్తాం. ఏకీభవించని చోట అదే చెబుతాం; ఏది సరైనదో తేల్చం.
+
+= Take it with you
+इसे साथ ले जाएँ
+దీన్ని వెంట తీసుకెళ్లండి
+
+= Copy the result as text, send it on WhatsApp, or copy a link that reopens this check.
+नतीजा पाठ के रूप में कॉपी करें, WhatsApp पर भेजें, या वह लिंक कॉपी करें जो इस जाँच को दोबारा खोलता है।
+ఫలితాన్ని పాఠంగా కాపీ చేయండి, WhatsAppలో పంపండి, లేదా ఈ తనిఖీని మళ్లీ తెరిచే లింక్ కాపీ చేయండి.
+
+= Tap whether the truck came
+टैप करें कि गाड़ी आई या नहीं
+బండి వచ్చిందో లేదో ట్యాప్ చేయండి
+
+= Each day, press the tick if the truck came or the cross if it did not. You can fill in the last 7 days.
+हर दिन, गाड़ी आई तो सही का निशान दबाएँ, नहीं आई तो क्रॉस। पिछले # दिन भर सकते हैं।
+ప్రతి రోజు, బండి వస్తే టిక్ నొక్కండి, రాకపోతే క్రాస్ నొక్కండి. గత # రోజులను నింపవచ్చు.
+
+= Your calendar
+आपका कैलेंडर
+మీ క్యాలెండర్
+
+= Every tap becomes a square. Days with no tap stay blank: they are unknown, not counted as missed.
+हर टैप एक ख़ाना बन जाता है। जिन दिनों टैप नहीं हुआ, वे ख़ाली रहते हैं: वे अज्ञात हैं, "नहीं आई" नहीं गिने जाते।
+ప్రతి ట్యాప్ ఒక గడి అవుతుంది. ట్యాప్ లేని రోజులు ఖాళీగా ఉంటాయి: అవి తెలియనివి, "రాలేదు"గా లెక్కించం.
+
+= Your ward's shared total
+आपके वार्ड का साझा जोड़
+మీ వార్డు ఉమ్మడి లెక్క
+
+= When sharing is switched on, you can sign in with Google and add your taps to the ward's total, so neighbours count together. Nothing is sent until you press Turn on sharing.
+साझा करना चालू होने पर आप Google से साइन इन करके अपने टैप वार्ड के जोड़ में जोड़ सकते हैं, ताकि पड़ोसी साथ गिने जाएँ। "साझा करना चालू करें" दबाने तक कुछ भी नहीं भेजा जाता।
+పంచుకోవడం ప్రారంభమైనప్పుడు మీరు Googleతో సైన్ ఇన్ చేసి మీ ట్యాప్‌లను వార్డు లెక్కలో చేర్చవచ్చు; అప్పుడు పొరుగువారూ కలిసి లెక్కలోకి వస్తారు. "పంచుకోవడం ప్రారంభించండి" నొక్కే వరకు ఏదీ పంపబడదు.
+
+= The case file
+केस फ़ाइल
+కేసు ఫైల్
+
+= After a few days this writes one page for a councillor, a ward officer or a reporter. Copy it, send it on WhatsApp or print it. We write it; you send it.
+कुछ दिनों बाद यह पार्षद, वार्ड अधिकारी या पत्रकार के लिए एक पन्ना लिख देता है। इसे कॉपी करें, WhatsApp पर भेजें या प्रिंट करें। हम लिखते हैं; भेजते आप हैं।
+కొన్ని రోజుల తర్వాత ఇది కౌన్సిలర్, వార్డు అధికారి లేదా విలేకరి కోసం ఒక పేజీ రాస్తుంది. దాన్ని కాపీ చేయండి, WhatsAppలో పంపండి లేదా ప్రింట్ చేయండి. మేము రాస్తాం; పంపేది మీరే.
+
+= Official figures, for context
+संदर्भ के लिए सरकारी आँकड़े
+సందర్భం కోసం అధికారిక సంఖ్యలు
+
+= This is what the government reports for your state, with the page it is printed on. It describes the state, not your ward.
+यह वह है जो सरकार आपके राज्य के लिए दर्ज करती है, उस पन्ने के साथ जहाँ यह छपा है। यह राज्य के बारे में है, आपके वार्ड के बारे में नहीं।
+మీ రాష్ట్రానికి ప్రభుత్వం నివేదించినది ఇది, అది ముద్రించిన పేజీతో సహా. ఇది రాష్ట్రం గురించి, మీ వార్డు గురించి కాదు.
+
+= QR code for the ward
+वार्ड का QR कोड
+వార్డు QR కోడ్
+
+= Print this and put it on a bin or a truck, so neighbours can open this ward page by scanning it.
+इसे प्रिंट करके डिब्बे या गाड़ी पर लगाएँ, ताकि पड़ोसी स्कैन करके यह वार्ड पन्ना खोल सकें।
+దీన్ని ప్రింట్ చేసి డబ్బాపై లేదా బండిపై అతికించండి; పొరుగువారు స్కాన్ చేసి ఈ వార్డు పేజీ తెరవగలరు.
+
+= Your data stays yours
+आपका डेटा आपका ही रहता है
+మీ డేటా మీదే
+
+= Download your taps as a spreadsheet, or delete them from this device.
+अपने टैप स्प्रेडशीट के रूप में डाउनलोड करें, या इस डिवाइस से हटा दें।
+మీ ట్యాప్‌లను స్ప్రెడ్‌షీట్‌గా డౌన్‌లోడ్ చేయండి, లేదా ఈ పరికరం నుంచి తొలగించండి.

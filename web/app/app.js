@@ -65,6 +65,7 @@
     if (hh && PG[r.name] && hh.parentNode === view && !hh.querySelector(".pg-ic")) hh.insertAdjacentHTML("afterbegin", '<svg class="pg-ic" aria-hidden="true"><use href="#' + PG[r.name] + '"/></svg>');
     /* where this page sits in the loop (Promise, Proof, Reality, Action) and the next stop: loop.js */
     if (window.KSLoop && r.name !== "start") { var lb = KSLoop.bar(r.name), ref = hh; if (lb) { if (ref && ref.parentNode === view) { if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("sub")) ref = ref.nextElementSibling; if (ref.nextElementSibling && ref.nextElementSibling.classList.contains("lang-note")) ref = ref.nextElementSibling; ref.insertAdjacentHTML("afterend", lb); } else view.insertAdjacentHTML("afterbegin", lb); } }
+    if (window.KSTour && r.name !== "start") KSTour.mount(r.name, view);      /* "Take a 1-minute tour" under the heading of Check a claim and Your ward (Home puts its own in the mode row) */
     if (!(r.name === "map" && r.args[0])) { window.scrollTo(0, 0); view.focus({ preventScroll: true }); }
   }
   window.addEventListener("hashchange", go);
