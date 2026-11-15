@@ -130,6 +130,8 @@ The header has one button. Signed out it says **Join**; it opens a page with a G
 | **Spam guards** | A hidden trap field and a per-connection limit (`SIGNUPS_PER_HOUR`, default 6) |
 | **Team dashboard** | `#/team`, behind an admin key typed in (never stored in the browser): how many joined and signed in, by role, state and language, the latest sign-ups, and a CSV download. Formulas typed into a name are neutralised in the CSV |
 
+More detail, endpoints, settings and limits: [docs/join_and_dashboard.md](docs/join_and_dashboard.md).
+
 ### Ask answers in your language
 The language chosen on the Ask page is sent to the AI model, so an answer to a Hindi, Tamil or Telugu question can come back in that language whatever language the question was typed in. Numbers, state and city names and document titles are kept exactly as they are in the data.
 

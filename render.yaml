@@ -22,5 +22,7 @@ services:
         sync: false
       - key: KS_SECRET               # signs sessions and salts the anonymous ids; Render makes one
         generateValue: true
-      - key: DATABASE_URL            # PostgreSQL connection string; the free web service's own disk is wiped on every deploy
+      - key: DATABASE_URL            # PostgreSQL connection string (Neon); the free web service's own disk is wiped on every deploy
+        sync: false
+      - key: KS_ADMIN_KEY            # opens the team dashboard and the sign-up CSV; set it by hand in Render, never in the repo
         sync: false

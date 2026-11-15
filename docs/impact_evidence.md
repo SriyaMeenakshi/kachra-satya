@@ -3,7 +3,7 @@
 Written 2026-11-12. This page keeps two things apart on purpose, because mixing them is how projects overclaim.
 
 1. **Evidence of the problem.** What the published documents we hold show about the waste figures. This is real, sourced, and checkable now.
-2. **Evidence of impact.** Whether people used the tool and whether it helped them. **We have none yet.** There are 0 recorded user sessions (`data/user_tests.csv` does not exist yet; the template is `data/user_tests_template.csv`). Nothing below is a user result.
+2. **Evidence of impact.** Whether people used the tool and whether it helped them. **Updated 2026-11-15:** the team reports about 35 people have tried the app, including on phones, and 15 people had joined with details when the dashboard was last read. That shows people came; it does not show the app helped anyone. There are still 0 recorded user sessions (`data/user_tests.csv` does not exist yet; the template is `data/user_tests_template.csv`), so no completion rate or satisfaction figure can be claimed. Nothing below is a user result.
 
 ## 1. Evidence of the problem (from the documents in `data/raw/`)
 Every line is computed from the data in this repo and opens on its source page in the app.

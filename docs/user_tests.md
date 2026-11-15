@@ -1,6 +1,6 @@
 # User tests: 20 to 30 people, reported honestly
 
-**Status: 0 sessions done.** Nothing in this file is a result. The count comes from `data/user_tests.csv`; run `python scripts/user_tests_summary.py` to see it. If we reach fewer than 20 sessions, we say the real number.
+**Status (2026-11-15): 0 sessions recorded in `data/user_tests.csv`; the team reports about 35 people have tried the app, including on phones.** The per-session notes were not entered, so nothing in this file is a measured result. Enter the notes (group label, tasks finished alone, hints needed, where they got stuck) before quoting any rate. Until then say "about 35 people tried it". The count comes from `data/user_tests.csv`; run `python scripts/user_tests_summary.py` to see it. If we reach fewer than 20 sessions, we say the real number.
 
 What this is: a short usability check of the deployed app with people who did not build it. It is **not** a field pilot and does not show impact. We say that plainly in the README and the video.
 

@@ -38,3 +38,6 @@ GOOGLE_CLIENT_ID=
 KS_SECRET=
 # PostgreSQL connection string. If empty, a SQLite file is used (KS_DB_PATH, default agent/ward_reports.sqlite): fine locally, lost on every deploy on a free host.
 DATABASE_URL=
+# The Join page and team dashboard (docs/join_and_dashboard.md). KS_ADMIN_KEY opens the dashboard and the CSV; empty means they stay closed. Use a long random value.
+KS_ADMIN_KEY=
+# SIGNUPS_PER_HOUR=6

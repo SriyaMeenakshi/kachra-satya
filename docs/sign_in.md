@@ -37,12 +37,14 @@ It is off unless both `GOOGLE_CLIENT_ID` and `KS_SECRET` are set on the server.
 Writes are limited to 30 a minute per person (`WARD_WRITES_PER_MIN`).
 
 ## Limits to say out loud
-- Not run against a real Google client or a real PostgreSQL database yet: the tests use a stand-in for Google's check and a SQLite file.
+- Run for real since 2026-11-15 by the team with a Google client and Neon PostgreSQL (15 people had signed in when last read). Many people at once has not been tried; the automated tests still use a stand-in for Google and a SQLite file.
+- The separate Join list (names and emails, with consent) is described in [join_and_dashboard.md](join_and_dashboard.md). This page's "no name or email" promise is about the ward store only.
 - One Google account is one person as far as the count goes. Someone with two accounts counts twice.
 - Ward names are free text, so two spellings of one ward are two wards.
 - A total is a signal for a question to the municipality, not proof.
 
 ## Go or no-go (before the code freeze)
+*Done: sign-in has been on since 2026-11-15 (see the limits above). Kept below as the checklist it was run from.*
 Switch sign-in on in the live site only if every line below has been done and seen with real accounts. Otherwise leave `GOOGLE_CLIENT_ID` empty: the page then says sign-in is not switched on, which is true and costs nothing. As of 2026-11-14 the live `/api/config` returns `signIn: false`, and the ten tests in `tests/test_accounts.py` pass (they use a stand-in for Google and a SQLite file).
 1. **Google client.** In Google Cloud console, create an OAuth client of type "Web application", with `https://kachra-satya.onrender.com` as an authorised JavaScript origin.
 2. **Consent screen.** Check whether the app is in "Testing" mode. If it is, only the test users you list can sign in; add the team and your testers, or publish it. Check Google's current wording and limits.

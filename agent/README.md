@@ -53,5 +53,5 @@ Notes
 If you want changes, tell me which piece to adjust.
 
 ## Sign-in and the shared ward store
-`accounts.py` adds sign-in with Google and the shared ward totals to this same server. It is registered from `app.py` and is off unless `GOOGLE_CLIENT_ID` and `KS_SECRET` are set. Routes: `GET /api/config`, `POST /api/signin`, `POST /api/ward/report`, `GET /api/ward/summary`, `DELETE /api/me`. It stores an anonymous code, the ward, the day and the answer, and no name or email. Database: `DATABASE_URL` (PostgreSQL) or a local SQLite file. See `docs/sign_in.md` and `tests/test_accounts.py`.
+`accounts.py` adds sign-in with Google and the shared ward totals to this same server. It is registered from `app.py` and is off unless `GOOGLE_CLIENT_ID` and `KS_SECRET` are set. Routes: `GET /api/config`, `POST /api/signin`, `POST /api/ward/report`, `GET /api/ward/summary`, `DELETE /api/me`, and the Join routes `POST /api/signup`, `GET /api/signup/count`, `GET /api/signups` (admin key) and `GET`, `PUT`, `DELETE /api/me/profile` ([../docs/join_and_dashboard.md](../docs/join_and_dashboard.md)). It stores an anonymous code, the ward, the day and the answer, and no name or email. Database: `DATABASE_URL` (PostgreSQL) or a local SQLite file. See `docs/sign_in.md` and `tests/test_accounts.py`.
 

@@ -1,0 +1,22 @@
+Kachra Satya: voiceover script (1:30)
+
+1. HOOK  0:00-0:16
+India's housing ministry says 81% of its municipal waste is processed. The pollution control board's figures show 61.6% treated. Both are official.
+
+2. GAP  0:16-0:30
+They are different years, and 'processed' may not mean 'treated'. Nobody checks them against each other. So we built Kachra Satya: every waste promise deserves a receipt.
+
+3. PROMISE  0:30-0:41
+Paste a claim. You get the figure from each source, what it means and the evidence, and never a flat true or false when sources disagree.
+
+4. PROOF  0:41-0:54
+Every figure opens on the page it was printed on. Six consistency rules raised 72 flags, such as Kerala reporting more waste treated than collected in four years.
+
+5. REALITY  0:54-1:06
+A resident whose truck does not come taps a day on their ward calendar. Their record becomes a one-page case file, set beside the state's official figure.
+
+6. ACTION  1:06-1:17
+The app drafts the complaint and the letter. You send them. The whole site works in English, Hindi and Telugu.
+
+7. CLOSE  1:17-1:30
+The figures are self-reported by states and boards: we check extraction and consistency, not correctness. Live at kachra-satya.onrender.com.
