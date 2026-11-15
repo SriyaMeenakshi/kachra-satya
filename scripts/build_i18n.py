@@ -64,7 +64,11 @@ def main():
     with open(OUT, "w", encoding="utf-8", newline="") as f:
         f.write("/* Built by scripts/build_i18n.py from web/app/i18n/*.txt. Do not edit by hand. English text -> [Hindi, Telugu]. */\n")
         f.write("if (window.KSDom) window.KSDom.add(" + body + ");\n")
-    print("wrote %s: %d entries" % (os.path.relpath(OUT, ROOT), len(entries)))
+    try:
+        shown = os.path.relpath(OUT, ROOT)
+    except ValueError:                      # Windows: the output folder is on another drive than the repo (for example a temp folder on C:)
+        shown = OUT
+    print("wrote %s: %d entries" % (shown, len(entries)))
 
 
 if __name__ == "__main__":

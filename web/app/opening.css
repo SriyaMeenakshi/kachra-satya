@@ -244,3 +244,9 @@
 .op-lead-c .sm{font-size:var(--t-sm);color:var(--ink2);line-height:1.5}
 .op-lead-vs{align-self:center;font-size:2rem;font-weight:800;color:var(--ink2)}
 .op-lead-note{margin:var(--sp-2) 0 0;color:var(--ink2);font-size:var(--t-sm);max-width:70ch}
+
+/* the "check it before you repeat it" line at the top of Home (both modes) */
+.op-nudge{margin:0 0 var(--sp-3)}
+.op-nudge a{display:flex;align-items:center;gap:var(--sp-3);min-height:44px;padding:10px var(--sp-4);border:1px solid var(--hair);border-radius:var(--r-2);background:var(--soft);color:var(--ink);font-size:var(--t-sm);font-weight:600;text-decoration:none}
+.op-nudge a::after{content:"→";margin-left:auto;font-weight:700;color:var(--accent)}
+.op-nudge a:hover{border-color:var(--accent)}

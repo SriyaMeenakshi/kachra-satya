@@ -16,6 +16,7 @@ body.mode-street #op-mapbox{display:none}
 
 /* Home: in "My street" the walk-through and the idea come before the national figures */
 body.mode-street .op{display:flex;flex-direction:column}
+body.mode-street .op>.op-nudge{order:-1}                /* the "check it before you repeat it" line stays the first thing on Home in this mode too */
 body.mode-street .op>.op-stage{order:0}
 body.mode-street .op>.demo{order:1}
 body.mode-street .op>.loop-strip{order:2}

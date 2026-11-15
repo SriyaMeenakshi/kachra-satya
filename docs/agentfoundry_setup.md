@@ -33,7 +33,7 @@ The tools are plain reads of `waste_clean.csv`, `national_stated.csv`, `flags.cs
 If AgentFoundry cannot call Python tools, upload those four CSVs as the agent's only knowledge source and keep the system prompt unchanged.
 
 ## Acceptance questions (check each answer against the CSV)
-1. English: Kerala treated vs collected. Expect the three rule-6 flags (2019-20 to 2021-22).
+1. English: Kerala treated vs collected. Expect the four rule-6 flags (2019-20 to 2022-23).
 2. Hindi: Bihar treated waste 2019-20. Expect "not reported" and the note.
 3. Tamil: Tamil Nadu generated 2023-24 with source and page.
 4. Telugu: which states have the largest CPCB vs MoHUA gap. Expect the different-years caveat.
