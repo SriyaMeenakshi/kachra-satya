@@ -205,3 +205,4 @@ h3{margin:22px 0 4px}
 .rti-l{font-size:var(--t-sm);font-weight:600}.rti-acts{display:flex;flex-wrap:wrap;gap:var(--sp-2);align-items:center}
 .rti-acts a,.rti-acts button{min-height:44px;padding:8px 18px}.rti-acts a{display:inline-flex;align-items:center;text-decoration:none}
 @media print{.rti-panel .rti-acts{display:none}}
+.maplink{font-size:var(--t-sm);white-space:nowrap}

@@ -268,12 +268,15 @@
     if (sel && document.activeElement === document.body) { var t = el.querySelector('[data-s="' + sel + '"]'); if (t) t.focus({ preventScroll: true }); }
   }
 
+  /* a map search for a dump near the city, opened only when a person presses the link; the list names cities, not coordinates, so this is a pointer and not a location */
+  function areaLink(r) { var city = String(r.ulb || "").replace(/\s*\([^)]*\)/g, "").replace(/\s+/g, " ").trim(); return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("garbage dump near " + city + ", " + (r.state || "") + ", India"); }
   function dumpBlock(s) {
     var rows = (KS.dumpsites || []).filter(function (r) { return r.state === s && r.ulb; });
     if (!rows.length) return RESERVED[s] ? '<h3>Priority dumpsites</h3><p class="note">The MoHUA annexure prints ' + esc(s) + ' as Reserved, with no figures. <a href="#/gaps/landfill">What that means</a></p>' : '<h3>Priority dumpsites</h3><p class="note">None listed for ' + esc(s) + ' in the MoHUA annexure of the 214 highest-impact dumpsites. <a href="#/gaps/landfill">Landfill and dumpsites</a></p>';
     var sites = rows.reduce(function (a, r) { return a + (r.dumpsites || 0); }, 0);
     return '<h3>Priority dumpsites</h3><p class="note" style="margin-top:0">' + sites + " dumpsite" + (sites === 1 ? "" : "s") + " in " + rows.length + " urban local bod" + (rows.length === 1 ? "y" : "ies") + ", from the MoHUA DRAP annexure (" + esc(dn(rows[0].source_doc)) + ', pages 6 to 9). Legacy waste in tonnes, as printed.</p><div class="tw"><table><tbody>' +
-      rows.slice().sort(function (a, b) { return (b.legacy_waste_tonnes || 0) - (a.legacy_waste_tonnes || 0); }).slice(0, 6).map(function (r) { return "<tr><td>" + esc(r.ulb) + '</td><td class="num">' + fmt(r.legacy_waste_tonnes) + "</td></tr>"; }).join("") + "</tbody></table></div>" +
+      rows.slice().sort(function (a, b) { return (b.legacy_waste_tonnes || 0) - (a.legacy_waste_tonnes || 0); }).slice(0, 6).map(function (r) { return "<tr><td>" + esc(r.ulb) + '</td><td class="num">' + fmt(r.legacy_waste_tonnes) + '</td><td><a class="maplink" href="' + esc(areaLink(r)) + '" target="_blank" rel="noopener noreferrer">Open the area on a map</a></td></tr>'; }).join("") + "</tbody></table></div>" +
+      '<p class="note">The link searches a public map for a dump near the city. The MoHUA list gives no coordinates for the site itself, so check the place on the map before relying on it. Nothing is sent until you press a link.</p>' +
       (rows.length > 6 ? '<p class="note">' + (rows.length - 6) + ' more in <a href="#/gaps/landfill">the Landfill tab</a>.</p>' : '<p class="note"><a href="#/gaps/landfill">Landfill and dumpsites</a></p>');
   }
 

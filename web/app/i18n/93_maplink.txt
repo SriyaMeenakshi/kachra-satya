@@ -1,0 +1,9 @@
+; The map pointer under each priority dumpsite (app.js, areaLink).
+
+= Open the area on a map
+क्षेत्र को नक्शे पर खोलें
+ప్రాంతాన్ని మ్యాప్‌లో తెరవండి
+
+= The link searches a public map for a dump near the city. The MoHUA list gives no coordinates for the site itself, so check the place on the map before relying on it. Nothing is sent until you press a link.
+यह लिंक एक सार्वजनिक नक्शे पर शहर के पास कचरे के ढेर को खोजता है। MoHUA की सूची में स्थल के निर्देशांक नहीं हैं, इसलिए भरोसा करने से पहले नक्शे पर जगह जाँच लें। आप लिंक दबाएँ, तब तक कुछ भी नहीं भेजा जाता।
+ఈ లింక్ ఒక పబ్లిక్ మ్యాప్‌లో నగరం దగ్గర చెత్త కుప్ప కోసం వెతుకుతుంది. MoHUA జాబితాలో స్థలానికి కోఆర్డినేట్లు లేవు, కాబట్టి నమ్మే ముందు మ్యాప్‌లో స్థలాన్ని సరిచూడండి. మీరు లింక్ నొక్కే వరకు ఏదీ పంపబడదు.
