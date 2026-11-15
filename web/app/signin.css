@@ -16,8 +16,8 @@
 .signin-pop .si-l a{font-weight:600}
 .signed-count{margin:var(--sp-3) 0 0;color:var(--ink2);font-size:var(--t-xs)}
 .signed-count[hidden]{display:none}
-/* narrow screens: keep brand, language, theme and sign-in on one row by showing only the icon */
-@media (max-width:520px){
+/* below 1200px the header has no room for the word: keep brand, tabs, language, theme and sign-in on one row by showing only the icon */
+@media (max-width:1199px){
   #signin .si-t{display:none}
   #signin{padding:8px 10px}
 }
