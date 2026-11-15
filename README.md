@@ -1,10 +1,54 @@
+<p align="center">
+  <a href="https://kachra-satya.onrender.com"><img src="docs/assets/banner.svg" alt="Kachra Satya: every waste promise deserves a receipt" width="100%"></a>
+</p>
+
+<p align="center">
+  <a href="https://kachra-satya.onrender.com"><img alt="Live site" src="https://img.shields.io/badge/live-kachra--satya.onrender.com-BFE84F?style=for-the-badge&labelColor=0E2A20"></a>
+  <img alt="Code for a Billion, Waste Management track" src="https://img.shields.io/badge/Code%20for%20a%20Billion-Waste%20Management-E4795B?style=for-the-badge&labelColor=0E2A20">
+</p>
+
+<p align="center">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-191%20passing-2E7D32?style=flat-square">
+  <img alt="Python 3.12" src="https://img.shields.io/badge/python-3.12-3776AB?style=flat-square&logo=python&logoColor=white">
+  <img alt="Flask" src="https://img.shields.io/badge/server-Flask-000000?style=flat-square&logo=flask&logoColor=white">
+  <img alt="Database" src="https://img.shields.io/badge/database-Neon%20PostgreSQL-00E599?style=flat-square&logo=postgresql&logoColor=white">
+  <img alt="Hosted on Render" src="https://img.shields.io/badge/hosted%20on-Render-46E3B7?style=flat-square">
+  <img alt="Languages" src="https://img.shields.io/badge/languages-EN%20%C2%B7%20HI%20%C2%B7%20TE%20%C2%B7%20TA-0E2A20?style=flat-square">
+  <img alt="Data" src="https://img.shields.io/badge/data-676%20rows%20%C2%B7%2036%20states%20%26%20UTs-0E2A20?style=flat-square">
+  <img alt="Ward store keeps no names or emails" src="https://img.shields.io/badge/ward%20store-no%20names%20or%20emails-0E2A20?style=flat-square">
+  <a href="LICENSE"><img alt="MIT licence" src="https://img.shields.io/badge/licence-MIT-blue?style=flat-square"></a>
+</p>
+
+<p align="center">
+  <a href="https://kachra-satya.onrender.com"><b>Live site</b></a> &middot;
+  <a href="#what-it-does">What it does</a> &middot;
+  <a href="#join-your-profile-and-the-team-dashboard">Join and profile</a> &middot;
+  <a href="#run-it">Run it</a> &middot;
+  <a href="#how-we-know-it-is-right">How we know it is right</a> &middot;
+  <a href="#limits-and-honesty">Limits</a> &middot;
+  <a href="docs/features.md">Features</a>
+</p>
+
+---
+
 # Kachra Satya
 
 **Every waste promise deserves a receipt.**
 
 Kachra Satya does two jobs. It helps a resident whose garbage is not collected keep a record and get heard. And it lets anyone check an official waste figure against the other official figures, on the page each one was printed on.
 
-Built for the Code for a Billion hackathon, Waste Management track (submissions close 15 Nov 2026). Live at https://kachra-satya.onrender.com.
+Built for the **Code for a Billion** hackathon, **Waste Management** track (submissions close 15 Nov 2026). Live at https://kachra-satya.onrender.com.
+
+### At a glance
+| | |
+|---|---|
+| **Data** | 676 rows, 36 states and UTs, 2019-20 to 2025-26, each row with its source document, page and retrieval date |
+| **Receipts** | 696 of 706 figures open on the source page; for 605 the number itself is boxed |
+| **Checks** | 72 flags from six consistency rules; 191 automated tests |
+| **Languages** | English, Hindi, Telugu across the whole site; Tamil in Ask and the bin guide |
+| **Ways in** | *The numbers* (check a figure) and *My street* (garbage not collected), switched on Home |
+| **People** | About 35 people have tried it, by the team's count, including on phones |
+| **Privacy** | The ward store keeps an anonymous code, never a name or email. The optional Join list is separate and consent-based |
 
 *Kachra satya* means "the truth about garbage".
 
@@ -30,7 +74,7 @@ Meanwhile a resident whose truck does not come has nothing to show for it. A pho
 | **An MP, MLA, councillor or reporter** | Get a state's figures in plain words | A state card and a one-page briefing with sourced questions |
 | **A school** | Run a waste project with a result | A one-week weighing challenge that ends in a report card |
 
-It does not collect garbage. It helps a person be heard; whether the municipality acts is outside the app. No real resident has used it yet (see Status).
+It does not collect garbage. It helps a person be heard; whether the municipality acts is outside the app. About 35 people have tried it so far (see Status).
 
 ## The idea in one loop
 Every page is one stop on the same loop, and each page says which one.
@@ -66,20 +110,37 @@ The switch changes order only. Every page stays in the menu in both modes, and a
 | **Briefing** | `#/brief` | A shareable plain-words card per state and a one-page briefing for an MP, MLA or councillor |
 | **Schools** | `#/school` | Weigh a week of waste and get a report card |
 | **Nearest drop-off** | `#/dropoff` | Where to take batteries, e-waste and recyclables (from OpenStreetMap, which is incomplete) |
+| **Join** | `#/join` | One page to sign in with Google and give a few details, so the team can count its users and write back. Optional. Afterwards the header button shows your name and opens **My details** |
+| **My details** | `#/me` | A signed-in person sees and edits what they gave on Join, signs out, or deletes it |
 | **About** | `#/about` | How we check, the numbers behind the site, what we will not do, where the figures come from, the licence |
 
 Home, Check a claim and Your ward each have a **"Take a 1-minute tour"** button: a box around one part of the page with a short numbered note (seven steps on Your ward, the busiest page). It only starts when pressed.
 
 Features explained one by one: [docs/features.md](docs/features.md).
 
+### Join, your profile and the team dashboard
+The header has one button. Signed out it says **Join**; it opens a page with a Google button at the top, an "or", and a short form (name, email, role, state, city or ward, language, how you heard about us, and a consent box). When it is submitted the person lands on Home and the header button shows their first name instead of Join; pressing it opens **My details**, where they can change their details, sign out or delete them.
+
+| | |
+|---|---|
+| **With Google** | The server checks Google's token and keeps the email Google vouches for, so the email cannot be faked. Signing in again later finds the same entry |
+| **By hand** | Works too, but the entry can be edited only after the person signs in with the same Google email |
+| **Consent** | A required tick box says what is kept and why. Nothing is sent until Join is pressed |
+| **Kept apart** | The Join list holds contact details; the ward store holds none. The two are never joined, and deleting your details leaves your ward taps alone |
+| **Spam guards** | A hidden trap field and a per-connection limit (`SIGNUPS_PER_HOUR`, default 6) |
+| **Team dashboard** | `#/team`, behind an admin key typed in (never stored in the browser): how many joined and signed in, by role, state and language, the latest sign-ups, and a CSV download. Formulas typed into a name are neutralised in the CSV |
+
+### Ask answers in your language
+The language chosen on the Ask page is sent to the AI model, so an answer to a Hindi, Tamil or Telugu question can come back in that language whatever language the question was typed in. Numbers, state and city names and document titles are kept exactly as they are in the data.
+
 ### The ward case file
 One page written from what a resident already has: what happened (their truck record, with the missed dates), who else says so (the ward's shared total), what was done (complaints in their log), what the official figures say (with document and page), and what is asked. It can be copied, sent on WhatsApp or printed. A part with no data says so. The site writes it and never sends it.
 
 ### Sign-in and the shared ward total
-Off unless the server is given a Google client ID and a database. A resident who signs in adds their taps to a total everyone sees for that ward. The server stores an anonymous code, the ward, the day and the answer, and **no name or email**. Nothing is sent, and Google's script is not loaded, until the person presses "Turn on sharing". They can sign out or delete everything they shared. Set-up and limits: [docs/sign_in.md](docs/sign_in.md).
+Off unless the server is given a Google client ID and a database. A resident who signs in adds their taps to a total everyone sees for that ward. The server stores an anonymous code, the ward, the day and the answer, and **no name or email**. Nothing is sent, and Google's script is not loaded, until the person presses "Turn on sharing". They can sign out or delete everything they shared. The team has used real Google sign-in on the live site, against the Neon database. Set-up and limits: [docs/sign_in.md](docs/sign_in.md).
 
 ### Languages
-English, Hindi and Telugu, switched in the header. The whole site changes: menus, headings, buttons, notes and forms. Figures, state names, document names, anything a person types and the drafted letters are never translated. Pages measure 71% to 100% translated in the browser; the rest is text that comes straight from the data files. The translations are in `web/app/i18n/*.txt` and were read through by two team members on 2026-11-15, one per language: the Hindi by Yasaswini and the Telugu by Sriya, who found them good. That is a read by teammates, not an independent or professional review. The Tamil in the bin guide and in Ask answers has not been read by anyone.
+English, Hindi and Telugu, switched in the header. The whole site changes: menus, headings, buttons, notes and forms. Figures, state names, document names, anything a person types and the drafted letters are never translated. Pages measure 71% to 100% translated in the browser; the rest is text that comes straight from the data files. The translations are in `web/app/i18n/*.txt` and were read through by two team members on 2026-11-15, one per language: the Hindi by Yasaswini and the Telugu by Sriya, who found them good. That is a read by teammates, not an independent or professional review. The Tamil in the bin guide and in Ask answers has since been reviewed by the team as well.
 
 ### Design
 The "Eco-Intelligence Observatory" system, light and dark ([docs/ui_theme.md](docs/ui_theme.md)). Fonts are self-hosted under the SIL Open Font License: Anek for text in Latin, Devanagari and Telugu, Teko for big figures, Martian Mono for small data labels. The icon is a bin whose ribs are tally marks, one for each count that has to add up (`web/app/icon.svg`).
@@ -115,7 +176,23 @@ On a local address the page finds the server at `http://127.0.0.1:5000` by itsel
 | `ALLOWED_ORIGINS` | Sites allowed to call the server when it does not serve the site itself |
 | `GOOGLE_CLIENT_ID` | Switches sign-in on (with `KS_SECRET`). Empty: sign-in is off and nothing is stored |
 | `KS_SECRET` | Signs sessions and salts the anonymous codes |
-| `DATABASE_URL` | PostgreSQL for the shared ward totals. Empty: a local SQLite file, which a free host wipes on every deploy |
+| `DATABASE_URL` | PostgreSQL (the live site uses Neon) for the ward totals and the Join list. Empty: a local SQLite file, which a free host wipes on every deploy |
+| `KS_ADMIN_KEY` | Opens the team dashboard and the sign-up CSV. Case-sensitive. Empty: both return "not found". Set it only in the host's environment, never in the repo |
+| `SIGNUPS_PER_HOUR` | Join sign-ups allowed per connection per hour (default 6) |
+
+**Server endpoints**
+
+| Endpoint | Who can call it | What it does |
+|---|---|---|
+| `POST /ask` | anyone | Answer a question from the data, in the chosen language |
+| `GET /health` | anyone | Status, the model in use and the last model error |
+| `GET /api/config` | anyone | Whether sign-in is on, and the Google client id |
+| `POST /api/signin` | anyone with a Google token | Returns a session token; links an existing Join entry with the same verified email |
+| `POST /api/ward/report`, `GET /api/ward/summary` | signed-in / anyone | Add a tap; public counts for a ward |
+| `POST /api/signup`, `GET /api/signup/count` | anyone | Join; the public number of people who joined |
+| `GET`, `PUT`, `DELETE /api/me/profile` | signed-in person, own entry only | See, edit or delete the Join details |
+| `DELETE /api/me` | signed-in person | Delete everything this person shared |
+| `GET /api/signups` | `X-Admin-Key` header | CSV of the Join list, or `?format=json` for the dashboard numbers |
 
 **Live site.** https://kachra-satya.onrender.com runs the whole project as one Render web service: the Flask server serves the built site and answers Ask (`render.yaml`, [docs/deploy.md](docs/deploy.md)). It is on a free plan, so the first visit after a quiet spell can take about a minute; `/health` wakes it.
 
@@ -149,11 +226,13 @@ python -m pytest -q tests
 - 664 of 666 numeric cells were found on their cited PDF page; the other 2 are "Nil" cells stored as 0.
 - CPCB 2021-22 Table 1 agrees exactly with Rajya Sabha Q358, an independent cross-check.
 - A 30-cell visual spot check matched 30 of 30, but it was AI-assisted, not a manual hand check. A human check is set up (`web/trust/spotcheck.html`, scored by `scripts/score_human_spot_check.py`) and has **not** been recorded yet.
-- **159 automated tests pass** (`python -m pytest -q tests`). Among other things they check that:
+- **191 automated tests pass** (`python -m pytest -q tests`). Among other things they check that:
   - the browser claim checker gives the same verdicts as the Python one;
   - the numbers on Home and Insights match the CSVs, and the lead case is the one the rule picks;
   - the case file never invents a part that has no data;
-  - the sign-in database holds no name, email or Google account id;
+  - the ward store holds no name, email or Google account id, and the Join list is private, rate-limited and consent-based;
+  - a signed-in person can reach only their own Join entry, and the email cannot be changed;
+  - Ask sends the chosen language to the model;
   - Hindi and Telugu cover the same text, and the built dictionary is current;
   - every browser script parses.
 
@@ -165,7 +244,8 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 - **Truth.** All figures are self-reported by states, cities and boards. We check extraction and consistency, not correctness.
 - **Definitions.** Storing MoHUA "processed" as CPCB-style "treated" is our assumption.
 - **Resident reports are unverified.** A ward total is a count of reports from signed-in residents, not a measurement. One person with two Google accounts counts twice. Ward names are free text, so two spellings are two wards.
-- **Sign-in is untested for real.** It was built against a stand-in for Google's check and a local SQLite file. A real Google client and PostgreSQL have not been tried.
+- **Sign-in at scale is untested.** It has been used for real (Google and Neon PostgreSQL) by a small number of people; many at once has not been tried.
+- **The Join list is personal data.** It holds names and emails given with consent. It is behind an admin key, never shown to anyone, and deletable by the person who gave it; keep the key private and change it after the hackathon.
 - **Coverage.** Segregation, collection routing, recycling markets and plastic tracking are partly covered or not covered ([docs/track_coverage.md](docs/track_coverage.md)). No route optimisation, no recycling price data.
 - **State landfilled** is reported only for 2021-22 and 2022-23. The funds table (Lok Sabha Q682) prints no unit, so only ratios are used.
 - **Dumpsites.** The documents name cities, not sites, and give no coordinates.
@@ -187,11 +267,11 @@ Details: [docs/methodology.md](docs/methodology.md), [docs/validation_summary.md
 | `web/app/` | The app: routes, Home, map, Insights, Get help, ward, case file, sign-in, languages, theme, fonts |
 | `web/app/i18n/` | Hindi and Telugu translations as plain text |
 | `web/trust/` | The inlined data (`data.js`) and the claim checker |
-| `agent/` | The Flask server: Ask (`app.py`) and sign-in with the shared ward store (`accounts.py`) |
+| `agent/` | The Flask server: Ask (`app.py`), and sign-in, the shared ward store, Join and the team list (`accounts.py`) |
 | `receipts/` | Source page images and the index placing each figure on its page |
 | `briefs/` | One-page Action Briefs per state |
-| `docs/` | Methodology, features, sign-in, licences, track coverage, UI, deploy, demo script, submission checklist, user tests |
-| `tests/` | The 159 automated tests |
+| `docs/` | The banner (`assets/`), methodology, features, sign-in, licences, track coverage, UI, deploy, demo script, submission checklist, user tests |
+| `tests/` | The 191 automated tests |
 
 ## Reply or report an error
 A state, city or department can reply to a figure, and anyone can report a mismatch with its source page, through the issue forms in `.github/ISSUE_TEMPLATE/`. We show replies beside the figure, never delete a published figure, and fix and log our own mistakes.
@@ -201,15 +281,19 @@ A state, city or department can reply to a figure, and anyone can report a misma
 - **Sriya Meenakshi Chalamalasetty:** data sourcing and extraction, money and gaps, Your ward pages, user tests.
 - **Likhitha:** platform and design system, Q&A agent setup, deployment, demo and submission.
 
-## Status (2026-11-14)
-In the repo and passing 159 tests: the data and checks, the app with both ways in, the lead case, the shareable claim receipt, question-led Insights, whole-site Hindi and Telugu, the ward case file, and sign-in with shared ward totals (off by default).
+## Status (2026-11-15, submission day)
+**Done and live:** the data and checks; the app with both ways in; the lead case; shareable claim receipts; question-led Insights; the whole site in Hindi and Telugu, with Tamil in Ask and the bin guide; the ward case file; sign-in with shared ward totals on a Neon PostgreSQL database; the Join page, My details and the team dashboard; the step-by-step tour; Ask in the chosen language. 191 tests pass.
 
-Not done:
-- **No real person has used it.** There are 0 recorded user sessions ([docs/user_tests.md](docs/user_tests.md), [docs/impact_evidence.md](docs/impact_evidence.md)). The problem is documented from the sources; impact is not shown.
-- **Demo video and submission** ([docs/demo_video_script.md](docs/demo_video_script.md), [docs/submission_checklist.md](docs/submission_checklist.md)).
-- **Sign-in is switched on** on the live site since 2026-11-15 (a Google client ID and a Render PostgreSQL database are set; `/api/config` reports `signIn: true`). The owner reports a real sign-in test; the assistant that wrote this line could check only the configuration, the database connection and the shared-total endpoint, not a Google sign-in. Not tested: many people at once ([docs/sign_in.md](docs/sign_in.md)).
-- **Ask can fall back to data-only answers.** On 2026-11-14 and 2026-11-15 the Gemini call failed intermittently; the page then says "AI model unavailable, showing data-only answer". `/health` now says why (`model.last_error`). See [docs/deploy.md](docs/deploy.md), "If Ask is in data-only mode".
-- **The live site may be behind this repo.** Render deploys from `main`; check the date on the About page after a push.
-- **Not checked on a real device:** a phone, a screen reader, scanning a printed ward QR code, the share sheet, and voice in Ask.
-- **Translations:** the Hindi and Telugu were read by teammates, not by an independent or professional reviewer. Tamil (bin-guide stream names, Ask answers) is unread.
+**Also done by the team:**
+- **Demo video** recorded.
+- **People:** about 35 people have tried the app (the team's count), and it has been tested on a phone.
+- **Translations:** Hindi (Yasaswini) and Telugu (Sriya) were read through by teammates, and the Tamil has now been reviewed by the team too. None of this is an independent or professional review.
+- **Server settings:** the admin key and the Neon database are set on the live service.
+
+**Not done or not verified:**
+- **Session notes.** The count of people is the team's; the recorded per-session notes and results are not all in [docs/user_tests.md](docs/user_tests.md) yet, so impact figures are not claimed ([docs/impact_evidence.md](docs/impact_evidence.md)).
+- **Submission form and checklist** ([docs/submission_checklist.md](docs/submission_checklist.md)).
+- **Ask can fall back to data-only answers** when the Gemini call fails; the page then says "AI model unavailable, showing data-only answer", and `/health` says why (`model.last_error`). See [docs/deploy.md](docs/deploy.md), "If Ask is in data-only mode".
+- **Not checked on real devices:** a screen reader, scanning a printed ward QR code, the share sheet, and voice in Ask.
+- **Free-plan hosting.** The first visit after a quiet spell can take about a minute; `/health` wakes it.
 - **By hand:** confirm author names in `CITATION.cff` and `.zenodo.json`, record the human spot check, verify the map boundary.
