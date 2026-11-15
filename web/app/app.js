@@ -109,14 +109,22 @@
       var R = window.KSReceipt, card = $("cres").querySelector(".claimcard"); if (!R || !card) return;
       var url = R.link(location.href, said);
       if (!claimQuiet && route().name === "claim") { try { history.replaceState(null, "", url); } catch (e) {} }      /* the address bar now reopens this check */
-      var txt = R.text({ claim: sentence, verdict: verdict, figures: heads.map(function (x) { return { source: x.source_name, year: x.year, figure: fig(x), computed: x.kind === "computed", doc: dn(x.source_doc), page: x.source_page }; }), matches: na, total: r.records.length, built: KS.built, url: url });
-      card.insertAdjacentHTML("beforeend", '<div class="cc-share"><h3 class="cc-h">Take this receipt with you</h3><p class="cc-p">The link reopens this check with its source pages. Nothing leaves this page until you choose to share it.</p><div class="cc-acts"><button type="button" class="go" id="ccshare">Share</button><button type="button" class="alt" id="cccopy">Copy as text</button><button type="button" class="alt" id="cclink">Copy link</button><a id="ccwa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(txt) + '">WhatsApp</a></div><p class="note" id="ccmsg" role="status"></p></div>');
+      var rcpt = { claim: sentence, verdict: verdict, figures: heads.map(function (x) { return { source: x.source_name, year: x.year, figure: fig(x), computed: x.kind === "computed", doc: dn(x.source_doc), page: x.source_page }; }), matches: na, total: r.records.length, built: KS.built, url: url }, txt = R.text(rcpt);
+      card.insertAdjacentHTML("beforeend", '<div class="cc-share"><h3 class="cc-h">Take this receipt with you</h3><p class="cc-p">The link reopens this check with its source pages. Nothing leaves this page until you choose to share it.</p><div class="cc-acts"><button type="button" class="go" id="ccshare">Share</button><button type="button" class="alt" id="ccpic">Save as picture</button><button type="button" class="alt" id="cccopy">Copy as text</button><button type="button" class="alt" id="cclink">Copy link</button><a id="ccwa" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent(txt) + '">WhatsApp</a></div><p class="note" id="ccmsg" role="status"></p></div>');
       function say(m) { $("ccmsg").textContent = m; }
       function copy(s, ok) {
         function fb() { var ta = document.createElement("textarea"), done = false; ta.value = s; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select(); try { done = document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); say(done ? ok : "Could not copy. Select the address in the address bar and copy it by hand."); }
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(s).then(function () { say(ok); }, fb); else fb();
       }
       $("cccopy").onclick = function () { copy(txt, "Receipt copied."); };
+      $("ccpic").onclick = function () {      /* a square picture for WhatsApp: shared as a file where the device allows it, otherwise saved */
+        say("Making the picture...");
+        R.image(rcpt).then(function (blob) {
+          var file = null; try { file = new File([blob], "kachra-satya-receipt.png", { type: "image/png" }); } catch (e) {}
+          if (file && navigator.canShare && navigator.canShare({ files: [file] })) return navigator.share({ files: [file], title: "Kachra Satya receipt" }).then(function () { say("Picture shared."); }, function () { say(""); });
+          var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "kachra-satya-receipt.png"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000); say("Picture saved to this device.");
+        }, function () { say("Could not make the picture on this device. Use Copy as text instead."); });
+      };
       $("cclink").onclick = function () { copy(url, "Link copied."); };
       var sh = $("ccshare"); if (navigator.share) sh.onclick = function () { navigator.share({ title: "Kachra Satya receipt", text: txt }).catch(function () {}); }; else sh.hidden = true;
     }
@@ -304,10 +312,11 @@
       (x.gap != null ? '<p class="note">MoHUA is ' + Math.abs(x.gap).toFixed(1) + " points " + (x.gap >= 0 ? "higher" : "lower") + " than CPCB. Different years.</p>" : '<p class="note">Not enough is reported to compare the two.</p>') +
       '<p class="note" style="margin-bottom:0"><strong>CPCB 2023-24</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2023-24", "CPCB", "generated") + numcard("collected", s, "2023-24", "CPCB", "collected") + numcard("treated", s, "2023-24", "CPCB", "treated") + "</div>" +
       '<p class="note" style="margin-bottom:0"><strong>MoHUA 2025-26</strong>, ' + KSi18n.term("tpd") + '</p><div class="nums">' + numcard("generated", s, "2025-26", "MoHUA", "generated") + numcard("processed", s, "2025-26", "MoHUA", "treated") + "</div>" +
-      (fl.length ? '<details class="more"><summary>' + fl.length + " flag" + (fl.length > 1 ? "s" : "") + " in this state's own reports</summary><div><p>A " + KSi18n.term("flag") + " means two reported figures cannot both be true. It does not say which one to trust.</p>" + fl.map(function (f) { return '<div class="flag"><span class="pill">' + esc(f.year) + "</span><span>" + esc(f.explanation) + ' <span class="note">(' + esc(f.values) + ")</span></span></div>"; }).join("") + "</div></details>" : '<p class="note">No flags in this state\'s own reports.</p>') +
+      (fl.length ? '<details class="more"><summary>' + fl.length + " flag" + (fl.length > 1 ? "s" : "") + " in this state's own reports</summary><div><p>A " + KSi18n.term("flag") + " means two reported figures cannot both be true. It does not say which one to trust.</p>" + fl.map(function (f, i) { return '<div class="flag"><span class="pill">' + esc(f.year) + "</span><span>" + esc(f.explanation) + ' <span class="note">(' + esc(f.values) + ")</span>" + (window.KSRti && KSRti.core(f) ? KSRti.button(i) : "") + "</span></div>"; }).join("") + "</div></details>" : '<p class="note">No flags in this state\'s own reports.</p>') +
       dumpBlock(s) +
       '<p><a class="alt" style="display:inline-block;text-decoration:none" href="#/explore/receipts/' + encodeURIComponent(s) + '">All years and source pages</a></p>';
     box.innerHTML = h;
+    if (window.KSRti) KSRti.wire(box, fl);      /* the RTI and Parliament-question drafts under each flag (rti.js) */
   }
 
   /* ---------- Explore: audit first, receipts, swings, definitions ---------- */

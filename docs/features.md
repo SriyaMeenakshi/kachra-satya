@@ -143,3 +143,9 @@ One header button: **Join** when signed out, the person's first name after. Join
 
 ## Ask answers in the chosen language
 The language picked on the Ask page is sent to the AI model, so an answer to a Hindi, Tamil or Telugu question comes back in that language whatever language it was typed in. Numbers, state and city names and document titles stay exactly as in the data. In data-only fallback mode the labels and short phrases are in the chosen language (Hindi, Tamil, Telugu).
+
+## RTI and Parliament-question drafts from a flag
+On a state card (Map, `#/map/<state>`), each flag in "N flags in this state's own reports" has a **Draft an RTI or a question for your MP** button. It opens two editable drafts built from the flag: an **RTI application** (Section 6(1), addressed to the Public Information Officer of the body that published the figures) and a **question for Parliament** (to the ministry that answers for that body: Environment, Forest and Climate Change for CPCB figures, Housing and Urban Affairs for MoHUA figures). Each names the state, the year, the figures and the document page they are printed on. Copy it, send it on WhatsApp or download a .txt. Flags where the two bodies simply differ (rule 3) are not drafted, because that is not one body's error. A draft, not legal advice: the person checks the office's current RTI rules and fee, and the app sends nothing. Code: `web/app/rti.js`; tests: `tests/test_rti_and_picture.py`.
+
+## Receipt picture
+A claim check has a **Save as picture** button next to Share and Copy. It draws a 1080 by 1080 card on a canvas in the browser (claim, verdict, up to four figures with document and page, "We do not say which source is right.", the site address) and shares it as an image where the device allows, otherwise saves a PNG. Nothing is uploaded. Code: `web/app/receipt.js` (`cardModel`, `image`).

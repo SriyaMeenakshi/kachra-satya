@@ -1,0 +1,37 @@
+; Draft an RTI or a question (rti.js) and the picture receipt (receipt.js). The drafts themselves are never translated.
+
+= Draft an RTI or a question for your MP
+RTI या अपने सांसद के लिए सवाल का मसौदा बनाएँ
+RTI లేదా మీ ఎంపీకి ప్రశ్న ముసాయిదా తయారు చేయండి
+
+= RTI application
+RTI आवेदन
+RTI దరఖాస్తు
+
+= Question for Parliament
+संसद के लिए प्रश्न
+పార్లమెంటు కోసం ప్రశ్న
+
+= Edit it before you use it
+इस्तेमाल से पहले इसे बदल लें
+వాడే ముందు దీన్ని సవరించండి
+
+= Copy
+कॉपी करें
+కాపీ చేయండి
+
+= Download .txt
+.txt डाउनलोड करें
+.txt డౌన్‌లోడ్ చేయండి
+
+= Close
+बंद करें
+మూసివేయండి
+
+= A draft, not legal advice. We write it; you send it. Check the office's current RTI rules and fee. Nothing leaves this page until you choose to send it.
+यह मसौदा है, क़ानूनी सलाह नहीं। हम लिखते हैं; भेजते आप हैं। दफ़्तर के मौजूदा RTI नियम और शुल्क देख लें। आप भेजने का फ़ैसला करें, तब तक कुछ भी इस पन्ने से बाहर नहीं जाता।
+ఇది ముసాయిదా మాత్రమే, న్యాయ సలహా కాదు. మేము రాస్తాం; పంపేది మీరే. కార్యాలయం ప్రస్తుత RTI నియమాలు, రుసుము చూసుకోండి. మీరు పంపాలని నిర్ణయించే వరకు ఈ పేజీ నుండి ఏదీ బయటకు వెళ్లదు.
+
+= Save as picture
+चित्र के रूप में सहेजें
+చిత్రంగా సేవ్ చేయండి
